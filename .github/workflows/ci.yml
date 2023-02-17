@@ -269,6 +269,9 @@ jobs:
         defaults:
             run:
                 shell: bash
+        permissions:
+            contents: 'read'
+            id-token: 'write'
         steps:
             - name: Checkout [Pull Request]
               uses: actions/checkout@v3
