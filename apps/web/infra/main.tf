@@ -11,6 +11,12 @@ module "project" {
   auto_create_network = false
   services = [
     "artifactregistry.googleapis.com",
+    "secretmanager.googleapis.com",
+    "compute.googleapis.com",
+    "iam.googleapis.com",
+    "iamcredentials.googleapis.com",
+    "cloudresourcemanager.googleapis.com",
+    "serviceusage.googleapis.com",
     "run.googleapis.com"
   ]
 }

@@ -18,7 +18,7 @@ output "org_id" {
   value = data.google_organization.org.org_id
 }
 
-output "bucket" {
+output "state_bucket" {
   value = var.bucket
 }
 

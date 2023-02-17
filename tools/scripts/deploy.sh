@@ -14,7 +14,6 @@ deploy() {
     PROJECT_MODULE="module.workload_identity_federation.google_project.default"
     TF="terraform -chdir=$TF_DIR"
     BACKEND="$TF_DIR/backend.tf"
-    BACKEND_ARG="-backend-config=bucket=$PROJECT_ID-state"
     PLAN_ARG="-out=$PLAN"
     INPUT_ARG="-input=false"
     LOCK_ARG="-lock=false"
@@ -35,13 +34,15 @@ local_plan() {
     $TF init
     import_project
     default_plan
-    sed -i 's/local/gcs/g' "$BACKEND"
+    BUCKET=$($TF output state_bucket | tr -d '"')
+    BACKEND_ARG="-backend-config=bucket=$BUCKET"
+    sed -i "s/backend \"local\"/backend \"gcs\" {\n  bucket = \"$BUCKET\"\n}/" "$BACKEND"
     echo "Migrating state"
     echo "yes" | $TF init -migrate-state "$BACKEND_ARG"
 }
 
 remote_plan() {
-    $TF init "$BACKEND_ARG"
+    $TF init
     default_plan
 }
 

@@ -5,7 +5,7 @@ module "data" {
 module "state_bucket" {
   source     = "../bucket/state"
   project_id = module.data.project_id
-  bucket     = module.data.bucket
+  bucket     = module.data.state_bucket
 }
 
 resource "google_project" "default" {
