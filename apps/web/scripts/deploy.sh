@@ -58,19 +58,16 @@ local_plan() {
     $TF init
     default_plan
     BUCKET=$($TF output state_bucket | tr -d '"')
-    BACKEND_ARG="-backend-config=bucket=$BUCKET"
-    sed -i 's/local/gcs/g' "$BACKEND"
+    sed -i "s/backend \"local\"/backend \"gcs\" {\n  bucket = \"$BUCKET\"\n}/" "$BACKEND"
     echo "Migrating state"
-    echo "yes" | $TF init -migrate-state "$BACKEND_ARG"
+    echo "yes" | $TF init -migrate-state
 }
 
 remote_plan() {
-    BUCKET=$($TF output state_bucket | tr -d '"')
-    BACKEND_ARG="-backend-config=bucket=$BUCKET"
-    $TF init "$BACKEND_ARG"
+    $TF init
     artifact_plan
     push_image "$CONFIG"
-    $TF init "$BACKEND_ARG"
+    $TF init
     default_plan
 }
 

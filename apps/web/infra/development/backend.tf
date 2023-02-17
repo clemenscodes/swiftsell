@@ -1,3 +1,5 @@
 terraform {
-  backend "gcs" {}
+  backend "gcs" {
+    bucket = "swiftsell-bucket-state"
+  }
 }
