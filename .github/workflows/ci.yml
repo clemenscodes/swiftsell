@@ -103,7 +103,6 @@ jobs:
               run: npx nx-cloud stop-all-agents
 
             - name: Save Node Cache
-              id: node_cache
               uses: actions/cache/save@v3
               with:
                   path: |
