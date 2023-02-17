@@ -125,6 +125,7 @@ cleanup() {
     ARTIFACT_REGION=$($TF output artifact_region | tr -d '"')
     REPO_NAME=$($TF output repository_id | tr -d '"')
     REPO="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME"
+    IMAGE="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME/$REPO_NAME"
     IMAGES=$(gcloud artifacts docker images list "$REPO" --include-tags --sort-by=CREATE_TIME | tail -n +2)
     echo "$IMAGES"
     IMAGE_COUNT=$(echo "$IMAGES" | wc -l | tr -d ' ')
