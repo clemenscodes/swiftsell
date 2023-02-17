@@ -12,6 +12,7 @@ resource "google_project" "default" {
   name            = module.data.project_name
   project_id      = module.data.project_id
   billing_account = module.data.billing_account
+  org_id          = module.data.org_id
 }
 
 resource "google_organization_iam_member" "organization_admin" {
