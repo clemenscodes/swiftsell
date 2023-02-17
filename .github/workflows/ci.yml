@@ -309,14 +309,18 @@ jobs:
                   needs.deploy-agents.result != 'cancelled' &&
                   needs.deploy-agents.result != 'skipped' &&
                   github.event.pull_request.head.repo.full_name == github.repository
-              run: $NX_EXEC deploy --skip-nx-cache
+              uses: jameshenry/parallel-bash-commands@v1
+              with:
+                  cmd1: $NX_EXEC deploy --skip-nx-cache
 
             - name: Run Agents (production)
               if: needs.deploy-agents.result != 'failure' &&
                   needs.deploy-agents.result != 'cancelled' &&
                   needs.deploy-agents.result != 'skipped' &&
                   github.event_name != 'pull_request' && github.ref_name == 'main'
-              run: $NX_EXEC deploy --skip-nx-cache --configuration=production
+              uses: jameshenry/parallel-bash-commands@v1
+              with:
+                  cmd1: $NX_EXEC deploy --skip-nx-cache --configuration=production
 
             - name: Stop Agents
               if: always()
@@ -412,9 +416,7 @@ jobs:
                   terraform_wrapper: false
 
             - name: Run Agent
-              run: |
-                  set -e
-                  npx nx-cloud start-agent
+              run: npx nx-cloud start-agent
               env:
                   INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
