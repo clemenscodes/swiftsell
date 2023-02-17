@@ -279,7 +279,7 @@ jobs:
 
             - name: Node Cache
               id: node_cache
-              uses: actions/cache@v3
+              uses: actions/cache/restore@v3
               with:
                   path: |
                       ~/.cache/Cypress/
