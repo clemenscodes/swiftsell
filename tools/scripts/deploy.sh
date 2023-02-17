@@ -4,21 +4,17 @@ set -e
 
 export TF_IN_AUTOMATION=true
 
-APP="organization"
+PROJECT_ID="organization-378109"
 PLAN="plan.tfplan"
 PURPLE="\\033[0;35m"
 SET="\\033[0m\\n"
 
-if [ -z "$1" ]; then
-    echo "No configuration (development or production) was given" && exit 1
-fi
-
 deploy() {
-    # CONFIG="$1"
     TF_DIR="tools/infra"
+    PROJECT_MODULE="module.workload_identity_federation.google_project.default"
     TF="terraform -chdir=$TF_DIR"
     BACKEND="$TF_DIR/backend.tf"
-    BACKEND_ARG="-backend-config=bucket=$APP-state"
+    BACKEND_ARG="-backend-config=bucket=$PROJECT_ID-state"
     PLAN_ARG="-out=$PLAN"
     INPUT_ARG="-input=false"
     LOCK_ARG="-lock=false"
@@ -37,6 +33,7 @@ deploy() {
 
 local_plan() {
     $TF init
+    import_project
     default_plan
     sed -i 's/local/gcs/g' "$BACKEND"
     echo "Migrating state"
@@ -62,6 +59,11 @@ run_tf_command() {
     eval "$TF_COMMAND"
 }
 
+import_project() {
+    TF_COMMAND="$TF import $PROJECT_MODULE $PROJECT_ID"
+    run_tf_command
+}
+
 purple() {
     printf "$PURPLE%s$SET" "$1"
 }
@@ -74,8 +76,4 @@ display_wif_instructions() {
     echo "WORKLOAD_IDENTITY_PROVIDER: $PROVIDER"
 }
 
-case "$1" in
-development) deploy "$1" ;;
-production) deploy "$1" ;;
-*) echo "Invalid configuration: $1" && exit 1 ;;
-esac
+deploy

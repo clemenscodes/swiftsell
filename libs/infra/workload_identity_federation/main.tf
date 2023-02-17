@@ -8,16 +8,10 @@ module "state_bucket" {
   bucket     = module.data.bucket
 }
 
-resource "google_folder" "default" {
-  display_name = module.data.folder_name
-  parent       = module.data.org_name
-}
-
 resource "google_project" "default" {
   name            = module.data.project_name
   project_id      = module.data.project_id
   billing_account = module.data.billing_account
-  folder_id       = google_folder.default.name
 }
 
 resource "google_organization_iam_member" "organization_admin" {
