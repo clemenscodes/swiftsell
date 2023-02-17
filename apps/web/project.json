@@ -71,7 +71,9 @@
                 "load": true,
                 "metadata": {
                     "images": [],
-                    "tags": ["type=schedule", "type=sha"]
+                    "tags": ["type=schedule", "type=sha"],
+                    "cache-from": ["type=gha"],
+                    "cache-to": ["type=gha,mode=max"]
                 }
             }
         },
