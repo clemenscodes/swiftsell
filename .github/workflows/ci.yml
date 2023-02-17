@@ -360,13 +360,30 @@ jobs:
 
             - name: Deploy (Development)
               if: github.event.pull_request.head.repo.full_name == github.repository
-              run: $NX_EXEC deploy --no-dte --skip-nx-cache
+              run: |
+                  npx nx affected \
+                    --base=$NX_BASE \
+                    --head=$NX_HEAD \
+                    --nx-bail \
+                    --target=deploy \
+                    --no-dte \
+                    --output-style=stream \
+                    --skip-nx-cache
               env:
                   INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             - name: Deploy (Production)
               if: github.event_name != 'pull_request' && github.ref_name == 'main'
-              run: $NX_EXEC deploy --no-dte --skip-nx-cache --configuration=production
+              run: |
+                  npx nx affected \
+                    --base=$NX_BASE \
+                    --head=$NX_HEAD \
+                    --nx-bail \
+                    --target=deploy \
+                    --no-dte \
+                    --output-style=stream \
+                    --configuration=production
+                    --skip-nx-cache
               env:
                   INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
