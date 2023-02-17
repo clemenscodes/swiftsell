@@ -13,8 +13,6 @@ concurrency:
 env:
     NEXT_TELEMETRY_DISABLED: 1
     NX_CLOUD_DISTRIBUTED_EXECUTION_AGENT_COUNT: 1
-    NX_CLOUD_DISTRIBUTED_EXECUTION: true
-    NX_CLOUD_DISTRIBUTED_EXECUTION_STOP_AGENTS_ON_FAILURE: true
     NX_EXEC: 'npx nx affected --nx-bail --base=$NX_BASE --head=$NX_HEAD --parallel=$NX_CLOUD_DISTRIBUTED_EXECUTION_AGENT_COUNT --target'
     CI: true
     ARTEFACT_REGISTRY_REGION: europe-west1
@@ -278,9 +276,9 @@ jobs:
             - name: Derive SHAs
               uses: nrwl/nx-set-shas@v3
 
-            - name: Restore Node Cache
+            - name: Node Cache
               id: node_cache
-              uses: actions/cache/restore@v3
+              uses: actions/cache@v3
               with:
                   path: |
                       ~/.cache/Cypress/
@@ -311,7 +309,7 @@ jobs:
                   github.event.pull_request.head.repo.full_name == github.repository
               uses: jameshenry/parallel-bash-commands@v1
               with:
-                  cmd1: $NX_EXEC deploy
+                  cmd1: $NX_EXEC deploy --skip-nx-cache
 
             - name: Run Agents (production)
               if: needs.deploy-agents.result != 'failure' &&
@@ -320,7 +318,7 @@ jobs:
                   github.event_name != 'pull_request' && github.ref_name == 'main'
               uses: jameshenry/parallel-bash-commands@v1
               with:
-                  cmd1: $NX_EXEC deploy --configuration=production
+                  cmd1: $NX_EXEC deploy --skip-nx-cache --configuration=production
 
             - name: Stop Agents
               if: always()
