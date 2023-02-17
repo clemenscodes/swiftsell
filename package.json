@@ -1,5 +1,5 @@
 {
-    "name": "broshop",
+    "name": "swiftsell",
     "version": "0.0.0",
     "license": "MIT",
     "scripts": {
@@ -33,7 +33,7 @@
         "@nrwl/jest": "15.7.1",
         "@nrwl/js": "15.7.1",
         "@nrwl/linter": "15.7.1",
-        "@nrwl/nx-cloud": "latest",
+        "@nrwl/nx-cloud": "^15.0.3",
         "@nrwl/react": "15.7.1",
         "@nrwl/storybook": "15.7.1",
         "@nrwl/webpack": "15.7.1",

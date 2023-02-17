@@ -50,7 +50,6 @@ Then add the following cacheable operations to tasksRunnerOptions.default.option
                     "build",
                     "test",
                     "e2e",
-                    "image",
                     "docker",
                     "deploy"
                 ],

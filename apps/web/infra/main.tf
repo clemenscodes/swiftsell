@@ -2,16 +2,13 @@ module "wif_data" {
   source = "../../../libs/infra/workload_identity_federation/data"
 }
 
-resource "google_folder" "default" {
-  display_name = var.folder_name
-  parent       = module.wif_data.org_name
-}
-
 module "project" {
-  source          = "github.com/GoogleCloudPlatform/cloud-foundation-fabric/modules/project"
-  billing_account = module.wif_data.billing_account
-  name            = var.project_name
-  parent          = "folders/${google_folder.default.folder_id}"
+  source              = "github.com/GoogleCloudPlatform/cloud-foundation-fabric/modules/project"
+  billing_account     = module.wif_data.billing_account
+  name                = var.project_name
+  parent              = "organizations/${module.wif_data.org_id}"
+  skip_delete         = false
+  auto_create_network = false
   services = [
     "artifactregistry.googleapis.com",
     "run.googleapis.com"
