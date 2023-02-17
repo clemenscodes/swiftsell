@@ -23,6 +23,9 @@ module "backend_bucket" {
   source     = "../compute/backend_bucket"
   project_id = var.project_id
   bucket     = var.bucket
+  depends_on = [
+    module.cdn_bucket
+  ]
 }
 
 module "url_map" {
