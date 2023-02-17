@@ -111,16 +111,16 @@ jobs:
                       node_modules/
                   key: ubuntu-latest-node-${{ hashFiles('yarn.lock') }}
 
-            - name: Abort Workflow
-              if: failure()
-              run: |
-                  curl -X POST -H "Authorization: Bearer ${{ github.token }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/cancel
-
             - name: Delete Artifacts
               if: failure()
               uses: geekyeggo/delete-artifact@v2
               with:
                   name: '*'
+
+            - name: Abort Workflow
+              if: failure()
+              run: |
+                  curl -X POST -H "Authorization: Bearer ${{ secrets.REPO_GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/cancel
 
     agents:
         name: Agent ${{ matrix.agent }}
@@ -173,16 +173,16 @@ jobs:
             - name: Run Agent
               run: npx nx-cloud start-agent
 
-            - name: Abort Workflow
-              if: failure()
-              run: |
-                  curl -X POST -H "Authorization: Bearer ${{ github.token }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/cancel
-
             - name: Delete Artifacts
               if: failure()
               uses: geekyeggo/delete-artifact@v2
               with:
                   name: '*'
+
+            - name: Abort Workflow
+              if: failure()
+              run: |
+                  curl -X POST -H "Authorization: Bearer ${{ secrets.REPO_GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/cancel
 
     release:
         name: Release
@@ -261,7 +261,7 @@ jobs:
             - name: Abort Workflow
               if: failure()
               run: |
-                  curl -X POST -H "Authorization: Bearer ${{ github.token }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/cancel
+                  curl -X POST -H "Authorization: Bearer ${{ secrets.REPO_GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/cancel
 
     deploy:
         name: Deploy Web Apps
@@ -340,7 +340,7 @@ jobs:
             - name: Abort Workflow
               if: failure()
               run: |
-                  curl -X POST -H "Authorization: Bearer ${{ github.token }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/cancel
+                  curl -X POST -H "Authorization: Bearer ${{ secrets.REPO_GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/cancel
 
     deploy-agents:
         name: Deploy Agent ${{ matrix.agent }}
@@ -430,7 +430,7 @@ jobs:
             - name: Abort Workflow
               if: failure()
               run: |
-                  curl -X POST -H "Authorization: Bearer ${{ github.token }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/cancel
+                  curl -X POST -H "Authorization: Bearer ${{ secrets.REPO_GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/cancel
 
             - name: Delete Artifacts
               if: failure()
