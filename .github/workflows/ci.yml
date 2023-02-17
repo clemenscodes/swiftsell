@@ -102,6 +102,16 @@ jobs:
               if: always()
               run: npx nx-cloud stop-all-agents
 
+            - name: Save Node Cache
+              id: node_cache
+              uses: actions/cache/save@v3
+              with:
+                  path: |
+                      ~/.cache/Cypress/
+                      dist/**/.next/cache
+                      node_modules/
+                  key: ubuntu-latest-node-${{ hashFiles('yarn.lock') }}
+
             - name: Abort Workflow
               if: failure()
               run: |
