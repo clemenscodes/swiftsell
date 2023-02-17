@@ -1,8 +1,8 @@
 const { join } = require('path');
 const { withNx } = require('@nrwl/next/plugins/with-nx');
 
-const apexDomain = '';
-const appName = '';
+const apexDomain = 'swiftsell.de';
+const appName = 'shop';
 const prodCDN = `https://static.${appName}.${apexDomain}`;
 const devCDN = `https://dev.static.${appName}.${apexDomain}`;
 const isCloudRunProd = process.env.NEXT_PUBLIC_PROJECT_TYPE === 'production';

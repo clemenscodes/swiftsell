@@ -28,11 +28,6 @@ variable "artifact_region" {
   type        = string
 }
 
-variable "image_name" {
-  description = "The name of the image that Cloud Run will pull"
-  type        = string
-}
-
 variable "domain" {
   description = "The apex domain that the Cloud Run Service will have"
   type        = string

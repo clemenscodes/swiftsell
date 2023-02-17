@@ -3,7 +3,7 @@ variable "location" {
   type        = string
 }
 
-variable "project" {
+variable "project_id" {
   description = "The project in which the artifact registry repository will be created"
   type        = string
 }

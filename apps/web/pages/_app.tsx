@@ -2,8 +2,8 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import '../global.css';
 
-const apexDomain = '';
-const appName = '';
+const apexDomain = 'swiftsell.de';
+const appName = 'shop';
 const prodCDN = `https://static.${appName}.${apexDomain}/public`;
 const devCDN = `https://dev.static.${appName}.${apexDomain}/public`;
 const isCloudRunProd = process.env.NEXT_PUBLIC_PROJECT_TYPE === 'production';

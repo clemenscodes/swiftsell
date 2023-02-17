@@ -28,10 +28,10 @@ resource "google_cloud_run_v2_service" "default" {
     service_account                  = google_service_account.cloud_run_service_account.email
     scaling {
       min_instance_count = 0
-      max_instance_count = 1000
+      max_instance_count = 30
     }
     containers {
-      image = "${var.artifact_region}-docker.pkg.dev/${var.project_id}/${var.repository_id}/${var.image_name}:${var.git_commit_sha}"
+      image = "${var.artifact_region}-docker.pkg.dev/${var.project_id}/${var.repository_id}/${var.repository_id}:sha-${var.git_commit_sha}"
       ports {
         container_port = 3000
       }

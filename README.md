@@ -142,7 +142,7 @@ A repository secret ```REPO_GITHUB_TOKEN``` with write permissions to the reposi
 
 ### Setup
 
-To deploy via CI/CD, you need to first create a GCP organization and obtain a domain. The domain needs to be verified in the GCP admin console.
+To deploy via CI/CD, you need to first create a GCP organization and obtain a domain. The domain needs to be verified in the GCP admin console and the [webmaster central](https://www.google.com/webmasters/verification/home).
 
 Then, a billing account needs to be created and enabled.
 
