@@ -19,7 +19,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
                 <title>Shop</title>
                 <link rel='icon' href={`${assetPrefix}/favicon.ico`} />
             </Head>
-            <main className='app'>
+            <main>
                 <Component {...pageProps} />
             </main>
         </>

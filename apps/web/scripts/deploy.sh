@@ -69,7 +69,7 @@ remote_plan() {
     BACKEND_ARG="-backend-config=bucket=$BUCKET"
     $TF init "$BACKEND_ARG"
     artifact_plan
-    push_image
+    push_image "$CONFIG"
     $TF init "$BACKEND_ARG"
     default_plan
 }
@@ -103,7 +103,7 @@ build_image() {
     REPO_NAME=$($TF output repository_id | tr -d '"')
     INPUT_IMAGES="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME/$REPO_NAME"
     if [ -z "$CI" ]; then
-        nx build $APP
+        NEXT_PUBLIC_PROJECT_TYPE=$CONFIG nx build $APP --skip-nx-cache
         INPUT_IMAGES=$INPUT_IMAGES nx docker $APP
     else
         if [ -z "$INPUT_GITHUB_TOKEN" ]; then
