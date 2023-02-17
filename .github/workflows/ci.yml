@@ -357,13 +357,13 @@ jobs:
 
             - name: Deploy (Development)
               if: github.event.pull_request.head.repo.full_name == github.repository
-              run: $NX_EXEC deploy --skip-nx-cache
+              run: $NX_EXEC deploy --no-dte --skip-nx-cache
               env:
                   INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             - name: Deploy (Production)
               if: github.event_name != 'pull_request' && github.ref_name == 'main'
-              run: $NX_EXEC deploy --skip-nx-cache --configuration=production
+              run: $NX_EXEC deploy --no-dte --skip-nx-cache --configuration=production
               env:
                   INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
