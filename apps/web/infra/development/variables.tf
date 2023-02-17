@@ -25,7 +25,7 @@ variable "isr_bucket" {
 variable "cdn_bucket" {
   description = "The name of the cdn bucket that will be created"
   type        = string
-  default     = "swiftsell-production-cdn"
+  default     = "swiftsell-development-cdn"
 }
 
 variable "cdn_subdomain" {
