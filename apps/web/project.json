@@ -69,6 +69,7 @@
             "options": {
                 "engine": "docker",
                 "load": true,
+                "push": true,
                 "metadata": {
                     "images": [],
                     "tags": ["type=schedule", "type=sha"],
