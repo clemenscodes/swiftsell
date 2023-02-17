@@ -257,7 +257,7 @@ jobs:
     deploy:
         name: Deploy Web Apps
         runs-on: ubuntu-latest
-        needs: [main, agents, apps, release]
+        needs: [main, agents, release]
         defaults:
             run:
                 shell: bash
