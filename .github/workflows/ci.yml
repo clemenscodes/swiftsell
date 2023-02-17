@@ -421,7 +421,9 @@ jobs:
                   terraform_wrapper: false
 
             - name: Run Agent
-              run: npx nx-cloud start-agent
+              run: |
+                  set -e
+                  npx nx-cloud start-agent
               env:
                   INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

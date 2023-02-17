@@ -54,7 +54,7 @@ local_plan() {
     CONFIG="$1"
     $TF init
     artifact_plan
-    image "$CONFIG"
+    push_image "$CONFIG"
     $TF init
     default_plan
     BUCKET=$($TF output state_bucket | tr -d '"')
@@ -66,7 +66,7 @@ local_plan() {
 remote_plan() {
     $TF init
     artifact_plan
-    image "$CONFIG"
+    push_image "$CONFIG"
     $TF init
     default_plan
 }
@@ -92,7 +92,7 @@ run_tf_command() {
     eval "$TF_COMMAND"
 }
 
-image() {
+build_image() {
     CONFIG="$1"
     REGISTRY="docker.pkg.dev"
     PROJECT=$($TF output project_id | tr -d '"')
@@ -110,6 +110,19 @@ image() {
         NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache
         INPUT_GITHUB_TOKEN="$INPUT_GITHUB_TOKEN" INPUT_IMAGES="$INPUT_IMAGES" INPUT_TAGS="sha-$SHA" nx docker "$APP"
     fi
+}
+
+push_image() {
+    CONFIG="$1"
+    build_image "$CONFIG"
+    REGISTRY="docker.pkg.dev"
+    PROJECT=$($TF output project_id | tr -d '"')
+    ARTIFACT_REGION=$($TF output artifact_region | tr -d '"')
+    REPO_NAME=$($TF output repository_id | tr -d '"')
+    IMAGE="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME/$REPO_NAME"
+    TAGGED_IMAGE="$IMAGE:sha-$SHA"
+    echo "Pushing image $TAGGED_IMAGE to Artifact Registry"
+    docker push "$TAGGED_IMAGE"
 }
 
 purple() {
