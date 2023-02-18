@@ -126,8 +126,16 @@ cleanup() {
     REPO_NAME=$($TF output repository_id | tr -d '"')
     REPO="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME"
     IMAGE="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME/$REPO_NAME"
+    TIMER_THRESHOLD=60
+    START=$(date +%s)
     set +e
     while true; do
+        NOW=$(date +%s)
+        ELAPSED=$((NOW - START))
+        if [ $ELAPSED -ge $TIMER_THRESHOLD ]; then
+            purple "timer threshold exceeded, probably stuck in an infinite loop, breaking out"
+            break
+        fi
         IMAGES=$(gcloud artifacts docker images list "$REPO" --include-tags --sort-by=CREATE_TIME | tail -n +2)
         echo "$IMAGES"
         IMAGE_COUNT=$(echo "$IMAGES" | wc -l | tr -d ' ')
@@ -152,7 +160,6 @@ cleanup() {
         IMAGES=$(gcloud artifacts docker images list "$REPO" --include-tags --sort-by=CREATE_TIME | tail -n +2)
         echo "$IMAGES"
         IMAGE_COUNT=$(echo "$IMAGES" | wc -l | tr -d ' ')
-        # Check if the number of images is still greater than the threshold
         if [ "$IMAGE_COUNT" -gt "$IMAGE_COUNT_THRESHOLD" ]; then
             purple "More images than threshold, running loop again"
         else
