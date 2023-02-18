@@ -103,15 +103,15 @@ image() {
     if [ -z "$CI" ]; then
         NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache
         INPUT_IMAGES="$INPUT_IMAGES" INPUT_TAGS="sha-$SHA" nx docker "$APP" --skip-nx-cache
+        docker push "$TAGGED_IMAGE"
     else
         if [ -z "$INPUT_GITHUB_TOKEN" ]; then
             echo "Missing GitHub token"
             exit 1
         fi
         NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache
-        INPUT_GITHUB_TOKEN="$INPUT_GITHUB_TOKEN" INPUT_IMAGES="$INPUT_IMAGES" INPUT_TAGS="sha-$SHA" nx docker "$APP" --skip-nx-cache
+        INPUT_GITHUB_TOKEN="$INPUT_GITHUB_TOKEN" INPUT_IMAGES="$INPUT_IMAGES" INPUT_TAGS="sha-$SHA" nx docker --configuration=ci "$APP" --skip-nx-cache
     fi
-    docker push "$TAGGED_IMAGE"
 }
 
 purple() {
