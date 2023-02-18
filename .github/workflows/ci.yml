@@ -19,19 +19,19 @@ env:
     ARTEFACT_REGISTRY_REGION: europe-west1
 
 jobs:
-    set-agents:
-        runs-on: ubuntu-latest
-        name: Set Agent Matrix
-        outputs:
-            matrix: ${{ steps.set-matrix.outputs.matrix }}
-        steps:
-            - name: Calculate Matrix
-              id: set-matrix
-              shell: bash
-              run: |
-                  AGENTS_JSON_ARRAY=$(node -e "console.log(JSON.stringify(Array.from(new Array($NX_CLOUD_DISTRIBUTED_EXECUTION_AGENT_COUNT)).map((_, i) => i + 1)));")
-                  echo $AGENTS_JSON_ARRAY
-                  echo "matrix=$AGENTS_JSON_ARRAY" >> $GITHUB_OUTPUT
+    # set-agents:
+    #     runs-on: ubuntu-latest
+    #     name: Set Agent Matrix
+    #     outputs:
+    #         matrix: ${{ steps.set-matrix.outputs.matrix }}
+    #     steps:
+    #         - name: Calculate Matrix
+    #           id: set-matrix
+    #           shell: bash
+    #           run: |
+    #               AGENTS_JSON_ARRAY=$(node -e "console.log(JSON.stringify(Array.from(new Array($NX_CLOUD_DISTRIBUTED_EXECUTION_AGENT_COUNT)).map((_, i) => i + 1)));")
+    #               echo $AGENTS_JSON_ARRAY
+    #               echo "matrix=$AGENTS_JSON_ARRAY" >> $GITHUB_OUTPUT
 
     main:
         name: Main Job
