@@ -44,8 +44,8 @@ deploy() {
         remote_plan "$CONFIG"
     fi
     rm "$TF_DIR/$PLAN"
-    cleanup
     upload_assets_to_cdn
+    cleanup
     generate_cdn_dns_entry
     generate_domain_mapping_dns_entry
 }
@@ -126,27 +126,39 @@ cleanup() {
     REPO_NAME=$($TF output repository_id | tr -d '"')
     REPO="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME"
     IMAGE="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME/$REPO_NAME"
-    IMAGES=$(gcloud artifacts docker images list "$REPO" --include-tags --sort-by=CREATE_TIME | tail -n +2)
-    echo "$IMAGES"
-    IMAGE_COUNT=$(echo "$IMAGES" | wc -l | tr -d ' ')
-    i="$IMAGE_COUNT_THRESHOLD"
     set +e
-    while [ $i -lt "$IMAGE_COUNT" ]; do
-        DIGEST=$(echo "$IMAGES" | sed -n "${i}p" | awk '{print $2}')
-        TAG=$(echo "$IMAGES" | sed -n "${i}p" | awk '{print $3}')
-        case $TAG in
-        sha-*)
-            purple "gcloud artifacts docker images delete $IMAGE:$TAG --delete-tags"
-            RESULT="$(echo "" | gcloud artifacts docker images delete "$IMAGE:$TAG" --delete-tags)"
-            echo "$RESULT"
-            ;;
-        *)
-            purple "gcloud artifacts docker images delete $IMAGE@$DIGEST --delete-tags"
-            RESULT="$(echo "" | gcloud artifacts docker images delete "$IMAGE@$DIGEST" --delete-tags)"
-            echo "$RESULT"
-            ;;
-        esac
-        i=$((i + 1))
+    while true; do
+        IMAGES=$(gcloud artifacts docker images list "$REPO" --include-tags --sort-by=CREATE_TIME | tail -n +2)
+        echo "$IMAGES"
+        IMAGE_COUNT=$(echo "$IMAGES" | wc -l | tr -d ' ')
+        i="$IMAGE_COUNT_THRESHOLD"
+        while [ $i -lt "$IMAGE_COUNT" ]; do
+            DIGEST=$(echo "$IMAGES" | sed -n "${i}p" | awk '{print $2}')
+            TAG=$(echo "$IMAGES" | sed -n "${i}p" | awk '{print $3}')
+            case $TAG in
+            sha-*)
+                purple "gcloud artifacts docker images delete $IMAGE:$TAG --delete-tags"
+                RESULT="$(echo "" | gcloud artifacts docker images delete "$IMAGE:$TAG" --delete-tags)"
+                echo "$RESULT"
+                ;;
+            *)
+                purple "gcloud artifacts docker images delete $IMAGE@$DIGEST --delete-tags"
+                RESULT="$(echo "" | gcloud artifacts docker images delete "$IMAGE@$DIGEST" --delete-tags)"
+                echo "$RESULT"
+                ;;
+            esac
+            i=$((i + 1))
+        done
+        IMAGES=$(gcloud artifacts docker images list "$REPO" --include-tags --sort-by=CREATE_TIME | tail -n +2)
+        echo "$IMAGES"
+        IMAGE_COUNT=$(echo "$IMAGES" | wc -l | tr -d ' ')
+        # Check if the number of images is still greater than the threshold
+        if [ "$IMAGE_COUNT" -gt "$IMAGE_COUNT_THRESHOLD" ]; then
+            purple "More images than threshold, running loop again"
+        else
+            purple "Number of images now matches threshold"
+            break
+        fi
     done
     set -e
 }
