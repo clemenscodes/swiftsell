@@ -69,7 +69,7 @@ resource "google_compute_managed_ssl_certificate" "default" {
     prevent_destroy       = false
   }
   managed {
-    domains = [var.domain]
+    domains = [local.domain]
   }
 }
 
