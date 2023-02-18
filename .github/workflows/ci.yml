@@ -66,7 +66,7 @@ jobs:
             - name: Derive SHAs
               uses: nrwl/nx-set-shas@v3
 
-            - name: Restore Node Cache
+            - name: Node Cache
               id: node_cache
               uses: actions/cache@v3
               with:
