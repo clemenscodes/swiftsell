@@ -53,3 +53,15 @@ output "cloud_run_subdomain" {
 output "mapped_cloud_run_domain" {
   value = module.run.mapped_cloud_run_domain
 }
+
+output "certificate_id" {
+  value = module.app.certificate_id
+}
+
+output "map_id" {
+  value = module.app.map_id
+}
+
+output "proxy_id" {
+  value = module.app.proxy_id
+}

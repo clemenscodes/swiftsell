@@ -1,9 +1,17 @@
 locals {
-  ip_name         = "${var.bucket}-ip"
-  url_map         = "${var.bucket}-https-lb"
-  proxy_name      = "${local.url_map}-proxy"
-  forwarding_rule = "${local.url_map}-forwarding-rule"
-  domain          = "${var.subdomain}.${var.domain}"
+  ip_name           = "${var.bucket}-ip"
+  url_map           = "${var.bucket}-https-lb"
+  proxy_name        = "${local.url_map}-proxy"
+  forwarding_rule   = "${local.url_map}-forwarding-rule"
+  domain            = "${var.subdomain}.${var.domain}"
+  backend_bucket_id = "projects/${data.google_project.project.number}/global/backendBuckets/${module.cdn_bucket.name}"
+  url_map_id        = "projects/${data.google_project.project.number}/global/urlMaps/${local.url_map}"
+  proxy_id          = "projects/${data.google_project.project.number}/global/targetHttpsProxies/${local.proxy_name}"
+  certificate_id    = "projects/${data.google_project.project.number}/global/sslCertificates/${var.certificate_name}"
+}
+
+data "google_project" "project" {
+  project_id = var.project_id
 }
 
 module "cdn_bucket" {
