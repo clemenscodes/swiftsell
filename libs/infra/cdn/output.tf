@@ -14,14 +14,14 @@ output "cdn_bucket_name" {
   value = module.cdn_bucket.name
 }
 
-output "certificate_id" {
-  value = module.certificate.certificate_id
-}
+# output "certificate_id" {
+#   value = module.certificate.certificate_id
+# }
 
-output "map_id" {
-  value = module.url_map.map_id
-}
+# output "map_id" {
+#   value = module.url_map.map_id
+# }
 
-output "proxy_id" {
-  value = module.proxy.proxy_id
-}
+# output "proxy_id" {
+#   value = module.proxy.proxy_id
+# }

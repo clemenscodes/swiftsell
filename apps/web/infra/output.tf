@@ -46,14 +46,14 @@ output "cdn_subdomain" {
   value = module.cdn.subdomain
 }
 
-output "certificate_id" {
-  value = module.cdn.certificate_id
-}
+# output "certificate_id" {
+#   value = module.cdn.certificate_id
+# }
 
-output "map_id" {
-  value = module.cdn.map_id
-}
+# output "map_id" {
+#   value = module.cdn.map_id
+# }
 
-output "proxy_id" {
-  value = module.cdn.proxy_id
-}
+# output "proxy_id" {
+#   value = module.cdn.proxy_id
+# }
