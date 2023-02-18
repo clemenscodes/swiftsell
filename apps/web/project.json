@@ -66,12 +66,25 @@
         },
         "docker": {
             "executor": "@nx-tools/nx-container:build",
-            "options": {
-                "engine": "docker",
-                "load": true,
-                "metadata": {
-                    "images": [],
-                    "tags": ["type=schedule", "type=sha"]
+            "defaultConfiguration": "local",
+            "configurations": {
+                "local": {
+                    "engine": "docker",
+                    "load": true,
+                    "metadata": {
+                        "images": [],
+                        "tags": ["type=schedule", "type=sha"]
+                    }
+                },
+                "ci": {
+                    "engine": "docker",
+                    "load": true,
+                    "cache-from": ["type=gha"],
+                    "cache-to": ["type=gha,mode=max"],
+                    "metadata": {
+                        "images": [],
+                        "tags": ["type=schedule", "type=sha"]
+                    }
                 }
             }
         },
