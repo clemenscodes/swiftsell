@@ -79,27 +79,67 @@ jobs:
             - name: Format Workspace
               run: npx nx-cloud record -- npx nx format:check --libs-and-apps --no-dte
 
-            - name: Start Agents
-              if: needs.agents.result != 'failure' &&
-                  needs.agents.result != 'cancelled' &&
-                  needs.agents.result != 'skipped'
-              run: npx nx-cloud start-ci-run --stop-agents-after=e2e
+            - name: Lint
+              run: |
+                  npx nx affected \
+                    --base=$NX_BASE \
+                    --head=$NX_HEAD \
+                    --nx-bail \
+                    --target=lint \
+                    --no-dte \
+                    --output-style=stream
 
-            - name: Run Agents
-              id: agents
-              if: needs.agents.result != 'failure' &&
-                  needs.agents.result != 'cancelled' &&
-                  needs.agents.result != 'skipped'
-              uses: jameshenry/parallel-bash-commands@v1
-              with:
-                  cmd1: $NX_EXEC build
-                  cmd2: $NX_EXEC test
-                  cmd3: $NX_EXEC lint
-                  cmd4: npx nx affected --base=$NX_BASE --head=$NX_HEAD --parallel=1 --target=e2e
+            - name: Build
+              run: |
+                  npx nx affected \
+                    --base=$NX_BASE \
+                    --head=$NX_HEAD \
+                    --nx-bail \
+                    --target=build \
+                    --no-dte \
+                    --output-style=stream
 
-            - name: Stop Agents
-              if: always()
-              run: npx nx-cloud stop-all-agents
+            - name: Test
+              run: |
+                  npx nx affected \
+                    --base=$NX_BASE \
+                    --head=$NX_HEAD \
+                    --nx-bail \
+                    --target=test \
+                    --no-dte \
+                    --output-style=stream
+
+            - name: E2E
+              run: |
+                  npx nx affected \
+                    --base=$NX_BASE \
+                    --head=$NX_HEAD \
+                    --nx-bail \
+                    --target=e2e \
+                    --no-dte \
+                    --output-style=stream
+
+            # - name: Start Agents
+            #   if: needs.agents.result != 'failure' &&
+            #       needs.agents.result != 'cancelled' &&
+            #       needs.agents.result != 'skipped'
+            #   run: npx nx-cloud start-ci-run --stop-agents-after=e2e
+
+            # - name: Run Agents
+            #   id: agents
+            #   if: needs.agents.result != 'failure' &&
+            #       needs.agents.result != 'cancelled' &&
+            #       needs.agents.result != 'skipped'
+            #   uses: jameshenry/parallel-bash-commands@v1
+            #   with:
+            #       cmd1: $NX_EXEC build
+            #       cmd2: $NX_EXEC test
+            #       cmd3: $NX_EXEC lint
+            #       cmd4: npx nx affected --base=$NX_BASE --head=$NX_HEAD --parallel=1 --target=e2e
+
+            # - name: Stop Agents
+            #   if: always()
+            #   run: npx nx-cloud stop-all-agents
 
             - name: Save Node Cache
               uses: actions/cache/save@v3
@@ -121,72 +161,73 @@ jobs:
               run: |
                   curl -X POST -H "Authorization: Bearer ${{ secrets.REPO_GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/cancel
 
-    agents:
-        name: Agent ${{ matrix.agent }}
-        needs: set-agents
-        runs-on: ubuntu-latest
-        defaults:
-            run:
-                shell: bash
-        strategy:
-            matrix:
-                agent:
-                    - ${{fromJson(needs.set-agents.outputs.matrix)}}
-        steps:
-            - name: Checkout [Pull Request]
-              uses: actions/checkout@v3
-              if: github.event_name == 'pull_request'
-              with:
-                  ref: ${{ github.event.pull_request.head.sha }}
-                  fetch-depth: 0
+    # agents:
+    #     name: Agent ${{ matrix.agent }}
+    #     needs: set-agents
+    #     runs-on: ubuntu-latest
+    #     defaults:
+    #         run:
+    #             shell: bash
+    #     strategy:
+    #         matrix:
+    #             agent:
+    #                 - ${{fromJson(needs.set-agents.outputs.matrix)}}
+    #     steps:
+    #         - name: Checkout [Pull Request]
+    #           uses: actions/checkout@v3
+    #           if: github.event_name == 'pull_request'
+    #           with:
+    #               ref: ${{ github.event.pull_request.head.sha }}
+    #               fetch-depth: 0
 
-            - name: Checkout [Main]
-              uses: actions/checkout@v3
-              if: github.event_name != 'pull_request'
-              with:
-                  fetch-depth: 0
+    #         - name: Checkout [Main]
+    #           uses: actions/checkout@v3
+    #           if: github.event_name != 'pull_request'
+    #           with:
+    #               fetch-depth: 0
 
-            - name: Derive SHAs
-              uses: nrwl/nx-set-shas@v3
+    #         - name: Derive SHAs
+    #           uses: nrwl/nx-set-shas@v3
 
-            - name: Install Node
-              uses: actions/setup-node@v3
-              with:
-                  node-version: 16
+    #         - name: Install Node
+    #           uses: actions/setup-node@v3
+    #           with:
+    #               node-version: 16
 
-            - name: Restore Node Cache
-              id: node_cache
-              uses: actions/cache/restore@v3
-              with:
-                  path: |
-                      ~/.cache/Cypress/
-                      dist/**/.next/cache
-                      node_modules/
-                  key: ubuntu-latest-node-${{ hashFiles('yarn.lock') }}
-                  restore-keys: ubuntu-latest-node-
+    #         - name: Restore Node Cache
+    #           id: node_cache
+    #           uses: actions/cache/restore@v3
+    #           with:
+    #               path: |
+    #                   ~/.cache/Cypress/
+    #                   dist/**/.next/cache
+    #                   node_modules/
+    #               key: ubuntu-latest-node-${{ hashFiles('yarn.lock') }}
+    #               restore-keys: ubuntu-latest-node-
 
-            - name: Install Node Dependencies
-              if: steps.node_cache.outputs.cache-hit != 'true'
-              run: yarn install --immutable
+    #         - name: Install Node Dependencies
+    #           if: steps.node_cache.outputs.cache-hit != 'true'
+    #           run: yarn install --immutable
 
-            - name: Run Agent
-              run: npx nx-cloud start-agent
+    #         - name: Run Agent
+    #           run: npx nx-cloud start-agent
 
-            - name: Delete Artifacts
-              if: failure()
-              uses: geekyeggo/delete-artifact@v2
-              with:
-                  name: '*'
+    #         - name: Delete Artifacts
+    #           if: failure()
+    #           uses: geekyeggo/delete-artifact@v2
+    #           with:
+    #               name: '*'
 
-            - name: Abort Workflow
-              if: failure()
-              run: |
-                  curl -X POST -H "Authorization: Bearer ${{ secrets.REPO_GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/cancel
+    #         - name: Abort Workflow
+    #           if: failure()
+    #           run: |
+    #               curl -X POST -H "Authorization: Bearer ${{ secrets.REPO_GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/cancel
 
     release:
         name: Release
         runs-on: ubuntu-latest
-        needs: [main, agents]
+        # needs: [main, agents]
+        needs: [main]
         defaults:
             run:
                 shell: bash
@@ -265,7 +306,8 @@ jobs:
     deploy:
         name: Deploy Web Apps
         runs-on: ubuntu-latest
-        needs: [main, agents, release]
+        # needs: [main, agents, release]
+        needs: [main, release]
         defaults:
             run:
                 shell: bash

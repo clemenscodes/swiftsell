@@ -72,6 +72,11 @@ resource "google_project_service" "iam_credentials" {
   service = "iamcredentials.googleapis.com"
 }
 
+resource "google_project_service" "sts_api" {
+  project = module.data.project_id
+  service = "sts.googleapis.com"
+}
+
 resource "google_project_service" "cloudresourcemanager" {
   project = module.data.project_id
   service = "cloudresourcemanager.googleapis.com"
