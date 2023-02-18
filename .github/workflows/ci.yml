@@ -13,7 +13,6 @@ concurrency:
 env:
     NEXT_TELEMETRY_DISABLED: 1
     NX_CLOUD_DISTRIBUTED_EXECUTION_AGENT_COUNT: 1
-    NX_CLOUD_NO_TIMEOUTS: true
     NX_EXEC: 'npx nx affected --nx-bail --base=$NX_BASE --head=$NX_HEAD --parallel=$NX_CLOUD_DISTRIBUTED_EXECUTION_AGENT_COUNT --target'
     CI: true
     ARTEFACT_REGISTRY_REGION: europe-west1
