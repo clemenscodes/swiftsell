@@ -93,7 +93,6 @@ resource "google_iam_workload_identity_pool" "pool" {
   disabled                  = false
   project                   = google_project.default.number
   display_name              = "Workload Identity Pool"
-  timeouts {}
 }
 
 resource "google_iam_workload_identity_pool_provider" "github" {
@@ -101,9 +100,11 @@ resource "google_iam_workload_identity_pool_provider" "github" {
   disabled                           = false
   project                            = google_project.default.number
   workload_identity_pool_provider_id = module.data.workload_identity_provider_pool_id
+  attribute_condition                = "attribute.repository_owner==\"clemenscodes\""
   attribute_mapping = {
     "google.subject"             = "assertion.sub",
     "attribute.actor"            = "assertion.actor",
+    "attribute.aud"              = "assertion.aud"
     "attribute.repository"       = "assertion.repository",
     "attribute.repository_owner" = "assertion.repository_owner"
   }
@@ -111,7 +112,6 @@ resource "google_iam_workload_identity_pool_provider" "github" {
     allowed_audiences = []
     issuer_uri        = "https://token.actions.githubusercontent.com"
   }
-  timeouts {}
 }
 
 resource "google_project_iam_member" "wif" {
