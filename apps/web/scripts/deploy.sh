@@ -103,15 +103,15 @@ image() {
     if [ -z "$CI" ]; then
         NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache
         INPUT_IMAGES="$INPUT_IMAGES" INPUT_TAGS="sha-$SHA" nx docker "$APP" --skip-nx-cache
-        docker push "$TAGGED_IMAGE"
     else
         if [ -z "$INPUT_GITHUB_TOKEN" ]; then
             echo "Missing GitHub token"
             exit 1
         fi
         NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache
-        INPUT_GITHUB_TOKEN="$INPUT_GITHUB_TOKEN" INPUT_IMAGES="$INPUT_IMAGES" INPUT_TAGS="sha-$SHA" nx docker "$APP" --configuration=ci --skip-nx-cache
+        INPUT_GITHUB_TOKEN="$INPUT_GITHUB_TOKEN" INPUT_IMAGES="$INPUT_IMAGES" INPUT_TAGS="sha-$SHA" nx docker "$APP" --skip-nx-cache
     fi
+    docker push "$TAGGED_IMAGE"
 }
 
 purple() {
@@ -130,12 +130,25 @@ cleanup() {
     echo "$IMAGES"
     IMAGE_COUNT=$(echo "$IMAGES" | wc -l | tr -d ' ')
     i="$IMAGE_COUNT_THRESHOLD"
+    set +e
     while [ $i -lt "$IMAGE_COUNT" ]; do
         DIGEST=$(echo "$IMAGES" | sed -n "${i}p" | awk '{print $2}')
-        purple "gcloud artifacts docker images delete $IMAGE@$DIGEST"
-        echo "" | gcloud artifacts docker images delete "$IMAGE@$DIGEST" --delete-tags || exit 1
+        TAG=$(echo "$IMAGES" | sed -n "${i}p" | awk '{print $3}')
+        case $TAG in
+        sha-*)
+            purple "gcloud artifacts docker images delete $IMAGE:$TAG --delete-tags"
+            RESULT="$(echo "" | gcloud artifacts docker images delete "$IMAGE:$TAG" --delete-tags)"
+            echo "$RESULT"
+            ;;
+        *)
+            purple "gcloud artifacts docker images delete $IMAGE@$DIGEST --delete-tags"
+            RESULT="$(echo "" | gcloud artifacts docker images delete "$IMAGE@$DIGEST" --delete-tags)"
+            echo "$RESULT"
+            ;;
+        esac
         i=$((i + 1))
     done
+    set -e
 }
 
 upload_assets_to_cdn() {

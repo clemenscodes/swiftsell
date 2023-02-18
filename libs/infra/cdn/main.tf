@@ -22,10 +22,7 @@ module "external_ip" {
 module "backend_bucket" {
   source     = "../compute/backend_bucket"
   project_id = var.project_id
-  bucket     = var.bucket
-  depends_on = [
-    module.cdn_bucket
-  ]
+  bucket     = module.cdn_bucket.name
 }
 
 module "url_map" {
