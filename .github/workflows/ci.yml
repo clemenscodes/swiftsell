@@ -302,6 +302,9 @@ jobs:
     deploy:
         name: Deploy Web Apps
         runs-on: ubuntu-latest
+        # env:
+        #     DOCKER_CACHE: /tmp/.buildx-cache
+        #     TMP_DOCKER_CACHE: /tmp/.buildx-cache-new
         # needs: [main, agents, release]
         needs: [main, release]
         defaults:
@@ -324,6 +327,9 @@ jobs:
               with:
                   fetch-depth: 0
 
+            - name: Expose GitHub Runtime
+              uses: crazy-max/ghaction-github-runtime@v2
+
             - name: Derive SHAs
               uses: nrwl/nx-set-shas@v3
 
@@ -337,6 +343,14 @@ jobs:
                       node_modules/
                   key: ubuntu-latest-node-${{ hashFiles('yarn.lock') }}
                   restore-keys: ubuntu-latest-node-
+
+            # - name: Cache Docker layers
+            #   uses: actions/cache@v2
+            #   with:
+            #       path: ${{ env.DOCKER_CACHE }}
+            #       key: ${{ runner.os }}-buildx-${{ github.sha }}
+            #       restore-keys: |
+            #           ${{ runner.os }}-buildx-
 
             - name: Install Node
               uses: actions/setup-node@v3
@@ -428,6 +442,11 @@ jobs:
                     --skip-nx-cache
               env:
                   INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            # - name: Move Docker layers cache
+            #   run: |
+            #       rm -rf ${{ env.DOCKER_CACHE }}
+            #       mv ${{ env.$TMP_DOCKER_CACHE }} ${{ env.DOCKER_CACHE }}
 
             - name: Delete Artifacts
               if: failure()

@@ -69,6 +69,8 @@
             "options": {
                 "engine": "docker",
                 "load": true,
+                "cache-from": ["type=gha"],
+                "cache-to": ["type=gha,mode=max"],
                 "metadata": {
                     "images": [],
                     "tags": ["type=schedule", "type=sha"]
