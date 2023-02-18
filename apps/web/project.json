@@ -69,25 +69,21 @@
             "defaultConfiguration": "local",
             "configurations": {
                 "local": {
-                    "options": {
-                        "engine": "docker",
-                        "load": true,
-                        "metadata": {
-                            "images": [],
-                            "tags": ["type=schedule", "type=sha"]
-                        }
+                    "engine": "docker",
+                    "load": true,
+                    "metadata": {
+                        "images": [],
+                        "tags": ["type=schedule", "type=sha"]
                     }
                 },
                 "ci": {
-                    "options": {
-                        "engine": "docker",
-                        "push": true,
-                        "cache-from": ["type=gha"],
-                        "cache-to": ["type=gha,mode=max"],
-                        "metadata": {
-                            "images": [],
-                            "tags": ["type=schedule", "type=sha"]
-                        }
+                    "engine": "docker",
+                    "push": true,
+                    "cache-from": ["type=gha"],
+                    "cache-to": ["type=gha,mode=max"],
+                    "metadata": {
+                        "images": [],
+                        "tags": ["type=schedule", "type=sha"]
                     }
                 }
             }
