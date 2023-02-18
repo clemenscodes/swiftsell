@@ -12,9 +12,8 @@ concurrency:
 
 env:
     NEXT_TELEMETRY_DISABLED: 1
-    NX_CLOUD_DISTRIBUTED_EXECUTION_AGENT_COUNT: 3
-    NX_CLOUD_DISTRIBUTED_EXECUTION: true
-    NX_CLOUD_DISTRIBUTED_EXECUTION_STOP_AGENTS_ON_FAILURE: true
+    NX_CLOUD_DISTRIBUTED_EXECUTION_AGENT_COUNT: 1
+    NX_CLOUD_NO_TIMEOUTS: true
     NX_EXEC: 'npx nx affected --nx-bail --base=$NX_BASE --head=$NX_HEAD --parallel=$NX_CLOUD_DISTRIBUTED_EXECUTION_AGENT_COUNT --target'
     CI: true
     ARTEFACT_REGISTRY_REGION: europe-west1
@@ -34,84 +33,129 @@ jobs:
                   echo $AGENTS_JSON_ARRAY
                   echo "matrix=$AGENTS_JSON_ARRAY" >> $GITHUB_OUTPUT
 
-    # main:
-    #     name: Main Job
-    #     runs-on: ubuntu-latest
-    #     defaults:
-    #         run:
-    #             shell: bash
-    #     steps:
-    #         - name: Checkout [Pull Request]
-    #           uses: actions/checkout@v3
-    #           if: github.event_name == 'pull_request'
-    #           with:
-    #               ref: ${{ github.event.pull_request.head.sha }}
-    #               fetch-depth: 0
+    main:
+        name: Main Job
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                shell: bash
+        steps:
+            - name: Checkout [Pull Request]
+              uses: actions/checkout@v3
+              if: github.event_name == 'pull_request'
+              with:
+                  ref: ${{ github.event.pull_request.head.sha }}
+                  fetch-depth: 0
 
-    #         - name: Checkout [Main]
-    #           uses: actions/checkout@v3
-    #           if: github.event_name != 'pull_request'
-    #           with:
-    #               fetch-depth: 0
+            - name: Checkout [Main]
+              uses: actions/checkout@v3
+              if: github.event_name != 'pull_request'
+              with:
+                  fetch-depth: 0
 
-    #         - name: Install Node
-    #           uses: actions/setup-node@v3
-    #           with:
-    #               node-version: 16
+            - name: Install Node
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 16
 
-    #         - name: Derive SHAs
-    #           uses: nrwl/nx-set-shas@v3
+            - name: Debug Go
+              run: |
+                  go env
+                  go version
 
-    #         - name: Restore Node Cache
-    #           id: node_cache
-    #           uses: actions/cache/restore@v3
-    #           with:
-    #               path: |
-    #                   ~/.cache/Cypress/
-    #                   dist/**/.next/cache
-    #                   node_modules/
-    #               key: ubuntu-latest-node-${{ hashFiles('yarn.lock') }}
-    #               restore-keys: ubuntu-latest-node-
+            - name: Derive SHAs
+              uses: nrwl/nx-set-shas@v3
 
-    #         - name: Install Node Dependencies
-    #           if: steps.node_cache.outputs.cache-hit != 'true'
-    #           run: yarn install --immutable
+            - name: Restore Node Cache
+              id: node_cache
+              uses: actions/cache@v3
+              with:
+                  path: |
+                      ~/.cache/Cypress/
+                      dist/**/.next/cache
+                      node_modules/
+                  key: ubuntu-latest-node-${{ hashFiles('yarn.lock') }}
+                  restore-keys: ubuntu-latest-node-
 
-    #         - name: Format Workspace
-    #           run: npx nx-cloud record -- npx nx format:check --libs-and-apps --no-dte
+            - name: Install Node Dependencies
+              if: steps.node_cache.outputs.cache-hit != 'true'
+              run: yarn install --immutable
 
-    #         - name: Start Agents
-    #           if: needs.agents.result != 'failure' &&
-    #               needs.agents.result != 'cancelled' &&
-    #               needs.agents.result != 'skipped'
-    #           run: npx nx-cloud start-ci-run --stop-agents-after=e2e
+            - name: Format Workspace
+              run: npx nx-cloud record -- npx nx format:check --libs-and-apps --no-dte
 
-    #         - name: Run Agents
-    #           id: agents
-    #           if: needs.agents.result != 'failure' &&
-    #               needs.agents.result != 'cancelled' &&
-    #               needs.agents.result != 'skipped'
-    #           uses: jameshenry/parallel-bash-commands@v1
-    #           with:
-    #               cmd1: $NX_EXEC build
-    #               cmd2: $NX_EXEC test
-    #               cmd3: $NX_EXEC lint
-    #               cmd4: npx nx affected --base=$NX_BASE --head=$NX_HEAD --parallel=1 --target=e2e
+            - name: Lint
+              run: |
+                  npx nx affected \
+                    --base=$NX_BASE \
+                    --head=$NX_HEAD \
+                    --nx-bail \
+                    --target=lint \
+                    --no-dte \
+                    --output-style=stream
 
-    #         - name: Stop Agents
-    #           if: always()
-    #           run: npx nx-cloud stop-all-agents
+            - name: Build
+              run: |
+                  npx nx affected \
+                    --base=$NX_BASE \
+                    --head=$NX_HEAD \
+                    --nx-bail \
+                    --target=build \
+                    --no-dte \
+                    --output-style=stream
 
-    #         - name: Abort Workflow
-    #           if: failure()
-    #           run: |
-    #               curl -X POST -H "Authorization: Bearer ${{ github.token }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/cancel
+            - name: Test
+              run: |
+                  npx nx affected \
+                    --base=$NX_BASE \
+                    --head=$NX_HEAD \
+                    --nx-bail \
+                    --target=test \
+                    --no-dte \
+                    --output-style=stream
 
-    #         - name: Delete Artifacts
-    #           if: failure()
-    #           uses: geekyeggo/delete-artifact@v2
-    #           with:
-    #               name: '*'
+            - name: E2E
+              run: |
+                  npx nx affected \
+                    --base=$NX_BASE \
+                    --head=$NX_HEAD \
+                    --nx-bail \
+                    --target=e2e \
+                    --no-dte \
+                    --output-style=stream
+
+            # - name: Start Agents
+            #   if: needs.agents.result != 'failure' &&
+            #       needs.agents.result != 'cancelled' &&
+            #       needs.agents.result != 'skipped'
+            #   run: npx nx-cloud start-ci-run --stop-agents-after=e2e
+
+            # - name: Run Agents
+            #   id: agents
+            #   if: needs.agents.result != 'failure' &&
+            #       needs.agents.result != 'cancelled' &&
+            #       needs.agents.result != 'skipped'
+            #   uses: jameshenry/parallel-bash-commands@v1
+            #   with:
+            #       cmd1: $NX_EXEC build
+            #       cmd2: $NX_EXEC test
+            #       cmd3: $NX_EXEC lint
+            #       cmd4: npx nx affected --base=$NX_BASE --head=$NX_HEAD --parallel=1 --target=e2e
+
+            # - name: Stop Agents
+            #   if: always()
+            #   run: npx nx-cloud stop-all-agents
+
+            - name: Delete Artifacts
+              if: failure()
+              uses: geekyeggo/delete-artifact@v2
+              with:
+                  name: '*'
+
+            - name: Abort Workflow
+              if: failure()
+              run: |
+                  curl -X POST -H "Authorization: Bearer ${{ secrets.REPO_GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/cancel
 
     # agents:
     #     name: Agent ${{ matrix.agent }}
@@ -164,85 +208,6 @@ jobs:
     #         - name: Run Agent
     #           run: npx nx-cloud start-agent
 
-    #         - name: Abort Workflow
-    #           if: failure()
-    #           run: |
-    #               curl -X POST -H "Authorization: Bearer ${{ github.token }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/cancel
-
-    #         - name: Delete Artifacts
-    #           if: failure()
-    #           uses: geekyeggo/delete-artifact@v2
-    #           with:
-    #               name: '*'
-
-    # release:
-    #     name: Release
-    #     runs-on: ubuntu-latest
-    #     needs: [main, agents]
-    #     defaults:
-    #         run:
-    #             shell: bash
-    #     steps:
-    #         - name: Checkout
-    #           if: startsWith(github.ref, 'refs/heads/main')
-    #           uses: actions/checkout@v3
-    #           with:
-    #               fetch-depth: 0
-    #               token: ${{ secrets.GITHUB_TOKEN }}
-
-    #         - name: Restore Node Cache
-    #           id: node_cache
-    #           if: startsWith(github.ref, 'refs/heads/main')
-    #           uses: actions/cache/restore@v3
-    #           with:
-    #               path: |
-    #                   ~/.cache/Cypress/
-    #                   dist/**/.next/cache
-    #                   node_modules/
-    #               key: ubuntu-latest-node-${{ hashFiles('yarn.lock') }}
-    #               restore-keys: ubuntu-latest-node-
-
-    #         - name: Install Node
-    #           if: startsWith(github.ref, 'refs/heads/main')
-    #           uses: actions/setup-node@v3
-    #           with:
-    #               node-version: 16
-
-    #         - name: Install Node Dependencies
-    #           if: steps.node_cache.outputs.cache-hit != 'true' && startsWith(github.ref, 'refs/heads/main')
-    #           run: yarn install --immutable
-
-    #         - name: Setup Git
-    #           if: startsWith(github.ref, 'refs/heads/main')
-    #           uses: fregante/setup-git-user@v1
-
-    #         - name: Prepare Release
-    #           if: startsWith(github.ref, 'refs/heads/main')
-    #           run: yarn bump --no-dte
-
-    #         - name: Extract version
-    #           id: extract_version
-    #           if: startsWith(github.ref, 'refs/heads/main')
-    #           run: |
-    #               version=$(git describe --tags $(git rev-list --tags --max-count=1))
-    #               echo $version
-    #               echo "version=$version" >> $GITHUB_OUTPUT
-
-    #         - name: Generate Release Body
-    #           id: release_body
-    #           if: startsWith(github.ref, 'refs/heads/main')
-    #           run: npx extract-changelog-release > RELEASE_BODY.md
-
-    #         - name: Release
-    #           if: startsWith(github.ref, 'refs/heads/main')
-    #           uses: ncipollo/release-action@v1.12.0
-    #           with:
-    #               token: ${{ secrets.REPO_GITHUB_TOKEN }}
-    #               tag: ${{ steps.extract_version.outputs.version }}
-    #               artifactErrorsFailBuild: true
-    #               skipIfReleaseExists: true
-    #               bodyFile: RELEASE_BODY.md
-
     #         - name: Delete Artifacts
     #           if: failure()
     #           uses: geekyeggo/delete-artifact@v2
@@ -252,77 +217,228 @@ jobs:
     #         - name: Abort Workflow
     #           if: failure()
     #           run: |
-    #               curl -X POST -H "Authorization: Bearer ${{ github.token }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/cancel
+    #               curl -X POST -H "Authorization: Bearer ${{ secrets.REPO_GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/cancel
 
-    # deploy:
-    #     name: Deploy Web Apps
-    #     runs-on: ubuntu-latest
-    #     needs: [main, agents, apps, release]
-    #     defaults:
-    #         run:
-    #             shell: bash
-    #     steps:
-    #         - name: Checkout [Pull Request]
-    #           uses: actions/checkout@v3
-    #           if: github.event_name == 'pull_request'
-    #           with:
-    #               ref: ${{ github.event.pull_request.head.sha }}
-    #               fetch-depth: 0
+    release:
+        name: Release
+        runs-on: ubuntu-latest
+        # needs: [main, agents]
+        needs: [main]
+        defaults:
+            run:
+                shell: bash
+        steps:
+            - name: Checkout
+              if: startsWith(github.ref, 'refs/heads/main')
+              uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+                  token: ${{ secrets.GITHUB_TOKEN }}
 
-    #         - name: Checkout [Main]
-    #           uses: actions/checkout@v3
-    #           if: github.event_name != 'pull_request'
-    #           with:
-    #               fetch-depth: 0
+            - name: Restore Node Cache
+              id: node_cache
+              if: startsWith(github.ref, 'refs/heads/main')
+              uses: actions/cache/restore@v3
+              with:
+                  path: |
+                      ~/.cache/Cypress/
+                      dist/**/.next/cache
+                      node_modules/
+                  key: ubuntu-latest-node-${{ hashFiles('yarn.lock') }}
+                  restore-keys: ubuntu-latest-node-
 
-    #         - name: Derive SHAs
-    #           uses: nrwl/nx-set-shas@v3
+            - name: Install Node
+              if: startsWith(github.ref, 'refs/heads/main')
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 16
 
-    #         - name: Restore Node Cache
-    #           id: node_cache
-    #           uses: actions/cache/restore@v3
-    #           with:
-    #               path: |
-    #                   ~/.cache/Cypress/
-    #                   dist/**/.next/cache
-    #                   node_modules/
-    #               key: ubuntu-latest-node-${{ hashFiles('yarn.lock') }}
-    #               restore-keys: ubuntu-latest-node-
+            - name: Install Node Dependencies
+              if: steps.node_cache.outputs.cache-hit != 'true' && startsWith(github.ref, 'refs/heads/main')
+              run: yarn install --immutable
 
-    #         - name: Install Node
-    #           uses: actions/setup-node@v3
-    #           with:
-    #               node-version: 16
+            - name: Setup Git
+              if: startsWith(github.ref, 'refs/heads/main')
+              uses: fregante/setup-git-user@v1
 
-    #         - name: Install Node Dependencies
-    #           if: steps.node_cache.outputs.cache-hit != 'true'
-    #           run: yarn install --immutable
+            - name: Prepare Release
+              if: startsWith(github.ref, 'refs/heads/main')
+              run: yarn bump --no-dte
 
-    #         - name: Start Agents
-    #           run: npx nx-cloud start-ci-run --stop-agents-after=deploy
+            - name: Extract version
+              id: extract_version
+              if: startsWith(github.ref, 'refs/heads/main')
+              run: |
+                  version=$(git describe --tags $(git rev-list --tags --max-count=1))
+                  echo $version
+                  echo "version=$version" >> $GITHUB_OUTPUT
 
-    #         - name: Run Agents (development)
-    #           if: github.event.pull_request.head.repo.full_name == github.repository
-    #           run: $NX_EXEC deploy --skip-nx-cache
+            - name: Generate Release Body
+              id: release_body
+              if: startsWith(github.ref, 'refs/heads/main')
+              run: npx extract-changelog-release > RELEASE_BODY.md
 
-    #         - name: Run Agents (production)
-    #           if: github.event_name != 'pull_request' && github.ref_name == 'main'
-    #           run: $NX_EXEC deploy --skip-nx-cache --configuration=production
+            - name: Release
+              if: startsWith(github.ref, 'refs/heads/main')
+              uses: ncipollo/release-action@v1.12.0
+              with:
+                  token: ${{ secrets.REPO_GITHUB_TOKEN }}
+                  tag: ${{ steps.extract_version.outputs.version }}
+                  artifactErrorsFailBuild: true
+                  skipIfReleaseExists: true
+                  bodyFile: RELEASE_BODY.md
 
-    #         - name: Stop Agents
-    #           if: always()
-    #           run: npx nx-cloud stop-all-agents
+            - name: Delete Artifacts
+              if: failure()
+              uses: geekyeggo/delete-artifact@v2
+              with:
+                  name: '*'
 
-    #         - name: Delete Artifacts
-    #           if: failure()
-    #           uses: geekyeggo/delete-artifact@v2
-    #           with:
-    #               name: '*'
+            - name: Abort Workflow
+              if: failure()
+              run: |
+                  curl -X POST -H "Authorization: Bearer ${{ secrets.REPO_GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/cancel
 
-    #         - name: Abort Workflow
-    #           if: failure()
-    #           run: |
-    #               curl -X POST -H "Authorization: Bearer ${{ github.token }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/cancel
+    deploy:
+        name: Deploy Web Apps
+        runs-on: ubuntu-latest
+        # needs: [main, agents, release]
+        needs: [main, release]
+        defaults:
+            run:
+                shell: bash
+        permissions:
+            contents: 'read'
+            id-token: 'write'
+        steps:
+            - name: Checkout [Pull Request]
+              uses: actions/checkout@v3
+              if: github.event_name == 'pull_request'
+              with:
+                  ref: ${{ github.event.pull_request.head.sha }}
+                  fetch-depth: 0
+
+            - name: Checkout [Main]
+              uses: actions/checkout@v3
+              if: github.event_name != 'pull_request'
+              with:
+                  fetch-depth: 0
+
+            - name: Derive SHAs
+              uses: nrwl/nx-set-shas@v3
+
+            - name: Node Cache
+              id: node_cache
+              uses: actions/cache/restore@v3
+              with:
+                  path: |
+                      ~/.cache/Cypress/
+                      dist/**/.next/cache
+                      node_modules/
+                  key: ubuntu-latest-node-${{ hashFiles('yarn.lock') }}
+                  restore-keys: ubuntu-latest-node-
+
+            - name: Install Node
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 16
+
+            - name: Install Node Dependencies
+              if: steps.node_cache.outputs.cache-hit != 'true'
+              run: yarn install --immutable
+
+            - name: Authenticate to Google Cloud
+              id: auth
+              uses: google-github-actions/auth@v1
+              with:
+                  token_format: access_token
+                  workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+                  service_account: ${{ secrets.SERVICE_ACCOUNT }}
+
+            - name: Configure OAuth
+              run: echo "GOOGLE_OAUTH_ACCESS_TOKEN=${{ steps.auth.outputs.access_token }}" >> $GITHUB_ENV
+
+            - name: Set up Cloud SDK
+              uses: google-github-actions/setup-gcloud@v1
+
+            - name: Setup Docker Artifact Registry Auth
+              run: gcloud auth configure-docker $ARTEFACT_REGISTRY_REGION-docker.pkg.dev
+
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v2
+
+            - name: Set up Terraform
+              uses: hashicorp/setup-terraform@v2
+              with:
+                  terraform_wrapper: false
+
+            # - name: Start Agents
+            #   if: needs.deploy-agents.result != 'failure' &&
+            #       needs.deploy-agents.result != 'cancelled' &&
+            #       needs.deploy-agents.result != 'skipped'
+            #   run: npx nx-cloud start-ci-run --stop-agents-after=deploy
+
+            # - name: Run Agents (development)
+            #   if: needs.deploy-agents.result != 'failure' &&
+            #       needs.deploy-agents.result != 'cancelled' &&
+            #       needs.deploy-agents.result != 'skipped' &&
+            #       github.event.pull_request.head.repo.full_name == github.repository
+            #   uses: jameshenry/parallel-bash-commands@v1
+            #   with:
+            #       cmd1: $NX_EXEC deploy --skip-nx-cache
+
+            # - name: Run Agents (production)
+            #   if: needs.deploy-agents.result != 'failure' &&
+            #       needs.deploy-agents.result != 'cancelled' &&
+            #       needs.deploy-agents.result != 'skipped' &&
+            #       github.event_name != 'pull_request' && github.ref_name == 'main'
+            #   uses: jameshenry/parallel-bash-commands@v1
+            #   with:
+            #       cmd1: $NX_EXEC deploy --skip-nx-cache --configuration=production
+
+            # - name: Stop Agents
+            #   if: always()
+            #   run: npx nx-cloud stop-all-agents
+
+            - name: Deploy (Development)
+              if: github.event.pull_request.head.repo.full_name == github.repository
+              run: |
+                  npx nx affected \
+                    --base=$NX_BASE \
+                    --head=$NX_HEAD \
+                    --nx-bail \
+                    --target=deploy \
+                    --no-dte \
+                    --output-style=stream \
+                    --skip-nx-cache
+              env:
+                  INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Deploy (Production)
+              if: github.event_name != 'pull_request' && github.ref_name == 'main'
+              run: |
+                  npx nx affected \
+                    --base=$NX_BASE \
+                    --head=$NX_HEAD \
+                    --nx-bail \
+                    --target=deploy \
+                    --no-dte \
+                    --output-style=stream \
+                    --configuration=production
+                    --skip-nx-cache
+              env:
+                  INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Delete Artifacts
+              if: failure()
+              uses: geekyeggo/delete-artifact@v2
+              with:
+                  name: '*'
+
+            - name: Abort Workflow
+              if: failure()
+              run: |
+                  curl -X POST -H "Authorization: Bearer ${{ secrets.REPO_GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/cancel
 
     # deploy-agents:
     #     name: Deploy Agent ${{ matrix.agent }}
@@ -351,6 +467,9 @@ jobs:
     #           if: github.event_name != 'pull_request'
     #           with:
     #               fetch-depth: 0
+
+    #         - name: Expose GitHub Runtime
+    #           uses: crazy-max/ghaction-github-runtime@v2
 
     #         - name: Derive SHAs
     #           uses: nrwl/nx-set-shas@v3
@@ -407,7 +526,7 @@ jobs:
     #         - name: Abort Workflow
     #           if: failure()
     #           run: |
-    #               curl -X POST -H "Authorization: Bearer ${{ github.token }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/cancel
+    #               curl -X POST -H "Authorization: Bearer ${{ secrets.REPO_GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/cancel
 
     #         - name: Delete Artifacts
     #           if: failure()
@@ -415,12 +534,13 @@ jobs:
     #           with:
     #               name: '*'
 
-    # cleanup:
-    #     name: Cleanup
-    #     runs-on: ubuntu-latest
-    #     needs: [deploy, deploy-agents]
-    #     steps:
-    #         - name: Delete Artifacts
-    #           uses: geekyeggo/delete-artifact@v2
-    #           with:
-    #               name: '*'
+    cleanup:
+        name: Cleanup
+        runs-on: ubuntu-latest
+        # needs: [deploy, deploy-agents]
+        needs: [deploy]
+        steps:
+            - name: Delete Artifacts
+              uses: geekyeggo/delete-artifact@v2
+              with:
+                  name: '*'

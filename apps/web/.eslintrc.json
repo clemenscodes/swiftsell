@@ -5,15 +5,12 @@
         "next/core-web-vitals",
         "../../.eslintrc.json"
     ],
-    "ignorePatterns": ["!**/*", ".next/**/*"],
+    "ignorePatterns": ["!**/*", ".next/**/*", "**/.terraform"],
     "overrides": [
         {
             "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
             "rules": {
-                "@next/next/no-html-link-for-pages": [
-                    "error",
-                    "apps/broshop/pages"
-                ]
+                "@next/next/no-html-link-for-pages": ["error", "apps/web/pages"]
             }
         },
         {

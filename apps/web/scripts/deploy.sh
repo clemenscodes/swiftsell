@@ -5,16 +5,10 @@ set -e
 export TF_IN_AUTOMATION=true
 
 APP="web"
-DEVELOPMENT_PROJECT=""
-PRODUCTION_PROJECT=""
-
 APP_DIR="apps/$APP"
 PLAN="plan.tfplan"
-ARTIFACT_REGION="europe-west1"
-REGISTRY="docker.pkg.dev"
-REPO_NAME="docker"
-IMAGE_NAME="web"
 IMAGE_COUNT_THRESHOLD=1
+SHA="$(git rev-parse --short HEAD)"
 PUBLIC="dist/$APP_DIR/public"
 STATIC="dist/$APP_DIR/.next/static"
 PURPLE="\\033[0;35m"
@@ -26,15 +20,12 @@ fi
 
 deploy() {
     CONFIG="$1"
-    PROJECT="$2"
+
     TF_DIR="$APP_DIR/infra/$CONFIG"
     TF="terraform -chdir=$TF_DIR"
+
     BACKEND="$TF_DIR/backend.tf"
-    SHA="$(git rev-parse --short HEAD)"
-    REPO="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME"
-    IMAGE="$REPO/$IMAGE_NAME"
-    TAGGED_IMAGE="$IMAGE:$SHA"
-    BACKEND_ARG="-backend-config=bucket=$APP-$CONFIG-state"
+
     PLAN_ARG="-out=$PLAN"
     INPUT_ARG="-input=false"
     LOCK_ARG="-lock=false"
@@ -42,37 +33,41 @@ deploy() {
     VAR_ARG="-var=git_commit_sha=$SHA"
     TARGET_ARG="-target=module.app"
     APPROVE_ARG="-auto-approve"
+
     DEFAULT_PLAN="$PLAN_ARG $INPUT_ARG $LOCK_TIMEOUT_ARG $LOCK_ARG $VAR_ARG"
     ARTIFACT_PLAN="$TARGET_ARG $DEFAULT_PLAN"
     APPLY_ARGS="$INPUT_ARG $APPROVE_ARG $LOCK_ARG $LOCK_TIMEOUT_ARG $PLAN"
+
     if grep -q "local" "$BACKEND"; then
-        local_plan
+        local_plan "$CONFIG"
     else
-        remote_plan
+        remote_plan "$CONFIG"
     fi
     rm "$TF_DIR/$PLAN"
     cleanup
-    upload_assets_to_cdn "$PROJECT"
+    upload_assets_to_cdn
     generate_cdn_dns_entry
     generate_domain_mapping_dns_entry
 }
 
 local_plan() {
+    CONFIG="$1"
     $TF init
     artifact_plan
-    push_image
+    image "$CONFIG"
     $TF init
     default_plan
-    sed -i 's/local/gcs/g' "$BACKEND"
+    BUCKET=$($TF output state_bucket | tr -d '"')
+    sed -i "s/backend \"local\"/backend \"gcs\" {\n  bucket = \"$BUCKET\"\n}/" "$BACKEND"
     echo "Migrating state"
-    echo "yes" | $TF init "$BACKEND_ARG"
+    echo "yes" | $TF init -migrate-state
 }
 
 remote_plan() {
-    $TF init "$BACKEND_ARG"
+    $TF init
     artifact_plan
-    push_image
-    $TF init "$BACKEND_ARG"
+    image "$CONFIG"
+    $TF init
     default_plan
 }
 
@@ -97,8 +92,25 @@ run_tf_command() {
     eval "$TF_COMMAND"
 }
 
-push_image() {
-    echo "Pushing image $TAGGED_IMAGE to Artifact Registry"
+image() {
+    CONFIG="$1"
+    REGISTRY="docker.pkg.dev"
+    PROJECT=$($TF output project_id | tr -d '"')
+    ARTIFACT_REGION=$($TF output artifact_region | tr -d '"')
+    REPO_NAME=$($TF output repository_id | tr -d '"')
+    INPUT_IMAGES="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME/$REPO_NAME"
+    TAGGED_IMAGE="$INPUT_IMAGES:sha-$SHA"
+    if [ -z "$CI" ]; then
+        NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache
+        INPUT_IMAGES="$INPUT_IMAGES" INPUT_TAGS="sha-$SHA" nx docker "$APP" --skip-nx-cache
+    else
+        if [ -z "$INPUT_GITHUB_TOKEN" ]; then
+            echo "Missing GitHub token"
+            exit 1
+        fi
+        NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache
+        INPUT_GITHUB_TOKEN="$INPUT_GITHUB_TOKEN" INPUT_IMAGES="$INPUT_IMAGES" INPUT_TAGS="sha-$SHA" nx docker "$APP" --skip-nx-cache
+    fi
     docker push "$TAGGED_IMAGE"
 }
 
@@ -108,25 +120,42 @@ purple() {
 
 cleanup() {
     purple "Cleaning up, image threshold: $IMAGE_COUNT_THRESHOLD"
+    REGISTRY="docker.pkg.dev"
+    PROJECT=$($TF output project_id | tr -d '"')
+    ARTIFACT_REGION=$($TF output artifact_region | tr -d '"')
+    REPO_NAME=$($TF output repository_id | tr -d '"')
+    REPO="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME"
+    IMAGE="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME/$REPO_NAME"
     IMAGES=$(gcloud artifacts docker images list "$REPO" --include-tags --sort-by=CREATE_TIME | tail -n +2)
     echo "$IMAGES"
     IMAGE_COUNT=$(echo "$IMAGES" | wc -l | tr -d ' ')
     i="$IMAGE_COUNT_THRESHOLD"
+    set +e
     while [ $i -lt "$IMAGE_COUNT" ]; do
         DIGEST=$(echo "$IMAGES" | sed -n "${i}p" | awk '{print $2}')
-        purple "gcloud artifacts docker images delete $IMAGE@$DIGEST"
-        echo "" | gcloud artifacts docker images delete "$IMAGE@$DIGEST" --delete-tags || exit 1
+        TAG=$(echo "$IMAGES" | sed -n "${i}p" | awk '{print $3}')
+        case $TAG in
+        sha-*)
+            purple "gcloud artifacts docker images delete $IMAGE:$TAG --delete-tags"
+            RESULT="$(echo "" | gcloud artifacts docker images delete "$IMAGE:$TAG" --delete-tags)"
+            echo "$RESULT"
+            ;;
+        *)
+            purple "gcloud artifacts docker images delete $IMAGE@$DIGEST --delete-tags"
+            RESULT="$(echo "" | gcloud artifacts docker images delete "$IMAGE@$DIGEST" --delete-tags)"
+            echo "$RESULT"
+            ;;
+        esac
         i=$((i + 1))
     done
+    set -e
 }
 
 upload_assets_to_cdn() {
-    PROJECT_ID="$1"
+    PROJECT_ID=$($TF output project_id | tr -d '"')
     BUCKETS="$(gsutil ls -p "$PROJECT_ID")"
     echo "Buckets: $BUCKETS"
-    FULL_BUCKET_ADDRESS="$(echo "$BUCKETS" | grep cdn)"
-    echo "Full: $FULL_BUCKET_ADDRESS"
-    BUCKET="$(echo "$FULL_BUCKET_ADDRESS" | awk -F '/' '{print $3}')"
+    BUCKET="$($TF output cdn_bucket | tr -d '"')"
     echo "Bucket: $BUCKET"
     BUCKET_ADDRESS="gs://$BUCKET"
     echo "Bucket address: $BUCKET_ADDRESS"
@@ -150,7 +179,7 @@ upload_public() {
 
 generate_cdn_dns_entry() {
     DOMAIN=$($TF output domain | tr -d '"')
-    SUBDOMAIN=$($TF output subdomain | tr -d '"')
+    SUBDOMAIN=$($TF output cdn_subdomain | tr -d '"')
     VALUE=$($TF output ip | tr -d '"')
     echo "The following DNS entry needs to be added to the domain $DOMAIN, so that the CDN works"
     echo "Type:  A"
@@ -169,7 +198,7 @@ generate_domain_mapping_dns_entry() {
 }
 
 case "$1" in
-development) deploy "$1" "$DEVELOPMENT_PROJECT" ;;
-production) deploy "$1" "$PRODUCTION_PROJECT" ;;
+development) deploy "$1" ;;
+production) deploy "$1" ;;
 *) echo "Invalid configuration: $1" && exit 1 ;;
 esac

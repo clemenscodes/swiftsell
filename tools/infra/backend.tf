@@ -1,3 +1,5 @@
 terraform {
-  backend "local" {}
+  backend "gcs" {
+    bucket = "organization-378109-state"
+  }
 }

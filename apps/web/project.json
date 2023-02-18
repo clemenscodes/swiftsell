@@ -64,7 +64,7 @@
                 "lintFilePatterns": ["apps/web/**/*.{ts,tsx,js,jsx}"]
             }
         },
-        "image": {
+        "docker": {
             "executor": "@nx-tools/nx-container:build",
             "options": {
                 "engine": "docker",
@@ -75,20 +75,7 @@
                 }
             }
         },
-        "docker": {
-            "executor": "nx:run-commands",
-            "defaultConfiguration": "development",
-            "configurations": {
-                "development": {
-                    "command": "apps/web/scripts/image.sh development"
-                },
-                "production": {
-                    "command": "apps/web/scripts/image.sh production"
-                }
-            }
-        },
         "deploy": {
-            "dependsOn": ["docker"],
             "executor": "nx:run-commands",
             "defaultConfiguration": "development",
             "configurations": {

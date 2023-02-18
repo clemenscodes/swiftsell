@@ -18,7 +18,7 @@ output "org_id" {
   value = data.google_organization.org.org_id
 }
 
-output "bucket" {
+output "state_bucket" {
   value = var.bucket
 }
 
@@ -27,19 +27,23 @@ output "org_name" {
 }
 
 output "region" {
-  value = var.default_region
+  value = var.region
 }
 
-output "project_id" {
-  value = var.default_project_id
+output "billing_account" {
+  value = var.billing_account
 }
 
 output "project_name" {
-  value = var.default_project_name
+  value = var.project_name
+}
+
+output "project_id" {
+  value = var.project_id
 }
 
 output "folder_name" {
-  value = var.default_folder_name
+  value = var.folder_name
 }
 
 output "workload_identity_service_account_id" {
