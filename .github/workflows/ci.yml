@@ -58,6 +58,11 @@ jobs:
               with:
                   node-version: 16
 
+            - name: Debug Go
+              run: |
+                  go env
+                  go version
+
             - name: Derive SHAs
               uses: nrwl/nx-set-shas@v3
 
