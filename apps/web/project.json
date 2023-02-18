@@ -78,7 +78,7 @@
                 },
                 "ci": {
                     "engine": "docker",
-                    "push": true,
+                    "load": true,
                     "cache-from": ["type=gha"],
                     "cache-to": ["type=gha,mode=max"],
                     "metadata": {
