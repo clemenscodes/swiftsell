@@ -3,8 +3,9 @@
 import path from 'path';
 path.resolve('./next.config.js');
 
+import { Home, HomeProps } from '@shared';
+
 export async function getStaticProps() {
-    // get random number between 1 and 100
     const rand = Math.floor(Math.random() * 100);
     return {
         props: {
@@ -14,5 +15,14 @@ export async function getStaticProps() {
     };
 }
 
-import { Home } from '@shared';
-export default Home;
+export type IndexProps = HomeProps;
+
+export function Index({ rand }: IndexProps) {
+    return (
+        <>
+            <Home rand={rand}></Home>
+        </>
+    );
+}
+
+export default Index;
