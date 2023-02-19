@@ -1,9 +1,10 @@
+const { theme } = require('./libs/shared/src/styles/theme');
+
+/** @type {import('tailwindcss').Config} */
 module.exports = {
     theme: {
-        extend: {},
+        ...theme,
     },
-    variants: {
-        extend: {},
-    },
-    plugins: [],
+    darkMode: ['class', '[data-theme="dark"]'],
+    plugins: [require('tailwindcss-animate')],
 };
