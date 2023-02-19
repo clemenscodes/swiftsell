@@ -1,10 +1,28 @@
-const { theme } = require('./libs/shared/src/styles/theme');
+const { fontFamily } = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    theme: {
-        ...theme,
-    },
-    darkMode: ['class', '[data-theme="dark"]'],
     plugins: [require('tailwindcss-animate')],
+    darkMode: ['class', '[data-theme="dark"]'],
+    theme: {
+        extend: {
+            fontFamily: {
+                sans: ['var(--font-sans)', ...fontFamily.sans],
+            },
+            keyframes: {
+                'accordion-down': {
+                    from: { height: 0 },
+                    to: { height: 'var(--radix-accordion-content-height)' },
+                },
+                'accordion-up': {
+                    from: { height: 'var(--radix-accordion-content-height)' },
+                    to: { height: 0 },
+                },
+            },
+            animation: {
+                'accordion-down': 'accordion-down 0.2s ease-out',
+                'accordion-up': 'accordion-up 0.2s ease-out',
+            },
+        },
+    },
 };
