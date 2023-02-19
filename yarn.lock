@@ -2567,6 +2567,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@next/plugin-storybook@npm:^13.1.6":
+  version: 13.1.6
+  resolution: "@next/plugin-storybook@npm:13.1.6"
+  peerDependencies:
+    next: "*"
+  checksum: 2f6019c89160830a6c9b94d47feabeb1d5af74812efbe6447bef7331dcde21cc947d26c696836d72da25aadd551231ef376463b930a140d29d4d1b35d3c18b67
+  languageName: node
+  linkType: hard
+
 "@next/swc-android-arm-eabi@npm:13.1.1":
   version: 13.1.1
   resolution: "@next/swc-android-arm-eabi@npm:13.1.1"
@@ -20978,6 +20987,7 @@ __metadata:
     "@babel/preset-typescript": 7.12.13
     "@commitlint/config-nx-scopes": ^17.4.3
     "@jscutlery/semver": ^2.30.1
+    "@next/plugin-storybook": ^13.1.6
     "@nrwl/cypress": 15.6.3
     "@nrwl/esbuild": 15.6.3
     "@nrwl/eslint-plugin-nx": 15.6.3

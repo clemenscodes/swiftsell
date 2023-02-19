@@ -6,11 +6,13 @@ export interface LogoProps {}
 
 export function Logo(props: LogoProps) {
     const url = getAssetPrefix();
-    const logoUrl = `${url}/img/default.png`;
     return (
-        <div>
-            <Image src={logoUrl} alt='Logo' width={500} height={500} />
-        </div>
+        <Image
+            alt='Logo'
+            src={`${url}/img/default.png`}
+            width={300}
+            height={200}
+        />
     );
 }
 
