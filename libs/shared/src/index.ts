@@ -1,3 +1,4 @@
+export * from './components/logo/logo';
 export * from './components/typography/subtle/subtle';
 export * from './components/typography/small/small';
 export * from './components/typography/large/large';
