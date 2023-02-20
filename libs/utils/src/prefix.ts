@@ -10,5 +10,8 @@ export const getPrefix = (apex = 'swiftsell.de', subdomain = 'shop') => {
     const cloudRunAssetPrefix = isCloudRunProd ? prodCDN : devCDN;
     const assetPrefix = isCloudRun ? cloudRunAssetPrefix : '';
     prefix = prefix ? prefix : assetPrefix;
-    return isCloudRun ? assetPrefix : prefix;
+    console.log({ prefix });
+    const result = isCloudRun ? assetPrefix : prefix;
+    console.log({ result });
+    return result;
 };
