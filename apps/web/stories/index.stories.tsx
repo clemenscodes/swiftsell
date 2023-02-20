@@ -8,7 +8,7 @@ const Story: ComponentMeta<typeof Index> = {
 };
 export default Story;
 
-const Template: ComponentStory<typeof Index> = () => <Index rand={3} />;
+const Template: ComponentStory<typeof Index> = () => <Index />;
 
 export const Primary = Template.bind({});
 Primary.args = {};

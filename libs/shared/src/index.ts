@@ -1,3 +1,6 @@
+export * from './pages/contact/contact';
+export * from './pages/about/about';
+export * from './components/navbar/navbar';
 export * from './components/logo/logo';
 export * from './components/typography/subtle/subtle';
 export * from './components/typography/small/small';

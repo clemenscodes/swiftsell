@@ -7,7 +7,7 @@ const Story: ComponentMeta<typeof Home> = {
 };
 export default Story;
 
-const Template: ComponentStory<typeof Home> = (args) => <Home rand={10} />;
+const Template: ComponentStory<typeof Home> = (args) => <Home />;
 
 export const Primary = Template.bind({});
 Primary.args = {};

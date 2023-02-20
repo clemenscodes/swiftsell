@@ -1,8 +1,6 @@
-import { getGreeting } from '../support/app.po';
-
-describe('broshop', () => {
-    beforeEach(() => cy.visit('/'));
-    it('should display welcome message', () => {
-        getGreeting().contains('Ready to dive in?');
+describe('Navbar', () => {
+    it('renders correctly', () => {
+        cy.visit('/');
+        cy.get('nav').should('be.visible');
     });
 });

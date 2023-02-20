@@ -3,24 +3,12 @@
 import path from 'path';
 path.resolve('./next.config.js');
 
-import { Home, HomeProps } from '@shared';
+import { Home } from '@shared';
 
-export async function getStaticProps() {
-    const rand = Math.floor(Math.random() * 100);
-    return {
-        props: {
-            rand,
-        }, // will be passed to the page component as props
-        revalidate: 30, // In seconds
-    };
-}
-
-export type IndexProps = HomeProps;
-
-export function Index({ rand }: IndexProps) {
+export function Index() {
     return (
         <>
-            <Home rand={rand}></Home>
+            <Home></Home>
         </>
     );
 }
