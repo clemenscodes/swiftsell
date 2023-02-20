@@ -1,4 +1,4 @@
-import { getPrefix } from '@utils';
+import { PREFIX } from '@utils';
 import Image from 'next/image';
 
 /* eslint-disable-next-line */
@@ -8,7 +8,7 @@ export function Logo(props: LogoProps) {
     return (
         <Image
             alt='Logo'
-            src={`${getPrefix()}/img/default.png`}
+            src={`${PREFIX}/img/default.png`}
             width={300}
             height={200}
         />

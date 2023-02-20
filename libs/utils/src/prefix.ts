@@ -15,3 +15,5 @@ export const getPrefix = (apex = 'swiftsell.de', subdomain = 'shop') => {
     console.log({ result });
     return result;
 };
+
+export const PREFIX = getPrefix();
