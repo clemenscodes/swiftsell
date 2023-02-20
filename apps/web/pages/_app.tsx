@@ -9,12 +9,10 @@ function CustomApp({ Component, pageProps }: AppProps) {
     return (
         <>
             <Head>
-                <title>Shop</title>
+                <title>SwiftSell</title>
                 <link rel='icon' href={`${PREFIX}/favicon.ico`} />
             </Head>
-            <main>
-                <Component {...pageProps} />
-            </main>
+            <Component {...pageProps} />
         </>
     );
 }
