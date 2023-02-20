@@ -6,7 +6,6 @@ import { usePrefixStore, usePrefix } from '@shared';
 function CustomApp({ Component, pageProps }: AppProps) {
     usePrefixStore.setState({ prefix: usePrefix() });
     const PREFIX = usePrefixStore((state) => state.prefix);
-    console.log({ PREFIX });
     return (
         <>
             <Head>

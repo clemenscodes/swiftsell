@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 
 export const usePrefix = (domain = 'shop.swiftsell.de') => {
-    console.log('running hook', { domain });
     const [prefix, setPrefix] = useState('');
 
     useEffect(() => {
@@ -17,7 +16,6 @@ export const usePrefix = (domain = 'shop.swiftsell.de') => {
             } else if (hostname === prodCloudRunURL || hostname === domain) {
                 setPrefix(prodCDN);
             }
-            console.log('running with window', { hostname });
         }
     }, [domain]);
 
