@@ -52,6 +52,7 @@ start_nextjs_app
 while true; do
     sync "$CONTAINER_PAGES" "$BUCKET_ADDRESS"
     sync "$BUCKET_ADDRESS" "$CONTAINER_PAGES"
+    echo "$NEXT_PUBLIC_PROJECT_TYPE"
     sleep 1
 done &
 

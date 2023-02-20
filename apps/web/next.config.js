@@ -30,8 +30,10 @@ module.exports = (phase) => {
 
     // const env = {
     //     NEXT_PUBLIC_PROJECT_TYPE: (() => {
-    //         if (isProdBuild && isCloudRun)
+    //         if (isProdServer && isCloudRun) {
+    //             console.log(process.env.NEXT_PUBLIC_PROJECT_TYPE);
     //             return process.env.NEXT_PUBLIC_PROJECT_TYPE;
+    //         }
     //         return;
     //     })(),
     // };

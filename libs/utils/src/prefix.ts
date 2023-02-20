@@ -1,3 +1,5 @@
+let prefix: string;
+
 export const getPrefix = (apex = 'swiftsell.de', subdomain = 'shop') => {
     const prodCDN = `https://static.${subdomain}.${apex}/public`;
     const devCDN = `https://dev.static.${subdomain}.${apex}/public`;
@@ -7,7 +9,6 @@ export const getPrefix = (apex = 'swiftsell.de', subdomain = 'shop') => {
     const isCloudRun = isCloudRunDev || isCloudRunProd;
     const cloudRunAssetPrefix = isCloudRunProd ? prodCDN : devCDN;
     const assetPrefix = isCloudRun ? cloudRunAssetPrefix : '';
-    return assetPrefix;
+    prefix = prefix ? prefix : assetPrefix;
+    return isCloudRun ? assetPrefix : prefix;
 };
-
-export const PREFIX = getPrefix();

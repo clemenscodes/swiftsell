@@ -20,7 +20,14 @@ export function Home({ rand }: HomeProps) {
                 </h1>
                 <div className='mt-8 flex lg:mt-0 lg:flex-shrink-0'>
                     <div className='inline-flex rounded-md shadow'>
-                        <button className='inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700'>
+                        <button
+                            onClick={() =>
+                                console.log(
+                                    process.env.NEXT_PUBLIC_PROJECT_TYPE
+                                )
+                            }
+                            className='inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700'
+                        >
                             Get started
                         </button>
                     </div>

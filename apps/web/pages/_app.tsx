@@ -1,6 +1,6 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import { PREFIX } from '@utils';
+import { getPrefix } from '@utils';
 import '../global.css';
 
 function CustomApp({ Component, pageProps }: AppProps) {
@@ -8,7 +8,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
         <>
             <Head>
                 <title>Shop</title>
-                <link rel='icon' href={`${PREFIX}/favicon.ico`} />
+                <link rel='icon' href={`${getPrefix()}/favicon.ico`} />
             </Head>
             <main>
                 <Component {...pageProps} />
