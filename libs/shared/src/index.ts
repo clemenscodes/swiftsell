@@ -14,3 +14,5 @@ export * from './components/typography/h2/h2';
 export * from './components/typography/h1/h1';
 export * from './pages/home/home';
 export * from './styles/cn';
+export * from './store/usePrefixStore';
+export * from './hooks/usePrefix';
