@@ -1,11 +1,10 @@
-import React from 'react';
 import { render } from '@testing-library/react';
-import Index from '../pages/index';
+import About from './about';
 jest.mock('next/router', () => require('next-router-mock'));
 
-describe('Index', () => {
+describe('About', () => {
     it('should render successfully', () => {
-        const { baseElement } = render(<Index />);
+        const { baseElement } = render(<About />);
         expect(baseElement).toBeTruthy();
     });
 });

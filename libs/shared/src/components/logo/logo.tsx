@@ -6,8 +6,17 @@ export interface LogoProps {}
 
 export function Logo(props: LogoProps) {
     const PREFIX = usePrefixStore((state) => state.prefix);
-    const url = `${PREFIX}/img/default.png`;
-    return <Image alt='Logo' src={url} width={300} height={200} />;
+    const url = `${PREFIX}/svg/default.svg`;
+    return (
+        <Image
+            alt='Logo'
+            src={url}
+            width={200}
+            height={200}
+            priority={true}
+            quality={100}
+        />
+    );
 }
 
 export default Logo;

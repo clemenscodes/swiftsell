@@ -19,7 +19,6 @@ export const usePrefix = (domain = 'shop.swiftsell.de') => {
         }
     }, [domain]);
 
-    console.log(prefix);
     return prefix;
 };
 
