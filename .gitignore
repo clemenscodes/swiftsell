@@ -20,4 +20,3 @@ yarn-error.log
 **/plan.tfplan
 **/node_modules
 apps/web/public/
-!apps/web/public/favicon.ico
