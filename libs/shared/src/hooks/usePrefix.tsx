@@ -20,6 +20,7 @@ export const usePrefix = (domain = 'shop.swiftsell.de') => {
             setPrefix(prefix);
         }
     }, [domain]);
+    console.log(prefix);
     return prefix;
 };
 
