@@ -1,10 +1,16 @@
-import { useEffect, useState } from 'react';
+import { create } from 'zustand';
 
-export const usePrefix = (domain = 'shop.swiftsell.de') => {
-    const [prefix, setPrefix] = useState('');
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            let prefix = '';
+interface PrefixState {
+    prefix: string;
+    setPrefix: () => void;
+}
+
+export const usePrefixStore = create<PrefixState>((set) => ({
+    prefix: '',
+    setPrefix: () =>
+        set(() => {
+            const state: Partial<PrefixState> = { prefix: '' };
+            const domain = 'swiftsell.de';
             const hostname = window.location.hostname;
             const devDomain = `dev.${domain}`;
             const prodCDN = `https://static.${domain}/public`;
@@ -13,15 +19,10 @@ export const usePrefix = (domain = 'shop.swiftsell.de') => {
             const prodCloudRunURL = 'web-ow3benvyza-ew.a.run.app';
 
             if (hostname === devCloudRunURL || hostname === devDomain) {
-                prefix = devCDN;
+                state.prefix = devCDN;
             } else if (hostname === prodCloudRunURL || hostname === domain) {
-                prefix = prodCDN;
+                state.prefix = prodCDN;
             }
-            setPrefix(prefix);
-        }
-    }, [domain]);
-    console.log(prefix);
-    return prefix;
-};
-
-export default usePrefix;
+            return state;
+        }),
+}));

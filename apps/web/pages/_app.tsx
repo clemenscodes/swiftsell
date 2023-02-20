@@ -1,10 +1,10 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import '../global.css';
-import { usePrefix } from '@shared';
+import { usePrefixStore } from '@shared';
 
 function CustomApp({ Component, pageProps }: AppProps) {
-    const PREFIX = usePrefix();
+    const PREFIX = usePrefixStore((state) => state.prefix);
     return (
         <>
             <Head>
