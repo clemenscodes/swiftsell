@@ -6,7 +6,7 @@ export interface LogoProps {}
 
 export function Logo(props: LogoProps) {
     const PREFIX = usePrefixStore((state) => state.prefix);
-    console.log(PREFIX)
+    console.log(PREFIX);
     return (
         <Image
             alt='Logo'

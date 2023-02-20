@@ -4,6 +4,7 @@ import '../global.css';
 import { usePrefixStore } from '@shared';
 
 function CustomApp({ Component, pageProps }: AppProps) {
+    usePrefixStore((state) => state.setPrefix('shop.swfitsell.de'));
     const PREFIX = usePrefixStore((state) => state.prefix);
     return (
         <>
