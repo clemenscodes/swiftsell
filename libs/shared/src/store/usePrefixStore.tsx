@@ -7,11 +7,9 @@ interface PrefixState {
 
 export const usePrefixStore = create<PrefixState>((set) => ({
     prefix: '',
-    setPrefix: (domain: string) =>
+    setPrefix: (domain: string) => {
         set((state) => {
-            console.log('running state', state);
             if (typeof window !== 'undefined') {
-                console.log('running with window', state);
                 const hostname = window.location.hostname;
                 const devDomain = `dev.${domain}`;
                 const prodCDN = `https://static.${domain}/public`;
@@ -27,7 +25,9 @@ export const usePrefixStore = create<PrefixState>((set) => ({
                 ) {
                     state.prefix = prodCDN;
                 }
+                console.log('running with window', { hostname });
             }
             return state;
-        }),
+        });
+    },
 }));
