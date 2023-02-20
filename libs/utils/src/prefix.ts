@@ -1,4 +1,4 @@
-export const getAssetPrefix = (apex = 'swiftsell.de', subdomain = 'shop') => {
+export const getPrefix = (apex = 'swiftsell.de', subdomain = 'shop') => {
     const prodCDN = `https://static.${subdomain}.${apex}/public`;
     const devCDN = `https://dev.static.${subdomain}.${apex}/public`;
     const ENV = 'NEXT_PUBLIC_PROJECT_TYPE';
@@ -9,3 +9,5 @@ export const getAssetPrefix = (apex = 'swiftsell.de', subdomain = 'shop') => {
     const assetPrefix = isCloudRun ? cloudRunAssetPrefix : '';
     return assetPrefix;
 };
+
+export const PREFIX = getPrefix();

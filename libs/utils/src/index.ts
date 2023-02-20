@@ -1,1 +1,1 @@
-export * from './getAssetPrefix';
+export * from './prefix';
