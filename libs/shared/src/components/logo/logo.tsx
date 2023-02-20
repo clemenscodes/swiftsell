@@ -1,10 +1,11 @@
-import { PREFIX } from '@utils';
 import Image from 'next/image';
+import usePrefix from '../../hooks/usePrefix';
 
 /* eslint-disable-next-line */
 export interface LogoProps {}
 
 export function Logo(props: LogoProps) {
+    const PREFIX = usePrefix();
     return (
         <Image
             alt='Logo'
