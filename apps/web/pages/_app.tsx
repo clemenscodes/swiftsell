@@ -23,13 +23,13 @@ function CustomApp({ Component, pageProps }: AppProps) {
                     content={`${PREFIX}/icons/apple-touch-icon.png`}
                 />
                 <link
-                    href={`${PREFIX}/img/favicon-16x16.png`}
+                    href={`${PREFIX}/icons/favicon-16x16.png`}
                     rel='icon'
                     type='image/png'
                     sizes='16x16'
                 />
                 <link
-                    href={`${PREFIX}/img/favicon-32x32.png`}
+                    href={`${PREFIX}/icons/favicon-32x32.png`}
                     rel='icon'
                     type='image/png'
                     sizes='32x32'
