@@ -7,4 +7,8 @@ export class ApiController {
     getData() {
         return this.apiService.getData();
     }
+    @Get('test')
+    getDataTest() {
+        return this.apiService.getDataTest();
+    }
 }

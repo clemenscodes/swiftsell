@@ -10,7 +10,7 @@
             "outputs": ["{options.outputPath}"],
             "options": {
                 "target": "node",
-                "compiler": "swc",
+                "compiler": "tsc",
                 "outputPath": "dist/apps/web/.next/standalone/apps/web",
                 "main": "apps/server/src/main.ts",
                 "tsConfig": "apps/server/tsconfig.app.json",
@@ -29,6 +29,7 @@
             }
         },
         "serve": {
+            "dependsOn": ["build"],
             "executor": "@nrwl/js:node",
             "options": {
                 "buildTarget": "server:build"
