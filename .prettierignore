@@ -13,3 +13,4 @@
 **/*.tfstate.backup
 **/.next
 apps/web/public/*.js
+gha-creds-*.json

@@ -12,6 +12,8 @@ MAIN="$STANDALONE_APP/main.js"
 CONFIG="$APP_DIR/server.conf.ts"
 CONFIG_JS="$STANDALONE_APP/server/server.conf.js"
 
+echo "Updating config"
+
 echo "
 import { NextConfig } from 'next';
 import { join } from 'path';
@@ -22,12 +24,20 @@ export const config: Config = {" >$CONFIG
 cat $SERVER | grep 'conf:' >>$CONFIG
 echo "}" >>$CONFIG
 
+echo "Formatting"
+
 nx format
+
+echo "Patching config"
 
 sed -i '/trustHostHeader: false/d' $CONFIG
 sed -i "s|outputFileTracingRoot: '.*'|outputFileTracingRoot: join(__dirname, '../../')|" $CONFIG
 
-npx nx build-custom-server $APP --skip-nx-cache
+echo "Building server with patched config"
+
+nx build-custom-server $APP --skip-nx-cache
+
+echo "Building server with patched config"
 
 mv "$CUSTOM_SERVER" "$MAIN"
 mv "$CONFIG_JS" "$STANDALONE_APP/server.conf.js"

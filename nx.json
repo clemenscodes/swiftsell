@@ -11,7 +11,8 @@
                     "e2e",
                     "docker",
                     "deploy",
-                    "build-custom-server"
+                    "build-custom-server",
+                    "server"
                 ],
                 "accessToken": "MjA0MWE2MTYtNjNlOC00NTc4LWI0MDYtZGEzOTBkMDY5MTMxfHJlYWQ="
             }
