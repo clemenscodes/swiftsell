@@ -1,6 +1,15 @@
 const { join } = require('path');
 const { withNx } = require('@nrwl/next/plugins/with-nx');
-const withPWA = require('next-pwa')({ dest: 'public' });
+const runtimeCaching = require('next-pwa/cache');
+const withPWA = require('next-pwa')({
+    dest: 'public',
+    register: true,
+    skipWaiting: true,
+    mode: 'production',
+    runtimeCaching,
+    buildExcludes: [/middleware-manifest.json$/],
+});
+
 const apexDomain = 'swiftsell.de';
 const appName = 'shop';
 const prodCDN = `https://static.${appName}.${apexDomain}`;
@@ -23,7 +32,7 @@ const nextConfig = {
         isrMemoryCacheSize: 0,
     },
     images: {
-        unoptimized: true,
+        unoptimized: false,
     },
     reactStrictMode: true,
     nx: {
