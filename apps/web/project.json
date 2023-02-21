@@ -124,7 +124,7 @@
         "server": {
             "command": "apps/web/scripts/server.sh"
         },
-        "standalone": {
+        "serve": {
             "command": "apps/web/scripts/standalone.sh"
         }
     },
