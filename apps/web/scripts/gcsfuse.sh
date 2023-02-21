@@ -6,9 +6,6 @@ BUCKET="$(echo "$BUCKET_ADDRESS" | awk -F '/' '{print $3}')"
 CONTAINER_PAGES="$APP_HOME/dist/$APP_DIR/.next/server/pages"
 SERVER="$APP_HOME/$APP_DIR/server.js"
 MNT_DIR="$APP_HOME/gcsfuse"
-PUBLIC="$APP_DIR/public"
-
-ls -la "$PUBLIC"
 
 sync() {
     echo "Syncing newer files from $1 to $2..."
