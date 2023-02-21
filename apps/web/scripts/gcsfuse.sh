@@ -4,8 +4,11 @@ set -eo pipefail
 BUCKET_ADDRESS="$(gsutil ls | grep isr)"
 BUCKET="$(echo "$BUCKET_ADDRESS" | awk -F '/' '{print $3}')"
 CONTAINER_PAGES="$APP_HOME/dist/$APP_DIR/.next/server/pages"
-SERVER="$APP_HOME/$APP_DIR/server.js"
+SERVER="$APP_HOME/$APP_DIR/main.js"
 MNT_DIR="$APP_HOME/gcsfuse"
+
+ls -la "$APP_DIR"
+ls -la "$APP_DIR/public"
 
 sync() {
     echo "Syncing newer files from $1 to $2..."

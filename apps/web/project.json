@@ -121,20 +121,11 @@
                 "production": {}
             }
         },
-        "serve": {
-            "executor": "nx:run-commands",
-            "defaultConfiguration": "development",
-            "configurations": {
-                "development": {
-                    "command": "apps/web/scripts/standalone.sh"
-                },
-                "production": {
-                    "command": "apps/web/scripts/standalone.sh"
-                }
-            },
-            "options": {
-                "proxyConfig": "apps/web/proxy.conf.json"
-            }
+        "server": {
+            "command": "apps/web/scripts/server.sh"
+        },
+        "standalone": {
+            "command": "apps/web/scripts/standalone.sh"
         }
     },
     "implicitDependencies": [
