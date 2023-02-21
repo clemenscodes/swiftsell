@@ -21,3 +21,4 @@ yarn-error.log
 **/node_modules
 apps/web/public/*
 !apps/web/public/.gitkeep
+**/tmp

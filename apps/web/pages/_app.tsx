@@ -39,11 +39,6 @@ function CustomApp({ Component, pageProps }: AppProps) {
                     rel='apple-touch-icon'
                     href={`${PREFIX}/icons/apple-touch-icon.png`}
                 />
-                <link
-                    rel='manifest'
-                    crossOrigin='use-credentials'
-                    href={`${PREFIX}/site.webmanifest`}
-                />
             </Head>
             <Component {...pageProps} />
         </>
