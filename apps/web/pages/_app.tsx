@@ -10,7 +10,6 @@ function CustomApp({ Component, pageProps }: AppProps) {
         <>
             <Head>
                 <title>SwiftSell</title>
-                <link rel='icon' href={`${PREFIX}/favicon.ico`} />
                 <meta
                     name='viewport'
                     content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=5,user-scalable=yes,viewport-fit=cover'
@@ -39,6 +38,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
                     rel='apple-touch-icon'
                     href={`${PREFIX}/icons/apple-touch-icon.png`}
                 />
+                <link rel='icon' href={`${PREFIX}/favicon.ico`} />
             </Head>
             <Component {...pageProps} />
         </>

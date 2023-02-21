@@ -5,16 +5,19 @@
     "projectType": "application",
     "targets": {
         "build": {
+            "dependsOn": ["^build"],
             "executor": "@nrwl/webpack:webpack",
             "outputs": ["{options.outputPath}"],
             "options": {
                 "target": "node",
-                "compiler": "tsc",
-                "outputPath": "dist/apps/server",
+                "compiler": "swc",
+                "outputPath": "dist/apps/web/.next/standalone/apps/web",
                 "main": "apps/server/src/main.ts",
                 "tsConfig": "apps/server/tsconfig.app.json",
                 "assets": ["apps/server/src/assets"],
+                "progress": true,
                 "isolatedConfig": true,
+                "deleteOutputPath": false,
                 "webpackConfig": "apps/server/webpack.config.js"
             },
             "configurations": {
@@ -58,5 +61,6 @@
             }
         }
     },
+    "implicitDependencies": ["web"],
     "tags": []
 }
