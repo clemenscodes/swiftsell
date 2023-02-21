@@ -15,6 +15,7 @@
         "skipDefaultLibCheck": true,
         "baseUrl": ".",
         "paths": {
+            "@api": ["libs/api/src/index.ts"],
             "@shared": ["libs/shared/src/index.ts"],
             "@utils": ["libs/utils/src/index.ts"],
             "test": ["libs/test/src/index.ts"]

@@ -133,6 +133,9 @@
                 "production": {
                     "command": "apps/web/scripts/standalone.sh"
                 }
+            },
+            "options": {
+                "proxyConfig": "apps/web/proxy.conf.json"
             }
         }
     },
