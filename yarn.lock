@@ -19857,13 +19857,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"reflect-metadata@npm:^0.1.13":
-  version: 0.1.13
-  resolution: "reflect-metadata@npm:0.1.13"
-  checksum: 798d379a7b6f6455501145419505c97dd11cbc23857a386add2b9ef15963ccf15a48d9d15507afe01d4cd74116df8a213247200bac00320bd7c11ddeaa5e8fb4
-  languageName: node
-  linkType: hard
-
 "regenerate-unicode-properties@npm:^10.1.0":
   version: 10.1.0
   resolution: "regenerate-unicode-properties@npm:10.1.0"
@@ -20489,7 +20482,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rxjs@npm:7.8.0, rxjs@npm:^7.0.0, rxjs@npm:^7.5.1, rxjs@npm:^7.5.5":
+"rxjs@npm:7.8.0, rxjs@npm:^7.5.1, rxjs@npm:^7.5.5":
   version: 7.8.0
   resolution: "rxjs@npm:7.8.0"
   dependencies:
@@ -22071,7 +22064,6 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.36.1
     "@typescript-eslint/parser": ^5.36.1
     autoprefixer: ^10.4.13
-    axios: ^1.0.0
     babel-jest: 28.1.1
     babel-loader: 8.1.0
     class-variance-authority: ^0.4.0
@@ -22093,6 +22085,7 @@ __metadata:
     husky: ^8.0.3
     jest: 28.1.1
     jest-environment-jsdom: 28.1.1
+    lodash: ^4.17.21
     lucide-react: ^0.115.0
     next: 13.1.1
     next-pwa: ^5.6.0
@@ -22103,8 +22096,6 @@ __metadata:
     react: 18.2.0
     react-dom: 18.2.0
     react-test-renderer: 18.2.0
-    reflect-metadata: ^0.1.13
-    rxjs: ^7.0.0
     storybook-addon-next: ^1.6.6
     storybook-addon-swc: ^1.1.7
     supertest: ^6.3.3
@@ -22114,7 +22105,6 @@ __metadata:
     tailwindcss-animate: ^1.0.5
     ts-jest: 28.0.5
     ts-node: 10.9.1
-    tslib: ^2.3.0
     typescript: ~4.8.2
     url-loader: ^4.1.1
     zustand: ^4.3.3

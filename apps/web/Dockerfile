@@ -43,6 +43,7 @@ USER nextjs
 
 COPY --from=gcsfuse /go/bin/gcsfuse /sbin
 COPY --chown=nextjs:nodejs dist/$APP_DIR/public ./$APP_DIR/public
+COPY --chown=nextjs:nodejs node_modules/tslib ./node_modules/tslib
 COPY --chown=nextjs:nodejs dist/$APP_DIR/.next/standalone ./
 COPY --chown=nextjs:nodejs $APP_DIR/scripts/gcsfuse.sh ./
 
