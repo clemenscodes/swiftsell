@@ -42,6 +42,7 @@ RUN mkdir gcsfuse && chown nextjs:nodejs gcsfuse
 USER nextjs
 
 COPY --from=gcsfuse /go/bin/gcsfuse /sbin
+COPY --chown=nextjs:nodejs dist/$APP_DIR/public ./$APP_DIR/public
 COPY --chown=nextjs:nodejs dist/$APP_DIR/.next/standalone ./
 COPY --chown=nextjs:nodejs $APP_DIR/scripts/gcsfuse.sh ./
 
@@ -49,6 +50,9 @@ EXPOSE $PORT
 
 # Ensure the script is executable
 RUN chmod +x /app/gcsfuse.sh
+
+# Keep only necessary service worker scripts since they must be hosted via the same domain
+RUN find /app/$APP_DIR/public -mindepth 1 -not -name '*.js' -delete
 
 # Use tini to manage zombie processes and signal forwarding
 # https://github.com/krallin/tini

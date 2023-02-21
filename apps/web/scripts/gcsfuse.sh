@@ -7,6 +7,8 @@ CONTAINER_PAGES="$APP_HOME/dist/$APP_DIR/.next/server/pages"
 SERVER="$APP_HOME/$APP_DIR/server.js"
 MNT_DIR="$APP_HOME/gcsfuse"
 
+ls -la "$APP_DIR"
+
 sync() {
     echo "Syncing newer files from $1 to $2..."
     gsutil -m rsync -u -r "$1" "$2"
