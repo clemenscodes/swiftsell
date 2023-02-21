@@ -107,11 +107,10 @@
             }
         },
         "build-custom-server": {
-            "dependsOn": ["build"],
             "executor": "@nrwl/js:tsc",
             "defaultConfiguration": "production",
             "options": {
-                "outputPath": "dist/apps/web/.next/standalone/apps/web",
+                "outputPath": "dist/apps/web/.next/standalone/apps/web/server",
                 "main": "apps/web/server.ts",
                 "tsConfig": "apps/web/tsconfig.server.json",
                 "clean": false,
@@ -123,7 +122,6 @@
             }
         },
         "serve": {
-            "dependsOn": ["build-custom-server"],
             "executor": "nx:run-commands",
             "defaultConfiguration": "development",
             "configurations": {
