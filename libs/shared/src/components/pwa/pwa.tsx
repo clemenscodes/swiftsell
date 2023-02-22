@@ -11,15 +11,10 @@ export function Pwa() {
     useEffect(() => {
         if ('serviceWorker' in navigator && window.workbox !== undefined) {
             const wb = window.workbox;
-            console.log('Registering service worker');
-            wb.register();
-            console.log('Registered');
-            // add event listeners to handle PWA lifecycle events
-            wb.addEventListener('installed', (event) => {
-                console.log(`Event ${event.type} is triggered.`);
-                console.log(event);
-            });
-
+            // wb.addEventListener('installed', (event) => {
+            //     console.log(`Event ${event.type} is triggered.`);
+            //     console.log(event);
+            // });
             wb.addEventListener('waiting', () => {
                 // `event.wasWaitingBeforeRegister` will be false if this is the first time the updated service worker is waiting.
                 // When `event.wasWaitingBeforeRegister` is true, a previously updated service worker is still waiting.
@@ -44,17 +39,16 @@ export function Pwa() {
                 }
             });
 
-            wb.addEventListener('controlling', (event) => {
-                console.log(`Event ${event.type} is triggered.`);
-                console.log(event);
-            });
+            // wb.addEventListener('controlling', (event) => {
+            //     console.log(`Event ${event.type} is triggered.`);
+            //     console.log(event);
+            // });
 
-            wb.addEventListener('activated', (event) => {
-                console.log(`Event ${event.type} is triggered.`);
-                console.log(event);
-            });
+            // wb.addEventListener('activated', (event) => {
+            //     console.log(`Event ${event.type} is triggered.`);
+            //     console.log(event);
+            // });
 
-            // never forget to call register as automatic registration is turned off in next.config.js
             wb.register();
         }
     }, []);

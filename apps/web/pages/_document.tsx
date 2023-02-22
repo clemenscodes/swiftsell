@@ -67,15 +67,10 @@ class MyDocument extends Document {
                         type='image/png'
                         sizes='32x32'
                     />
-                    <link
-                        rel='stylesheet'
-                        href='https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=optional'
-                    />
                     <link rel='manifest' href='/manifest.json' />
                     <link
                         href='/icons/apple-touch-icon.png'
                         rel='apple-touch-icon'
-                        sizes='180x180'
                     />
                     <link rel='icon' href='/favicon.ico' />
                 </Head>
