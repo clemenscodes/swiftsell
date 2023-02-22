@@ -1,16 +1,6 @@
 const { join } = require('path');
 const { withNx } = require('@nrwl/next/plugins/with-nx');
-// const runtimeCaching = require('next-pwa/cache');
-const withPWA = require('next-pwa')({
-    dest: 'public',
-    // register: true,
-    // skipWaiting: true,
-    mode: 'production',
-    sw: 'service-worker.js',
-    cacheStartUrl: false,
-    publicExcludes: ['!icons/apple-touch-icon.png'],
-});
-
+const runtimeCaching = require('next-pwa/cache');
 const apexDomain = 'swiftsell.de';
 const appName = 'shop';
 const protocol = 'https';
@@ -22,6 +12,16 @@ const isCloudRunDev = process.env.NEXT_PUBLIC_PROJECT_TYPE === 'development';
 const isCloudRun = isCloudRunDev || isCloudRunProd;
 const hostname = isCloudRunProd ? prodCDN : devCDN;
 const assetPrefix = isCloudRun ? `${protocol}://${hostname}` : undefined;
+
+const withPWA = require('next-pwa')({
+    dest: 'public',
+    modifyURLPrefix: {
+        [assetPrefix]: '/',
+    },
+    cacheStartUrl: false,
+    runtimeCaching,
+    publicExcludes: ['!icons/apple-touch-icon.png'],
+});
 
 /**
  * @type {import('@nrwl/next/plugins/with-nx').WithNxOptions}
