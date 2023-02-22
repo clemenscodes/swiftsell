@@ -52,11 +52,6 @@ EXPOSE $PORT
 # Ensure the script is executable
 RUN chmod +x /app/gcsfuse.sh
 
-# Keep only necessary service worker scripts since they must be hosted via the same domain
-RUN find /app/$APP_DIR/public -mindepth 1 -not -name '*.js' -delete
-
-COPY --chown=nextjs:nodejs dist/$APP_DIR/public/manifest.json ./$APP_DIR/public/manifest.json
-
 # Use tini to manage zombie processes and signal forwarding
 # https://github.com/krallin/tini
 ENTRYPOINT ["/sbin/tini", "--"]

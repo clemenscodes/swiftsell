@@ -5,7 +5,6 @@ import { usePrefixStore, usePrefix } from '@shared';
 
 function CustomApp({ Component, pageProps }: AppProps) {
     usePrefixStore.setState({ prefix: usePrefix() });
-    const PREFIX = usePrefixStore((state) => state.prefix);
     return (
         <>
             <Head>
@@ -16,29 +15,29 @@ function CustomApp({ Component, pageProps }: AppProps) {
                 />
                 <meta
                     name='twitter:image'
-                    content={`${PREFIX}/img/android-chrome-192x192.png`}
+                    content={`/img/android-chrome-192x192.png`}
                 />
                 <meta
                     property='og:image'
-                    content={`${PREFIX}/icons/apple-touch-icon.png`}
+                    content={`/icons/apple-touch-icon.png`}
                 />
                 <link
-                    href={`${PREFIX}/icons/favicon-16x16.png`}
+                    href={`/icons/favicon-16x16.png`}
                     rel='icon'
                     type='image/png'
                     sizes='16x16'
                 />
                 <link
-                    href={`${PREFIX}/icons/favicon-32x32.png`}
+                    href={`/icons/favicon-32x32.png`}
                     rel='icon'
                     type='image/png'
                     sizes='32x32'
                 />
                 <link
                     rel='apple-touch-icon'
-                    href={`${PREFIX}/icons/apple-touch-icon.png`}
+                    href={`/icons/apple-touch-icon.png`}
                 />
-                <link rel='icon' href={`${PREFIX}/favicon.ico`} />
+                <link rel='icon' href={`/favicon.ico`} />
             </Head>
             <Component {...pageProps} />
         </>
