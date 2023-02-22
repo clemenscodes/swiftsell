@@ -29,6 +29,7 @@ const withPWA = require('next-pwa')({
         ({ asset }) =>
             asset.name.startsWith('public/') ||
             asset.name.startsWith('server/') ||
+            asset.name.startsWith('static/') ||
             asset.name.match(
                 /^((app-|^)build-manifest\.json|react-loadable-manifest\.json)$/
             ),
