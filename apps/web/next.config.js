@@ -25,7 +25,14 @@ const domain = isCloudRun
 
 const withPWA = require('next-pwa')({
     dest: 'public',
-    exclude: [({ asset }) => asset.name.startsWith('public/')],
+    exclude: [
+        ({ asset }) =>
+            asset.name.startsWith('public/') ||
+            asset.name.startsWith('server/') ||
+            asset.name.match(
+                /^((app-|^)build-manifest\.json|react-loadable-manifest\.json)$/
+            ),
+    ],
     modifyURLPrefix: {
         [assetPrefix]: domain,
     },
