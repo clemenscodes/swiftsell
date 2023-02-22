@@ -7,10 +7,6 @@ CONTAINER_PAGES="$APP_HOME/dist/$APP_DIR/.next/server/pages"
 SERVER="$APP_HOME/$APP_DIR/main.js"
 MNT_DIR="$APP_HOME/gcsfuse"
 
-ls -la "$APP_HOME/$APP_DIR"
-ls -la "$APP_HOME/$APP_DIR/public"
-cat "$SERVER"
-
 sync() {
     echo "Syncing newer files from $1 to $2..."
     gsutil -m rsync -u -r "$1" "$2"
@@ -56,8 +52,7 @@ start_nextjs_app
 while true; do
     sync "$CONTAINER_PAGES" "$BUCKET_ADDRESS"
     sync "$BUCKET_ADDRESS" "$CONTAINER_PAGES"
-    echo "$NEXT_PUBLIC_PROJECT_TYPE"
-    sleep 1
+    sleep 5
 done &
 
 # Exit immediately when one of the background processes terminate.

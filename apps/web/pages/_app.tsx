@@ -17,10 +17,6 @@ function CustomApp({ Component, pageProps }: AppProps) {
                     name='twitter:image'
                     content={`/img/android-chrome-192x192.png`}
                 />
-                <meta
-                    property='og:image'
-                    content={`/icons/apple-touch-icon.png`}
-                />
                 <link
                     href={`/icons/favicon-16x16.png`}
                     rel='icon'
@@ -34,8 +30,9 @@ function CustomApp({ Component, pageProps }: AppProps) {
                     sizes='32x32'
                 />
                 <link
-                    rel='apple-touch-icon'
                     href={`/icons/apple-touch-icon.png`}
+                    rel='apple-touch-icon'
+                    type='image/png'
                 />
                 <link rel='icon' href={`/favicon.ico`} />
             </Head>
