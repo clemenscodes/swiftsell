@@ -27,7 +27,7 @@ const withPWA = require('@ducanh2912/next-pwa').default({
     dest: 'public',
     workboxOptions: {
         modifyURLPrefix: {
-            [assetPrefix]: domain,
+            [`${assetPrefix}/public/icons`]: `${domain}/icons`,
         },
     },
 });
