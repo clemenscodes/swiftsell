@@ -5,11 +5,12 @@ const runtimeCaching = require('next-pwa/cache');
 const protocol = 'https';
 const apexDomain = 'swiftsell.de';
 const appName = 'shop';
-const prodDomain = `${appName}.${apexDomain}`;
-const devDomain = `dev.${prodDomain}`;
-const base = `static.${prodDomain}`;
-const devCDN = `dev.${base}`;
-const prodCDN = `${base}`;
+const base = `${appName}.${apexDomain}`;
+const prodDomain = `${protocol}://${base}`;
+const devDomain = `${protocol}://dev.${base}`;
+const staticBase = `static.${prodDomain}`;
+const devCDN = `dev.${staticBase}`;
+const prodCDN = `${staticBase}`;
 const isCloudRunProd = process.env.NEXT_PUBLIC_PROJECT_TYPE === 'production';
 const isCloudRunDev = process.env.NEXT_PUBLIC_PROJECT_TYPE === 'development';
 const isCloudRun = isCloudRunDev || isCloudRunProd;
@@ -26,14 +27,12 @@ const domain = isCloudRun
 const withPWA = require('next-pwa')({
     dest: 'public',
     modifyURLPrefix: {
-        [assetPrefix]: domain,
+        [`${assetPrefix}/icons/apple-touch-icon.png`]: `${domain}/icons/apple-touch-icon.png`,
     },
     cacheStartUrl: false,
     runtimeCaching,
     publicExcludes: ['!icons/apple-touch-icon.png'],
 });
-
-console.log(domain);
 
 /**
  * @type {import('@nrwl/next/plugins/with-nx').WithNxOptions}
