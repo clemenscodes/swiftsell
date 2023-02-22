@@ -25,11 +25,9 @@ const domain = isCloudRun
 
 const withPWA = require('@ducanh2912/next-pwa').default({
     dest: 'public',
-    cacheStartUrl: false,
-    publicExcludes: ['!icons/apple-touch-icon.png'],
     workboxOptions: {
         modifyURLPrefix: {
-            [`${assetPrefix}/icons/apple-touch-icon.png`]: `${domain}/icons/apple-touch-icon.png`,
+            [assetPrefix]: domain,
         },
     },
 });

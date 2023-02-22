@@ -11,7 +11,7 @@ export const config: Config = {
         typescript: { ignoreBuildErrors: false, tsconfigPath: 'tsconfig.json' },
         distDir: './../../dist/apps/web/.next',
         cleanDistDir: true,
-        assetPrefix: 'https://dev.static.https://shop.swiftsell.de',
+        assetPrefix: 'https://dev.static.shop.swiftsell.de',
         configOrigin: 'next.config.js',
         useFileSystemPublicRoutes: true,
         generateEtags: true,
@@ -26,7 +26,10 @@ export const config: Config = {
             path: '/_next/image',
             loader: 'default',
             loaderFile: '',
-            domains: ['dev.static.https', 'dev.static.https'],
+            domains: [
+                'dev.static.shop.swiftsell.de',
+                'dev.static.shop.swiftsell.de',
+            ],
             disableStaticImages: false,
             minimumCacheTTL: 60,
             formats: ['image/webp'],
@@ -36,7 +39,7 @@ export const config: Config = {
             remotePatterns: [
                 {
                     protocol: 'https',
-                    hostname: 'dev.static.https://shop.swiftsell.de',
+                    hostname: 'dev.static.shop.swiftsell.de',
                     port: '443',
                     pathname: '/public/**',
                 },
