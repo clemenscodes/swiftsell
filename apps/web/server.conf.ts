@@ -33,7 +33,14 @@ export const config: Config = {
             dangerouslyAllowSVG: false,
             contentSecurityPolicy:
                 "script-src 'none'; frame-src 'none'; sandbox;",
-            remotePatterns: [],
+            remotePatterns: [
+                {
+                    protocol: 'https',
+                    hostname: 'dev.static.shop.swiftsell.de',
+                    port: '443',
+                    pathname: '/public/**',
+                },
+            ],
             unoptimized: false,
         },
         devIndicators: {
