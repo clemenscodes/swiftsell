@@ -34,14 +34,14 @@ const nextConfig = {
         isrMemoryCacheSize: 0,
     },
     images: {
-        remotePatterns: [
-            {
-                protocol,
-                hostname,
-                port: '443',
-                pathname: '/public/**',
-            },
-        ],
+        // remotePatterns: [
+        //     {
+        //         protocol,
+        //         hostname,
+        //         port: '443',
+        //         pathname: '/public/**',
+        //     },
+        // ],
         unoptimized: false,
     },
     reactStrictMode: true,
