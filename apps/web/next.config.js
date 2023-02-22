@@ -7,6 +7,7 @@ const withPWA = require('next-pwa')({
     skipWaiting: true,
     mode: 'production',
     buildExcludes: [/middleware-manifest.json$/],
+    publicExcludes: ['icons/apple-touch-icon.png'],
 });
 
 const apexDomain = 'swiftsell.de';
