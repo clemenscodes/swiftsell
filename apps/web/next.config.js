@@ -3,11 +3,12 @@ const { withNx } = require('@nrwl/next/plugins/with-nx');
 // const runtimeCaching = require('next-pwa/cache');
 const withPWA = require('next-pwa')({
     dest: 'public',
-    register: true,
-    skipWaiting: true,
+    // register: true,
+    // skipWaiting: true,
     mode: 'production',
-    buildExcludes: [/middleware-manifest.json$/],
-    publicExcludes: ['icons/apple-touch-icon.png'],
+    sw: 'service-worker.js',
+    cacheStartUrl: false,
+    publicExcludes: ['!icons/apple-touch-icon.png'],
 });
 
 const apexDomain = 'swiftsell.de';

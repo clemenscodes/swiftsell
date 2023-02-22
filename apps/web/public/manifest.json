@@ -1,12 +1,10 @@
 {
     "name": "Next.js progressive web app",
     "short_name": "SwiftSell PWA",
-    "splash_pages": null,
     "theme_color": "#ffffff",
     "background_color": "#004740",
     "display": "fullscreen",
     "orientation": "portrait",
-    "scope": "/",
     "start_url": "/",
     "prefer_related_applications": true,
     "icons": [
@@ -19,8 +17,7 @@
         {
             "src": "/img/android-chrome-512x512.png",
             "sizes": "512x512",
-            "type": "image/png",
-            "purpose": "any maskable"
+            "type": "image/png"
         }
     ]
 }

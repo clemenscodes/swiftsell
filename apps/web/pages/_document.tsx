@@ -51,11 +51,33 @@ class MyDocument extends Document {
                     <meta name='twitter:title' content='PWA App' />
                     <meta name='twitter:url' content={DOMAIN} />
                     <meta property='og:url' content={DOMAIN} />
+                    <meta
+                        name='twitter:image'
+                        content='/img/android-chrome-192x192.png'
+                    />
+                    <link
+                        href='/icons/favicon-16x16.png'
+                        rel='icon'
+                        type='image/png'
+                        sizes='16x16'
+                    />
+                    <link
+                        href='/icons/favicon-32x32.png'
+                        rel='icon'
+                        type='image/png'
+                        sizes='32x32'
+                    />
                     <link
                         rel='stylesheet'
                         href='https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=optional'
                     />
                     <link rel='manifest' href='/manifest.json' />
+                    <link
+                        href='/icons/apple-touch-icon.png'
+                        rel='apple-touch-icon'
+                        sizes='180x180'
+                    />
+                    <link rel='icon' href='/favicon.ico' />
                 </Head>
                 <body>
                     <Main />

@@ -31,7 +31,7 @@ nx format
 echo "Patching config"
 
 sed -i '/trustHostHeader: false/d' $CONFIG
-sed -i "/domains: '.*'/d" $CONFIG
+# sed -i "/domains: /d" $CONFIG
 sed -i "s|outputFileTracingRoot: '.*'|outputFileTracingRoot: join(__dirname, '../../')|" $CONFIG
 
 echo "Building server with patched config"
