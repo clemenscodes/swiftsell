@@ -20,4 +20,7 @@ yarn-error.log
 **/plan.tfplan
 **/node_modules
 apps/web/public/*
-!apps/web/public/.gitkeep
+!apps/web/public/favicon.ico
+!apps/web/public/manifest.json
+!apps/web/public/robots.txt
+**/tmp

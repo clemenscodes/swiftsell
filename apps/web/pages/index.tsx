@@ -3,12 +3,13 @@
 import path from 'path';
 path.resolve('./next.config.js');
 
-import { Home } from '@shared';
+import { Home, Pwa } from '@shared';
 
 export function Index() {
     return (
         <>
             <Home></Home>
+            <Pwa />
         </>
     );
 }

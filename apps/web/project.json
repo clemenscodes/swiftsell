@@ -30,8 +30,7 @@
             "executor": "@nrwl/next:server",
             "defaultConfiguration": "development",
             "options": {
-                "buildTarget": "web:build",
-                "dev": true
+                "buildTarget": "web:build:production"
             },
             "configurations": {
                 "development": {
@@ -106,6 +105,27 @@
                     "command": "apps/web/scripts/deploy.sh production"
                 }
             }
+        },
+        "build-custom-server": {
+            "executor": "@nrwl/js:tsc",
+            "defaultConfiguration": "production",
+            "options": {
+                "outputPath": "dist/apps/web/.next/standalone/apps/web/server",
+                "main": "apps/web/server.ts",
+                "tsConfig": "apps/web/tsconfig.server.json",
+                "clean": false,
+                "assets": []
+            },
+            "configurations": {
+                "development": {},
+                "production": {}
+            }
+        },
+        "server": {
+            "command": "apps/web/scripts/server.sh"
+        },
+        "serve": {
+            "command": "apps/web/scripts/standalone.sh"
         }
     },
     "implicitDependencies": [

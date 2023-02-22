@@ -1,76 +1,85 @@
-// const {
-//     PHASE_DEVELOPMENT_SERVER,
-//     PHASE_DEVELOPMENT_BUILD,
-//     PHASE_PRODUCTION_SERVER,
-//     PHASE_PRODUCTION_BUILD,
-// } = require('next/constants');
 const { join } = require('path');
 const { withNx } = require('@nrwl/next/plugins/with-nx');
 
+const protocol = 'https';
 const apexDomain = 'swiftsell.de';
 const appName = 'shop';
-const prodCDN = `https://static.${appName}.${apexDomain}`;
-const devCDN = `https://dev.static.${appName}.${apexDomain}`;
+const base = `${appName}.${apexDomain}`;
+const prodDomain = `${protocol}://${base}`;
+const devDomain = `${protocol}://dev.${base}`;
+const staticBase = `static.${base}`;
+const devCDN = `dev.${staticBase}`;
+const prodCDN = `${staticBase}`;
 const isCloudRunProd = process.env.NEXT_PUBLIC_PROJECT_TYPE === 'production';
 const isCloudRunDev = process.env.NEXT_PUBLIC_PROJECT_TYPE === 'development';
 const isCloudRun = isCloudRunDev || isCloudRunProd;
-const cloudRunAssetPrefix = isCloudRunProd ? prodCDN : devCDN;
-const assetPrefix = isCloudRun ? cloudRunAssetPrefix : undefined;
+const hostname = isCloudRunProd ? prodCDN : devCDN;
+const assetPrefix = isCloudRun ? `${protocol}://${hostname}` : undefined;
+const PORT = process.env.PORT || 3000;
+const localDomain = `http://localhost:${PORT}`;
+const domain = isCloudRun
+    ? isCloudRunProd
+        ? prodDomain
+        : devDomain
+    : localDomain;
 
-module.exports = (phase) => {
-    // const isDevServer = phase === PHASE_DEVELOPMENT_SERVER;
-    // const isDevBuild = phase === PHASE_DEVELOPMENT_BUILD;
-    // const isProdServer = phase === PHASE_PRODUCTION_SERVER;
-    // const isProdBuild = phase === PHASE_PRODUCTION_BUILD;
+const withPWA = require('next-pwa')({
+    dest: 'public',
+    exclude: [
+        ({ asset }) =>
+            asset.name.startsWith('public/') ||
+            asset.name.startsWith('server/') ||
+            asset.name.startsWith('static/') ||
+            asset.name.match(
+                /^((app-|^)build-manifest\.json|react-loadable-manifest\.json)$/
+            ),
+    ],
+    modifyURLPrefix: {
+        [assetPrefix]: domain,
+    },
+});
 
-    // if (isDevBuild) console.log({ isDevBuild });
-    // if (isDevServer) console.log({ isDevServer });
-    // if (isProdBuild) console.log({ isProdBuild });
-    // if (isProdServer) console.log({ isProdServer });
-
-    // const env = {
-    //     NEXT_PUBLIC_PROJECT_TYPE: (() => {
-    //         if (isProdServer && isCloudRun) {
-    //             console.log(process.env.NEXT_PUBLIC_PROJECT_TYPE);
-    //             return process.env.NEXT_PUBLIC_PROJECT_TYPE;
-    //         }
-    //         return;
-    //     })(),
-    // };
-
-    /**
-     * @type {import('@nrwl/next/plugins/with-nx').WithNxOptions}
-     **/
-    const nextConfig = {
-        // env,
-        assetPrefix,
-        output: 'standalone',
-        swcMinify: true,
-        experimental: {
-            outputFileTracingRoot: join(__dirname, '../../'),
-            isrMemoryCacheSize: 0,
-        },
-        images: {
-            unoptimized: true,
-        },
-        reactStrictMode: true,
-        nx: {
-            // Set this to true if you would like to to use SVGR
-            // See: https://github.com/gregberge/svgr
-            svgr: true,
-        },
-        webpack(config) {
-            config.module.rules.push({
-                test: /index\.(js|mjs|jsx|ts|tsx)$/,
-                sideEffects: false,
-            });
-            config.module.rules.push({
-                test: /\.svg$/i,
-                issuer: /\.[jt]sx?$/,
-                use: ['@svgr/webpack'],
-            });
-            return config;
-        },
-    };
-    return withNx(nextConfig);
+/**
+ * @type {import('@nrwl/next/plugins/with-nx').WithNxOptions}
+ **/
+const nextConfig = {
+    assetPrefix,
+    output: 'standalone',
+    swcMinify: true,
+    experimental: {
+        outputFileTracingRoot: join(__dirname, '../../'),
+        isrMemoryCacheSize: 0,
+    },
+    images: {
+        remotePatterns: [
+            {
+                protocol,
+                hostname,
+                port: '443',
+                pathname: '/public/**',
+            },
+        ],
+        unoptimized: false,
+    },
+    reactStrictMode: true,
+    nx: {
+        // Set this to true if you would like to to use SVGR
+        // See: https://github.com/gregberge/svgr
+        svgr: true,
+    },
+    webpack(config) {
+        config.module.rules.push({
+            test: /index\.(js|mjs|jsx|ts|tsx)$/,
+            sideEffects: false,
+        });
+        config.module.rules.push({
+            test: /\.svg$/i,
+            issuer: /\.[jt]sx?$/,
+            use: ['@svgr/webpack'],
+        });
+        return config;
+    },
 };
+
+const conf = withPWA(withNx(nextConfig));
+module.exports = conf;

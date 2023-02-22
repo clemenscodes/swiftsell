@@ -10,7 +10,9 @@
                     "test",
                     "e2e",
                     "docker",
-                    "deploy"
+                    "deploy",
+                    "build-custom-server",
+                    "server"
                 ],
                 "accessToken": "MjA0MWE2MTYtNjNlOC00NTc4LWI0MDYtZGEzOTBkMDY5MTMxfHJlYWQ="
             }

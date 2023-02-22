@@ -4,7 +4,7 @@ set -eo pipefail
 BUCKET_ADDRESS="$(gsutil ls | grep isr)"
 BUCKET="$(echo "$BUCKET_ADDRESS" | awk -F '/' '{print $3}')"
 CONTAINER_PAGES="$APP_HOME/dist/$APP_DIR/.next/server/pages"
-SERVER="$APP_HOME/$APP_DIR/server.js"
+SERVER="$APP_HOME/$APP_DIR/main.js"
 MNT_DIR="$APP_HOME/gcsfuse"
 
 sync() {
@@ -52,8 +52,7 @@ start_nextjs_app
 while true; do
     sync "$CONTAINER_PAGES" "$BUCKET_ADDRESS"
     sync "$BUCKET_ADDRESS" "$CONTAINER_PAGES"
-    echo "$NEXT_PUBLIC_PROJECT_TYPE"
-    sleep 1
+    sleep 5
 done &
 
 # Exit immediately when one of the background processes terminate.

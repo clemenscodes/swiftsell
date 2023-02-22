@@ -4,7 +4,8 @@
 .nx-container
 .storybook
 .vscode
-node_modules
+node_modules/
+!node_modules/tslib
 .commitlintrc.js
 .czrc
 .dockerignore
