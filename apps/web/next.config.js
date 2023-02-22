@@ -1,6 +1,5 @@
 const { join } = require('path');
 const { withNx } = require('@nrwl/next/plugins/with-nx');
-const runtimeCaching = require('next-pwa/cache');
 
 const protocol = 'https';
 const apexDomain = 'swiftsell.de';
@@ -24,14 +23,15 @@ const domain = isCloudRun
         : devDomain
     : localDomain;
 
-const withPWA = require('next-pwa')({
+const withPWA = require('@ducanh2912/next-pwa').default({
     dest: 'public',
-    modifyURLPrefix: {
-        [`${assetPrefix}/icons/apple-touch-icon.png`]: `${domain}/icons/apple-touch-icon.png`,
-    },
     cacheStartUrl: false,
-    runtimeCaching,
     publicExcludes: ['!icons/apple-touch-icon.png'],
+    workboxOptions: {
+        modifyURLPrefix: {
+            [`${assetPrefix}/icons/apple-touch-icon.png`]: `${domain}/icons/apple-touch-icon.png`,
+        },
+    },
 });
 
 /**

@@ -36,7 +36,7 @@ export const config: Config = {
             remotePatterns: [
                 {
                     protocol: 'https',
-                    hostname: 'dev.static.shop.swiftsell.de',
+                    hostname: 'dev.static.https://shop.swiftsell.de',
                     port: '443',
                     pathname: '/public/**',
                 },
