@@ -23,12 +23,11 @@ const domain = isCloudRun
         : devDomain
     : localDomain;
 
-const withPWA = require('@ducanh2912/next-pwa').default({
+const withPWA = require('next-pwa')({
     dest: 'public',
-    workboxOptions: {
-        modifyURLPrefix: {
-            [`${assetPrefix}/public/icons`]: `${domain}/icons`,
-        },
+    exclude: [({ asset }) => asset.name.startsWith('public/')],
+    modifyURLPrefix: {
+        [assetPrefix]: domain,
     },
 });
 

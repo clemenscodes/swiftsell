@@ -16,7 +16,6 @@
     },
     "private": true,
     "dependencies": {
-        "@ducanh2912/next-pwa": "^8.0.0",
         "@nrwl/next": "15.7.2",
         "@swc/helpers": "~0.4.11",
         "class-variance-authority": "^0.4.0",

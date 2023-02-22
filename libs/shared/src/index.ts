@@ -1,3 +1,4 @@
+export * from './components/pwa/pwa';
 export * from './pages/contact/contact';
 export * from './pages/about/about';
 export * from './components/navbar/navbar';
