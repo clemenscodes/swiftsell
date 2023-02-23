@@ -5,7 +5,7 @@ import { usePrefixStore } from '@redux';
 import { usePrefix } from '@hooks';
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
-    usePrefixStore.setState({ prefix: usePrefix() });
+    usePrefixStore.setState({ prefix: usePrefix().prefix });
     return (
         <>
             <Head>
