@@ -16,6 +16,7 @@
         "baseUrl": ".",
         "paths": {
             "@config": ["libs/config/src/index.ts"],
+            "@db": ["libs/db/src/index.ts"],
             "@hooks": ["libs/hooks/src/index.ts"],
             "@redux": ["libs/redux/src/index.ts"],
             "@shared": ["libs/shared/src/index.ts"],
