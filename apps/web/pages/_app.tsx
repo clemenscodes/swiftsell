@@ -3,7 +3,7 @@ import Head from 'next/head';
 import '../global.css';
 import { usePrefixStore, usePrefix } from '@shared';
 
-function CustomApp({ Component, pageProps }: AppProps) {
+const App: React.FC<AppProps> = ({ Component, pageProps }) => {
     usePrefixStore.setState({ prefix: usePrefix() });
     return (
         <>
@@ -17,6 +17,6 @@ function CustomApp({ Component, pageProps }: AppProps) {
             <Component {...pageProps} />
         </>
     );
-}
+};
 
-export default CustomApp;
+export default App;

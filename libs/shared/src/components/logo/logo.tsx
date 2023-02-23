@@ -3,7 +3,7 @@ import Image from 'next/image';
 /* eslint-disable-next-line */
 export interface LogoProps {}
 
-export function Logo(props: LogoProps) {
+export const Logo: React.FC<LogoProps> = ({ ...props }) => {
     const url = `/svg/default.svg`;
     return (
         <Image
@@ -15,6 +15,6 @@ export function Logo(props: LogoProps) {
             quality={100}
         />
     );
-}
+};
 
 export default Logo;

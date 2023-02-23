@@ -5,7 +5,7 @@ import Logo from '../logo/logo';
 /* eslint-disable-next-line */
 export interface NavbarProps {}
 
-export function Navbar(props: NavbarProps) {
+export const Navbar: React.FC<NavbarProps> = ({ ...props }) => {
     const [isOpen, setIsOpen] = useState(false);
     const router = useRouter();
 
@@ -159,6 +159,6 @@ export function Navbar(props: NavbarProps) {
             </div>
         </nav>
     );
-}
+};
 
 export default Navbar;

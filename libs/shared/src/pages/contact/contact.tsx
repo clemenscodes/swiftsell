@@ -1,9 +1,10 @@
 import Navbar from '../../components/navbar/navbar';
+import { NextPage } from 'next';
 
 /* eslint-disable-next-line */
 export interface ContactProps {}
 
-export function Contact(props: ContactProps) {
+export const Contact: NextPage<ContactProps> = ({ ...props }) => {
     return (
         <>
             <Navbar />
@@ -12,6 +13,6 @@ export function Contact(props: ContactProps) {
             </div>
         </>
     );
-}
+};
 
 export default Contact;

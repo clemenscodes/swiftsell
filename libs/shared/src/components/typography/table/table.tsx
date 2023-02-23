@@ -1,7 +1,7 @@
 /* eslint-disable-next-line */
 export interface TableProps {}
 
-export function Table(props: TableProps) {
+export const Table: React.FC<TableProps> = ({ ...props }) => {
     return (
         <div className='my-6 w-full overflow-y-auto'>
             <table className='w-full'>
@@ -44,6 +44,6 @@ export function Table(props: TableProps) {
             </table>
         </div>
     );
-}
+};
 
 export default Table;

@@ -4,14 +4,15 @@ import path from 'path';
 path.resolve('./next.config.js');
 
 import { Home, Pwa } from '@shared';
+import { NextPage } from 'next';
 
-export function Index() {
+export const Index: NextPage = () => {
     return (
         <>
             <Home></Home>
             <Pwa />
         </>
     );
-}
+};
 
 export default Index;

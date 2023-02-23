@@ -1,7 +1,7 @@
 /* eslint-disable-next-line */
 export interface ListProps {}
 
-export function List(props: ListProps) {
+export const List: React.FC<ListProps> = ({ ...props }) => {
     return (
         <ul className='my-6 ml-6 list-disc [&>li]:mt-2'>
             <li>1st level of puns: 5 gold coins</li>
@@ -9,6 +9,6 @@ export function List(props: ListProps) {
             <li>3rd level of one-liners: 20 gold coins</li>
         </ul>
     );
-}
+};
 
 export default List;
