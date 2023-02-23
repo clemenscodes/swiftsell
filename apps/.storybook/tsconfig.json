@@ -18,5 +18,11 @@
         "../../node_modules/@nrwl/react/typings/cssmodule.d.ts",
         "../../node_modules/@nrwl/react/typings/image.d.ts"
     ],
-    "include": ["**/*.ts", "../../.storybook/main.ts", "preview.ts", "../../libs/**/*.ts", "../../libs/**/*.tsx"]
+    "include": [
+        "**/*.ts",
+        "../../.storybook/main.ts",
+        "preview.ts",
+        "../../libs/**/*.ts",
+        "../../libs/**/*.tsx"
+    ]
 }
