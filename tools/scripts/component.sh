@@ -2,6 +2,7 @@
 
 pwd=$(pwd)
 lib="$pwd/libs/shared/src"
+scripts="$pwd/tools/scripts"
 
 component="$1"
 directory="$2"
@@ -38,3 +39,5 @@ use_ts() {
 }
 
 use_ts
+
+"$scripts/use_cn.sh" "$component" "$directory"

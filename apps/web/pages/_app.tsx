@@ -1,7 +1,8 @@
-import { AppProps } from 'next/app';
-import Head from 'next/head';
 import '../global.css';
-import { usePrefixStore, usePrefix } from '@shared';
+import Head from 'next/head';
+import { AppProps } from 'next/app';
+import { usePrefixStore } from '@redux';
+import { usePrefix } from '@hooks';
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
     usePrefixStore.setState({ prefix: usePrefix() });

@@ -12,7 +12,6 @@ else
     directory="components/$2"
 fi
 
-
 path="$directory/$component/$component"
 file="$path.tsx"
 tsx="$lib/$file"

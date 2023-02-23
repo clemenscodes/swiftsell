@@ -2,6 +2,8 @@
 
 pwd=$(pwd)
 lib="$pwd/libs/shared/src"
+scripts="$pwd/tools/scripts"
+
 page="$1"
 directory="$2"
 
@@ -36,3 +38,5 @@ use_ts() {
 }
 
 use_ts
+
+"$scripts/use_cn.sh" "$page" "$directory"

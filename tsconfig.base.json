@@ -15,7 +15,10 @@
         "skipDefaultLibCheck": true,
         "baseUrl": ".",
         "paths": {
+            "@hooks": ["libs/hooks/src/index.ts"],
+            "@redux": ["libs/redux/src/index.ts"],
             "@shared": ["libs/shared/src/index.ts"],
+            "@styles": ["libs/styles/src/index.ts"],
             "@utils": ["libs/utils/src/index.ts"],
             "test": ["libs/test/src/index.ts"]
         }
