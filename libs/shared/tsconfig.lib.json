@@ -25,7 +25,7 @@
         "src/**/*.ts",
         "src/**/*.tsx",
         "../styles/src/cn.ts",
-        "../hooks/src/lib/usePrefix.tsx",
-        "../redux/src/lib/usePrefixStore.tsx"
+        "../hooks/src/usePrefix.tsx",
+        "../redux/src/usePrefixStore.tsx"
     ]
 }

@@ -1,1 +1,1 @@
-export * from './lib/usePrefixStore';
+export * from './usePrefixStore';

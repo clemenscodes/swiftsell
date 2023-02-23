@@ -6,7 +6,7 @@ import Document, {
     NextScript,
 } from 'next/document';
 
-const DOMAIN = 'https://shop.swiftsell.de';
+import { DOMAIN } from '@config';
 
 class MyDocument extends Document {
     static async getInitialProps(ctx: DocumentContext) {
