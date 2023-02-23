@@ -1,17 +1,19 @@
+import { cn } from '@styles';
 import Navbar from '../../components/navbar/navbar';
+import { NextPage } from 'next';
 
 /* eslint-disable-next-line */
 export interface ContactProps {}
 
-export function Contact(props: ContactProps) {
+export const Contact: NextPage<ContactProps> = ({ ...props }) => {
     return (
         <>
             <Navbar />
-            <div>
+            <div className={cn([])}>
                 <h1>Welcome to Contact!</h1>
             </div>
         </>
     );
-}
+};
 
 export default Contact;

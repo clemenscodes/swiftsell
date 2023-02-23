@@ -7,7 +7,10 @@ declare global {
     }
 }
 
-export function Pwa() {
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface PwaProps {}
+
+export const Pwa: React.FC<PwaProps> = ({ ...props }) => {
     useEffect(() => {
         if ('serviceWorker' in navigator && window.workbox !== undefined) {
             const wb = window.workbox;
@@ -53,5 +56,5 @@ export function Pwa() {
         }
     }, []);
     return null;
-}
+};
 export default Pwa;

@@ -17,6 +17,7 @@
     "private": true,
     "dependencies": {
         "@nrwl/next": "15.7.2",
+        "@reduxjs/toolkit": "1.9.0",
         "@swc/helpers": "~0.4.11",
         "class-variance-authority": "^0.4.0",
         "clsx": "^1.2.1",
@@ -25,8 +26,10 @@
         "next-pwa": "^5.6.0",
         "react": "18.2.0",
         "react-dom": "18.2.0",
+        "react-redux": "8.0.5",
         "tailwind-merge": "^1.9.1",
         "tailwindcss-animate": "^1.0.5",
+        "tslib": "^2.3.0",
         "zustand": "^4.3.3"
     },
     "devDependencies": {
@@ -42,7 +45,6 @@
         "@nrwl/jest": "15.7.2",
         "@nrwl/js": "15.7.2",
         "@nrwl/linter": "15.7.2",
-        "@nrwl/nest": "^15.7.2",
         "@nrwl/node": "15.7.2",
         "@nrwl/nx-cloud": "15.1.0-beta.3",
         "@nrwl/react": "15.7.2",
