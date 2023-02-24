@@ -6,13 +6,6 @@ import { usePrefix } from '@hooks';
 import { ThemeProvider } from 'next-themes';
 import { TailwindIndicator } from '@shared';
 import Script from 'next/script';
-import { Inter as FontSans } from '@next/font/google';
-
-const fontSans = FontSans({
-    subsets: ['latin'],
-    variable: '--font-sans',
-    display: 'swap',
-});
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
     usePrefix().getPrefix();
@@ -26,11 +19,6 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
                     name='viewport'
                     content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=5,user-scalable=yes,viewport-fit=cover'
                 />
-                <style jsx global>{`
-				    :root {
-				    	--font-sans: ${fontSans.style.fontFamily};
-				    }
-			    }`}</style>
             </Head>
             <Script src={`${prefix}/__ENV.js`}></Script>
             <ThemeProvider attribute='class' defaultTheme='system' enableSystem>

@@ -4,7 +4,6 @@ export * from './components/dropdown-menu/dropdown-menu';
 export * from './components/icons/icons';
 export * from './components/button/button';
 export * from './components/mode-toggle/mode-toggle';
-export * from './components/fonts/fonts';
 export * from './components/tailwind-indicator/tailwind-indicator';
 export * from './components/set-theme/set-theme';
 export * from './pages/login/login';
