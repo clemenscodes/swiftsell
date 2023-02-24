@@ -21,9 +21,7 @@ interface MainNavProps {
 export function Navbar({ items }: MainNavProps) {
     return (
         <div className='flex gap-6 md:gap-10'>
-            <Link href='/' className='hidden items-center space-x-2 md:flex'>
-                <Logo />
-            </Link>
+            <Logo />
             {items?.length ? (
                 <nav className='hidden gap-6 md:flex'>
                     {items?.map(

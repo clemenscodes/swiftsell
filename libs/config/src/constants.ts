@@ -1,15 +1,14 @@
 import { NavItem } from '@types';
 
-export const DOMAIN = 'https://shop.swiftsell.de';
-export const NAME = 'SWIFTSELL';
-
 interface SiteConfig {
+    domain: string;
     name: string;
     description: string;
     navbar: NavItem[];
 }
 
 export const siteConfig: SiteConfig = {
+    domain: 'https://shop.swiftsell.de',
     name: 'SWIFTSELL',
     description: 'Sell swiftly',
     navbar: [],

@@ -1,4 +1,3 @@
-export * from './components/layout/layout';
 export * from './components/header/header';
 export * from './components/dropdown-menu/dropdown-menu';
 export * from './components/icons/icons';

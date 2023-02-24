@@ -1,16 +1,18 @@
 import { useState, useCallback } from 'react';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface UsePrefix {
     prefix: string;
     getPrefix: () => void;
 }
 
-export const usePrefix = (domain = 'shop.swiftsell.de') => {
+export const usePrefix: (domain?: string) => UsePrefix = (
+    domain = 'shop.swiftsell.de'
+) => {
     const [prefix, setPrefix] = useState('');
 
     const getPrefix = useCallback(() => {
         if (typeof window !== 'undefined') {
+            console.log('running');
             const hostname = window.location.hostname;
             const devDomain = `dev.${domain}`;
             const prodCDN = `https://static.${domain}/public`;

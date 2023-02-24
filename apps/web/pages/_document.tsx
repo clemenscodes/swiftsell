@@ -6,7 +6,8 @@ import Document, {
     NextScript,
 } from 'next/document';
 
-import { DOMAIN } from '@config';
+import { siteConfig } from '@config';
+
 class MyDocument extends Document {
     static async getInitialProps(ctx: DocumentContext) {
         const initialProps = await Document.getInitialProps(ctx);
@@ -48,8 +49,8 @@ class MyDocument extends Document {
                     <meta name='theme-color' content='#000000' />
                     <meta name='twitter:card' content='summary' />
                     <meta name='twitter:title' content='PWA App' />
-                    <meta name='twitter:url' content={DOMAIN} />
-                    <meta property='og:url' content={DOMAIN} />
+                    <meta name='twitter:url' content={siteConfig.domain} />
+                    <meta property='og:url' content={siteConfig.domain} />
                     <meta
                         name='twitter:image'
                         content='/img/android-chrome-192x192.png'
