@@ -3,15 +3,15 @@
 import path from 'path';
 path.resolve('./next.config.js');
 
-import { Home, Pwa } from '@shared';
+import { Home, Layout, Pwa } from '@shared';
 import { NextPage } from 'next';
 
 export const Index: NextPage = () => {
     return (
-        <>
+        <Layout>
             <Home></Home>
             <Pwa />
-        </>
+        </Layout>
     );
 };
 

@@ -15,6 +15,7 @@ const config: StorybookConfig = {
         ...(rootMain.addons || []),
         '@nrwl/react/plugins/storybook',
         'storybook-addon-swc',
+        'storybook-tailwind-dark-mode',
         {
             name: 'storybook-addon-next',
             options: {
