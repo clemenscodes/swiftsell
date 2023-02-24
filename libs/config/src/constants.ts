@@ -12,10 +12,5 @@ interface SiteConfig {
 export const siteConfig: SiteConfig = {
     name: 'SWIFTSELL',
     description: 'Sell swiftly',
-    navbar: [
-        {
-            title: 'Home',
-            href: '/',
-        },
-    ],
+    navbar: [],
 };

@@ -5,7 +5,6 @@ export * from './components/icons/icons';
 export * from './components/button/button';
 export * from './components/mode-toggle/mode-toggle';
 export * from './components/tailwind-indicator/tailwind-indicator';
-export * from './components/set-theme/set-theme';
 export * from './pages/login/login';
 export * from './components/login-button/login-button';
 export * from './components/pwa/pwa';

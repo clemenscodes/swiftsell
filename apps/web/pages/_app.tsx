@@ -1,11 +1,12 @@
 import '../global.css';
 import Head from 'next/head';
+import Script from 'next/script';
 import { AppProps } from 'next/app';
 import { usePrefixStore } from '@redux';
 import { usePrefix } from '@hooks';
 import { ThemeProvider } from 'next-themes';
 import { TailwindIndicator } from '@shared';
-import Script from 'next/script';
+import { siteConfig } from '@config';
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
     usePrefix().getPrefix();
@@ -14,7 +15,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
     return (
         <>
             <Head>
-                <title>SwiftSell</title>
+                <title>{siteConfig.name}</title>
                 <meta
                     name='viewport'
                     content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=5,user-scalable=yes,viewport-fit=cover'
