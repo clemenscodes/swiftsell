@@ -24,3 +24,4 @@ apps/web/public/*
 !apps/web/public/manifest.json
 !apps/web/public/robots.txt
 **/tmp
+**/.env**

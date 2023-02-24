@@ -4,7 +4,23 @@
     "sourceRoot": "apps/web",
     "projectType": "application",
     "targets": {
+        "env": {
+            "executor": "nx:run-commands",
+            "defaultConfiguration": "development",
+            "options": {
+                "cwd": "apps/web"
+            },
+            "configurations": {
+                "development": {
+                    "command": "react-env -p config/.env.development --prefix=NEXT_PUBLIC"
+                },
+                "production": {
+                    "command": "react-env -p config/.env.production --prefix=NEXT_PUBLIC"
+                }
+            }
+        },
         "build": {
+            "dependsOn": ["env"],
             "executor": "@nrwl/next:build",
             "outputs": ["{options.outputPath}"],
             "defaultConfiguration": "production",
@@ -27,6 +43,7 @@
             }
         },
         "start": {
+            "dependsOn": ["build"],
             "executor": "@nrwl/next:server",
             "defaultConfiguration": "development",
             "options": {

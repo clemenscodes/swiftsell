@@ -1708,7 +1708,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@beam-australia/react-env@npm:^3.1.1":
+"@beam-australia/react-env@npm:3.1.1":
   version: 3.1.1
   resolution: "@beam-australia/react-env@npm:3.1.1"
   dependencies:
@@ -1719,6 +1719,20 @@ __metadata:
   bin:
     react-env: dist/cli.js
   checksum: b4af51bf68bd74a54d8fc630ed9d4ef0ebd009df17a1879c1bfde8b0d05e9a3e35945524cb5f10894b6aa111d628868d367f5d25805feecaad289d518d708a4f
+  languageName: node
+  linkType: hard
+
+"@beam-australia/react-env@patch:@beam-australia/react-env@npm%3A3.1.1#./.yarn/patches/@beam-australia-react-env-npm-3.1.1-49b685e963.patch::locator=swiftsell%40workspace%3A.":
+  version: 3.1.1
+  resolution: "@beam-australia/react-env@patch:@beam-australia/react-env@npm%3A3.1.1#./.yarn/patches/@beam-australia-react-env-npm-3.1.1-49b685e963.patch::version=3.1.1&hash=4f6955&locator=swiftsell%40workspace%3A."
+  dependencies:
+    cross-spawn: ^6.0.5
+    dotenv: ^8.0.0
+    dotenv-expand: ^5.1.0
+    minimist: ^1.2.0
+  bin:
+    react-env: dist/cli.js
+  checksum: cb4bf79d783d2ea97265c3f6f201e2abd9412126915ab3feeaf21d01cb9fc856bf3e2430059451c02b7a4d41b1e57d9e74d890629c4c08e49fd0b2388b5f0577
   languageName: node
   linkType: hard
 

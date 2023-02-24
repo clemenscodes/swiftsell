@@ -1,0 +1,11 @@
+diff --git a/dist/types.d.ts b/dist/types.d.ts
+index 6e1a9d20b9baf4704efb5aae4e130d2863f8c8d5..a6379fcb78ee2b1e7d44044817770b9c9708e780 100644
+--- a/dist/types.d.ts
++++ b/dist/types.d.ts
+@@ -1,4 +1,4 @@
+ declare module "@beam-australia/react-env" {
+-    function env(key: string): string
+-    export = env
++    function env(key?: string): string | undefined;
++    export = env;
+ }

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Logo from '../logo/logo';
-import  env from '@beam-australia/react-env';
+import env from '@beam-australia/react-env';
 
 /* eslint-disable-next-line */
 export interface NavbarProps {}
