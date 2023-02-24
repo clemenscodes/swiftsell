@@ -7,6 +7,7 @@
                 "cacheableOperations": [
                     "lint",
                     "build",
+                    "env",
                     "test",
                     "e2e",
                     "docker",
