@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Logo from '../logo/logo';
+import  env from '@beam-australia/react-env';
+
 /* eslint-disable-next-line */
 export interface NavbarProps {}
 
@@ -15,6 +17,9 @@ export const Navbar: React.FC<NavbarProps> = ({ ...props }) => {
 
     return (
         <nav className='bg-white shadow'>
+            <div>
+                <pre>{JSON.stringify(env(), null, 2)}</pre>
+            </div>
             <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
                 <div className='flex justify-between h-16'>
                     <div className='flex-shrink-0 flex items-center'>

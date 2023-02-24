@@ -16,6 +16,7 @@
     },
     "private": true,
     "dependencies": {
+        "@beam-australia/react-env": "^3.1.1",
         "@nrwl/next": "15.7.2",
         "@reduxjs/toolkit": "1.9.0",
         "@supabase/supabase-js": "^2.8.0",
@@ -27,6 +28,7 @@
         "next-pwa": "^5.6.0",
         "react": "18.2.0",
         "react-dom": "18.2.0",
+        "react-env": "^0.0.0",
         "react-redux": "8.0.5",
         "tailwind-merge": "^1.9.1",
         "tailwindcss-animate": "^1.0.5",
