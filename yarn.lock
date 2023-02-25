@@ -2845,10 +2845,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/font@npm:^13.2.1":
-  version: 13.2.1
-  resolution: "@next/font@npm:13.2.1"
-  checksum: 6231ca2d3fc887c0dd4e25ae8cebb090c477c6fc980b96b56f43b2ad6b989c9f588490ae680fc578b5584ae3b18a40d129c27b642afe9cfc4a953ea43145b1ee
+"@next/font@npm:13.1.1":
+  version: 13.1.1
+  resolution: "@next/font@npm:13.1.1"
+  checksum: 468a77d3a6db4a95ece3cc99c28dcaaf6135354ad81c3954a08a6c7d977693d7b7f07ff835b972a80d25794b711d6cb6545ea55fe6bed4c624346f3524061d19
   languageName: node
   linkType: hard
 
@@ -23046,7 +23046,7 @@ __metadata:
     "@commitlint/config-nx-scopes": ^17.4.3
     "@ianvs/prettier-plugin-sort-imports": ^3.7.1
     "@jscutlery/semver": ^2.30.1
-    "@next/font": ^13.2.1
+    "@next/font": 13.1.1
     "@next/plugin-storybook": ^13.1.6
     "@nrwl/cypress": 15.7.2
     "@nrwl/esbuild": 15.7.2

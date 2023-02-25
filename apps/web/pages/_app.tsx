@@ -1,7 +1,7 @@
 import '../global.css';
 import { siteConfig } from '@config';
 import { usePrefix } from '@hooks';
-import { Roboto_Condensed as FontSans } from '@next/font/google';
+import localFont from '@next/font/local';
 import { usePrefixStore } from '@redux';
 import { Header, TailwindIndicator } from '@shared';
 import { ThemeProvider } from 'next-themes';
@@ -9,10 +9,9 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import Script from 'next/script';
 
-const fontSans = FontSans({
-    preload: false,
+const fontSans = localFont({
+    src: '../public/fonts/RobotoCondensed-Regular.ttf',
     weight: '300',
-    subsets: ['latin'],
     variable: '--font-sans',
     display: 'swap',
 });
