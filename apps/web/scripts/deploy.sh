@@ -44,9 +44,9 @@ deploy() {
         remote_plan "$CONFIG"
     fi
     rm "$TF_DIR/$PLAN"
-    upload_assets_to_cdn
+    # upload_assets_to_cdn
     cleanup
-    generate_cdn_dns_entry
+    # generate_cdn_dns_entry
     generate_domain_mapping_dns_entry
 }
 

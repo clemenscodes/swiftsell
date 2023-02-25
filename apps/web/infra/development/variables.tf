@@ -22,24 +22,6 @@ variable "isr_bucket" {
   default     = "swiftsell-development-isr"
 }
 
-variable "cdn_bucket" {
-  description = "The name of the cdn bucket that will be created"
-  type        = string
-  default     = "swiftsell-development-cdn"
-}
-
-variable "cdn_subdomain" {
-  description = "The subdomain that will be used for the CDN"
-  type        = string
-  default     = "dev.static.shop"
-}
-
-variable "cdn_region" {
-  description = "The region in which the CDN will be created"
-  type        = string
-  default     = "europe-west1"
-}
-
 variable "repository_id" {
   description = "The name that should be used for the Artifact Repository in which the Docker images will be hosted"
   type        = string
@@ -74,3 +56,21 @@ variable "git_commit_sha" {
   description = "The git commit which will be used as the tag for the image"
   type        = string
 }
+
+# variable "cdn_bucket" {
+#   description = "The name of the cdn bucket that will be created"
+#   type        = string
+#   default     = "swiftsell-development-cdn"
+# }
+
+# variable "cdn_subdomain" {
+#   description = "The subdomain that will be used for the CDN"
+#   type        = string
+#   default     = "dev.static.shop"
+# }
+
+# variable "cdn_region" {
+#   description = "The region in which the CDN will be created"
+#   type        = string
+#   default     = "europe-west1"
+# }

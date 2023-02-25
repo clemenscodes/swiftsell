@@ -20,9 +20,9 @@ module "app" {
   repository_id   = var.repository_id
   git_commit_sha  = var.git_commit_sha
   isr_bucket      = var.isr_bucket
-  cdn_bucket      = var.cdn_bucket
-  cdn_region      = var.cdn_region
-  cdn_subdomain   = var.cdn_subdomain
+#   cdn_bucket      = var.cdn_bucket
+#   cdn_region      = var.cdn_region
+#   cdn_subdomain   = var.cdn_subdomain
 }
 
 module "run" {

@@ -43,7 +43,7 @@ const withPWA = require('next-pwa')({
  * @type {import('@nrwl/next/plugins/with-nx').WithNxOptions}
  **/
 const nextConfig = {
-    assetPrefix,
+    // assetPrefix,
     output: 'standalone',
     swcMinify: true,
     experimental: {

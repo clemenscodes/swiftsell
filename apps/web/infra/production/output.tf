@@ -2,10 +2,6 @@ output "url" {
   value = module.run.url
 }
 
-output "ip" {
-  value = module.app.ip
-}
-
 output "domain" {
   value = module.app.domain
 }
@@ -30,20 +26,12 @@ output "isr_bucket" {
   value = module.app.isr_bucket
 }
 
-output "cdn_bucket" {
-  value = module.app.cdn_bucket
-}
-
 output "repository_id" {
   value = module.app.repository_id
 }
 
 output "artifact_region" {
   value = module.app.artifact_region
-}
-
-output "cdn_subdomain" {
-  value = module.app.cdn_subdomain
 }
 
 output "cloud_run_subdomain" {
@@ -53,3 +41,16 @@ output "cloud_run_subdomain" {
 output "mapped_cloud_run_domain" {
   value = module.run.mapped_cloud_run_domain
 }
+
+# output "ip" {
+#   value = module.app.ip
+# }
+
+# output "cdn_subdomain" {
+#   value = module.app.cdn_subdomain
+# }
+
+# output "cdn_bucket" {
+#   value = module.app.cdn_bucket
+# }
+
