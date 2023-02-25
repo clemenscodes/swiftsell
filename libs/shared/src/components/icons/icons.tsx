@@ -31,18 +31,13 @@ import {
 export type Icon = LucideIcon;
 
 export const Icons = {
-    Logo: (props: LucideProps) => (
-        <svg
-            viewBox='0 0 24 24'
-            fill='currentColor'
-            stroke='currentColor'
-            strokeWidth='2'
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            {...props}
-        >
-            <circle cx='12' cy='12' r='10'></circle>
-        </svg>
+    Logo: ({ className }: LucideProps) => (
+        <div className={`rotate-45 scale-50 -mr-12 ${className}`}>
+            <div className='flex'>
+                <div className='w-0 h-0 border-t-[60px] border-t-transparent border-l-[100px] dark:border-l-white border-l-slate-900 border-b-[60px] border-b-transparent scale-50 rotate-180'></div>
+                <div className='w-0 h-0 border-t-[60px] border-t-transparent -ml-10 border-l-[100px] dark:border-l-white border-l-slate-900 border-b-[60px] border-b-transparent scale-50'></div>
+            </div>
+        </div>
     ),
     Close: X,
     Spinner: Loader2,

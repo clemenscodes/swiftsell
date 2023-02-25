@@ -18,8 +18,8 @@ export const Logo: React.FC<LogoProps> = ({ ...props }) => {
     // const url = isDark ? darkModeLogoUrl : lightModeLogoUrl;
     return (
         <Link href='/' className='hidden items-center space-x-2 md:flex'>
-            <Icons.Logo className='h-6 w-6' />
-            <span className='hidden font-bold sm:inline-block'>
+            <Icons.Logo />
+            <span className='hidden font-bold sm:inline-block text-2xl text-slate-900 dark:text-white'>
                 {siteConfig.name}
             </span>
         </Link>
