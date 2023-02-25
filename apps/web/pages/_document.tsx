@@ -71,12 +71,6 @@ class MyDocument extends Document {
                         href='/icons/apple-touch-icon.png'
                         rel='apple-touch-icon'
                     />
-                    {/* <link
-                        href='/fonts/RobotoCondensed-Regular.ttf'
-                        rel='preload'
-                        as='font'
-                        type='font/ttf'
-                    /> */}
                     <link rel='icon' href='/favicon.ico' />
                 </Head>
                 <body className='min-h-screen bg-white font-sans text-slate-900 antialiased dark:bg-slate-900 dark:text-slate-50'>
