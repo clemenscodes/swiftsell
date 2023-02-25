@@ -1,6 +1,5 @@
-import { render } from '@testing-library/react';
-
 import Lead from './lead';
+import { render } from '@testing-library/react';
 
 describe('Lead', () => {
     it('should render successfully', () => {

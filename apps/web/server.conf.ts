@@ -1,5 +1,6 @@
 import { NextConfig } from 'next';
 import { join } from 'path';
+
 interface Config {
     conf: NextConfig;
 }
@@ -68,7 +69,6 @@ export const config: Config = {
         swcMinify: true,
         output: 'standalone',
         experimental: {
-            fetchCache: false,
             middlewarePrefetch: 'flexible',
             optimisticClientCache: true,
             manualClientBasePath: false,
@@ -76,7 +76,6 @@ export const config: Config = {
             newNextLinkBehavior: true,
             cpus: 19,
             sharedPool: true,
-            profiling: false,
             isrFlushToDisk: true,
             workerThreads: false,
             pageEnv: false,

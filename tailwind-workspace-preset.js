@@ -18,6 +18,7 @@ module.exports = {
         extend: {
             fontFamily: {
                 sans: ['var(--font-sans)', ...fontFamily.sans],
+                condensed: ['Roboto Condensed'],
             },
             keyframes: {
                 'accordion-down': {

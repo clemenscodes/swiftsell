@@ -1,12 +1,12 @@
 import '../global.css';
+import { siteConfig } from '@config';
+import { usePrefix } from '@hooks';
+import { usePrefixStore } from '@redux';
+import { Header, TailwindIndicator } from '@shared';
+import { ThemeProvider } from 'next-themes';
+import { AppProps } from 'next/app';
 import Head from 'next/head';
 import Script from 'next/script';
-import { AppProps } from 'next/app';
-import { usePrefixStore } from '@redux';
-import { usePrefix } from '@hooks';
-import { ThemeProvider } from 'next-themes';
-import { Header, TailwindIndicator } from '@shared';
-import { siteConfig } from '@config';
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
     usePrefixStore.setState({ prefix: usePrefix().prefix });
@@ -21,9 +21,11 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
             </Head>
             <Script src={`/__ENV.js`}></Script>
             <ThemeProvider attribute='class' defaultTheme='dark' enableSystem>
-                <Header />
-                <Component className='container flex-1' {...pageProps} />
-                <TailwindIndicator />
+                <main className={`font-condensed`}>
+                    <Header />
+                    <Component className='container flex-1' {...pageProps} />
+                    <TailwindIndicator />
+                </main>
             </ThemeProvider>
         </>
     );

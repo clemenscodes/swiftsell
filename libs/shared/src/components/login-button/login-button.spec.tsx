@@ -1,6 +1,5 @@
-import { render } from '@testing-library/react';
-
 import LoginButton from './login-button';
+import { render } from '@testing-library/react';
 
 describe('LoginButton', () => {
     it('should render successfully', () => {

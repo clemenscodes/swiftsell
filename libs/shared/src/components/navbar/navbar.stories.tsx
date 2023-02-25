@@ -1,5 +1,5 @@
-import type { ComponentStory, ComponentMeta } from '@storybook/react';
 import Navbar from './navbar';
+import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
 const Story: ComponentMeta<typeof Navbar> = {
     component: Navbar,

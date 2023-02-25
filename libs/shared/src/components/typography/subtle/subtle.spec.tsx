@@ -1,6 +1,5 @@
-import { render } from '@testing-library/react';
-
 import Subtle from './subtle';
+import { render } from '@testing-library/react';
 
 describe('Subtle', () => {
     it('should render successfully', () => {

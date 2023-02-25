@@ -1,6 +1,6 @@
-import path from 'path';
 import { rootMain } from '../../.storybook/main';
 import type { StorybookConfig, Options } from '@storybook/core-common';
+import path from 'path';
 
 const config: StorybookConfig = {
     ...rootMain,

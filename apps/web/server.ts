@@ -1,7 +1,7 @@
-import NextNodeServer from 'next/dist/server/next-server';
-import http from 'http';
-import path from 'path';
 import { config } from './server.conf';
+import http from 'http';
+import NextNodeServer from 'next/dist/server/next-server';
+import path from 'path';
 
 process.chdir(__dirname);
 

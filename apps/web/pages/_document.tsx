@@ -1,3 +1,4 @@
+import { siteConfig } from '@config';
 import Document, {
     DocumentContext,
     Html,
@@ -5,8 +6,6 @@ import Document, {
     Main,
     NextScript,
 } from 'next/document';
-
-import { siteConfig } from '@config';
 
 class MyDocument extends Document {
     static async getInitialProps(ctx: DocumentContext) {
@@ -72,6 +71,15 @@ class MyDocument extends Document {
                         href='/icons/apple-touch-icon.png'
                         rel='apple-touch-icon'
                     />
+                    {/* <link
+                        rel='preconnect'
+                        href='https://fonts.googleapis.com'
+                    />
+                    <link rel='preconnect' href='https://fonts.gstatic.com' />
+                    <link
+                        href='https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap'
+                        rel='stylesheet'
+                    /> */}
                     <link rel='icon' href='/favicon.ico' />
                 </Head>
                 <body className='min-h-screen bg-white font-sans text-slate-900 antialiased dark:bg-slate-900 dark:text-slate-50'>

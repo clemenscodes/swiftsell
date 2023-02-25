@@ -1,6 +1,5 @@
-import { act, renderHook } from '@testing-library/react';
-
 import usePrefix from './use-prefix';
+import { act, renderHook } from '@testing-library/react';
 
 describe('usePrefix', () => {
     it('should render successfully', () => {

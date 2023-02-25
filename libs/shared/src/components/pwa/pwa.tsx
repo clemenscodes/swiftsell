@@ -1,5 +1,5 @@
-import type { Workbox } from 'workbox-window';
 import { useEffect } from 'react';
+import type { Workbox } from 'workbox-window';
 
 declare global {
     interface Window {

@@ -81,5 +81,4 @@ const nextConfig = {
     },
 };
 
-const conf = withPWA(withNx(nextConfig));
-module.exports = conf;
+module.exports = withPWA(withNx(nextConfig));
