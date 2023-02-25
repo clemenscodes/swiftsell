@@ -25,8 +25,8 @@ const { withNx } = require('@nrwl/next/plugins/with-nx');
 
 const withPWA = require('next-pwa')({
     dest: 'public',
-    skipWaiting: true,
-    register: true
+    // skipWaiting: true,
+    // register: true,
     // exclude: [
     //     ({ asset }) =>
     //         asset.name.startsWith('public/') ||
