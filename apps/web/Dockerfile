@@ -44,7 +44,6 @@ USER nextjs
 COPY --from=gcsfuse /go/bin/gcsfuse /sbin
 COPY --chown=nextjs:nodejs dist/$APP_DIR/.next/standalone ./
 COPY --chown=nextjs:nodejs dist/$APP_DIR/public ./$APP_DIR/public
-COPY --chown=nextjs:nodejs dist/$APP_DIR/public ./$APP_DIR/public/public
 COPY --chown=nextjs:nodejs dist/$APP_DIR/.next/static ./dist/$APP_DIR/.next/static
 COPY --chown=nextjs:nodejs $APP_DIR/scripts/gcsfuse.sh ./
 
