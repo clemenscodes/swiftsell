@@ -12,7 +12,7 @@ export const config: Config = {
         typescript: { ignoreBuildErrors: false, tsconfigPath: 'tsconfig.json' },
         distDir: './../../dist/apps/web/.next',
         cleanDistDir: true,
-        assetPrefix: 'https://dev.static.shop.swiftsell.de',
+        assetPrefix: '',
         configOrigin: 'next.config.js',
         useFileSystemPublicRoutes: true,
         generateEtags: true,
@@ -27,24 +27,14 @@ export const config: Config = {
             path: '/_next/image',
             loader: 'default',
             loaderFile: '',
-            domains: [
-                'dev.static.shop.swiftsell.de',
-                'dev.static.shop.swiftsell.de',
-            ],
+            domains: [],
             disableStaticImages: false,
             minimumCacheTTL: 60,
             formats: ['image/webp'],
             dangerouslyAllowSVG: false,
             contentSecurityPolicy:
                 "script-src 'none'; frame-src 'none'; sandbox;",
-            remotePatterns: [
-                {
-                    protocol: 'https',
-                    hostname: 'dev.static.shop.swiftsell.de',
-                    port: '443',
-                    pathname: '/public/**',
-                },
-            ],
+            remotePatterns: [],
             unoptimized: false,
         },
         devIndicators: {
@@ -69,6 +59,7 @@ export const config: Config = {
         swcMinify: true,
         output: 'standalone',
         experimental: {
+            fetchCache: false,
             middlewarePrefetch: 'flexible',
             optimisticClientCache: true,
             manualClientBasePath: false,
@@ -76,6 +67,7 @@ export const config: Config = {
             newNextLinkBehavior: true,
             cpus: 19,
             sharedPool: true,
+            profiling: false,
             isrFlushToDisk: true,
             workerThreads: false,
             pageEnv: false,
