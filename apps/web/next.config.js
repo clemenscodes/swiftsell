@@ -49,12 +49,6 @@ const nextConfig = {
     experimental: {
         outputFileTracingRoot: join(__dirname, '../../'),
         isrMemoryCacheSize: 0,
-        fontLoaders: [
-            {
-                loader: '@next/font/google',
-                options: { subsets: ['latin'] },
-            },
-        ],
     },
     images: {
         remotePatterns: [
@@ -73,14 +67,6 @@ const nextConfig = {
         // See: https://github.com/gregberge/svgr
         svgr: true,
     },
-    async headers() {
-        return [
-            {
-                source: `/_next/static/media/:path*`,
-                headers: [{ key: 'Access-Control-Allow-Origin', value: '*' }],
-            },
-        ];
-    },
     webpack(config) {
         config.module.rules.push({
             test: /index\.(js|mjs|jsx|ts|tsx)$/,
@@ -95,5 +81,4 @@ const nextConfig = {
     },
 };
 
-const conf = withPWA(withNx(nextConfig));
-module.exports = conf;
+module.exports = withPWA(withNx(nextConfig));
