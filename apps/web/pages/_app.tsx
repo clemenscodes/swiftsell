@@ -10,6 +10,7 @@ import Head from 'next/head';
 import Script from 'next/script';
 
 const fontSans = FontSans({
+    preload: false,
     weight: '300',
     subsets: ['latin'],
     variable: '--font-sans',

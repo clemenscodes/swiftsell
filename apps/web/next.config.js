@@ -74,10 +74,9 @@ const nextConfig = {
         svgr: true,
     },
     async headers() {
-        const prefix = assetPrefix ? assetPrefix : '';
         return [
             {
-                source: `${prefix}/:path*`,
+                source: `/:path*`,
                 headers: [
                     { key: 'Access-Control-Allow-Credentials', value: 'true' },
                     { key: 'Access-Control-Allow-Origin', value: '*' },
