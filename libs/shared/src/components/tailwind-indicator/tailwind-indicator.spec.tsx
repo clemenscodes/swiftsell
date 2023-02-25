@@ -1,6 +1,5 @@
-import { render } from '@testing-library/react';
-
 import TailwindIndicator from './tailwind-indicator';
+import { render } from '@testing-library/react';
 
 describe('TailwindIndicator', () => {
     it('should render successfully', () => {

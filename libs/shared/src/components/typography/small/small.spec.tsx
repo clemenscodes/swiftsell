@@ -1,6 +1,5 @@
-import { render } from '@testing-library/react';
-
 import Small from './small';
+import { render } from '@testing-library/react';
 
 describe('Small', () => {
     it('should render successfully', () => {

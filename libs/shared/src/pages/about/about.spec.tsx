@@ -1,5 +1,6 @@
-import { render } from '@testing-library/react';
 import About from './about';
+import { render } from '@testing-library/react';
+
 jest.mock('next/router', () => require('next-router-mock'));
 
 describe('About', () => {

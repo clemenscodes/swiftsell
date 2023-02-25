@@ -1,3 +1,4 @@
+import { siteConfig } from '@config';
 import Document, {
     DocumentContext,
     Html,
@@ -5,8 +6,6 @@ import Document, {
     Main,
     NextScript,
 } from 'next/document';
-
-import { siteConfig } from '@config';
 
 class MyDocument extends Document {
     static async getInitialProps(ctx: DocumentContext) {

@@ -1,7 +1,3 @@
-import Link from 'next/link';
-import { Icons } from '../icons/icons';
-import { cn } from '@styles';
-import { NavItem } from '@types';
 import { Button } from '../button/button';
 import {
     DropdownMenu,
@@ -11,7 +7,11 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '../dropdown-menu/dropdown-menu';
+import { Icons } from '../icons/icons';
 import Logo from '../logo/logo';
+import { cn } from '@styles';
+import { NavItem } from '@types';
+import Link from 'next/link';
 
 interface MainNavProps {
     items?: NavItem[];
@@ -45,7 +45,7 @@ export function Navbar({ items }: MainNavProps) {
                 <DropdownMenuTrigger asChild>
                     <Button
                         variant='ghost'
-                        className='text-base hover:bg-transparent focus:ring-0 sm:hidden flex items-center h-14 w-14 rounded-md'
+                        className='flex h-14 w-14 items-center rounded-md text-base hover:bg-transparent focus:ring-0 sm:hidden'
                     >
                         <Icons.Logo />
                     </Button>

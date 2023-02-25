@@ -1,6 +1,6 @@
-import Link from 'next/link';
 import { Icons } from '../icons/icons';
 import { siteConfig } from '@config';
+import Link from 'next/link';
 
 /* eslint-disable-next-line */
 export interface LogoProps extends React.HTMLProps<HTMLDivElement> {}
@@ -9,10 +9,10 @@ export const Logo: React.FC<LogoProps> = ({ ...props }) => {
     return (
         <Link
             href='/'
-            className='hidden rounded-md h-14 p-6 pr-9 items-center space-x-2 sm:flex bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800 dark:text-slate-100 dark:hover:text-slate-100 data-[state=open]:bg-transparent dark:data-[state=open]:bg-transparent'
+            className='hidden h-14 items-center space-x-2 rounded-md bg-transparent p-6 pr-9 hover:bg-slate-100 data-[state=open]:bg-transparent dark:text-slate-100 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:data-[state=open]:bg-transparent sm:flex'
         >
-            <Icons.Logo className='hidden sm:flex -ml-12 -mr-12' />
-            <span className='hidden font-bold sm:inline-block text-2xl text-slate-900 dark:text-white'>
+            <Icons.Logo className='-ml-12 -mr-12 hidden sm:flex' />
+            <span className='hidden text-3xl font-bold text-slate-900 dark:text-white sm:inline-block'>
                 {siteConfig.name}
             </span>
         </Link>

@@ -1,6 +1,6 @@
-import { useTheme } from 'next-themes';
 import { Button } from '../button/button';
 import { Icons } from '../icons/icons';
+import { useTheme } from 'next-themes';
 
 /* eslint-disable-next-line */
 export interface ModeToggleProps {}

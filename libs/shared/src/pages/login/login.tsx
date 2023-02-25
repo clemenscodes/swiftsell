@@ -1,5 +1,6 @@
 import { cn } from '@styles';
 import { NextPage } from 'next';
+
 /* eslint-disable-next-line */
 export interface LoginProps {}
 

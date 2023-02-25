@@ -1,5 +1,6 @@
-import { render } from '@testing-library/react';
 import Contact from './contact';
+import { render } from '@testing-library/react';
+
 jest.mock('next/router', () => require('next-router-mock'));
 
 describe('Contact', () => {

@@ -1,6 +1,5 @@
-import { render } from '@testing-library/react';
-
 import Pwa from './pwa';
+import { render } from '@testing-library/react';
 
 describe('Pwa', () => {
     it('should render successfully', () => {

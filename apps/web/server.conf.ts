@@ -1,5 +1,6 @@
 import { NextConfig } from 'next';
 import { join } from 'path';
+
 interface Config {
     conf: NextConfig;
 }

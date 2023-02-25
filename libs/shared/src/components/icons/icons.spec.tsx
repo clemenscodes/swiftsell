@@ -1,6 +1,5 @@
-import { render } from '@testing-library/react';
-
 import { Icons } from './icons';
+import { render } from '@testing-library/react';
 
 describe('Icons', () => {
     it('should render Icons.Sun successfully', () => {

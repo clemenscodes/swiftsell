@@ -1,6 +1,6 @@
-import React from 'react';
-import type { ComponentStory, ComponentMeta } from '@storybook/react';
 import Index from '../pages';
+import type { ComponentStory, ComponentMeta } from '@storybook/react';
+import React from 'react';
 
 const Story: ComponentMeta<typeof Index> = {
     component: Index,

@@ -1,5 +1,5 @@
-import type { ComponentStory, ComponentMeta } from '@storybook/react';
 import { TailwindIndicator } from './tailwind-indicator';
+import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
 const Story: ComponentMeta<typeof TailwindIndicator> = {
     component: TailwindIndicator,

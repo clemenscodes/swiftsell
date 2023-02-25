@@ -1,6 +1,5 @@
-import { render } from '@testing-library/react';
-
 import H3 from './h3';
+import { render } from '@testing-library/react';
 
 describe('H3', () => {
     it('should render successfully', () => {

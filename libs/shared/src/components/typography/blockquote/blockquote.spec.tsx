@@ -1,6 +1,5 @@
-import { render } from '@testing-library/react';
-
 import Blockquote from './blockquote';
+import { render } from '@testing-library/react';
 
 describe('Blockquote', () => {
     it('should render successfully', () => {
