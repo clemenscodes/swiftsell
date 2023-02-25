@@ -11,7 +11,6 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '../dropdown-menu/dropdown-menu';
-import { siteConfig } from '@config';
 import Logo from '../logo/logo';
 
 interface MainNavProps {
@@ -20,7 +19,7 @@ interface MainNavProps {
 
 export function Navbar({ items }: MainNavProps) {
     return (
-        <div className='flex gap-6 md:gap-10'>
+        <div className='flex'>
             <Logo />
             {items?.length ? (
                 <nav className='hidden gap-6 md:flex'>
@@ -46,10 +45,9 @@ export function Navbar({ items }: MainNavProps) {
                 <DropdownMenuTrigger asChild>
                     <Button
                         variant='ghost'
-                        className='-ml-4 text-base hover:bg-transparent focus:ring-0 md:hidden'
+                        className='text-base hover:bg-transparent focus:ring-0 sm:hidden flex items-center h-14 w-14 rounded-md'
                     >
-                        <Icons.Logo className='mr-2 h-4 w-4' />{' '}
-                        <span className='font-bold'>Menu</span>
+                        <Icons.Logo />
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
@@ -59,8 +57,7 @@ export function Navbar({ items }: MainNavProps) {
                 >
                     <DropdownMenuLabel>
                         <Link href='/' className='flex items-center'>
-                            <Icons.Logo className='mr-2 h-4 w-4' />
-                            {siteConfig.name}
+                            Home
                         </Link>
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
