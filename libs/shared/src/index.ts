@@ -1,3 +1,4 @@
+export * from './components/loader/loader';
 export * from './components/dropdown/dropdown-menu-radio-item/dropdown-menu-radio-item';
 export * from './components/dropdown/dropdown-menu-content/dropdown-menu-content';
 export * from './components/dropdown/dropdown-menu-sub-trigger/dropdown-menu-sub-trigger';

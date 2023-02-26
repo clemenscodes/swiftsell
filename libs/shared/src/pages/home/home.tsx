@@ -15,12 +15,15 @@ export const Home: NextPage<HomeProps> = ({ ...props }) => {
     const session = useSession();
     const supabase = useSupabaseClient();
     return (
-        <main data-testid="home" className={cn('flex max-w-full items-center justify-center')}>
+        <main
+            data-testid='home'
+            className={cn('flex max-w-full items-center justify-center')}
+        >
             {!session ? (
                 <Auth
                     supabaseClient={supabase}
                     appearance={{ theme: ThemeSupa }}
-                    theme='dark'
+                    theme='light'
                 />
             ) : (
                 <p>Account page will go here.</p>
