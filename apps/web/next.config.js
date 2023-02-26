@@ -25,20 +25,20 @@ const { withNx } = require('@nrwl/next/plugins/with-nx');
 
 // const withPWA = require('next-pwa')({
 //     dest: 'public',
-    // skipWaiting: true,
-    // register: true,
-    // exclude: [
-    //     ({ asset }) =>
-    //         asset.name.startsWith('public/') ||
-    //         asset.name.startsWith('server/') ||
-    //         asset.name.startsWith('static/') ||
-    //         asset.name.match(
-    //             /^((app-|^)build-manifest\.json|react-loadable-manifest\.json)$/
-    //         ),
-    // ],
-    // modifyURLPrefix: {
-    //     [assetPrefix]: domain,
-    // },
+// skipWaiting: true,
+// register: true,
+// exclude: [
+//     ({ asset }) =>
+//         asset.name.startsWith('public/') ||
+//         asset.name.startsWith('server/') ||
+//         asset.name.startsWith('static/') ||
+//         asset.name.match(
+//             /^((app-|^)build-manifest\.json|react-loadable-manifest\.json)$/
+//         ),
+// ],
+// modifyURLPrefix: {
+//     [assetPrefix]: domain,
+// },
 // });
 
 /**
