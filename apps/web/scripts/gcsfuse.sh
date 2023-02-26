@@ -31,7 +31,7 @@ mount_google_cloud_storage() {
         exec gcsfuse --key-file="$GOOGLE_APPLICATION_CREDENTIALS" --foreground --debug_gcs "$BUCKET" "$MNT_DIR" &
     else
         echo "Mounting in Cloud Run..."
-        exec gcsfuse --debug_gcs --debug_fuse "$BUCKET" "$MNT_DIR" &
+        exec gcsfuse --debug_gcs "$BUCKET" "$MNT_DIR" &
     fi
     echo "Mounting completed."
     # sync "$BUCKET_ADDRESS" "$CONTAINER_PAGES"
