@@ -1,11 +1,11 @@
 const { join } = require('path');
 const { withNx } = require('@nrwl/next/plugins/with-nx');
 
+const protocol = 'https';
+const apexDomain = 'swiftsell.de';
 // const isCloudRunProd = process.env.NEXT_PUBLIC_PROJECT_TYPE === 'production';
 // const isCloudRunDev = process.env.NEXT_PUBLIC_PROJECT_TYPE === 'development';
 // const isCloudRun = isCloudRunDev || isCloudRunProd;
-const protocol = 'https';
-const apexDomain = 'swiftsell.de';
 // const appName = 'shop';
 // const base = `${appName}.${apexDomain}`;
 // const prodDomain = `${protocol}://${base}`;
