@@ -8,6 +8,9 @@ CRASH="$APP_HOME/crash.txt"
 SERVER="$APP_HOME/$APP_DIR/server.js"
 MNT_DIR="$APP_HOME/gcsfuse"
 
+echo "$BUCKET_ADDRESS"
+echo "$BUCKET"
+
 sync() {
     echo "Syncing newer files from $1 to $2..."
     gsutil -m rsync -u -r "$1" "$2"
@@ -28,7 +31,7 @@ mount_google_cloud_storage() {
         exec gcsfuse --key-file="$GOOGLE_APPLICATION_CREDENTIALS" --foreground --debug_gcs "$BUCKET" "$MNT_DIR" &
     else
         echo "Mounting in Cloud Run..."
-        exec gcsfuse --debug_gcs --debug_fuse --log-file="$CRASH" --log-format=text "$BUCKET" "$MNT_DIR" &
+        exec gcsfuse --debug_gcs --debug_fuse "$BUCKET" "$MNT_DIR" &
     fi
     echo "Mounting completed."
     # sync "$BUCKET_ADDRESS" "$CONTAINER_PAGES"
