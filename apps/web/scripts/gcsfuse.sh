@@ -48,8 +48,8 @@ cleanup() {
     echo "Adios."
 }
 
-authorize_gcloud
-mount_google_cloud_storage
+# authorize_gcloud
+# mount_google_cloud_storage
 start_nextjs_app
 
 while true; do
