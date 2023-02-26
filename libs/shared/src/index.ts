@@ -6,7 +6,6 @@ export * from './components/dropdown/dropdown-menu-separator/dropdown-menu-separ
 export * from './components/dropdown/dropdown-menu-label/dropdown-menu-label';
 export * from './components/dropdown/dropdown-menu-checkbox-item/dropdown-menu-checkbox-item';
 export * from './components/dropdown/dropdown-menu-item/dropdown-menu-item';
-export * from './components/dropdown/dropdown-menu-trigger/dropdown-menu-trigger';
 export { Header } from './components/header/header';
 export { Icons } from './components/icons/icons';
 export { Button } from './components/button/button';

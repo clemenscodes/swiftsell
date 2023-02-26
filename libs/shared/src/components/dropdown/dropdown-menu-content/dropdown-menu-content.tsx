@@ -1,24 +1,16 @@
-import { Content } from '@radix-ui/react-dropdown-menu';
+import { Content, Portal } from '@radix-ui/react-dropdown-menu';
 import { cn } from '@styles';
-import dynamic from 'next/dynamic';
 import React from 'react';
 
 /* eslint-disable-next-line */
 export interface DropdownMenuContentProps {}
 
-const DropdownPortal = dynamic(() =>
-    import('@radix-ui/react-dropdown-menu').then((mod) => mod.Portal)
-);
-const DropdownContent = dynamic(() =>
-    import('@radix-ui/react-dropdown-menu').then((mod) => mod.Content)
-);
-
 const DropdownMenuContent = React.forwardRef<
     React.ElementRef<typeof Content>,
     React.ComponentPropsWithoutRef<typeof Content>
 >(({ className, sideOffset = 4, ...props }, ref) => (
-    <DropdownPortal>
-        <DropdownContent
+    <Portal>
+        <Content
             ref={ref}
             sideOffset={sideOffset}
             className={cn(
@@ -27,8 +19,8 @@ const DropdownMenuContent = React.forwardRef<
             )}
             {...props}
         />
-    </DropdownPortal>
+    </Portal>
 ));
-DropdownMenuContent.displayName = DropdownContent.displayName;
+DropdownMenuContent.displayName = Content.displayName;
 
 export default DropdownMenuContent;

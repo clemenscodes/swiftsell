@@ -2,7 +2,7 @@ import { CheckboxItem } from '@radix-ui/react-dropdown-menu';
 import { cn } from '@styles';
 import { Check } from 'lucide-react';
 import dynamic from 'next/dynamic';
-import * as React from 'react';
+import React from 'react';
 
 /* eslint-disable-next-line */
 export interface DropdownMenuCheckboxItemProps {}

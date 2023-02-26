@@ -1,6 +1,8 @@
 import { Icons } from '../icons/icons';
 import { siteConfig } from '@config';
-import Link from 'next/link';
+import dynamic from 'next/dynamic';
+
+const Link = dynamic(() => import('next/link'));
 
 /* eslint-disable-next-line */
 export interface LogoProps extends React.HTMLProps<HTMLDivElement> {}

@@ -15,7 +15,7 @@ export const Home: NextPage<HomeProps> = ({ ...props }) => {
     const session = useSession();
     const supabase = useSupabaseClient();
     return (
-        <main className={cn('flex max-w-full items-center justify-center')}>
+        <main data-testid="home" className={cn('flex max-w-full items-center justify-center')}>
             {!session ? (
                 <Auth
                     supabaseClient={supabase}

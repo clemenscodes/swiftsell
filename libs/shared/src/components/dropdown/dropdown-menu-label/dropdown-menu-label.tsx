@@ -1,14 +1,9 @@
 import { Label } from '@radix-ui/react-dropdown-menu';
 import { cn } from '@styles';
-import dynamic from 'next/dynamic';
 import React from 'react';
 
 /* eslint-disable-next-line */
 export interface DropdownMenuLabelProps {}
-
-const DropdownLabel = dynamic(() =>
-    import('@radix-ui/react-dropdown-menu').then((mod) => mod.Label)
-);
 
 const DropdownMenuLabel = React.forwardRef<
     React.ElementRef<typeof Label>,
@@ -16,7 +11,7 @@ const DropdownMenuLabel = React.forwardRef<
         inset?: boolean;
     }
 >(({ className, inset, ...props }, ref) => (
-    <DropdownLabel
+    <Label
         ref={ref}
         className={cn(
             'px-2 py-1.5 text-sm font-semibold text-slate-900 dark:text-slate-300',
@@ -26,6 +21,6 @@ const DropdownMenuLabel = React.forwardRef<
         {...props}
     />
 ));
-DropdownMenuLabel.displayName = DropdownLabel.displayName;
+DropdownMenuLabel.displayName = Label.displayName;
 
 export default DropdownMenuLabel;

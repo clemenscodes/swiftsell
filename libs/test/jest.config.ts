@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-    displayName: 'shared',
+    displayName: 'test',
     preset: '../../jest.preset.js',
     transform: {
         '^.+\\.[tj]sx?$': [
@@ -8,7 +8,6 @@ export default {
             { jsc: { transform: { react: { runtime: 'automatic' } } } },
         ],
     },
-    setupFilesAfterEnv: ['<rootDir>/setupTests.ts'],
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-    coverageDirectory: '../../coverage/libs/shared',
+    coverageDirectory: '../../coverage/libs/test',
 };
