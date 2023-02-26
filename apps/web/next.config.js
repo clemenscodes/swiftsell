@@ -23,23 +23,23 @@ const { withNx } = require('@nrwl/next/plugins/with-nx');
 //         : devDomain
 //     : localDomain;
 
-// const withPWA = require('next-pwa')({
-//     dest: 'public',
-// skipWaiting: true,
-// register: true,
-// exclude: [
-//     ({ asset }) =>
-//         asset.name.startsWith('public/') ||
-//         asset.name.startsWith('server/') ||
-//         asset.name.startsWith('static/') ||
-//         asset.name.match(
-//             /^((app-|^)build-manifest\.json|react-loadable-manifest\.json)$/
-//         ),
-// ],
-// modifyURLPrefix: {
-//     [assetPrefix]: domain,
-// },
-// });
+const withPWA = require('next-pwa')({
+    dest: 'public',
+    skipWaiting: true,
+    register: true,
+    // exclude: [
+    //     ({ asset }) =>
+    //         asset.name.startsWith('public/') ||
+    //         asset.name.startsWith('server/') ||
+    //         asset.name.startsWith('static/') ||
+    //         asset.name.match(
+    //             /^((app-|^)build-manifest\.json|react-loadable-manifest\.json)$/
+    //         ),
+    // ],
+    // modifyURLPrefix: {
+    //     [assetPrefix]: domain,
+    // },
+});
 
 /**
  * @type {import('@nrwl/next/plugins/with-nx').WithNxOptions}
@@ -83,5 +83,4 @@ const nextConfig = {
     },
 };
 
-// module.exports = withPWA(withNx(nextConfig));
-module.exports = withNx(nextConfig);
+module.exports = withPWA(withNx(nextConfig));
