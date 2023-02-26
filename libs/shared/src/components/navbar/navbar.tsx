@@ -1,17 +1,29 @@
-import { Button } from '../button/button';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from '../dropdown-menu/dropdown-menu';
+import DropdownMenuContent from '../dropdown/dropdown-menu-content/dropdown-menu-content';
+import DropdownMenuItem from '../dropdown/dropdown-menu-item/dropdown-menu-item';
+import DropdownMenuLabel from '../dropdown/dropdown-menu-label/dropdown-menu-label';
+import DropdownMenuSeparator from '../dropdown/dropdown-menu-separator/dropdown-menu-separator';
+// import {
+//     DropdownMenu,
+//     DropdownMenuTrigger,
+// } from '../dropdown/dropdown-menu/dropdown-menu';
 import { Icons } from '../icons/icons';
-import Logo from '../logo/logo';
 import { cn } from '@styles';
 import { NavItem } from '@types';
-import Link from 'next/link';
+import dynamic from 'next/dynamic';
+
+const DropdownMenu = dynamic(() =>
+    import('@radix-ui/react-dropdown-menu').then((mod) => mod.Root)
+);
+
+const DropdownMenuTrigger = dynamic(() =>
+    import('@radix-ui/react-dropdown-menu').then((mod) => mod.Trigger)
+);
+
+const Link = dynamic(() => import('next/link'));
+const Logo = dynamic(() => import('../logo/logo'));
+const Button = dynamic(() =>
+    import('../button/button').then((mod) => mod.Button)
+);
 
 interface MainNavProps {
     items?: NavItem[];

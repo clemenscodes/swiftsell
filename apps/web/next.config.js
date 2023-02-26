@@ -41,6 +41,10 @@ const withPWA = require('next-pwa')({
     // },
 });
 
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled: process.env.ANALYZE === 'true',
+});
+
 /**
  * @type {import('@nrwl/next/plugins/with-nx').WithNxOptions}
  **/
@@ -72,18 +76,18 @@ const nextConfig = {
         // See: https://github.com/gregberge/svgr
         svgr: true,
     },
-    webpack(config) {
-        config.module.rules.push({
-            test: /index\.(js|mjs|jsx|ts|tsx)$/,
-            sideEffects: false,
-        });
-        config.module.rules.push({
-            test: /\.svg$/i,
-            issuer: /\.[jt]sx?$/,
-            use: ['@svgr/webpack'],
-        });
-        return config;
-    },
+    // webpack(config) {
+    //     config.module.rules.push({
+    //         test: /index\.(js|mjs|jsx|ts|tsx)$/,
+    //         sideEffects: false,
+    //     });
+    //     config.module.rules.push({
+    //         test: /\.svg$/i,
+    //         issuer: /\.[jt]sx?$/,
+    //         use: ['@svgr/webpack'],
+    //     });
+    //     return config;
+    // },
 };
 
-module.exports = withPWA(withNx(nextConfig));
+module.exports = withBundleAnalyzer(withPWA(withNx(nextConfig)));

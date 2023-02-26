@@ -12,10 +12,10 @@
             },
             "configurations": {
                 "development": {
-                    "command": "react-env -p config/.env.development --prefix=NEXT_PUBLIC"
+                    "command": "cat config/.env.development > .env.local && react-env -p config/.env.development --prefix=NEXT_PUBLIC"
                 },
                 "production": {
-                    "command": "react-env -p config/.env.production --prefix=NEXT_PUBLIC"
+                    "command": "cat config/.env.production > .env.local && react-env -p config/.env.production --prefix=NEXT_PUBLIC"
                 }
             }
         },
@@ -41,6 +41,9 @@
                 },
                 "production": {}
             }
+        },
+        "analyze": {
+            "command": "ANALYZE=true nx build web"
         },
         "start": {
             "dependsOn": ["build"],
