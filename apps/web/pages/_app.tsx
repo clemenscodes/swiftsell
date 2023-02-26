@@ -1,13 +1,12 @@
 import '../global.css';
-import { readBuildtimeEnv, siteConfig } from '@config';
+import { siteConfig } from '@config';
+import { useSupabaseClient } from '@hooks';
 import { Roboto_Condensed as Font } from '@next/font/google';
-import { Loader } from '@shared';
-import { Session, SupabaseClient } from '@supabase/auth-helpers-react';
+import { Session } from '@supabase/auth-helpers-react';
 import { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Script from 'next/script';
-import { useEffect, useState } from 'react';
 
 const SessionContextProvider = dynamic(() =>
     import('@supabase/auth-helpers-react').then(
@@ -35,26 +34,7 @@ const App: React.FC<AppProps<{ initialSession: Session }>> = ({
     Component,
     pageProps,
 }) => {
-    const [supabaseClient, setSupabaseClient] = useState<SupabaseClient>();
-
-    useEffect(() => {
-        const supabaseUrl = readBuildtimeEnv('NEXT_PUBLIC_SUPABASE_URL');
-        const supabaseKey = readBuildtimeEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY');
-        const config = {
-            supabaseUrl,
-            supabaseKey,
-        };
-        const sb = async () => {
-            const { createBrowserSupabaseClient } = await import(
-                '@supabase/auth-helpers-nextjs'
-            );
-            const sb = createBrowserSupabaseClient(config);
-            setSupabaseClient(sb);
-            return sb;
-        };
-        sb();
-    }, []);
-
+    const { supabaseClient } = useSupabaseClient();
     return (
         <>
             <Head>
@@ -66,7 +46,6 @@ const App: React.FC<AppProps<{ initialSession: Session }>> = ({
             </Head>
             {supabaseClient ? (
                 <>
-                    <Script src={`/__ENV.js`}></Script>
                     <SessionContextProvider
                         supabaseClient={supabaseClient}
                         initialSession={pageProps.initialSession}
@@ -88,8 +67,24 @@ const App: React.FC<AppProps<{ initialSession: Session }>> = ({
                     </SessionContextProvider>
                 </>
             ) : (
-                <Loader />
+                <>
+                    <ThemeProvider
+                        attribute='class'
+                        defaultTheme='dark'
+                        enableSystem
+                    >
+                        <main className={`${fontSans.variable} font-sans`}>
+                            <Header />
+                            <Component
+                                className='container flex-1'
+                                {...pageProps}
+                            />
+                            <TailwindIndicator />
+                        </main>
+                    </ThemeProvider>
+                </>
             )}
+            <Script src={`/__ENV.js`}></Script>
         </>
     );
 };

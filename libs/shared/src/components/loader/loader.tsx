@@ -1,4 +1,5 @@
- import { cn } from '@styles';
+import { cn } from '@styles';
+
 /* eslint-disable-next-line */
 export interface LoaderProps {}
 
@@ -8,6 +9,6 @@ export const Loader: React.FC<LoaderProps> = ({ ...props }) => {
             <h1>Welcome to Loader!</h1>
         </div>
     );
-}
+};
 
 export default Loader;
