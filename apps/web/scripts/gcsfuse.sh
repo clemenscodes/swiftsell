@@ -10,6 +10,7 @@ MNT_DIR="$APP_HOME/gcsfuse"
 
 echo "$BUCKET_ADDRESS"
 echo "$BUCKET"
+echo "$CONTAINER_PAGES"
 
 sync() {
     echo "Syncing newer files from $1 to $2..."
