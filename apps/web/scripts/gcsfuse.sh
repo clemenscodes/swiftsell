@@ -33,7 +33,7 @@ mount_google_cloud_storage() {
         exec gcsfuse --foreground --debug_gcs "$BUCKET" "$MNT_DIR" &
     fi
     echo "Mounting completed."
-    sync "$BUCKET_ADDRESS" "$CONTAINER_PAGES"
+    # sync "$BUCKET_ADDRESS" "$CONTAINER_PAGES"
 }
 
 start_nextjs_app() {
@@ -48,8 +48,8 @@ cleanup() {
     echo "Adios."
 }
 
-# authorize_gcloud
-# mount_google_cloud_storage
+authorize_gcloud
+mount_google_cloud_storage
 start_nextjs_app
 
 while true; do
