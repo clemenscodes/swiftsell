@@ -23,8 +23,8 @@ const { withNx } = require('@nrwl/next/plugins/with-nx');
 //         : devDomain
 //     : localDomain;
 
-const withPWA = require('next-pwa')({
-    dest: 'public',
+// const withPWA = require('next-pwa')({
+//     dest: 'public',
     // skipWaiting: true,
     // register: true,
     // exclude: [
@@ -39,7 +39,7 @@ const withPWA = require('next-pwa')({
     // modifyURLPrefix: {
     //     [assetPrefix]: domain,
     // },
-});
+// });
 
 /**
  * @type {import('@nrwl/next/plugins/with-nx').WithNxOptions}
