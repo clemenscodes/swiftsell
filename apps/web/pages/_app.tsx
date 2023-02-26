@@ -25,10 +25,8 @@ const ThemeProvider = dynamic(() =>
 const fontSans = Font({
     weight: '300',
     variable: '--font-sans',
-    style: 'normal',
     subsets: ['latin'],
     display: 'swap',
-    preload: true,
 });
 
 const App: React.FC<AppProps<{ initialSession: Session }>> = ({
