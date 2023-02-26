@@ -1,18 +1,18 @@
 const { join } = require('path');
 const { withNx } = require('@nrwl/next/plugins/with-nx');
 
-// const protocol = 'https';
-// const apexDomain = 'swiftsell.de';
-// const appName = 'shop';
-// const base = `${appName}.${apexDomain}`;
+const isCloudRunProd = process.env.NEXT_PUBLIC_PROJECT_TYPE === 'production';
+const isCloudRunDev = process.env.NEXT_PUBLIC_PROJECT_TYPE === 'development';
+const isCloudRun = isCloudRunDev || isCloudRunProd;
+const protocol = 'https';
+const apexDomain = 'swiftsell.de';
+const appName = 'shop';
+const base = `${appName}.${apexDomain}`;
 // const prodDomain = `${protocol}://${base}`;
 // const devDomain = `${protocol}://dev.${base}`;
 // const staticBase = `static.${base}`;
 // const devCDN = `dev.${staticBase}`;
 // const prodCDN = `${staticBase}`;
-// const isCloudRunProd = process.env.NEXT_PUBLIC_PROJECT_TYPE === 'production';
-// const isCloudRunDev = process.env.NEXT_PUBLIC_PROJECT_TYPE === 'development';
-// const isCloudRun = isCloudRunDev || isCloudRunProd;
 // const hostname = isCloudRunProd ? prodCDN : devCDN;
 // const assetPrefix = isCloudRun ? `${protocol}://${hostname}` : undefined;
 // const PORT = process.env.PORT || 3000;
@@ -22,6 +22,11 @@ const { withNx } = require('@nrwl/next/plugins/with-nx');
 //         ? prodDomain
 //         : devDomain
 //     : localDomain;
+const hostname = isCloudRun
+    ? isCloudRunProd
+        ? base
+        : `dev.${base}`
+    : 'localhost';
 
 const withPWA = require('next-pwa')({
     dest: 'public',
@@ -53,14 +58,14 @@ const nextConfig = {
         isrMemoryCacheSize: 0,
     },
     images: {
-        // remotePatterns: [
-        //     {
-        //         protocol,
-        //         hostname,
-        //         port: '443',
-        //         pathname: '/public/**',
-        //     },
-        // ],
+        remotePatterns: [
+            {
+                protocol,
+                hostname,
+                port: '443',
+                pathname: '/public/**',
+            },
+        ],
         unoptimized: false,
     },
     reactStrictMode: true,

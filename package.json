@@ -18,6 +18,7 @@
     "dependencies": {
         "@beam-australia/react-env": "^3.1.1",
         "@ianvs/prettier-plugin-sort-imports": "^3.7.1",
+        "@next/font": "^13.2.1",
         "@nrwl/next": "15.7.2",
         "@radix-ui/react-dropdown-menu": "^2.0.3",
         "@reduxjs/toolkit": "1.9.0",

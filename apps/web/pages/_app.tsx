@@ -1,15 +1,22 @@
 import '../global.css';
 import { siteConfig } from '@config';
-// import { usePrefix } from '@hooks';
-// import { usePrefixStore } from '@redux';
+import { Roboto_Condensed as Font } from '@next/font/google';
 import { Header, TailwindIndicator } from '@shared';
 import { ThemeProvider } from 'next-themes';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import Script from 'next/script';
 
+const fontSans = Font({
+    weight: '300',
+    variable: '--font-sans',
+    style: 'normal',
+    subsets: ['latin'],
+    display: 'swap',
+    preload: true,
+});
+
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
-    // usePrefixStore.setState({ prefix: usePrefix().prefix });
     return (
         <>
             <Head>
@@ -21,7 +28,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
             </Head>
             <Script src={`/__ENV.js`}></Script>
             <ThemeProvider attribute='class' defaultTheme='dark' enableSystem>
-                <main className={`font-condensed`}>
+                <main className={`${fontSans.variable} font-sans`}>
                     <Header />
                     <Component className='container flex-1' {...pageProps} />
                     <TailwindIndicator />
