@@ -6,6 +6,7 @@
     "display": "fullscreen",
     "orientation": "portrait",
     "start_url": "/",
+    "scope": "/",
     "prefer_related_applications": true,
     "icons": [
         {

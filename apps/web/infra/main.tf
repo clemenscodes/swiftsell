@@ -112,12 +112,12 @@ module "isr_bucket" {
   bucket     = var.isr_bucket
 }
 
-module "cdn" {
-  source           = "../../../libs/infra/cdn"
-  domain           = module.wif_data.domain
-  project_id       = module.project.project_id
-  bucket           = var.cdn_bucket
-  region           = var.cdn_region
-  subdomain        = var.cdn_subdomain
-  certificate_name = "${var.project_name}-certificate"
-}
+# module "cdn" {
+#   source           = "../../../libs/infra/cdn"
+#   domain           = module.wif_data.domain
+#   project_id       = module.project.project_id
+#   bucket           = var.cdn_bucket
+#   region           = var.cdn_region
+#   subdomain        = var.cdn_subdomain
+#   certificate_name = "${var.project_name}-certificate"
+# }

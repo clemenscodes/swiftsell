@@ -18,20 +18,20 @@ variable "isr_bucket" {
   type        = string
 }
 
-variable "cdn_bucket" {
-  description = "The name of the cdn bucket that will be created"
-  type        = string
-}
+# variable "cdn_bucket" {
+#   description = "The name of the cdn bucket that will be created"
+#   type        = string
+# }
 
-variable "cdn_subdomain" {
-  description = "The subdomain that will be used for the CDN"
-  type        = string
-}
+# variable "cdn_subdomain" {
+#   description = "The subdomain that will be used for the CDN"
+#   type        = string
+# }
 
-variable "cdn_region" {
-  description = "The region in which the CDN will be created"
-  type        = string
-}
+# variable "cdn_region" {
+#   description = "The region in which the CDN will be created"
+#   type        = string
+# }
 
 variable "artifact_region" {
   description = "The region of the Artifact Registry Repository"

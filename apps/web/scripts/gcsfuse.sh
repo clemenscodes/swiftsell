@@ -49,11 +49,11 @@ authorize_gcloud
 mount_google_cloud_storage
 start_nextjs_app
 
-while true; do
-    sync "$CONTAINER_PAGES" "$BUCKET_ADDRESS"
-    sync "$BUCKET_ADDRESS" "$CONTAINER_PAGES"
-    sleep 5
-done &
+# while true; do
+#     sync "$CONTAINER_PAGES" "$BUCKET_ADDRESS"
+#     sync "$BUCKET_ADDRESS" "$CONTAINER_PAGES"
+#     sleep 5
+# done &
 
 # Exit immediately when one of the background processes terminate.
 wait -n
