@@ -1,13 +1,13 @@
 const { join } = require('path');
 const { withNx } = require('@nrwl/next/plugins/with-nx');
 
-const isCloudRunProd = process.env.NEXT_PUBLIC_PROJECT_TYPE === 'production';
-const isCloudRunDev = process.env.NEXT_PUBLIC_PROJECT_TYPE === 'development';
-const isCloudRun = isCloudRunDev || isCloudRunProd;
+// const isCloudRunProd = process.env.NEXT_PUBLIC_PROJECT_TYPE === 'production';
+// const isCloudRunDev = process.env.NEXT_PUBLIC_PROJECT_TYPE === 'development';
+// const isCloudRun = isCloudRunDev || isCloudRunProd;
 const protocol = 'https';
 const apexDomain = 'swiftsell.de';
-const appName = 'shop';
-const base = `${appName}.${apexDomain}`;
+// const appName = 'shop';
+// const base = `${appName}.${apexDomain}`;
 // const prodDomain = `${protocol}://${base}`;
 // const devDomain = `${protocol}://dev.${base}`;
 // const staticBase = `static.${base}`;
@@ -22,11 +22,6 @@ const base = `${appName}.${apexDomain}`;
 //         ? prodDomain
 //         : devDomain
 //     : localDomain;
-const hostname = isCloudRun
-    ? isCloudRunProd
-        ? base
-        : `dev.${base}`
-    : 'localhost';
 
 const withPWA = require('next-pwa')({
     dest: 'public',
@@ -56,14 +51,17 @@ const nextConfig = {
     experimental: {
         outputFileTracingRoot: join(__dirname, '../../'),
         isrMemoryCacheSize: 0,
+        fontLoaders: [
+            { loader: '@next/font/google', options: { subsets: ['latin'] } },
+        ],
     },
     images: {
         remotePatterns: [
             {
                 protocol,
-                hostname,
+                hostname: `**.${apexDomain}`,
                 port: '443',
-                pathname: '/public/**',
+                pathname: '**',
             },
         ],
         unoptimized: false,
