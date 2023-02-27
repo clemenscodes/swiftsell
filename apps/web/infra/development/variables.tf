@@ -43,7 +43,7 @@ variable "cloud_run_region" {
 variable "cloud_run_service_name" {
   description = "The name for the Cloud Run service"
   type        = string
-  default     = "swiftsell"
+  default     = "web"
 }
 
 variable "cloud_run_subdomain" {
