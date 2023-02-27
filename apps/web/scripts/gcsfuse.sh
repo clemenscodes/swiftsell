@@ -29,6 +29,7 @@ mount_google_cloud_storage() {
     else
         echo "Mounting in Cloud Run..."
         exec gcsfuse --debug_fuse_errors --debug_fs --debug_fuse --debug_http --debug_gcs --log-file="$LOG_FILE" "$BUCKET" "$MNT_DIR" &
+        sleep 2
         cat "$LOG_FILE"
     fi
     echo "Mounting completed."
