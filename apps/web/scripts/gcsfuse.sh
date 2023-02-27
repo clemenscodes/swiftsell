@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
-# set -eo pipefail
+set -eo pipefail
 
 BUCKET_ADDRESS="$(gsutil ls | grep isr)"
 BUCKET="$(echo "$BUCKET_ADDRESS" | awk -F '/' '{print $3}')"
 CONTAINER_PAGES="$APP_HOME/dist/$APP_DIR/.next/server/pages"
 SERVER="$APP_HOME/$APP_DIR/server.js"
 MNT_DIR="$APP_HOME/gcsfuse"
+LOG_FILE="$APP_HOME/log.txt"
 
 sync() {
     echo "Syncing newer files from $1 to $2..."
@@ -27,7 +28,8 @@ mount_google_cloud_storage() {
         exec gcsfuse --key-file="$GOOGLE_APPLICATION_CREDENTIALS" --foreground --debug_gcs "$BUCKET" "$MNT_DIR" &
     else
         echo "Mounting in Cloud Run..."
-        exec gcsfuse  --debug_gcs --debug_fuse "$BUCKET" "$MNT_DIR" &
+        exec gcsfuse --debug_fuse_errors --debug_fs --debug_fuse --debug_http --debug_gcs --log-file="$LOG_FILE" "$BUCKET" "$MNT_DIR" &
+        cat "$LOG_FILE"
     fi
     echo "Mounting completed."
     sync "$BUCKET_ADDRESS" "$CONTAINER_PAGES"
@@ -42,6 +44,7 @@ start_nextjs_app() {
 cleanup() {
     echo "Cleaning up..."
     sync "$CONTAINER_PAGES" "$BUCKET_ADDRESS"
+    cat "$LOG_FILE"
     echo "Adios."
 }
 
