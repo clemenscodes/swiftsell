@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -eo pipefail
+# set -eo pipefail
 
 BUCKET_ADDRESS="$(gsutil ls | grep isr)"
 BUCKET="$(echo "$BUCKET_ADDRESS" | awk -F '/' '{print $3}')"
@@ -27,7 +27,7 @@ mount_google_cloud_storage() {
         exec gcsfuse --key-file="$GOOGLE_APPLICATION_CREDENTIALS" --foreground --debug_gcs "$BUCKET" "$MNT_DIR" &
     else
         echo "Mounting in Cloud Run..."
-        exec gcsfuse --foreground --debug_gcs --debug_fuse "$BUCKET" "$MNT_DIR" &
+        exec gcsfuse  --debug_gcs --debug_fuse "$BUCKET" "$MNT_DIR" &
     fi
     echo "Mounting completed."
     sync "$BUCKET_ADDRESS" "$CONTAINER_PAGES"
