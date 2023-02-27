@@ -24,8 +24,8 @@ const ThemeProvider = dynamic(() =>
 
 const fontSans = Font({
     weight: '300',
-    variable: '--font-sans',
     subsets: ['latin'],
+    variable: '--font-sans',
     display: 'swap',
 });
 
