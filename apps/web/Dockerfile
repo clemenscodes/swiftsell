@@ -37,7 +37,7 @@ ENV PATH $PATH:/usr/local/gcloud/google-cloud-sdk/bin
 
 WORKDIR $APP_HOME
 
-RUN mkdir gcsfuse && chown nextjs:nodejs gcsfuse
+RUN mkdir gcsfuse && chown nextjs:nodejs gcsfuse && touch log.txt && chown nextjs:nodejs
 
 USER nextjs
 
@@ -50,7 +50,7 @@ COPY --chown=nextjs:nodejs $APP_DIR/scripts/gcsfuse.sh ./
 EXPOSE $PORT
 
 # Ensure the script is executable
-RUN chmod +x /app/gcsfuse.sh && touch /app/log.txt
+RUN chmod +x /app/gcsfuse.sh
 
 # Use tini to manage zombie processes and signal forwarding
 # https://github.com/krallin/tini
