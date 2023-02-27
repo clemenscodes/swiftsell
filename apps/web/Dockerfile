@@ -1,7 +1,9 @@
 FROM golang:1.17.5-alpine as gcsfuse
+
 ENV GOPATH /go
-RUN apk add --no-cache git fuse fuse-dev && \
-    go get -u github.com/googlecloudplatform/gcsfuse
+
+RUN apk --update --no-cache add git fuse fuse-dev \
+    && GO111MODULE=auto go get -u github.com/googlecloudplatform/gcsfuse
 
 FROM node:16.19-alpine as runner
 
@@ -48,7 +50,7 @@ COPY --chown=nextjs:nodejs $APP_DIR/scripts/gcsfuse.sh ./
 EXPOSE $PORT
 
 # Ensure the script is executable
-RUN chmod +x /app/gcsfuse.sh
+RUN chmod +x /app/gcsfuse.sh && touch /app/log.txt
 
 # Use tini to manage zombie processes and signal forwarding
 # https://github.com/krallin/tini
