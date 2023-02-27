@@ -37,7 +37,7 @@ ENV PATH $PATH:/usr/local/gcloud/google-cloud-sdk/bin
 
 WORKDIR $APP_HOME
 
-RUN mkdir gcsfuse && chown nextjs:nodejs gcsfuse && touch log.txt && chown nextjs:nodejs
+RUN mkdir gcsfuse && chown nextjs:nodejs gcsfuse && touch log.txt && chown nextjs:nodejs log.txt
 
 USER nextjs
 
