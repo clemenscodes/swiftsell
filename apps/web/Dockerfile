@@ -1,9 +1,7 @@
-FROM golang:alpine AS gcsfuse
-
+FROM golang:1.17.5-alpine as gcsfuse
 ENV GOPATH /go
-
-RUN apk --update --no-cache add git fuse fuse-dev \
-    && GO111MODULE=auto go get -u github.com/googlecloudplatform/gcsfuse
+RUN apk add --no-cache git fuse fuse-dev && \
+    go get -u github.com/googlecloudplatform/gcsfuse
 
 FROM node:16.19-alpine as runner
 
