@@ -302,9 +302,9 @@ jobs:
         defaults:
             run:
                 shell: bash
-        # permissions:
-        #     contents: 'read'
-        #     id-token: 'write'
+        permissions:
+            contents: 'read'
+            id-token: 'write'
         steps:
             - name: Checkout [Pull Request]
               uses: actions/checkout@v3
@@ -319,8 +319,8 @@ jobs:
               with:
                   fetch-depth: 0
 
-            # - name: Expose GitHub Runtime
-            #   uses: crazy-max/ghaction-github-runtime@v2
+            - name: Expose GitHub Runtime
+              uses: crazy-max/ghaction-github-runtime@v2
 
             - name: Derive SHAs
               uses: nrwl/nx-set-shas@v3
@@ -345,30 +345,30 @@ jobs:
               if: steps.node_cache.outputs.cache-hit != 'true'
               run: yarn install --immutable
 
-            # - name: Authenticate to Google Cloud
-            #   id: auth
-            #   uses: google-github-actions/auth@v1
-            #   with:
-            #     #   token_format: access_token
-            #       workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
-            #       service_account: ${{ secrets.SERVICE_ACCOUNT }}
+            - name: Authenticate to Google Cloud
+              id: auth
+              uses: google-github-actions/auth@v1
+              with:
+                #   token_format: access_token
+                  workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+                  service_account: ${{ secrets.SERVICE_ACCOUNT }}
 
-            # # - name: Configure OAuth
-            # #   run: echo "GOOGLE_OAUTH_ACCESS_TOKEN=${{ steps.auth.outputs.access_token }}" >> $GITHUB_ENV
+            - name: Configure OAuth
+              run: echo "GOOGLE_OAUTH_ACCESS_TOKEN=${{ steps.auth.outputs.access_token }}" >> $GITHUB_ENV
 
-            # - name: Set up Cloud SDK
-            #   uses: google-github-actions/setup-gcloud@v1
+            - name: Set up Cloud SDK
+              uses: google-github-actions/setup-gcloud@v1
 
-            # - name: Setup Docker Artifact Registry Auth
-            #   run: gcloud auth configure-docker $ARTEFACT_REGISTRY_REGION-docker.pkg.dev
+            - name: Setup Docker Artifact Registry Auth
+              run: gcloud auth configure-docker $ARTEFACT_REGISTRY_REGION-docker.pkg.dev
 
-            # - name: Set up Docker Buildx
-            #   uses: docker/setup-buildx-action@v2
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v2
 
-            # - name: Set up Terraform
-            #   uses: hashicorp/setup-terraform@v2
-            #   with:
-            #       terraform_wrapper: false
+            - name: Set up Terraform
+              uses: hashicorp/setup-terraform@v2
+              with:
+                  terraform_wrapper: false
 
             - name: Start Agents
               if: needs.deploy-agents.result != 'failure' &&
