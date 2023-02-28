@@ -52,22 +52,22 @@ deploy() {
 
 local_plan() {
     CONFIG="$1"
-    $TF init
+    $TF init -upgrade
     artifact_plan
     image "$CONFIG"
-    $TF init
+    $TF init -upgrade
     default_plan
     BUCKET=$($TF output state_bucket | tr -d '"')
     sed -i "s/backend \"local\"/backend \"gcs\" {\n  bucket = \"$BUCKET\"\n}/" "$BACKEND"
     echo "Migrating state"
-    echo "yes" | $TF init -migrate-state
+    echo "yes" | $TF init -upgrade -migrate-state
 }
 
 remote_plan() {
-    $TF init
+    $TF init -upgrade
     artifact_plan
     image "$CONFIG"
-    $TF init
+    $TF init -upgrade
     default_plan
 }
 
