@@ -1,7 +1,7 @@
 resource "google_storage_bucket" "isr_bucket" {
   name                        = var.bucket
-  location                    = "europe-west3"
-  force_destroy               = false
+  location                    = "europe-west1"
+  force_destroy               = true
   uniform_bucket_level_access = true
   public_access_prevention    = "enforced"
   project                     = var.project_id
@@ -10,6 +10,6 @@ resource "google_storage_bucket" "isr_bucket" {
     enabled = true
   }
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
   }
 }

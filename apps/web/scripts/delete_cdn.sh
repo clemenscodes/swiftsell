@@ -22,7 +22,7 @@ delete_cdn() {
     CERTIFICATE_NAME="$APP-$3-certificate"
     echo "Deleting cloud delivery network in project $PROJECT_ID for domain $DOMAIN"
     set_project "$PROJECT_ID"
-    # delete_storage_bucket "$PROJECT_ID"
+    delete_storage_bucket "$PROJECT_ID"
     delete_external_static_ipv4
     delete_traffic_redirect_rule
     delete_target_proxy

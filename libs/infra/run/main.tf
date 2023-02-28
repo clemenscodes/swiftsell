@@ -42,7 +42,7 @@ resource "google_cloud_run_v2_service" "default" {
     percent = 100
   }
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
   }
 }
 

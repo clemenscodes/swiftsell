@@ -1,6 +1,6 @@
 import { NavItem } from '@types';
 
-export interface SiteConfig {
+interface SiteConfig {
     domain: string;
     prefix: string;
     name: string;

@@ -1,6 +1,8 @@
-import ModeToggle from '../mode-toggle/mode-toggle';
-import Navbar from '../navbar/navbar';
 import { siteConfig } from '@config';
+import dynamic from 'next/dynamic';
+
+const Navbar = dynamic(() => import('../navbar/navbar'));
+const ModeToggle = dynamic(() => import('../mode-toggle/mode-toggle'));
 
 /* eslint-disable-next-line */
 export interface HeaderProps {}

@@ -17,13 +17,15 @@
         "paths": {
             "@config": ["libs/config/src/index.ts"],
             "@db": ["libs/db/src/index.ts"],
+            "@fonts": ["libs/fonts/src/index.ts"],
             "@hooks": ["libs/hooks/src/index.ts"],
+            "@providers": ["libs/providers/src/index.ts"],
             "@redux": ["libs/redux/src/index.ts"],
             "@shared": ["libs/shared/src/index.ts"],
             "@styles": ["libs/styles/src/index.ts"],
+            "@test/*": ["libs/test/src/*"],
             "@types": ["libs/types/src/index.ts"],
-            "@utils": ["libs/utils/src/index.ts"],
-            "test": ["libs/test/src/index.ts"]
+            "@utils": ["libs/utils/src/index.ts"]
         }
     },
     "exclude": ["node_modules", "tmp"]

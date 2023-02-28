@@ -1,7 +1,10 @@
 import type { StorybookConfig } from '@storybook/core-common';
 
 export const rootMain: StorybookConfig = {
-    core: { builder: 'webpack5', disableTelemetry: true },
+    core: {
+        builder: 'webpack5',
+        disableTelemetry: true,
+    },
     stories: [],
     addons: [
         '@storybook/addon-essentials',

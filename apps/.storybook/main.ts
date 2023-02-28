@@ -7,7 +7,6 @@ const config: StorybookConfig = {
     core: { ...rootMain.core, builder: 'webpack5' },
     stories: [
         ...rootMain.stories,
-        '../web/stories/**/*.stories.?(ts|tsx|js|jsx)',
         '../../libs/shared/**/*.stories.@(js|jsx|ts|tsx|mdx)',
     ],
     staticDirs: ['../web/public'],

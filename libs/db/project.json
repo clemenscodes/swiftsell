@@ -5,51 +5,6 @@
     "projectType": "library",
     "tags": [],
     "targets": {
-        "start": {
-            "executor": "nx:run-commands",
-            "defaultConfiguration": "development",
-            "options": {
-                "cwd": "libs/db"
-            },
-            "configurations": {
-                "development": {
-                    "command": "supabase db start"
-                },
-                "production": {
-                    "command": "supabase db start"
-                }
-            }
-        },
-        "stop": {
-            "executor": "nx:run-commands",
-            "defaultConfiguration": "development",
-            "options": {
-                "cwd": "libs/db"
-            },
-            "configurations": {
-                "development": {
-                    "command": "supabase stop"
-                },
-                "production": {
-                    "command": "supabase stop"
-                }
-            }
-        },
-        "status": {
-            "executor": "nx:run-commands",
-            "defaultConfiguration": "development",
-            "options": {
-                "cwd": "libs/db"
-            },
-            "configurations": {
-                "development": {
-                    "command": "supabase status"
-                },
-                "production": {
-                    "command": "supabase status"
-                }
-            }
-        },
         "lint": {
             "executor": "@nrwl/linter:eslint",
             "outputs": ["{options.outputFile}"],

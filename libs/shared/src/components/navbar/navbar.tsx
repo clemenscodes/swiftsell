@@ -1,17 +1,16 @@
 import { Button } from '../button/button';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from '../dropdown-menu/dropdown-menu';
+import DropdownMenuContent from '../dropdown/dropdown-menu-content/dropdown-menu-content';
+import DropdownMenuItem from '../dropdown/dropdown-menu-item/dropdown-menu-item';
+import DropdownMenuLabel from '../dropdown/dropdown-menu-label/dropdown-menu-label';
+import DropdownMenuSeparator from '../dropdown/dropdown-menu-separator/dropdown-menu-separator';
 import { Icons } from '../icons/icons';
-import Logo from '../logo/logo';
+import { Trigger, Root } from '@radix-ui/react-dropdown-menu';
 import { cn } from '@styles';
 import { NavItem } from '@types';
-import Link from 'next/link';
+import dynamic from 'next/dynamic';
+
+const Link = dynamic(() => import('next/link'));
+const Logo = dynamic(() => import('../logo/logo'));
 
 interface MainNavProps {
     items?: NavItem[];
@@ -41,15 +40,15 @@ export function Navbar({ items }: MainNavProps) {
                     )}
                 </nav>
             ) : null}
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
+            <Root>
+                <Trigger asChild>
                     <Button
                         variant='ghost'
                         className='flex h-14 w-14 items-center rounded-md text-base hover:bg-transparent focus:ring-0 md:hidden'
                     >
                         <Icons.Logo />
                     </Button>
-                </DropdownMenuTrigger>
+                </Trigger>
                 <DropdownMenuContent
                     align='start'
                     sideOffset={24}
@@ -70,7 +69,7 @@ export function Navbar({ items }: MainNavProps) {
                             )
                     )}
                 </DropdownMenuContent>
-            </DropdownMenu>
+            </Root>
         </div>
     );
 }

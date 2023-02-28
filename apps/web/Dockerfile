@@ -1,4 +1,4 @@
-FROM golang:alpine AS gcsfuse
+FROM golang:1.17.5-alpine as gcsfuse
 
 ENV GOPATH /go
 
@@ -37,7 +37,7 @@ ENV PATH $PATH:/usr/local/gcloud/google-cloud-sdk/bin
 
 WORKDIR $APP_HOME
 
-RUN mkdir gcsfuse && chown nextjs:nodejs gcsfuse
+RUN mkdir gcsfuse && chown nextjs:nodejs gcsfuse && touch log.txt && chown nextjs:nodejs log.txt
 
 USER nextjs
 

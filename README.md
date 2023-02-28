@@ -1,4 +1,4 @@
-# Deploy Next.js to Cloud Run with ISR support
+# SwiftSell
 
 This is a repository for a scalable web application using ```Next.js``` and ```TailwindCSS``` along with ```Jest```, ```Cypress``` and ```Storybook``` preconfigured.
 

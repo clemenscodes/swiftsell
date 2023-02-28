@@ -1,1 +1,1 @@
-export * from './lib/nav';
+export { type NavItem } from './lib/nav';

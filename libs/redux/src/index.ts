@@ -1,1 +1,1 @@
-export * from './usePrefixStore';
+export { usePrefixStore } from './usePrefixStore';
