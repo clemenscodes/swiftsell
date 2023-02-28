@@ -1,1 +1,1 @@
-export { supabaseClient } from './lib/supabaseClient';
+export * from './lib/xata';

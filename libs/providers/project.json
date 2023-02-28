@@ -1,46 +1,31 @@
 {
-    "name": "db",
+    "name": "providers",
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
-    "sourceRoot": "libs/db/src",
+    "sourceRoot": "libs/providers/src",
     "projectType": "library",
     "tags": [],
     "targets": {
-        "start": {
-            "executor": "nx:run-commands",
-            "defaultConfiguration": "development",
-            "options": {
-                "cwd": "libs/db"
-            },
-            "configurations": {
-                "development": {
-                    "command": ""
-                },
-                "production": {
-                    "command": ""
-                }
-            }
-        },
         "lint": {
             "executor": "@nrwl/linter:eslint",
             "outputs": ["{options.outputFile}"],
             "options": {
-                "lintFilePatterns": ["libs/db/**/*.{ts,tsx,js,jsx}"]
+                "lintFilePatterns": ["libs/providers/**/*.{ts,tsx,js,jsx}"]
             }
         },
         "build": {
             "executor": "@nrwl/rollup:rollup",
             "outputs": ["{options.outputPath}"],
             "options": {
-                "outputPath": "dist/libs/db",
-                "tsConfig": "libs/db/tsconfig.lib.json",
-                "project": "libs/db/package.json",
-                "entryFile": "libs/db/src/index.ts",
+                "outputPath": "dist/libs/providers",
+                "tsConfig": "libs/providers/tsconfig.lib.json",
+                "project": "libs/providers/package.json",
+                "entryFile": "libs/providers/src/index.ts",
                 "external": ["react/jsx-runtime"],
                 "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
                 "compiler": "swc",
                 "assets": [
                     {
-                        "glob": "libs/db/README.md",
+                        "glob": "libs/providers/README.md",
                         "input": ".",
                         "output": "."
                     }
@@ -51,7 +36,7 @@
             "executor": "@nrwl/jest:jest",
             "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
             "options": {
-                "jestConfig": "libs/db/jest.config.ts",
+                "jestConfig": "libs/providers/jest.config.ts",
                 "passWithNoTests": true
             },
             "configurations": {
