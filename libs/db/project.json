@@ -5,21 +5,6 @@
     "projectType": "library",
     "tags": [],
     "targets": {
-        "start": {
-            "executor": "nx:run-commands",
-            "defaultConfiguration": "development",
-            "options": {
-                "cwd": "libs/db"
-            },
-            "configurations": {
-                "development": {
-                    "command": ""
-                },
-                "production": {
-                    "command": ""
-                }
-            }
-        },
         "lint": {
             "executor": "@nrwl/linter:eslint",
             "outputs": ["{options.outputFile}"],
