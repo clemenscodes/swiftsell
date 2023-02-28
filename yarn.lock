@@ -3964,6 +3964,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@radix-ui/react-icons@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "@radix-ui/react-icons@npm:1.2.0"
+  peerDependencies:
+    react: ^16.x || ^17.x || ^18.x
+  checksum: a55f2e37d1b3457fe86aaa9e3cd89907ebbf2e8f4c37732faf1a08440ae1ddfb81278e71ebf764167ed2b9e24ac0fc17fa46165a1a9a1559ded9737d755f18bb
+  languageName: node
+  linkType: hard
+
 "@radix-ui/react-id@npm:1.0.0":
   version: 1.0.0
   resolution: "@radix-ui/react-id@npm:1.0.0"
@@ -23193,6 +23202,7 @@ __metadata:
     "@nx-tools/container-metadata": ^4.0.3
     "@nx-tools/nx-container": ^4.0.3
     "@radix-ui/react-dropdown-menu": ^2.0.3
+    "@radix-ui/react-icons": ^1.2.0
     "@rollup/plugin-url": ^7.0.0
     "@storybook/addon-controls": ^6.5.16
     "@storybook/addon-essentials": ^6.5.15

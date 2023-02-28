@@ -1,25 +1,16 @@
-import { CheckboxItem } from '@radix-ui/react-dropdown-menu';
+import { Icons } from '../../icons/icons';
+import { CheckboxItem, ItemIndicator } from '@radix-ui/react-dropdown-menu';
 import { cn } from '@styles';
-import { Check } from 'lucide-react';
-import dynamic from 'next/dynamic';
 import React from 'react';
 
 /* eslint-disable-next-line */
 export interface DropdownMenuCheckboxItemProps {}
 
-const DropdownCheckboxItem = dynamic(() =>
-    import('@radix-ui/react-dropdown-menu').then((mod) => mod.CheckboxItem)
-);
-
-const DropdownItemIndicator = dynamic(() =>
-    import('@radix-ui/react-dropdown-menu').then((mod) => mod.ItemIndicator)
-);
-
 const DropdownMenuCheckboxItem = React.forwardRef<
     React.ElementRef<typeof CheckboxItem>,
     React.ComponentPropsWithoutRef<typeof CheckboxItem>
 >(({ className, children, checked, ...props }, ref) => (
-    <DropdownCheckboxItem
+    <CheckboxItem
         ref={ref}
         className={cn(
             'relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm font-medium outline-none focus:bg-slate-100 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 dark:focus:bg-slate-700',
@@ -29,13 +20,13 @@ const DropdownMenuCheckboxItem = React.forwardRef<
         {...props}
     >
         <span className='absolute left-2 flex h-3.5 w-3.5 items-center justify-center'>
-            <DropdownItemIndicator>
-                <Check className='h-4 w-4' />
-            </DropdownItemIndicator>
+            <ItemIndicator>
+                <Icons.Logo className='h-4 w-4' />
+            </ItemIndicator>
         </span>
         {children}
-    </DropdownCheckboxItem>
+    </CheckboxItem>
 ));
-DropdownMenuCheckboxItem.displayName = DropdownCheckboxItem.displayName;
+DropdownMenuCheckboxItem.displayName = CheckboxItem.displayName;
 
 export default DropdownMenuCheckboxItem;
