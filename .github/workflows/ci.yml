@@ -298,7 +298,6 @@ jobs:
         name: Deploy
         runs-on: ubuntu-latest
         needs: [test, agents, release]
-        # needs: [release]
         defaults:
             run:
                 shell: bash
@@ -349,7 +348,6 @@ jobs:
               id: auth
               uses: google-github-actions/auth@v1
               with:
-                  #   token_format: access_token
                   workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
                   service_account: ${{ secrets.SERVICE_ACCOUNT }}
 
@@ -384,6 +382,8 @@ jobs:
               uses: jameshenry/parallel-bash-commands@v1
               with:
                   cmd1: $NX_EXEC deploy --skip-nx-cache
+              env:
+                  INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             - name: Run Agents (production)
               if: needs.deploy-agents.result != 'failure' &&
@@ -393,6 +393,8 @@ jobs:
               uses: jameshenry/parallel-bash-commands@v1
               with:
                   cmd1: $NX_EXEC deploy --skip-nx-cache --configuration=production
+              env:
+                  INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             - name: Stop Agents
               if: always()
