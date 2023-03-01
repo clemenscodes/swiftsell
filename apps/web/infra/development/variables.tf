@@ -57,6 +57,10 @@ variable "git_commit_sha" {
   type        = string
 }
 
+# variable "subnet_cidr_range" {
+#     default = "10.132.0.0/28"
+# }
+
 # variable "cdn_bucket" {
 #   description = "The name of the cdn bucket that will be created"
 #   type        = string

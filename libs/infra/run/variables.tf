@@ -52,3 +52,8 @@ variable "git_commit_sha" {
   description = "The git commit which will be used as the tag for the image"
   type        = string
 }
+
+# variable "subnet_cidr_range" {
+#   description = "The CIDR range for the subnet of the Cloud Run service"
+#   type = string
+# }
