@@ -16,8 +16,7 @@ module "project" {
     "iam.googleapis.com",
     "iamcredentials.googleapis.com",
     "cloudresourcemanager.googleapis.com",
-    "serviceusage.googleapis.com",
-    "run.googleapis.com"
+    "serviceusage.googleapis.com"
   ]
 }
 
@@ -90,6 +89,12 @@ resource "google_project_iam_member" "artifact_registry_admin" {
 resource "google_project_iam_member" "compute_admin" {
   project = module.project.project_id
   role    = "roles/compute.admin"
+  member  = "serviceAccount:${module.wif_data.service_account_email}"
+}
+
+resource "google_project_iam_member" "vpcaccess_admin" {
+  project = module.project.project_id
+  role    = "roles/vpcaccess.admin"
   member  = "serviceAccount:${module.wif_data.service_account_email}"
 }
 

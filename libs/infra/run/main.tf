@@ -1,3 +1,9 @@
+resource "google_project_service" "run" {
+  project            = var.project_id
+  service            = "run.googleapis.com"
+  disable_on_destroy = false
+}
+
 resource "google_service_account" "cloud_run_service_account" {
   account_id  = var.project_name
   project     = var.project_id
@@ -71,3 +77,25 @@ resource "google_cloud_run_domain_mapping" "default" {
     route_name = google_cloud_run_v2_service.default.name
   }
 }
+
+# locals {
+#   network_name       = "${var.cloud_run_service_name}-vpc"
+#   subnet_name        = "${local.network_name}-sn"
+#   vpc_connector_name = "${local.network_name}-connector"
+#   ip_name            = "${local.subnet_name}-ip"
+#   router_name        = "${local.ip_name}-router"
+#   nat_gateway_name   = "${local.subnet_name}-nat"
+# }
+
+# module "vpc" {
+#   source             = "../vpc"
+#   project_id         = var.project_id
+#   network_name       = local.network_name
+#   subnet_name        = local.subnet_name
+#   vpc_connector_name = local.vpc_connector_name
+#   router_name        = local.router_name
+#   ip_name            = local.ip_name
+#   nat_gateway_name   = local.nat_gateway_name
+#   region             = var.cloud_run_region
+#   subnet_cidr_range  = var.subnet_cidr_range
+# }

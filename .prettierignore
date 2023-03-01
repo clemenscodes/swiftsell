@@ -14,3 +14,4 @@
 **/.next
 apps/web/public/*.js
 gha-creds-*.json
+tsconfig.base.json
