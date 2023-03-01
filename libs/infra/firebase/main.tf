@@ -26,7 +26,6 @@ resource "google_firestore_database" "database" {
 
   depends_on = [
     google_project_service.firestore,
-    google_project_service.firebase,
     google_project_service.firebasestorage,
     google_firebase_project.default
   ]
@@ -39,7 +38,6 @@ resource "google_firebase_web_app" "basic" {
   deletion_policy = "DELETE"
 
   depends_on = [
-    google_project_service.firebase,
     google_firebase_project.default
   ]
 }
@@ -57,7 +55,6 @@ resource "google_firebase_storage_bucket" "default" {
   bucket_id = google_storage_bucket.default.id
 
   depends_on = [
-    google_project_service.firebase,
     google_project_service.firebasestorage,
     google_firebase_project.default
   ]
