@@ -28,7 +28,6 @@ module "firebase" {
   project_id           = module.project.project_id
   project_name         = var.project_name
   firebase_bucket_name = "${module.project.name}-firebase"
-  service_account_name = module.wif_data.service_account_name
   region               = var.firebase_region
   firestore_location   = var.firestore_location
   firebase_location    = var.firebase_location
@@ -67,12 +66,6 @@ resource "google_project_iam_member" "appengine_admin" {
 resource "google_project_iam_member" "iam_service_account_user" {
   project = module.project.project_id
   role    = "roles/iam.serviceAccountUser"
-  member  = "serviceAccount:${module.wif_data.service_account_email}"
-}
-
-resource "google_project_iam_member" "key_admin" {
-  project = module.project.project_id
-  role    = "roles/iam.serviceAccountKeyAdmin"
   member  = "serviceAccount:${module.wif_data.service_account_email}"
 }
 

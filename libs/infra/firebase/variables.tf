@@ -21,7 +21,3 @@ variable "project_name" {
 variable "firebase_bucket_name" {
   type = string
 }
-
-variable "service_account_name" {
-  type = string
-}
