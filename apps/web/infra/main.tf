@@ -14,6 +14,10 @@ module "project" {
     "secretmanager.googleapis.com",
     "compute.googleapis.com",
     "iam.googleapis.com",
+    "firebase.googleapis.com",
+    "firestore.googleapis.com",
+    "firebasestorage.googleapis.com",
+    "appengine.googleapis.com",
     "iamcredentials.googleapis.com",
     "cloudresourcemanager.googleapis.com",
     "serviceusage.googleapis.com"
