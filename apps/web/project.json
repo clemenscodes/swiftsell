@@ -151,6 +151,7 @@
     "implicitDependencies": [
         "infra-run",
         "infra-wif",
+        "infra-firebase",
         "infra-artifact",
         "infra-bucket-cdn",
         "infra-bucket-state",
