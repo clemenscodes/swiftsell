@@ -33,10 +33,7 @@ resource "google_firebase_web_app" "basic" {
   display_name    = var.project_name
   deletion_policy = "DELETE"
 
-  depends_on = [
-    google_project_service.firebase,
-    google_firebase_project.default
-  ]
+  depends_on = [google_firebase_project.default]
 }
 
 resource "google_storage_bucket" "default" {
