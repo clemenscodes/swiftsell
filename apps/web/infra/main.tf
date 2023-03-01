@@ -1,4 +1,3 @@
-
 module "wif_data" {
   source = "../../../libs/infra/workload_identity_federation/data"
 }

@@ -1,35 +1,21 @@
-# resource "google_project_service" "firebase" {
-#   provider = google-beta
-#   project  = var.project_id
-#   service  = "firebase.googleapis.com"
-# }
+provider "google-beta" {
+  project = "swiftsell-production"
+  region  = var.region
+}
 
-# resource "google_project_service" "firestore" {
-#   provider = google-beta
-#   project  = var.project_id
-#   service  = "firestore.googleapis.com"
-# }
+data "google_project" "project" {
+  project_id = var.project_id
+}
 
-# resource "google_project_service" "appengine" {
-#   provider = google-beta
-#   project  = var.project_id
-#   service  = "appengine.googleapis.com"
-# }
+resource "google_firebase_project" "default" {
+  provider = google-beta
+  project  = data.google_project.project.project_id
 
-# resource "google_project_service" "firebasestorage" {
-#   provider = google-beta
-#   project  = var.project_id
-#   service  = "firebasestorage.googleapis.com"
-# }
+  #   depends_on = [
+  #     google_project_service.firebase,
+  #   ]
+}
 
-# resource "google_firebase_project" "default" {
-#   provider = google-beta
-#   project  = var.project_id
-
-#   depends_on = [
-#     google_project_service.firebase,
-#   ]
-# }
 
 # resource "google_firestore_database" "database" {
 #   provider                    = google-beta
