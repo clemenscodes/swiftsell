@@ -48,8 +48,6 @@ resource "google_firestore_database" "database" {
   app_engine_integration_mode = "DISABLED"
 
   depends_on = [google_project_service.firestore]
-    google_project_service.firebase,
-    google_project_service.firebasestorage,
 }
 
 resource "google_firebase_project_location" "default" {
