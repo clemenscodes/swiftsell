@@ -1,9 +1,3 @@
-resource "google_project_service" "firebase" {
-  provider = google-beta
-  project  = var.project_id
-  service  = "firebase.googleapis.com"
-}
-
 resource "google_project_service" "firestore" {
   provider = google-beta
   project  = var.project_id
@@ -19,10 +13,6 @@ resource "google_project_service" "firebasestorage" {
 resource "google_firebase_project" "default" {
   provider = google-beta
   project  = var.project_id
-
-  depends_on = [
-    google_project_service.firebase,
-  ]
 }
 
 resource "google_firestore_database" "database" {

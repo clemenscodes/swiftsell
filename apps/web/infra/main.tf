@@ -16,6 +16,7 @@ module "project" {
     "iam.googleapis.com",
     "iamcredentials.googleapis.com",
     "cloudresourcemanager.googleapis.com",
+    "firebase.googleapis.com",
     "serviceusage.googleapis.com"
   ]
   labels = {
