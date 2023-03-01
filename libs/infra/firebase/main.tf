@@ -1,3 +1,9 @@
+resource "google_project_service" "firebase" {
+  provider = google-beta
+  project  = var.project_id
+  service  = "firebase.googleapis.com"
+}
+
 resource "google_project_service" "firestore" {
   provider = google-beta
   project  = var.project_id
@@ -13,6 +19,10 @@ resource "google_project_service" "firebasestorage" {
 resource "google_firebase_project" "default" {
   provider = google-beta
   project  = var.project_id
+
+  depends_on = [
+    google_project_service.firebase,
+  ]
 }
 
 resource "google_firestore_database" "database" {
@@ -26,6 +36,7 @@ resource "google_firestore_database" "database" {
 
   depends_on = [
     google_project_service.firestore,
+    google_project_service.firebase,
     google_project_service.firebasestorage,
     google_firebase_project.default
   ]
@@ -38,6 +49,7 @@ resource "google_firebase_web_app" "basic" {
   deletion_policy = "DELETE"
 
   depends_on = [
+    google_project_service.firebase,
     google_firebase_project.default
   ]
 }
@@ -55,6 +67,7 @@ resource "google_firebase_storage_bucket" "default" {
   bucket_id = google_storage_bucket.default.id
 
   depends_on = [
+    google_project_service.firebase,
     google_project_service.firebasestorage,
     google_firebase_project.default
   ]
