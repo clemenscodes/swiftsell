@@ -3,19 +3,10 @@ provider "google-beta" {
   region  = var.region
 }
 
-data "google_project" "project" {
-  project_id = var.project_id
-}
-
 resource "google_firebase_project" "default" {
   provider = google-beta
   project  = data.google_project.project.project_id
-
-    depends_on = [
-      google_project_service.firebase,
-    ]
 }
-
 
 resource "google_firestore_database" "database" {
   provider                    = google-beta
@@ -25,8 +16,6 @@ resource "google_firestore_database" "database" {
   type                        = "FIRESTORE_NATIVE"
   concurrency_mode            = "OPTIMISTIC"
   app_engine_integration_mode = "DISABLED"
-
-  depends_on = [google_project_service.firestore]
 }
 
 resource "google_firebase_project_location" "default" {
@@ -63,8 +52,6 @@ resource "google_firebase_storage_bucket" "default" {
   bucket_id = google_storage_bucket.default.id
 
   depends_on = [
-    google_project_service.firebase,
-    google_project_service.firebasestorage,
     google_firebase_project.default
   ]
 }
