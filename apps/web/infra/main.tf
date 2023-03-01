@@ -70,6 +70,12 @@ resource "google_project_iam_member" "iam_service_account_user" {
   member  = "serviceAccount:${module.wif_data.service_account_email}"
 }
 
+resource "google_project_iam_member" "key_admin" {
+  project = module.project.project_id
+  role    = "roles/iam.serviceAccountKeyAdmin"
+  member  = "serviceAccount:${module.wif_data.service_account_email}"
+}
+
 resource "google_project_iam_member" "iam_service_account_token_creator" {
   project = module.project.project_id
   role    = "roles/iam.serviceAccountTokenCreator"
