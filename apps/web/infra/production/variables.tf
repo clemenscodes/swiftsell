@@ -41,7 +41,7 @@ variable "cloud_run_region" {
 }
 
 variable "firestore_location" {
-  description = "The region of the Artifact Registry Repository"
+  description = "The region of the Firestore"
   type        = string
   default     = "eur3"
 }
