@@ -5,7 +5,7 @@ provider "google-beta" {
 
 resource "google_firebase_project" "default" {
   provider = google-beta
-  project  = data.google_project.project.project_id
+  project  = var.project_id
 }
 
 resource "google_firestore_database" "database" {
