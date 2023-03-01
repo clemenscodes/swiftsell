@@ -33,6 +33,9 @@ resource "google_firebase_project" "default" {
 
   depends_on = [
     google_project_service.firebase,
+    google_project_service.firebasestorage,
+    google_project_service.appengine,
+    google_project_service.firestore,
   ]
 }
 
