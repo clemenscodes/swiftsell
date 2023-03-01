@@ -1,9 +1,9 @@
 provider "google-beta" {
-  project     = var.project_id
-  region      = var.region
+  project = var.project_id
+  region  = var.region
 }
 
-resource "google_firestore_database" "database" {
+resource "google_project_service" "firebase" {
   provider = google-beta
   project  = var.project_id
   service  = "firebase.googleapis.com"
@@ -11,10 +11,8 @@ resource "google_firestore_database" "database" {
 
 resource "google_project_service" "firestore" {
   provider = google-beta
-
-  depends_on = [google_project_service.firestore]
-  project  = var.project_id
-  service  = "firestore.googleapis.com"
+  project    = var.project_id
+  service    = "firestore.googleapis.com"
 }
 
 resource "google_project_service" "appengine" {
