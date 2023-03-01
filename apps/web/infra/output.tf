@@ -14,6 +14,10 @@ output "project_id" {
   value = module.project.project_id
 }
 
+output "project_number" {
+  value = module.project.number
+}
+
 output "project_name" {
   value = module.project.name
 }

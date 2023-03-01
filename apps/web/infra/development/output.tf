@@ -10,6 +10,10 @@ output "project_id" {
   value = module.app.project_id
 }
 
+output "project_number" {
+  value = module.app.project_number
+}
+
 output "folder_name" {
   value = var.folder_name
 }
