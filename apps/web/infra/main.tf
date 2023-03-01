@@ -16,7 +16,6 @@ module "project" {
     "iam.googleapis.com",
     "iamcredentials.googleapis.com",
     "cloudresourcemanager.googleapis.com",
-    "firebase.googleapis.com",
     "serviceusage.googleapis.com"
   ]
   labels = {
@@ -27,8 +26,12 @@ module "project" {
 module "firebase" {
   source               = "../../../libs/infra/firebase"
   project_id           = module.project.project_id
-  project_name         = module.project.name
+  project_name         = var.project_name
   firebase_bucket_name = "${module.project.name}-firebase"
+  service_account_name = module.wif_data.service_account_name
+  region               = var.firebase_region
+  firestore_location   = var.firestore_location
+  firebase_location    = var.firebase_location
 }
 
 resource "google_project_iam_member" "wif" {
@@ -47,6 +50,18 @@ resource "google_project_iam_member" "wif_service_account_token_creator" {
   project = module.project.project_id
   role    = "roles/iam.serviceAccountTokenCreator"
   member  = module.wif_data.wif_principal
+}
+
+resource "google_project_iam_member" "api_keys_viewer" {
+  project = module.project.project_id
+  role    = "roles/serviceusage.apiKeysViewer"
+  member  = "serviceAccount:${module.wif_data.service_account_email}"
+}
+
+resource "google_project_iam_member" "appengine_admin" {
+  project = module.project.project_id
+  role    = "roles/appengine.appAdmin"
+  member  = "serviceAccount:${module.wif_data.service_account_email}"
 }
 
 resource "google_project_iam_member" "iam_service_account_user" {
