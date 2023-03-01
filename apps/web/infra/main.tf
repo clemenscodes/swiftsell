@@ -1,3 +1,4 @@
+
 module "wif_data" {
   source = "../../../libs/infra/workload_identity_federation/data"
 }
@@ -15,6 +16,10 @@ module "project" {
     "compute.googleapis.com",
     "iam.googleapis.com",
     "iamcredentials.googleapis.com",
+    "firebase.googleapis.com",
+    "firebasestorage.googleapis.com",
+    "firestore.googleapis.com",
+    "appengine.googleapis.com",
     "cloudresourcemanager.googleapis.com",
     "serviceusage.googleapis.com"
   ]
