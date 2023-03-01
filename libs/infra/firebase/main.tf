@@ -11,8 +11,8 @@ resource "google_project_service" "firebase" {
 
 resource "google_project_service" "firestore" {
   provider = google-beta
-  project    = var.project_id
-  service    = "firestore.googleapis.com"
+  project  = var.project_id
+  service  = "firestore.googleapis.com"
 }
 
 resource "google_project_service" "appengine" {
@@ -36,6 +36,12 @@ resource "google_firebase_project" "default" {
   ]
 }
 
+resource "time_sleep" "wait_60_seconds" {
+  depends_on = [google_firebase_project.default]
+
+  create_duration = "60s"
+}
+
 resource "google_firestore_database" "database" {
   provider                    = google-beta
   project                     = var.project_id
@@ -45,7 +51,7 @@ resource "google_firestore_database" "database" {
   concurrency_mode            = "OPTIMISTIC"
   app_engine_integration_mode = "DISABLED"
 
-  depends_on = [google_project_service.firestore]
+  depends_on = [time_sleep.wait_60_seconds, google_project_service.firestore]
 }
 
 resource "google_firebase_project_location" "default" {
