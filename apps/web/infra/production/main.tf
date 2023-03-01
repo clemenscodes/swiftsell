@@ -12,17 +12,20 @@ terraform {
 }
 
 module "app" {
-  source          = "../"
-  project_name    = var.project_name
-  state_bucket    = var.state_bucket
-  folder_name     = var.folder_name
-  artifact_region = var.artifact_region
-  repository_id   = var.repository_id
-  git_commit_sha  = var.git_commit_sha
-  isr_bucket      = var.isr_bucket
-#   cdn_bucket      = var.cdn_bucket
-#   cdn_region      = var.cdn_region
-#   cdn_subdomain   = var.cdn_subdomain
+  source             = "../"
+  project_name       = var.project_name
+  state_bucket       = var.state_bucket
+  folder_name        = var.folder_name
+  artifact_region    = var.artifact_region
+  repository_id      = var.repository_id
+  git_commit_sha     = var.git_commit_sha
+  isr_bucket         = var.isr_bucket
+  firebase_region    = var.cloud_run_region
+  firestore_location = var.firestore_location
+  firebase_location  = var.firebase_location
+  #   cdn_bucket      = var.cdn_bucket
+  #   cdn_region      = var.cdn_region
+  #   cdn_subdomain   = var.cdn_subdomain
 }
 
 module "run" {
