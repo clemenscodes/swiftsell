@@ -65,3 +65,7 @@ output "repo" {
 output "repo_owner" {
   value = var.repo_owner
 }
+
+output "service_account_name" {
+  value = data.google_service_account.wif_sa.name
+}
