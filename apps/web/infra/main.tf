@@ -18,6 +18,16 @@ module "project" {
     "cloudresourcemanager.googleapis.com",
     "serviceusage.googleapis.com"
   ]
+  labels = {
+    "firebase" = "enabled"
+  }
+}
+
+module "firebase" {
+  source               = "../../../libs/infra/firebase"
+  project_id           = module.project.project_id
+  project_name         = module.project.name
+  firebase_bucket_name = "${module.project.name}-firebase"
 }
 
 resource "google_project_iam_member" "wif" {
@@ -92,11 +102,11 @@ resource "google_project_iam_member" "compute_admin" {
   member  = "serviceAccount:${module.wif_data.service_account_email}"
 }
 
-resource "google_project_iam_member" "vpcaccess_admin" {
-  project = module.project.project_id
-  role    = "roles/vpcaccess.admin"
-  member  = "serviceAccount:${module.wif_data.service_account_email}"
-}
+# resource "google_project_iam_member" "vpcaccess_admin" {
+#   project = module.project.project_id
+#   role    = "roles/vpcaccess.admin"
+#   member  = "serviceAccount:${module.wif_data.service_account_email}"
+# }
 
 module "state_bucket" {
   source     = "../../../libs/infra/bucket/state"
