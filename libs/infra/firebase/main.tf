@@ -1,5 +1,5 @@
 provider "google-beta" {
-  project = "swiftsell-production"
+  project = var.project_id
   region  = var.region
 }
 
@@ -7,14 +7,14 @@ data "google_project" "project" {
   project_id = var.project_id
 }
 
-resource "google_firebase_project" "default" {
-  provider = google-beta
-  project  = data.google_project.project.project_id
+# resource "google_firebase_project" "default" {
+#   provider = google-beta
+#   project  = data.google_project.project.project_id
 
   #   depends_on = [
   #     google_project_service.firebase,
   #   ]
-}
+# }
 
 
 # resource "google_firestore_database" "database" {
