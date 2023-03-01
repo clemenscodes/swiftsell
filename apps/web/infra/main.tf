@@ -15,10 +15,6 @@ module "project" {
     "compute.googleapis.com",
     "iam.googleapis.com",
     "iamcredentials.googleapis.com",
-    "firebase.googleapis.com",
-    "firebasestorage.googleapis.com",
-    "firestore.googleapis.com",
-    "appengine.googleapis.com",
     "cloudresourcemanager.googleapis.com",
     "serviceusage.googleapis.com"
   ]

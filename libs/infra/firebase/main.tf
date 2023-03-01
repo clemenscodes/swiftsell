@@ -1,11 +1,41 @@
 provider "google-beta" {
-  project = var.project_id
-  region  = var.region
+  project     = var.project_id
+  region      = var.region
+}
+
+resource "google_firestore_database" "database" {
+  provider = google-beta
+  project  = var.project_id
+  service  = "firebase.googleapis.com"
+}
+
+resource "google_project_service" "firestore" {
+  provider = google-beta
+
+  depends_on = [google_project_service.firestore]
+  project  = var.project_id
+  service  = "firestore.googleapis.com"
+}
+
+resource "google_project_service" "appengine" {
+  provider = google-beta
+  project  = var.project_id
+  service  = "appengine.googleapis.com"
+}
+
+resource "google_project_service" "firebasestorage" {
+  provider = google-beta
+  project  = var.project_id
+  service  = "firebasestorage.googleapis.com"
 }
 
 resource "google_firebase_project" "default" {
   provider = google-beta
   project  = var.project_id
+
+  depends_on = [
+    google_project_service.firebase,
+  ]
 }
 
 resource "google_firestore_database" "database" {
@@ -16,6 +46,10 @@ resource "google_firestore_database" "database" {
   type                        = "FIRESTORE_NATIVE"
   concurrency_mode            = "OPTIMISTIC"
   app_engine_integration_mode = "DISABLED"
+
+  depends_on = [google_project_service.firestore]
+    google_project_service.firebase,
+    google_project_service.firebasestorage,
 }
 
 resource "google_firebase_project_location" "default" {
@@ -33,7 +67,10 @@ resource "google_firebase_web_app" "basic" {
   display_name    = var.project_name
   deletion_policy = "DELETE"
 
-  depends_on = [google_firebase_project.default]
+  depends_on = [
+    google_project_service.firebase,
+    google_firebase_project.default
+  ]
 }
 
 resource "google_storage_bucket" "default" {
@@ -49,6 +86,8 @@ resource "google_firebase_storage_bucket" "default" {
   bucket_id = google_storage_bucket.default.id
 
   depends_on = [
+    google_project_service.firebase,
+    google_project_service.firebasestorage,
     google_firebase_project.default
   ]
 }
