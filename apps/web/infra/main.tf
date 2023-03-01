@@ -67,6 +67,12 @@ resource "google_project_iam_member" "run_service_agent" {
   member  = "serviceAccount:${module.wif_data.service_account_email}"
 }
 
+resource "google_project_iam_member" "firebase_admin" {
+  project = module.project.project_id
+  role    = "roles/firebase.admin"
+  member  = "serviceAccount:${module.wif_data.service_account_email}"
+}
+
 resource "google_project_iam_member" "storage_admin" {
   project = module.project.project_id
   role    = "roles/storage.admin"
