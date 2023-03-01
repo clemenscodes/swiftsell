@@ -27,17 +27,17 @@ resource "google_project_service" "firebasestorage" {
   service  = "firebasestorage.googleapis.com"
 }
 
-resource "google_firebase_project" "default" {
-  provider = google-beta
-  project  = var.project_id
+# resource "google_firebase_project" "default" {
+#   provider = google-beta
+#   project  = var.project_id
 
-  depends_on = [
-    google_project_service.firebase,
-    google_project_service.firebasestorage,
-    google_project_service.appengine,
-    google_project_service.firestore,
-  ]
-}
+#   depends_on = [
+#     google_project_service.firebase,
+#     google_project_service.firebasestorage,
+#     google_project_service.appengine,
+#     google_project_service.firestore,
+#   ]
+# }
 
 # resource "time_sleep" "wait_60_seconds" {
 #   depends_on = [google_firebase_project.default]
