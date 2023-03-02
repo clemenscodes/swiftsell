@@ -4,6 +4,7 @@ locals {
 
 data "google_firebase_web_app_config" "basic" {
   provider   = google-beta
+  project    = var.project_id
   web_app_id = var.app_id
 }
 
@@ -189,13 +190,13 @@ resource "google_cloud_run_v2_service" "default" {
           }
         }
       }
-    }
-    env {
-      name = module.cookie_secret_current.name
-      value_source {
-        secret_key_ref {
-          secret  = module.cookie_secret_current.secret_id
-          version = "latest"
+      env {
+        name = module.cookie_secret_current.name
+        value_source {
+          secret_key_ref {
+            secret  = module.cookie_secret_current.secret_id
+            version = "latest"
+          }
         }
       }
     }
@@ -214,6 +215,8 @@ resource "google_cloud_run_v2_service" "default" {
     module.firebase_secret_messaging_sender_id,
     module.firebase_secret_project_id,
     module.firebase_secret_storage_bucket,
+    module.cookie_secret_previous,
+    module.cookie_secret_current
   ]
 }
 

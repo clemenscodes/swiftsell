@@ -17,17 +17,6 @@ export const initAuth = () => {
             console.error(err);
         },
         // firebaseAuthEmulatorHost: 'localhost:9099',
-        // firebaseAdminInitConfig: {
-        //     credential: {
-        //         projectId: 'my-example-app-id',
-        //         clientEmail:
-        //             'example-abc123@my-example-app.iam.gserviceaccount.com',
-        //         // The private key must not be accessible on the client side.
-        //         privateKey: process.env.FIREBASE_PRIVATE_KEY,
-        //     },
-        //     databaseURL: 'https://my-example-app.firebaseio.com',
-        // },
-        // Use application default credentials (takes precedence over firebaseAdminInitConfig if set)
         useFirebaseAdminDefaultCredential: true,
         firebaseClientInitConfig: {
             ...getFirebaseConfig(),
