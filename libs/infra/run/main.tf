@@ -102,7 +102,8 @@ resource "google_cloud_run_v2_service" "default" {
         name = module.firebase_secret_api_key.name
         value_source {
           secret_key_ref {
-            secret = module.firebase_secret_api_key.secret_id
+            secret  = module.firebase_secret_api_key.secret_id
+            version = "latest"
           }
         }
       }
@@ -110,7 +111,8 @@ resource "google_cloud_run_v2_service" "default" {
         name = module.firebase_secret_app_id.name
         value_source {
           secret_key_ref {
-            secret = module.firebase_secret_app_id.secret_id
+            secret  = module.firebase_secret_app_id.secret_id
+            version = "latest"
           }
         }
       }
@@ -118,7 +120,8 @@ resource "google_cloud_run_v2_service" "default" {
         name = module.firebase_secret_project_id.name
         value_source {
           secret_key_ref {
-            secret = module.firebase_secret_project_id.secret_id
+            secret  = module.firebase_secret_project_id.secret_id
+            version = "latest"
           }
         }
       }
@@ -126,7 +129,8 @@ resource "google_cloud_run_v2_service" "default" {
         name = module.firebase_secret_storage_bucket.name
         value_source {
           secret_key_ref {
-            secret = module.firebase_secret_storage_bucket.secret_id
+            secret  = module.firebase_secret_storage_bucket.secret_id
+            version = "latest"
           }
         }
       }
@@ -134,7 +138,8 @@ resource "google_cloud_run_v2_service" "default" {
         name = module.firebase_secret_messaging_sender_id.name
         value_source {
           secret_key_ref {
-            secret = module.firebase_secret_messaging_sender_id.secret_id
+            secret  = module.firebase_secret_messaging_sender_id.secret_id
+            version = "latest"
           }
         }
       }
@@ -142,7 +147,8 @@ resource "google_cloud_run_v2_service" "default" {
         name = module.firebase_secret_auth_domain.name
         value_source {
           secret_key_ref {
-            secret = module.firebase_secret_auth_domain.secret_id
+            secret  = module.firebase_secret_auth_domain.secret_id
+            version = "latest"
           }
         }
       }
