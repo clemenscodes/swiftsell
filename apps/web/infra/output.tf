@@ -2,10 +2,6 @@ output "org_name" {
   value = module.wif_data.org_name
 }
 
-# output "ip" {
-#   value = module.cdn.ip
-# }
-
 output "domain" {
   value = module.wif_data.domain
 }
@@ -30,10 +26,6 @@ output "isr_bucket" {
   value = module.isr_bucket.name
 }
 
-# output "cdn_bucket" {
-#   value = module.cdn.cdn_bucket_name
-# }
-
 output "repository_id" {
   value = module.artifact-registry-repository.repository_id
 }
@@ -45,6 +37,18 @@ output "artifact_region" {
 output "git_commit_sha" {
   value = var.git_commit_sha
 }
+
+output "app_id" {
+  value = module.firebase.app_id
+}
+
+# output "ip" {
+#   value = module.cdn.ip
+# }
+
+# output "cdn_bucket" {
+#   value = module.cdn.cdn_bucket_name
+# }
 
 # output "cdn_subdomain" {
 #   value = module.cdn.subdomain

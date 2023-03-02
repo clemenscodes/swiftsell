@@ -41,5 +41,6 @@ module "run" {
   cloud_run_service_name = var.cloud_run_service_name
   cloud_run_region       = var.cloud_run_region
   artifact_region        = var.artifact_region
+  app_id                 = module.app.app_id
   #   subnet_cidr_range      = var.subnet_cidr_range
 }
