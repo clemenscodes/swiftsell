@@ -24,6 +24,7 @@
         "src/**/*.jsx",
         "src/**/*.ts",
         "src/**/*.tsx",
-        "../utils/src/lib/firebase/auth.ts"
+        "../utils/src/lib/firebase/auth.ts",
+        "src/lib/env.ts"
     ]
 }

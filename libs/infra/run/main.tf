@@ -55,6 +55,34 @@ module "firebase_secret_messaging_sender_id" {
   secret_data     = lookup(data.google_firebase_web_app_config.basic, "messaging_sender_id", "")
 }
 
+resource "random_password" "cookie_secret_current" {
+  length           = 16
+  special          = true
+  override_special = "!#$%&*()-_=+[]{}<>:?"
+}
+
+resource "random_password" "cookie_secret_previous" {
+  length           = 16
+  special          = true
+  override_special = "!#$%&*()-_=+[]{}<>:?"
+}
+
+module "cookie_secret_previous" {
+  source          = "../secret"
+  project_id      = var.project_id
+  service_account = local.sa
+  secret_id       = "COOKIE_SECRET_PREVIOUS"
+  secret_data     = random_password.cookie_secret_previous.result
+}
+
+module "cookie_secret_current" {
+  source          = "../secret"
+  project_id      = var.project_id
+  service_account = local.sa
+  secret_id       = "COOKIE_SECRET_CURRENT"
+  secret_data     = random_password.cookie_secret_current.result
+}
+
 resource "google_project_service" "run" {
   project            = var.project_id
   service            = "run.googleapis.com"
@@ -150,6 +178,24 @@ resource "google_cloud_run_v2_service" "default" {
             secret  = module.firebase_secret_auth_domain.secret_id
             version = "latest"
           }
+        }
+      }
+      env {
+        name = module.cookie_secret_previous.name
+        value_source {
+          secret_key_ref {
+            secret  = module.cookie_secret_previous.secret_id
+            version = "latest"
+          }
+        }
+      }
+    }
+    env {
+      name = module.cookie_secret_current.name
+      value_source {
+        secret_key_ref {
+          secret  = module.cookie_secret_current.secret_id
+          version = "latest"
         }
       }
     }

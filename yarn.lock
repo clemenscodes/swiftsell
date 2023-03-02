@@ -19279,6 +19279,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"next-absolute-url@npm:^1.2.2":
+  version: 1.2.2
+  resolution: "next-absolute-url@npm:1.2.2"
+  checksum: 438829a98a00550f2e7277ac9355c3d57eeb6af99a83c2b2903097c0e2107c7217111e4bb338cd0c703392c6001c8b79912c6860b4d9388d47cf942a171fb866
+  languageName: node
+  linkType: hard
+
 "next-compose-plugins@npm:^2.2.1":
   version: 2.2.1
   resolution: "next-compose-plugins@npm:2.2.1"
@@ -24605,6 +24612,7 @@ __metadata:
     jest-environment-jsdom: 28.1.1
     lucide-react: ^0.115.0
     next: 13.1.1
+    next-absolute-url: ^1.2.2
     next-compose-plugins: ^2.2.1
     next-firebase-auth: canary
     next-fonts: ^1.5.1

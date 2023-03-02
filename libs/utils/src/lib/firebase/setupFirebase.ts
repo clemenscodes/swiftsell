@@ -1,10 +1,12 @@
-import { firebaseConfig } from '@config';
-import { initializeApp, getApp, getApps } from 'firebase/app';
+import { isBrowser } from '../isBrowser';
+import { getFirebaseConfig } from '@config';
+import { initializeApp, getApp, getApps, FirebaseOptions } from 'firebase/app';
 
 const setupFirebase = () => {
-    if (typeof window !== undefined) {
+    if (isBrowser()) {
         if (getApps().length) return getApp();
-        return initializeApp(firebaseConfig);
+        // console.log({ firebaseConfig });
+        return initializeApp(getFirebaseConfig as FirebaseOptions);
     }
 };
 
