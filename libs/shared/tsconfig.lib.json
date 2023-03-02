@@ -24,8 +24,13 @@
         "src/**/*.jsx",
         "src/**/*.ts",
         "src/**/*.tsx",
-        "../styles/src/cn.ts",
-        "../hooks/src/usePrefix.tsx",
-        "../redux/src/usePrefixStore.tsx"
+        "../styles/**/*.ts",
+        "../styles/**/*.tsx",
+        "../config/**/*.ts",
+        "../config/**/*.tsx",
+        "../hooks/**/*.tsx",
+        "../hooks/**/*.ts",
+        "../redux/**/*.tsx",
+        "../redux/**/*.ts"
     ]
 }

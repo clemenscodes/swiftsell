@@ -94,7 +94,7 @@ resource "google_project_iam_member" "firebase_admin" {
 
 resource "google_project_iam_member" "secret_manager_admin" {
   project = module.project.project_id
-  role    = "roles/secretManager.admin"
+  role    = "roles/secretmanager.admin"
   member  = "serviceAccount:${module.wif_data.service_account_email}"
 }
 
