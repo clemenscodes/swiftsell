@@ -43,7 +43,7 @@
             }
         },
         "analyze": {
-            "command": "ANALYZE=true nx build web"
+            "command": "ANALYZE=true nx build web --skip-nx-cache"
         },
         "start": {
             "dependsOn": ["build"],
