@@ -123,7 +123,7 @@ resource "google_cloud_run_v2_service" "default" {
         }
       }
       env {
-        name = module.firebase_secret_storage_bucket
+        name = module.firebase_secret_storage_bucket.name
         value_source {
           secret_key_ref {
             secret = module.firebase_secret_storage_bucket.secret_id
@@ -131,7 +131,7 @@ resource "google_cloud_run_v2_service" "default" {
         }
       }
       env {
-        name = module.firebase_secret_messaging_sender_id
+        name = module.firebase_secret_messaging_sender_id.name
         value_source {
           secret_key_ref {
             secret = module.firebase_secret_messaging_sender_id.secret_id
@@ -142,7 +142,7 @@ resource "google_cloud_run_v2_service" "default" {
         name = module.firebase_secret_auth_domain.name
         value_source {
           secret_key_ref {
-            secret = module.firebase_secret_auth_domain
+            secret = module.firebase_secret_auth_domain.secret_id
           }
         }
       }
