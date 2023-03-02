@@ -1,6 +1,5 @@
 provider "google-beta" {
   project = var.project_id
-  region  = var.region
 }
 
 resource "google_project_service" "firebase" {
@@ -39,12 +38,6 @@ resource "google_firebase_project" "default" {
   ]
 }
 
-resource "time_sleep" "wait_60_seconds" {
-  depends_on = [google_firebase_project.default]
-
-  create_duration = "60s"
-}
-
 resource "google_firestore_database" "database" {
   provider                    = google-beta
   project                     = var.project_id
@@ -54,7 +47,7 @@ resource "google_firestore_database" "database" {
   concurrency_mode            = "OPTIMISTIC"
   app_engine_integration_mode = "DISABLED"
 
-  depends_on = [time_sleep.wait_60_seconds, google_project_service.firestore]
+  depends_on = [google_project_service.firestore]
 }
 
 resource "google_firebase_project_location" "default" {
@@ -93,6 +86,7 @@ resource "google_firebase_storage_bucket" "default" {
   depends_on = [
     google_project_service.firebase,
     google_project_service.firebasestorage,
+    google_storage_bucket.default,
     google_firebase_project.default
   ]
 }
