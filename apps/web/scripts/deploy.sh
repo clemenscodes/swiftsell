@@ -188,6 +188,7 @@ update_firebase_api_key() {
         OLD_GCP_PROJECT=$GCP_PROJECT
         OLD_GOOGLE_CLOUD_PROJECT=$GOOGLE_CLOUD_PROJECT
         purple "Setting project $project and overriding environment variables set in CI"
+        gcloud config set project "$project"
         export CLOUDSDK_CORE_PROJECT="$project"
         export CLOUDSDK_PROJECT="$project"
         export GCLOUD_PROJECT="$project"
@@ -206,6 +207,7 @@ update_firebase_api_key() {
 
     if [ -n "$CI" ]; then
         purple "Resetting GCP environment variables"
+        gcloud config set project "$OLD_GCP_PROJECT"
         export CLOUDSDK_CORE_PROJECT="$OLD_CLOUDSDK_CORE_PROJECT"
         export CLOUDSDK_PROJECT="$OLD_CLOUDSDK_PROJECT"
         export GCLOUD_PROJECT="$OLD_GCLOUD_PROJECT"
