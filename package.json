@@ -1,6 +1,6 @@
 {
     "name": "swiftsell",
-    "version": "0.0.0",
+    "version": "0.9.0",
     "license": "MIT",
     "scripts": {
         "ci": "tools/scripts/ci.sh",
