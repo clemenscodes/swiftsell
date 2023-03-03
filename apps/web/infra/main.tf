@@ -2,6 +2,11 @@ module "wif_data" {
   source = "../../../libs/infra/workload_identity_federation/data"
 }
 
+locals {
+  domain = "${var.subdomain}.${module.wif_data.domain}"
+  #   sa = "serviceAccount:${google_service_account.cloud_run_service_account.email}"
+}
+
 module "project" {
   source              = "github.com/GoogleCloudPlatform/cloud-foundation-fabric/modules/project"
   billing_account     = module.wif_data.billing_account
@@ -17,6 +22,7 @@ module "project" {
     "firebase.googleapis.com",
     "firestore.googleapis.com",
     "firebasestorage.googleapis.com",
+    "apikeys.googleapis.com",
     "appengine.googleapis.com",
     "iamcredentials.googleapis.com",
     "secretmanager.googleapis.com",
@@ -134,6 +140,35 @@ resource "google_project_iam_member" "compute_admin" {
   member  = "serviceAccount:${module.wif_data.service_account_email}"
 }
 
+resource "google_project_iam_member" "firebasemanagementserviceagent" {
+  project = module.project.project_id
+  role    = "roles/firebase.managementServiceAgent"
+  member  = "serviceAccount:${module.wif_data.service_account_email}"
+}
+
+resource "google_apikeys_key" "browser_key" {
+  name         = "firebase-api-key"
+  display_name = "Browser key (auto created by Terraform)"
+  project      = module.project.project_id
+  restrictions {
+    api_targets {
+      service = "firebase.googleapis.com"
+    }
+    api_targets {
+      service = "firestore.googleapis.com"
+    }
+    api_targets {
+      service = "firebasestorage.googleapis.com"
+    }
+    browser_key_restrictions {
+      allowed_referrers = [local.domain, "${local.domain}/*"]
+    }
+  }
+  depends_on = [
+    google_project_iam_member.firebasemanagementserviceagent
+  ]
+}
+
 # resource "google_project_iam_member" "vpcaccess_admin" {
 #   project = module.project.project_id
 #   role    = "roles/vpcaccess.admin"
@@ -159,107 +194,23 @@ module "isr_bucket" {
   bucket     = var.isr_bucket
 }
 
-# locals {
-#   sa = "serviceAccount:${google_service_account.cloud_run_service_account.email}"
-# }
+data "google_firebase_web_app_config" "basic" {
+  provider   = google-beta
+  project    = module.project.project_id
+  web_app_id = module.firebase.app_id
+}
 
-# data "google_firebase_web_app_config" "basic" {
-#   provider   = google-beta
-#   project    = var.project_id
-#   web_app_id = var.app_id
-# }
+resource "random_password" "cookie_secret_current" {
+  length           = 16
+  special          = true
+  override_special = "!#$%&*()-_=+[]{}<>:?"
+}
 
-# module "firebase_secret_project_id" {
-#   source          = "../secret"
-#   project_id      = var.project_id
-#   service_account = local.sa
-#   secret_id       = "NEXT_PUBLIC_FIREBASE_PROJECT_ID"
-#   secret_data     = var.project_id
-# }
-
-# module "firebase_secret_app_id" {
-#   source          = "../secret"
-#   project_id      = var.project_id
-#   service_account = local.sa
-#   secret_id       = "NEXT_PUBLIC_FIREBASE_APP_ID"
-#   secret_data     = var.app_id
-# }
-
-# module "firebase_secret_api_key" {
-#   source          = "../secret"
-#   project_id      = var.project_id
-#   service_account = local.sa
-#   secret_id       = "NEXT_PUBLIC_FIREBASE_API_KEY"
-#   secret_data     = data.google_firebase_web_app_config.basic.api_key
-# }
-
-# module "firebase_secret_auth_domain" {
-#   source          = "../secret"
-#   project_id      = var.project_id
-#   service_account = local.sa
-#   secret_id       = "NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN"
-#   secret_data     = data.google_firebase_web_app_config.basic.auth_domain
-# }
-
-# module "firebase_secret_storage_bucket" {
-#   source          = "../secret"
-#   project_id      = var.project_id
-#   service_account = local.sa
-#   secret_id       = "NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET"
-#   secret_data     = lookup(data.google_firebase_web_app_config.basic, "storage_bucket", "")
-# }
-
-# module "firebase_secret_messaging_sender_id" {
-#   source          = "../secret"
-#   project_id      = var.project_id
-#   service_account = local.sa
-#   secret_id       = "NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID"
-#   secret_data     = lookup(data.google_firebase_web_app_config.basic, "messaging_sender_id", "")
-# }
-
-# resource "random_password" "cookie_secret_current" {
-#   length           = 16
-#   special          = true
-#   override_special = "!#$%&*()-_=+[]{}<>:?"
-# }
-
-# resource "random_password" "cookie_secret_previous" {
-#   length           = 16
-#   special          = true
-#   override_special = "!#$%&*()-_=+[]{}<>:?"
-# }
-
-# module "cookie_secret_previous" {
-#   source          = "../secret"
-#   project_id      = var.project_id
-#   service_account = local.sa
-#   secret_id       = "COOKIE_SECRET_PREVIOUS"
-#   secret_data     = random_password.cookie_secret_previous.result
-# }
-
-# module "cookie_secret_current" {
-#   source          = "../secret"
-#   project_id      = var.project_id
-#   service_account = local.sa
-#   secret_id       = "COOKIE_SECRET_CURRENT"
-#   secret_data     = random_password.cookie_secret_current.result
-# }
-
-# resource "google_project_service" "run" {
-#   project            = var.project_id
-#   service            = "run.googleapis.com"
-#   disable_on_destroy = false
-# }
-
-# resource "google_service_account" "cloud_run_service_account" {
-#   account_id  = var.project_name
-#   project     = var.project_id
-#   description = "The service account that will be used by the Cloud Run instance. Needs access to Cloud Storage"
-# }
-
-
-
-
+resource "random_password" "cookie_secret_previous" {
+  length           = 16
+  special          = true
+  override_special = "!#$%&*()-_=+[]{}<>:?"
+}
 
 # module "cdn" {
 #   source           = "../../../libs/infra/cdn"

@@ -1,3 +1,8 @@
+variable "subdomain" {
+  description = "The subdomain of the apex domain"
+  type        = string
+}
+
 variable "folder_name" {
   description = "The name of the folder in which the project for this application should be created"
   type        = string

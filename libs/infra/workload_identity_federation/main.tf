@@ -69,25 +69,31 @@ resource "google_project_service" "iam" {
 
 resource "google_project_service" "firebase" {
   provider = google-beta
-  project = module.data.project_id
-  service = "firebase.googleapis.com"
+  project  = module.data.project_id
+  service  = "firebase.googleapis.com"
 }
 
 resource "google_project_service" "firestore" {
   provider = google-beta
-  project = module.data.project_id
+  project  = module.data.project_id
   service  = "firestore.googleapis.com"
+}
+
+resource "google_project_service" "apikeys" {
+  provider = google-beta
+  project  = module.data.project_id
+  service  = "apikeys.googleapis.com"
 }
 
 resource "google_project_service" "firebasestorage" {
   provider = google-beta
-  project = module.data.project_id
+  project  = module.data.project_id
   service  = "firebasestorage.googleapis.com"
 }
 
 resource "google_project_service" "appengine" {
   provider = google-beta
-  project = module.data.project_id
+  project  = module.data.project_id
   service  = "appengine.googleapis.com"
 }
 

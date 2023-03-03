@@ -39,7 +39,38 @@ output "git_commit_sha" {
 }
 
 output "app_id" {
-  value = module.firebase.app_id
+  value     = module.firebase.app_id
+  sensitive = true
+}
+
+output "api_key" {
+  value     = google_apikeys_key.browser_key.key_string
+  sensitive = true
+}
+
+output "auth_domain" {
+  value     = data.google_firebase_web_app_config.basic.auth_domain
+  sensitive = true
+}
+
+output "storage_bucket" {
+  value     = lookup(data.google_firebase_web_app_config.basic, "storage_bucket", "")
+  sensitive = true
+}
+
+output "sender_id" {
+  value     = lookup(data.google_firebase_web_app_config.basic, "messaging_sender_id", "")
+  sensitive = true
+}
+
+output "cookie_secret_previous" {
+  value     = random_password.cookie_secret_previous.result
+  sensitive = true
+}
+
+output "cookie_secret_current" {
+  value     = random_password.cookie_secret_current.result
+  sensitive = true
 }
 
 # output "ip" {

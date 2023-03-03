@@ -29,7 +29,7 @@ module "firebase_secret_api_key" {
   project_id      = var.project_id
   service_account = local.sa
   secret_id       = "NEXT_PUBLIC_FIREBASE_API_KEY"
-  secret_data     = data.google_firebase_web_app_config.basic.api_key
+  secret_data     = var.api_key
 }
 
 module "firebase_secret_auth_domain" {
@@ -37,7 +37,7 @@ module "firebase_secret_auth_domain" {
   project_id      = var.project_id
   service_account = local.sa
   secret_id       = "NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN"
-  secret_data     = data.google_firebase_web_app_config.basic.auth_domain
+  secret_data     = var.auth_domain
 }
 
 module "firebase_secret_storage_bucket" {
@@ -45,7 +45,7 @@ module "firebase_secret_storage_bucket" {
   project_id      = var.project_id
   service_account = local.sa
   secret_id       = "NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET"
-  secret_data     = lookup(data.google_firebase_web_app_config.basic, "storage_bucket", "")
+  secret_data     = var.storage_bucket
 }
 
 module "firebase_secret_messaging_sender_id" {
@@ -53,19 +53,7 @@ module "firebase_secret_messaging_sender_id" {
   project_id      = var.project_id
   service_account = local.sa
   secret_id       = "NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID"
-  secret_data     = lookup(data.google_firebase_web_app_config.basic, "messaging_sender_id", "")
-}
-
-resource "random_password" "cookie_secret_current" {
-  length           = 16
-  special          = true
-  override_special = "!#$%&*()-_=+[]{}<>:?"
-}
-
-resource "random_password" "cookie_secret_previous" {
-  length           = 16
-  special          = true
-  override_special = "!#$%&*()-_=+[]{}<>:?"
+  secret_data     = var.sender_id
 }
 
 module "cookie_secret_previous" {
@@ -73,7 +61,7 @@ module "cookie_secret_previous" {
   project_id      = var.project_id
   service_account = local.sa
   secret_id       = "COOKIE_SECRET_PREVIOUS"
-  secret_data     = random_password.cookie_secret_previous.result
+  secret_data     = var.cookie_secret_previous
 }
 
 module "cookie_secret_current" {
@@ -81,7 +69,7 @@ module "cookie_secret_current" {
   project_id      = var.project_id
   service_account = local.sa
   secret_id       = "COOKIE_SECRET_CURRENT"
-  secret_data     = random_password.cookie_secret_current.result
+  secret_data     = var.cookie_secret_current
 }
 
 resource "google_project_service" "run" {

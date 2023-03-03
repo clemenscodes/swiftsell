@@ -48,7 +48,6 @@ deploy() {
     cleanup
     # generate_cdn_dns_entry
     generate_domain_mapping_dns_entry
-    update_firebase_api_key
 }
 
 local_plan() {
@@ -99,14 +98,13 @@ populate_env_configs() {
     ENV_CONFIG_FILE="$APP_DIR/config/.env.$CONFIG"
 
     PROJECT_ID_VALUE="$($TF output project_id | tr -d '"')"
-
-    API_KEY_VALUE="dummy api value"
-    AUTH_DOMAIN_VALUE="dummy auth domain value"
-    MESSAGING_SENDER_ID_VALUE="dummy messaging sender id value"
-    STORAGE_BUCKET_VALUE="dummy storage bucket value"
-    COOKIE_SECRET_PREVIOUS_VALUE="dummy cookie secret previous value"
-    COOKIE_SECRET_CURRENT_VALUE="dummy cookie secret currentvalue"
-    APP_ID_VALUE="dummy app id value"
+    APP_ID_VALUE="$($TF output app_id | tr -d '"')"
+    API_KEY_VALUE="$($TF output api_key | tr -d '"')"
+    AUTH_DOMAIN_VALUE="$($TF output auth_domain | tr -d '"')"
+    MESSAGING_SENDER_ID_VALUE="$($TF output sender_id | tr -d '"')"
+    STORAGE_BUCKET_VALUE="$($TF output storage_bucket | tr -d '"')"
+    COOKIE_SECRET_PREVIOUS_VALUE="$($TF output cookie_secret_previous | tr -d '"')"
+    COOKIE_SECRET_CURRENT_VALUE="$($TF output cookie_secret_current | tr -d '"')"
 
     PROJECT_ID_ENTRY="NEXT_PUBLIC_FIREBASE_PROJECT_ID=\"$PROJECT_ID_VALUE\""
     API_KEY_ENTRY="NEXT_PUBLIC_FIREBASE_APIKEY=\"$API_KEY_VALUE\""
@@ -214,47 +212,6 @@ cleanup() {
         fi
     done
     set -e
-}
-
-update_firebase_api_key() {
-    purple "Updating Firebase API key"
-    project=$($TF output project_id | tr -d '"')
-    apex=$($TF output domain | tr -d '"')
-    subdomain=$($TF output cloud_run_subdomain | tr -d '"')
-    domain="$subdomain.$apex"
-    firebase_service="firebase.googleapis.com"
-    firestore_service="firestore.googleapis.com"
-    firebasestorage_service="firebasestorage.googleapis.com"
-    gcloud config set project "$project"
-    if [ -n "$CI" ]; then
-        purple "Setting project $project and overriding environment variables set in CI"
-        key_id=$(
-            CLOUDSDK_CORE_PROJECT="$project" \
-                CLOUDSDK_PROJECT="$project" \
-                GCLOUD_PROJECT="$project" \
-                GCP_PROJECT="$project" \
-                GOOGLE_CLOUD_PROJECT="$project" \
-                gcloud alpha services api-keys list --project="$project" | grep uid | awk '{print $2}'
-        )
-        CLOUDSDK_CORE_PROJECT="$project" \
-            CLOUDSDK_PROJECT="$project" \
-            GCLOUD_PROJECT="$project" \
-            GCP_PROJECT="$project" \
-            GOOGLE_CLOUD_PROJECT="$project" \
-            gcloud alpha services api-keys update "$key_id" \
-            --project="$project" \
-            --allowed-referrers="$domain,$domain/*" \
-            --api-target=service="$firebase_service" \
-            --api-target=service="$firestore_service" \
-            --api-target=service="$firebasestorage_service"
-    fi
-    key_id=$(gcloud alpha services api-keys list --project="$project" | grep uid | awk '{print $2}')
-    gcloud alpha services api-keys update "$key_id" \
-        --project="$project" \
-        --allowed-referrers="$domain,$domain/*" \
-        --api-target=service="$firebase_service" \
-        --api-target=service="$firestore_service" \
-        --api-target=service="$firebasestorage_service"
 }
 
 upload_assets_to_cdn() {
