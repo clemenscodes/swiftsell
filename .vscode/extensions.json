@@ -9,6 +9,7 @@
         "jsayol.firebase-explorer",
         "vscode-icons-team.vscode-icons",
         "bradlc.vscode-tailwindcss",
-        "nrwl.angular-console"
+        "nrwl.angular-console",
+        "firsttris.vscode-jest-runner"
     ]
 }

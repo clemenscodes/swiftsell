@@ -1,3 +1,4 @@
 {
-    "name": "shared"
+    "name": "shared",
+    "sideEffects": false
 }

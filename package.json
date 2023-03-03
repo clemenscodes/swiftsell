@@ -2,6 +2,7 @@
     "name": "swiftsell",
     "version": "0.0.0",
     "license": "MIT",
+    "sideEffects": false,
     "scripts": {
         "ci": "tools/scripts/ci.sh",
         "full": "tools/scripts/full.sh",

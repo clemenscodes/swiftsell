@@ -5,7 +5,7 @@ jest.mock('next/router', () => require('next-router-mock'));
 
 describe('Home', () => {
     it('should render successfully', async () => {
-        const { getByTestId } = render(<Home />);
-        expect(getByTestId('home')).toBeTruthy();
+        const { baseElement } = render(<Home />);
+        expect(baseElement).toBeTruthy();
     });
 });

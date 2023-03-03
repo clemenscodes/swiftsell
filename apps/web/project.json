@@ -12,10 +12,10 @@
             },
             "configurations": {
                 "development": {
-                    "command": "CONFIG=config/.env.development; [ -f $CONFIG ] || touch $CONFIG; cat $CONFIG > .env.local && react-env -p $CONFIG --prefix=NEXT_PUBLIC"
+                    "command": "CONFIG=config/.env.development; [ -f $CONFIG ] || touch $CONFIG; cat $CONFIG > .env.local"
                 },
                 "production": {
-                    "command": "CONFIG=config/.env.production; [ -f $CONFIG ] || touch $CONFIG; cat $CONFIG > .env.local && react-env -p $CONFIG --prefix=NEXT_PUBLIC"
+                    "command": "CONFIG=config/.env.production; [ -f $CONFIG ] || touch $CONFIG; cat $CONFIG > .env.local"
                 }
             }
         },
@@ -43,7 +43,7 @@
             }
         },
         "analyze": {
-            "command": "ANALYZE=true nx build web"
+            "command": "ANALYZE=true nx build web --skip-nx-cache"
         },
         "start": {
             "dependsOn": ["build"],
