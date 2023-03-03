@@ -3,15 +3,12 @@ import { onLogoutRequestError } from './onLogoutRequestError';
 import { onTokenRefreshError } from './onTokenRefreshError';
 import { onVerifyTokenError } from './onVerifyTokenError';
 import { getFirebaseConfig, siteConfig } from '@config';
-import * as Cookies from 'cookies';
+import { Option, SetOption } from 'cookies';
 import { InitConfig, init } from 'next-firebase-auth';
 
 const TWELVE_DAYS_IN_MS = 12 * 60 * 60 * 24 * 1000;
 
-const cookies: Cookies.Option &
-    Cookies.SetOption & {
-        name: string;
-    } = {
+const cookies: Option & SetOption & { name: string } = {
     name: siteConfig.name,
     // Keys are required unless you set `signed` to `false`.
     // The keys cannot be accessible on the client side.

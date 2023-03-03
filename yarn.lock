@@ -1764,6 +1764,34 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@beam-australia/react-env@npm:3.1.1":
+  version: 3.1.1
+  resolution: "@beam-australia/react-env@npm:3.1.1"
+  dependencies:
+    cross-spawn: ^6.0.5
+    dotenv: ^8.0.0
+    dotenv-expand: ^5.1.0
+    minimist: ^1.2.0
+  bin:
+    react-env: dist/cli.js
+  checksum: b4af51bf68bd74a54d8fc630ed9d4ef0ebd009df17a1879c1bfde8b0d05e9a3e35945524cb5f10894b6aa111d628868d367f5d25805feecaad289d518d708a4f
+  languageName: node
+  linkType: hard
+
+"@beam-australia/react-env@patch:@beam-australia/react-env@npm%3A3.1.1#./.yarn/patches/@beam-australia-react-env-npm-3.1.1-49b685e963.patch::locator=swiftsell%40workspace%3A.":
+  version: 3.1.1
+  resolution: "@beam-australia/react-env@patch:@beam-australia/react-env@npm%3A3.1.1#./.yarn/patches/@beam-australia-react-env-npm-3.1.1-49b685e963.patch::version=3.1.1&hash=4f6955&locator=swiftsell%40workspace%3A."
+  dependencies:
+    cross-spawn: ^6.0.5
+    dotenv: ^8.0.0
+    dotenv-expand: ^5.1.0
+    minimist: ^1.2.0
+  bin:
+    react-env: dist/cli.js
+  checksum: cb4bf79d783d2ea97265c3f6f201e2abd9412126915ab3feeaf21d01cb9fc856bf3e2430059451c02b7a4d41b1e57d9e74d890629c4c08e49fd0b2388b5f0577
+  languageName: node
+  linkType: hard
+
 "@cnakazawa/watch@npm:^1.0.3":
   version: 1.0.4
   resolution: "@cnakazawa/watch@npm:1.0.4"
@@ -5447,19 +5475,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-postcss@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "@storybook/addon-postcss@npm:2.0.0"
-  dependencies:
-    "@storybook/node-logger": ^6.1.14
-    css-loader: ^3.6.0
-    postcss: ^7.0.35
-    postcss-loader: ^4.2.0
-    style-loader: ^1.3.0
-  checksum: 3dee9003a5fa3d6348c093308b3264d58d415be06b01092c1f62e52a22c3a44f4575a49f3960fbc0f211de0608728fdb139fa0501897221fed5ffc04cd11fa09
-  languageName: node
-  linkType: hard
-
 "@storybook/addon-toolbars@npm:6.5.16":
   version: 6.5.16
   resolution: "@storybook/addon-toolbars@npm:6.5.16"
@@ -6142,7 +6157,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/node-logger@npm:6.5.16, @storybook/node-logger@npm:^6.1.14":
+"@storybook/node-logger@npm:6.5.16":
   version: 6.5.16
   resolution: "@storybook/node-logger@npm:6.5.16"
   dependencies:
@@ -11326,7 +11341,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-spawn@npm:^6.0.0":
+"cross-spawn@npm:^6.0.0, cross-spawn@npm:^6.0.5":
   version: 6.0.5
   resolution: "cross-spawn@npm:6.0.5"
   dependencies:
@@ -21082,7 +21097,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-loader@npm:^7.0.1, postcss-loader@npm:^7.0.2":
+"postcss-loader@npm:^7.0.1":
   version: 7.0.2
   resolution: "postcss-loader@npm:7.0.2"
   dependencies:
@@ -21479,7 +21494,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^7.0.14, postcss@npm:^7.0.26, postcss@npm:^7.0.32, postcss@npm:^7.0.35, postcss@npm:^7.0.36, postcss@npm:^7.0.5, postcss@npm:^7.0.6":
+"postcss@npm:^7.0.14, postcss@npm:^7.0.26, postcss@npm:^7.0.32, postcss@npm:^7.0.36, postcss@npm:^7.0.5, postcss@npm:^7.0.6":
   version: 7.0.39
   resolution: "postcss@npm:7.0.39"
   dependencies:
@@ -24700,6 +24715,7 @@ __metadata:
     "@babel/core": 7.12.13
     "@babel/preset-react": ^7.14.5
     "@babel/preset-typescript": 7.12.13
+    "@beam-australia/react-env": ^3.1.1
     "@commitlint/config-nx-scopes": ^17.4.3
     "@ianvs/prettier-plugin-sort-imports": ^3.7.1
     "@jscutlery/semver": ^2.30.1
@@ -24729,7 +24745,6 @@ __metadata:
     "@storybook/addon-essentials": ^6.5.15
     "@storybook/addon-interactions": ^6.5.16
     "@storybook/addon-links": ^6.5.16
-    "@storybook/addon-postcss": ^2.0.0
     "@storybook/builder-webpack5": ^6.5.15
     "@storybook/core-common": ^6.5.15
     "@storybook/core-server": ^6.5.15
@@ -24790,7 +24805,6 @@ __metadata:
     nookies: ^2.5.2
     nx: 15.7.2
     postcss: ^8.4.21
-    postcss-loader: ^7.0.2
     prettier: ^2.6.2
     react: 18.2.0
     react-dom: 18.2.0
