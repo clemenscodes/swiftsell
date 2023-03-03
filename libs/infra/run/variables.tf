@@ -53,6 +53,11 @@ variable "git_commit_sha" {
   type        = string
 }
 
+variable "app_id" {
+  description = "The app id of the firebase app that will be needed to configure the secrets"
+  type        = string
+}
+
 # variable "subnet_cidr_range" {
 #   description = "The CIDR range for the subnet of the Cloud Run service"
 #   type = string

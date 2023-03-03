@@ -19,12 +19,5 @@
         "src/**/*.spec.jsx",
         "src/**/*.test.jsx"
     ],
-    "include": [
-        "src/**/*.js",
-        "src/**/*.jsx",
-        "src/**/*.ts",
-        "src/**/*.tsx",
-        "../config/src/lib/firebase.ts",
-        "../config/src/lib/env.ts"
-    ]
+    "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"]
 }

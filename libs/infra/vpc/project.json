@@ -1,7 +1,7 @@
 {
-    "name": "infra-firebase",
+    "name": "infra-vpc",
     "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-    "sourceRoot": "libs/infra/firebase",
+    "sourceRoot": "libs/infra/vpc",
     "projectType": "library",
     "tags": []
 }
