@@ -348,6 +348,7 @@ jobs:
               id: auth
               uses: google-github-actions/auth@v1
               with:
+                  export_environment_variables: false
                   workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
                   service_account: ${{ secrets.SERVICE_ACCOUNT }}
 
@@ -355,15 +356,15 @@ jobs:
             #   run: echo "GOOGLE_OAUTH_ACCESS_TOKEN=${{ steps.auth.outputs.access_token }}" >> $GITHUB_ENV
 
             - name: Set up Cloud SDK
-              run: |
-                  curl https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz > /tmp/google-cloud-sdk.tar.gz \
-                  mkdir -p /usr/local/gcloud \
-                  tar -C /usr/local/gcloud -xf /tmp/google-cloud-sdk.tar.gz >/dev/null 2>&1 \
-                  /usr/local/gcloud/google-cloud-sdk/install.sh --additional-components alpha
-            #   uses: google-github-actions/setup-gcloud@v1
-            #   with:
-            #       install_components: alpha
-            #       skip_install: true
+              #   run: |
+              #       curl https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz > /tmp/google-cloud-sdk.tar.gz \
+              #       mkdir -p /usr/local/gcloud \
+              #       tar -C /usr/local/gcloud -xf /tmp/google-cloud-sdk.tar.gz >/dev/null 2>&1 \
+              #       /usr/local/gcloud/google-cloud-sdk/install.sh --additional-components alpha
+              uses: google-github-actions/setup-gcloud@v1
+              with:
+                  install_components: alpha
+                  #   skip_install: true
 
             - name: Setup Docker Artifact Registry Auth
               run: gcloud auth configure-docker $ARTEFACT_REGISTRY_REGION-docker.pkg.dev

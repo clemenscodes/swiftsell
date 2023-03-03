@@ -97,30 +97,35 @@ populate_env_configs() {
     purple "TODO: Needs to populate env configs here"
     CONFIG="$1"
     ENV_CONFIG_FILE="$APP_DIR/config/.env.$CONFIG"
-    API_KEY_VALUE="dummy api value"
-    API_KEY_ENTRY="NEXT_PUBLIC_FIREBASE_APIKEY=\"$API_KEY_VALUE\""
-    AUTH_DOMAIN_VALUE="dummy auth domain value"
-    AUTH_DOMAIN_ENTRY="NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=\"$AUTH_DOMAIN_VALUE\""
-    MESSAGING_SENDER_ID_VALUE="dummy messaging sender id value"
-    MESSAGING_SENDER_ID_ENTRY="NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=\"$MESSAGING_SENDER_ID_VALUE\""
+
     PROJECT_ID_VALUE="$($TF output project_id | tr -d '"')"
-    PROJECT_ID_ENTRY="NEXT_PUBLIC_FIREBASE_PROJECT_ID=\"$PROJECT_ID_VALUE\""
+
+    API_KEY_VALUE="dummy api value"
+    AUTH_DOMAIN_VALUE="dummy auth domain value"
+    MESSAGING_SENDER_ID_VALUE="dummy messaging sender id value"
     STORAGE_BUCKET_VALUE="dummy storage bucket value"
-    STORAGE_BUCKET_ENTRY="NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=\"$STORAGE_BUCKET_VALUE\""
-    APP_ID_VALUE="dummy app id value"
-    APP_ID_ENTRY="NEXT_PUBLIC_FIREBASE_APP_ID=\"$APP_ID_VALUE\""
     COOKIE_SECRET_PREVIOUS_VALUE="dummy cookie secret previous value"
-    COOKIE_SECRET_PREVIOUS_ENTRY="COOKIE_SECRET_PREVIOUS=\"$COOKIE_SECRET_PREVIOUS_VALUE\""
     COOKIE_SECRET_CURRENT_VALUE="dummy cookie secret currentvalue"
+    APP_ID_VALUE="dummy app id value"
+
+    PROJECT_ID_ENTRY="NEXT_PUBLIC_FIREBASE_PROJECT_ID=\"$PROJECT_ID_VALUE\""
+    API_KEY_ENTRY="NEXT_PUBLIC_FIREBASE_APIKEY=\"$API_KEY_VALUE\""
+    AUTH_DOMAIN_ENTRY="NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=\"$AUTH_DOMAIN_VALUE\""
+    MESSAGING_SENDER_ID_ENTRY="NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=\"$MESSAGING_SENDER_ID_VALUE\""
+    STORAGE_BUCKET_ENTRY="NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=\"$STORAGE_BUCKET_VALUE\""
+    APP_ID_ENTRY="NEXT_PUBLIC_FIREBASE_APP_ID=\"$APP_ID_VALUE\""
+    COOKIE_SECRET_PREVIOUS_ENTRY="COOKIE_SECRET_PREVIOUS=\"$COOKIE_SECRET_PREVIOUS_VALUE\""
     COOKIE_SECRET_CURRENT_ENTRY="COOKIE_SECRET_CURRENT=\"$COOKIE_SECRET_CURRENT_VALUE\""
+
+    file_writer "$PROJECT_ID_ENTRY" "$ENV_CONFIG_FILE"
     file_writer "$API_KEY_ENTRY" "$ENV_CONFIG_FILE"
     file_writer "$AUTH_DOMAIN_ENTRY" "$ENV_CONFIG_FILE"
     file_writer "$MESSAGING_SENDER_ID_ENTRY" "$ENV_CONFIG_FILE"
-    file_writer "$PROJECT_ID_ENTRY" "$ENV_CONFIG_FILE"
     file_writer "$STORAGE_BUCKET_ENTRY" "$ENV_CONFIG_FILE"
     file_writer "$APP_ID_ENTRY" "$ENV_CONFIG_FILE"
     file_writer "$COOKIE_SECRET_PREVIOUS_ENTRY" "$ENV_CONFIG_FILE"
     file_writer "$COOKIE_SECRET_CURRENT_ENTRY" "$ENV_CONFIG_FILE"
+
     purple "generated content of $ENV_CONFIG_FILE"
     cat "$ENV_CONFIG_FILE"
 }
@@ -168,6 +173,7 @@ cleanup() {
     IMAGE="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME/$REPO_NAME"
     TIMER_THRESHOLD=60
     START=$(date +%s)
+    gcloud config set project "$PROJECT"
     set +e
     while true; do
         NOW=$(date +%s)
@@ -219,6 +225,7 @@ update_firebase_api_key() {
     firebase_service="firebase.googleapis.com"
     firestore_service="firestore.googleapis.com"
     firebasestorage_service="firebasestorage.googleapis.com"
+    gcloud config set project "$project"
     if [ -n "$CI" ]; then
         purple "Setting project $project and overriding environment variables set in CI"
         key_id=$(
