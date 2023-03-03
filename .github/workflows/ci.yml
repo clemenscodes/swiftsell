@@ -348,12 +348,12 @@ jobs:
               id: auth
               uses: google-github-actions/auth@v1
               with:
-                  export_environment_variables: false
+                  token_format: access_token
                   workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
                   service_account: ${{ secrets.SERVICE_ACCOUNT }}
 
-            # - name: Configure OAuth
-            #   run: echo "GOOGLE_OAUTH_ACCESS_TOKEN=${{ steps.auth.outputs.access_token }}" >> $GITHUB_ENV
+            - name: Configure OAuth
+              run: echo "GOOGLE_OAUTH_ACCESS_TOKEN=${{ steps.auth.outputs.access_token }}" >> $GITHUB_ENV
 
             - name: Set up Cloud SDK
               #   run: |
@@ -364,7 +364,6 @@ jobs:
               uses: google-github-actions/setup-gcloud@v1
               with:
                   install_components: alpha
-                  #   skip_install: true
 
             - name: Setup Docker Artifact Registry Auth
               run: gcloud auth configure-docker $ARTEFACT_REGISTRY_REGION-docker.pkg.dev
@@ -478,8 +477,12 @@ jobs:
               id: auth
               uses: google-github-actions/auth@v1
               with:
+                  token_format: access_token
                   workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
                   service_account: ${{ secrets.SERVICE_ACCOUNT }}
+
+            - name: Configure OAuth
+              run: echo "GOOGLE_OAUTH_ACCESS_TOKEN=${{ steps.auth.outputs.access_token }}" >> $GITHUB_ENV
 
             - name: Set up Cloud SDK
               uses: google-github-actions/setup-gcloud@v1
