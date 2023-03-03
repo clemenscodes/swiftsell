@@ -10,5 +10,4 @@ export default {
     },
     setupFilesAfterEnv: ['<rootDir>/setupTests.ts'],
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-    coverageDirectory: '../../coverage/libs/shared',
 };

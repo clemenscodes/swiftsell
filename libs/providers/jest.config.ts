@@ -15,5 +15,4 @@ export default {
             'next/dist/build/jest/__mocks__/nextFontMock.js'
         ),
     },
-    coverageDirectory: '../../coverage/libs/providers',
 };
