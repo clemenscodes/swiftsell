@@ -185,51 +185,35 @@ update_firebase_api_key() {
     firebase_service="firebase.googleapis.com"
     firestore_service="firestore.googleapis.com"
     firebasestorage_service="firebasestorage.googleapis.com"
-
     if [ -n "$CI" ]; then
-        OLD_CLOUDSDK_CORE_PROJECT=$CLOUDSDK_CORE_PROJECT
-        OLD_CLOUDSDK_PROJECT=$CLOUDSDK_PROJECT
-        OLD_GCLOUD_PROJECT=$GCLOUD_PROJECT
-        OLD_GCP_PROJECT=$GCP_PROJECT
-        OLD_GOOGLE_CLOUD_PROJECT=$GOOGLE_CLOUD_PROJECT
         purple "Setting project $project and overriding environment variables set in CI"
-        CLOUDSDK_CORE_PROJECT="$project"
-        CLOUDSDK_PROJECT="$project"
-        GCLOUD_PROJECT="$project"
-        GCP_PROJECT="$project"
-        GOOGLE_CLOUD_PROJECT="$project"
-        export CLOUDSDK_CORE_PROJECT
-        export CLOUDSDK_PROJECT
-        export GCLOUD_PROJECT
-        export GCP_PROJECT
-        export GOOGLE_CLOUD_PROJECT
-        gcloud config set project "$project"
+        key_id=$(
+            CLOUDSDK_CORE_PROJECT="$project" \
+                CLOUDSDK_PROJECT="$project" \
+                GCLOUD_PROJECT="$project" \
+                GCP_PROJECT="$project" \
+                GOOGLE_CLOUD_PROJECT="$project" \
+                gcloud alpha services api-keys list --project="$project" | grep uid | awk '{print $2}'
+        )
+        CLOUDSDK_CORE_PROJECT="$project" \
+            CLOUDSDK_PROJECT="$project" \
+            GCLOUD_PROJECT="$project" \
+            GCP_PROJECT="$project" \
+            GOOGLE_CLOUD_PROJECT="$project" \
+            gcloud alpha services api-keys update "$key_id" \
+            --project="$project" \
+            --allowed-referrers="$domain,$domain/*" \
+            --api-target=service="$firebase_service" \
+            --api-target=service="$firestore_service" \
+            --api-target=service="$firebasestorage_service"
     fi
-
     key_id=$(gcloud alpha services api-keys list --project="$project" | grep uid | awk '{print $2}')
-
     gcloud alpha services api-keys update "$key_id" \
         --project="$project" \
         --allowed-referrers="$domain,$domain/*" \
         --api-target=service="$firebase_service" \
         --api-target=service="$firestore_service" \
         --api-target=service="$firebasestorage_service"
-
-    if [ -n "$CI" ]; then
-        purple "Resetting GCP environment variables"
-        gcloud config set project "$OLD_GCP_PROJECT"
-        CLOUDSDK_CORE_PROJECT="$OLD_CLOUDSDK_CORE_PROJECT"
-        CLOUDSDK_PROJECT="$OLD_CLOUDSDK_PROJECT"
-        GCLOUD_PROJECT="$OLD_GCLOUD_PROJECT"
-        GCP_PROJECT="$OLD_GCP_PROJECT"
-        GOOGLE_CLOUD_PROJECT="$OLD_GOOGLE_CLOUD_PROJECT"
-        export CLOUDSDK_CORE_PROJECT
-        export CLOUDSDK_PROJECT
-        export GCLOUD_PROJECT
-        export GCP_PROJECT
-        export GOOGLE_CLOUD_PROJECT
-    fi
-
 }
 
 upload_assets_to_cdn() {
