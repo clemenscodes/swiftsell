@@ -181,7 +181,7 @@ update_firebase_api_key() {
     firestore_service="firestore.googleapis.com"
     firebasestorage_service="firebasestorage.googleapis.com"
 
-    key_id=$(gcloud alpha services api-keys list | grep uid | awk '{print $2}')
+    key_id=$(gcloud alpha services api-keys list --project="$project" | grep uid | awk '{print $2}')
 
     gcloud alpha services api-keys update "$key_id" \
         --project="$project" \
