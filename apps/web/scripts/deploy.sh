@@ -141,7 +141,7 @@ image() {
     INPUT_IMAGES="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME/$REPO_NAME"
     TAGGED_IMAGE="$INPUT_IMAGES:sha-$SHA"
     if [ -z "$CI" ]; then
-        NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache
+        NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache --configuration="$CONFIG"
         INPUT_IMAGES="$INPUT_IMAGES" INPUT_TAGS="sha-$SHA" nx docker "$APP" --skip-nx-cache
     else
         if [ -z "$INPUT_GITHUB_TOKEN" ]; then
@@ -149,7 +149,7 @@ image() {
             exit 1
         fi
         populate_env_configs "$CONFIG"
-        NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache
+        NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache --configuration="$CONFIG"
         INPUT_GITHUB_TOKEN="$INPUT_GITHUB_TOKEN" INPUT_IMAGES="$INPUT_IMAGES" INPUT_TAGS="sha-$SHA" nx docker "$APP" --configuration=ci --skip-nx-cache
     fi
     docker push "$TAGGED_IMAGE"
