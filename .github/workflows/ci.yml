@@ -349,11 +349,16 @@ jobs:
               uses: google-github-actions/auth@v1
               with:
                   token_format: access_token
+                  export_environment_variables: false
                   workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
                   service_account: ${{ secrets.SERVICE_ACCOUNT }}
 
-            - name: Configure OAuth
-              run: echo "GOOGLE_OAUTH_ACCESS_TOKEN=${{ steps.auth.outputs.access_token }}" >> $GITHUB_ENV
+            - name: Configure Auth
+              run: |
+                  echo "GOOGLE_OAUTH_ACCESS_TOKEN=${{ steps.auth.outputs.access_token }}" >> $GITHUB_ENV
+                  echo "CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE=${{ steps.auth.outputs.credentials_file_path}}" >> $GITHUB_ENV
+                  echo "GOOGLE_APPLICATION_CREDENTIALS=${{ steps.auth.outputs.credentials_file_path}}" >> $GITHUB_ENV
+                  echo "GOOGLE_GHA_CREDS_PATH=${{ steps.auth.outputs.credentials_file_path}}" >> $GITHUB_ENV
 
             - name: Set up Cloud SDK
               #   run: |
