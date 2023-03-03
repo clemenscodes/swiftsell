@@ -1,12 +1,13 @@
 #!/bin/sh
 
-echo "Setting up .env.local"
-APP_DIR="apps/web"
+APP="web"
+APP_DIR="apps/$APP"
 
 env() {
     CONFIG="$1"
     ENV_FILE="$APP_DIR/config/.env.$CONFIG"
     ENV="$APP_DIR/.env.local"
+    echo "Setting up $APP_DIR/.env.local in $CONFIG configuration"
     [ -f "$ENV_FILE" ] || touch "$ENV_FILE"
     cat "$ENV_FILE" > "$ENV"
 }
