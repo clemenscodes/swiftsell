@@ -5,7 +5,7 @@ interface IFirebaseOptions extends FirebaseOptions {
 }
 
 export const getFirebaseConfig = () => {
-    const apiKey = process.env.NEXT_PUBLIC_FIREBASE_API_KEY as string;
+    const apiKey = process.env.NEXT_PUBLIC_FIREBASE_API_KEY || 'apikey';
     const firebaseConfig: IFirebaseOptions = {
         authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
         projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,

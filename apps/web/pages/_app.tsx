@@ -4,7 +4,6 @@ import { siteConfig } from '@config';
 import type { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
-import Script from 'next/script';
 
 const Header = dynamic(() => import('@shared').then((mod) => mod.Header));
 const TailwindIndicator = dynamic(() =>
@@ -36,7 +35,6 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
                     <TailwindIndicator />
                 </FontProvider>
             </ThemeProvider>
-            <Script src={`/__ENV.js`}></Script>
         </>
     );
 };
