@@ -10,11 +10,7 @@ path.resolve('./next.config.js');
 const Home = dynamic(() => import('@shared').then((mod) => mod.Home));
 
 export const Index: NextPage = () => {
-    return (
-        <>
-            <Home></Home>
-        </>
-    );
+    return <Home />;
 };
 
 export default Index;

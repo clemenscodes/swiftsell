@@ -1,7 +1,7 @@
 {
     "name": "infra-firebase",
     "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-    "sourceRoot": "libs/infra/workload_identity_federation",
+    "sourceRoot": "libs/infra/firebase",
     "projectType": "library",
     "tags": []
 }

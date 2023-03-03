@@ -23,6 +23,7 @@ module "app" {
   firebase_region    = var.cloud_run_region
   firestore_location = var.firestore_location
   firebase_location  = var.firebase_location
+  subdomain          = var.cloud_run_subdomain
   #   cdn_bucket      = var.cdn_bucket
   #   cdn_region      = var.cdn_region
   #   cdn_subdomain   = var.cdn_subdomain
@@ -34,11 +35,19 @@ module "run" {
   org_name               = module.app.org_name
   domain                 = module.app.domain
   cloud_run_subdomain    = var.cloud_run_subdomain
-  project_id             = module.app.project_id
   project_name           = var.project_name
   folder_name            = var.folder_name
   repository_id          = var.repository_id
   cloud_run_service_name = var.cloud_run_service_name
   cloud_run_region       = var.cloud_run_region
   artifact_region        = var.artifact_region
+  project_id             = module.app.project_id
+  app_id                 = module.app.app_id
+  api_key                = module.app.api_key
+  auth_domain            = module.app.auth_domain
+  storage_bucket         = module.app.storage_bucket
+  sender_id              = module.app.sender_id
+  cookie_secret_previous = module.app.cookie_secret_previous
+  cookie_secret_current  = module.app.cookie_secret_current
+  #   subnet_cidr_range      = var.subnet_cidr_range
 }

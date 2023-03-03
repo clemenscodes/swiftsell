@@ -8,8 +8,8 @@ import { Trigger, Root } from '@radix-ui/react-dropdown-menu';
 import { cn } from '@styles';
 import { NavItem } from '@types';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 
-const Link = dynamic(() => import('next/link'));
 const Logo = dynamic(() => import('../logo/logo'));
 
 interface MainNavProps {

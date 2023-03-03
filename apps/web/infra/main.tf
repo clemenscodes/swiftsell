@@ -2,6 +2,11 @@ module "wif_data" {
   source = "../../../libs/infra/workload_identity_federation/data"
 }
 
+locals {
+  domain = "${var.subdomain}.${module.wif_data.domain}"
+  #   sa = "serviceAccount:${google_service_account.cloud_run_service_account.email}"
+}
+
 module "project" {
   source              = "github.com/GoogleCloudPlatform/cloud-foundation-fabric/modules/project"
   billing_account     = module.wif_data.billing_account
@@ -17,8 +22,10 @@ module "project" {
     "firebase.googleapis.com",
     "firestore.googleapis.com",
     "firebasestorage.googleapis.com",
+    "apikeys.googleapis.com",
     "appengine.googleapis.com",
     "iamcredentials.googleapis.com",
+    "secretmanager.googleapis.com",
     "cloudresourcemanager.googleapis.com",
     "serviceusage.googleapis.com"
   ]
@@ -91,6 +98,12 @@ resource "google_project_iam_member" "firebase_admin" {
   member  = "serviceAccount:${module.wif_data.service_account_email}"
 }
 
+resource "google_project_iam_member" "secret_manager_admin" {
+  project = module.project.project_id
+  role    = "roles/secretmanager.admin"
+  member  = "serviceAccount:${module.wif_data.service_account_email}"
+}
+
 resource "google_project_iam_member" "storage_admin" {
   project = module.project.project_id
   role    = "roles/storage.admin"
@@ -127,6 +140,35 @@ resource "google_project_iam_member" "compute_admin" {
   member  = "serviceAccount:${module.wif_data.service_account_email}"
 }
 
+resource "google_project_iam_member" "firebasemanagementserviceagent" {
+  project = module.project.project_id
+  role    = "roles/firebase.managementServiceAgent"
+  member  = "serviceAccount:${module.wif_data.service_account_email}"
+}
+
+resource "google_apikeys_key" "browser_key" {
+  name         = "firebase-api-key"
+  display_name = "Browser key (auto created by Terraform)"
+  project      = module.project.project_id
+  restrictions {
+    api_targets {
+      service = "firebase.googleapis.com"
+    }
+    api_targets {
+      service = "firestore.googleapis.com"
+    }
+    api_targets {
+      service = "firebasestorage.googleapis.com"
+    }
+    browser_key_restrictions {
+      allowed_referrers = [local.domain, "${local.domain}/*"]
+    }
+  }
+  depends_on = [
+    google_project_iam_member.firebasemanagementserviceagent
+  ]
+}
+
 # resource "google_project_iam_member" "vpcaccess_admin" {
 #   project = module.project.project_id
 #   role    = "roles/vpcaccess.admin"
@@ -150,6 +192,24 @@ module "isr_bucket" {
   source     = "../../../libs/infra/bucket/isr"
   project_id = module.project.project_id
   bucket     = var.isr_bucket
+}
+
+data "google_firebase_web_app_config" "basic" {
+  provider   = google-beta
+  project    = module.project.project_id
+  web_app_id = module.firebase.app_id
+}
+
+resource "random_password" "cookie_secret_current" {
+  length           = 16
+  special          = true
+  override_special = "!#$%&*()-_=+[]{}<>:?"
+}
+
+resource "random_password" "cookie_secret_previous" {
+  length           = 16
+  special          = true
+  override_special = "!#$%&*()-_=+[]{}<>:?"
 }
 
 # module "cdn" {
