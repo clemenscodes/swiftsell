@@ -93,7 +93,6 @@ run_tf_command() {
 }
 
 populate_env_configs() {
-    purple "TODO: Needs to populate env configs here"
     CONFIG="$1"
     ENV_CONFIG_FILE="$APP_DIR/config/.env.$CONFIG"
 
