@@ -48,6 +48,7 @@ deploy() {
     cleanup
     # generate_cdn_dns_entry
     generate_domain_mapping_dns_entry
+    update_firebase_api_key
 }
 
 local_plan() {
@@ -168,6 +169,26 @@ cleanup() {
         fi
     done
     set -e
+}
+
+update_firebase_api_key() {
+    purple "Updating Firebase API key"
+    project=$($TF output project_id | tr -d '"')
+    apex=$($TF output domain | tr -d '"')
+    subdomain=$($TF output cloud_run_subdomain | tr -d '"')
+    domain="$subdomain.$apex"
+    firebase_service="firebase.googleapis.com"
+    firestore_service="firestore.googleapis.com"
+    firebasestorage_service="firebasestorage.googleapis.com"
+
+    key_id=$(gcloud alpha services api-keys list --project="$project" | grep uid | awk '{print $2}')
+
+    gcloud alpha services api-keys update "$key_id" \
+        --project="$project" \
+        --allowed-referrers="$domain,$domain/*" \
+        --api-target=service="$firebase_service" \
+        --api-target=service="$firestore_service" \
+        --api-target=service="$firebasestorage_service"
 }
 
 upload_assets_to_cdn() {

@@ -19,6 +19,7 @@ module "project" {
     "firebasestorage.googleapis.com",
     "appengine.googleapis.com",
     "iamcredentials.googleapis.com",
+    "secretmanager.googleapis.com",
     "cloudresourcemanager.googleapis.com",
     "serviceusage.googleapis.com"
   ]
@@ -88,6 +89,12 @@ resource "google_project_iam_member" "run_service_agent" {
 resource "google_project_iam_member" "firebase_admin" {
   project = module.project.project_id
   role    = "roles/firebase.admin"
+  member  = "serviceAccount:${module.wif_data.service_account_email}"
+}
+
+resource "google_project_iam_member" "secret_manager_admin" {
+  project = module.project.project_id
+  role    = "roles/secretmanager.admin"
   member  = "serviceAccount:${module.wif_data.service_account_email}"
 }
 

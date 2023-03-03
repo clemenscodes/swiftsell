@@ -1,9 +1,9 @@
+import { initAuth } from '@utils';
 import '../global.css';
 import { siteConfig } from '@config';
 import type { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
-import Script from 'next/script';
 
 const Header = dynamic(() => import('@shared').then((mod) => mod.Header));
 const TailwindIndicator = dynamic(() =>
@@ -15,6 +15,8 @@ const ThemeProvider = dynamic(() =>
 const FontProvider = dynamic(() =>
     import('@providers').then((mod) => mod.FontProvider)
 );
+
+initAuth();
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
     return (
@@ -29,11 +31,10 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
             <ThemeProvider attribute='class' defaultTheme='dark' enableSystem>
                 <FontProvider>
                     <Header />
-                    <Component className='container flex-1' {...pageProps} />
+                    <Component {...pageProps} />
                     <TailwindIndicator />
                 </FontProvider>
             </ThemeProvider>
-            <Script src={`/__ENV.js`}></Script>
         </>
     );
 };
