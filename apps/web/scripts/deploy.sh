@@ -93,6 +93,10 @@ run_tf_command() {
     eval "$TF_COMMAND"
 }
 
+populate_env_configs() {
+    purple "TODO: Needs to populate env configs here"
+}
+
 image() {
     CONFIG="$1"
     REGISTRY="docker.pkg.dev"
@@ -109,6 +113,7 @@ image() {
             echo "Missing GitHub token"
             exit 1
         fi
+        populate_env_configs
         NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache
         INPUT_GITHUB_TOKEN="$INPUT_GITHUB_TOKEN" INPUT_IMAGES="$INPUT_IMAGES" INPUT_TAGS="sha-$SHA" nx docker "$APP" --configuration=ci --skip-nx-cache
     fi
@@ -188,12 +193,17 @@ update_firebase_api_key() {
         OLD_GCP_PROJECT=$GCP_PROJECT
         OLD_GOOGLE_CLOUD_PROJECT=$GOOGLE_CLOUD_PROJECT
         purple "Setting project $project and overriding environment variables set in CI"
+        CLOUDSDK_CORE_PROJECT="$project"
+        CLOUDSDK_PROJECT="$project"
+        GCLOUD_PROJECT="$project"
+        GCP_PROJECT="$project"
+        GOOGLE_CLOUD_PROJECT="$project"
+        export CLOUDSDK_CORE_PROJECT
+        export CLOUDSDK_PROJECT
+        export GCLOUD_PROJECT
+        export GCP_PROJECT
+        export GOOGLE_CLOUD_PROJECT
         gcloud config set project "$project"
-        export CLOUDSDK_CORE_PROJECT="$project"
-        export CLOUDSDK_PROJECT="$project"
-        export GCLOUD_PROJECT="$project"
-        export GCP_PROJECT="$project"
-        export GOOGLE_CLOUD_PROJECT="$project"
     fi
 
     key_id=$(gcloud alpha services api-keys list --project="$project" | grep uid | awk '{print $2}')
@@ -208,11 +218,16 @@ update_firebase_api_key() {
     if [ -n "$CI" ]; then
         purple "Resetting GCP environment variables"
         gcloud config set project "$OLD_GCP_PROJECT"
-        export CLOUDSDK_CORE_PROJECT="$OLD_CLOUDSDK_CORE_PROJECT"
-        export CLOUDSDK_PROJECT="$OLD_CLOUDSDK_PROJECT"
-        export GCLOUD_PROJECT="$OLD_GCLOUD_PROJECT"
-        export GCP_PROJECT="$OLD_GCP_PROJECT"
-        export GOOGLE_CLOUD_PROJECT="$OLD_GOOGLE_CLOUD_PROJECT"
+        CLOUDSDK_CORE_PROJECT="$OLD_CLOUDSDK_CORE_PROJECT"
+        CLOUDSDK_PROJECT="$OLD_CLOUDSDK_PROJECT"
+        GCLOUD_PROJECT="$OLD_GCLOUD_PROJECT"
+        GCP_PROJECT="$OLD_GCP_PROJECT"
+        GOOGLE_CLOUD_PROJECT="$OLD_GOOGLE_CLOUD_PROJECT"
+        export CLOUDSDK_CORE_PROJECT
+        export CLOUDSDK_PROJECT
+        export GCLOUD_PROJECT
+        export GCP_PROJECT
+        export GOOGLE_CLOUD_PROJECT
     fi
 
 }
