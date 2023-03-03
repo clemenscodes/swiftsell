@@ -29,7 +29,6 @@ const cookies: Cookies.Option &
 };
 
 const config: InitConfig = {
-    debug: true,
     authPageURL: '/auth',
     appPageURL: '/',
     loginAPIEndpoint: '/api/login',
