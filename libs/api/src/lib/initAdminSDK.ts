@@ -1,7 +1,6 @@
 import { isTrustedEnv } from '@config';
 import { firebaseAdminInitConfig } from '@utils';
 import {
-    applicationDefault,
     cert,
     getApps,
     initializeApp,

@@ -142,15 +142,6 @@ module "google_application_credentials" {
   secret_data     = base64decode(google_service_account_key.pk.private_key)
 }
 
-resource "kubernetes_secret" "google-application-credentials" {
-  metadata {
-    name = "google-application-credentials"
-  }
-  data = {
-    "credentials.json" = base64decode(google_service_account_key.mykey.private_key)
-  }
-}
-
 resource "google_cloud_run_v2_service" "default" {
   name     = var.cloud_run_service_name
   location = var.cloud_run_region
@@ -238,6 +229,33 @@ resource "google_cloud_run_v2_service" "default" {
         value_source {
           secret_key_ref {
             secret  = module.cookie_secret_current.secret_id
+            version = "latest"
+          }
+        }
+      }
+    env {
+        name = module.google_cloud_project.name
+        value_source {
+          secret_key_ref {
+            secret  = module.google_cloud_project.secret_id
+            version = "latest"
+          }
+        }
+      }
+      env {
+        name = module.firebase_client_email.name
+        value_source {
+          secret_key_ref {
+            secret  = module.firebase_client_email.secret_id
+            version = "latest"
+          }
+        }
+      }
+      env {
+        name = module.google_application_credentials.name
+        value_source {
+          secret_key_ref {
+            secret  = module.google_application_credentials.secret_id
             version = "latest"
           }
         }
