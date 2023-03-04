@@ -13,8 +13,12 @@ env() {
     grep -v "dummy" $SKELETON >"$ENV"
     cat "$ENV_FILE" >>"$ENV"
     if [ -n "$CI" ]; then
-        echo "NEXT_PUBLIC_CI=true" >>"$ENV"
-        echo "CI=true" >>"$ENV"
+        {
+            echo "NEXT_PUBLIC_CI=true"
+            echo "FIREBASE_CLIENT_EMAIL=dummy"
+            echo "FIREBASE_PRIVATE_KEY=dummy"
+            echo "CI=true"
+        } >>"$ENV"
     fi
 }
 

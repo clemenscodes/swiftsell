@@ -43,7 +43,7 @@ const config: InitConfig = {
     onLogoutRequestError,
     onVerifyTokenError,
     onTokenRefreshError,
-    debug,
+    debug: true,
 };
 
 export const initAuth = () => init(config);
