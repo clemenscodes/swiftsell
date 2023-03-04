@@ -123,8 +123,7 @@ resource "google_project_iam_member" "service_account_user" {
 }
 
 resource "google_service_account_key" "pk" {
-  service_account_id = google_service_account.cloud_run_service_account.account_id
-  project            = var.project_id
+  service_account_id = google_service_account.cloud_run_service_account.name
 }
 
 module "firebase_client_email" {
