@@ -139,7 +139,7 @@ module "google_application_credentials" {
   project_id      = var.project_id
   service_account = local.sa
   secret_id       = "FIREBASE_PRIVATE_KEY"
-  secret_data     = base64decode(google_service_account_key.pk.private_key)
+  secret_data     = jsondecode(base64decode(google_service_account_key.pk.private_key)).private_key
 }
 
 resource "google_cloud_run_v2_service" "default" {

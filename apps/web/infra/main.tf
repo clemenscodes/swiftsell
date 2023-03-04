@@ -146,7 +146,7 @@ resource "google_project_iam_member" "firebasemanagementserviceagent" {
 }
 
 resource "google_project_iam_member" "service_account_key_admin" {
-  project = var.project_id
+  project = module.project.project_id
   role    = "roles/iam.serviceAccountKeyAdmin"
   member  = "serviceAccount:${module.wif_data.service_account_email}"
 }
