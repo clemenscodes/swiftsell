@@ -5,13 +5,17 @@
     "projectType": "application",
     "targets": {
         "e2e": {
+            "dependsOn": ["^build"],
             "executor": "@nrwl/cypress:cypress",
+            "defaultConfiguration": "production",
             "options": {
                 "cypressConfig": "apps/web-e2e/cypress.config.ts",
-                "devServerTarget": "web:start:development",
                 "testingType": "e2e"
             },
             "configurations": {
+                "development": {
+                    "devServerTarget": "web:dev:development"
+                },
                 "production": {
                     "devServerTarget": "web:start:production"
                 }

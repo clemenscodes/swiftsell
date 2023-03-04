@@ -1,10 +1,9 @@
-module "wif_data" {
-  source = "../../../libs/infra/workload_identity_federation/data"
-}
-
 locals {
   domain = "${var.subdomain}.${module.wif_data.domain}"
-  #   sa = "serviceAccount:${google_service_account.cloud_run_service_account.email}"
+}
+
+module "wif_data" {
+  source = "../../../libs/infra/workload_identity_federation/data"
 }
 
 module "project" {
@@ -169,12 +168,6 @@ resource "google_apikeys_key" "browser_key" {
   ]
 }
 
-# resource "google_project_iam_member" "vpcaccess_admin" {
-#   project = module.project.project_id
-#   role    = "roles/vpcaccess.admin"
-#   member  = "serviceAccount:${module.wif_data.service_account_email}"
-# }
-
 module "state_bucket" {
   source     = "../../../libs/infra/bucket/state"
   project_id = module.project.project_id
@@ -211,6 +204,12 @@ resource "random_password" "cookie_secret_previous" {
   special          = true
   override_special = "!#$%&*()-_=+[]{}<>:?"
 }
+
+# resource "google_project_iam_member" "vpcaccess_admin" {
+#   project = module.project.project_id
+#   role    = "roles/vpcaccess.admin"
+#   member  = "serviceAccount:${module.wif_data.service_account_email}"
+# }
 
 # module "cdn" {
 #   source           = "../../../libs/infra/cdn"

@@ -1,0 +1,22 @@
+{
+    "name": "firebase",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/firebase",
+    "projectType": "application",
+    "targets": {
+        "start": {
+            "executor": "nx:run-commands",
+            "defaultConfiguration": "emulators",
+            "options": {
+                "cwd": "apps/firebase"
+            },
+            "configurations": {
+                "emulators": {
+                    "command": "firebase emulators:start -P"
+                }
+            }
+        }
+    },
+    "implicitDependencies": [],
+    "tags": []
+}

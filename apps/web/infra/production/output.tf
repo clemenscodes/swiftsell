@@ -1,45 +1,56 @@
 output "url" {
-  value = module.run.url
+  value     = module.run.url
+  sensitive = true
 }
 
 output "domain" {
-  value = module.app.domain
+  value     = module.app.domain
+  sensitive = true
 }
 
 output "project_id" {
-  value = module.app.project_id
+  value     = module.app.project_id
+  sensitive = true
 }
 
 output "folder_name" {
-  value = var.folder_name
+  value     = var.folder_name
+  sensitive = true
 }
 
 output "project_name" {
-  value = var.project_name
+  value     = var.project_name
+  sensitive = true
 }
 
 output "state_bucket" {
-  value = module.app.state_bucket
+  value     = module.app.state_bucket
+  sensitive = true
 }
 
 output "isr_bucket" {
-  value = module.app.isr_bucket
+  value     = module.app.isr_bucket
+  sensitive = true
 }
 
 output "repository_id" {
-  value = module.app.repository_id
+  value     = module.app.repository_id
+  sensitive = true
 }
 
 output "artifact_region" {
-  value = module.app.artifact_region
+  value     = module.app.artifact_region
+  sensitive = true
 }
 
 output "cloud_run_subdomain" {
-  value = module.run.cloud_run_subdomain
+  value     = module.run.cloud_run_subdomain
+  sensitive = true
 }
 
 output "mapped_cloud_run_domain" {
-  value = module.run.mapped_cloud_run_domain
+  value     = module.run.mapped_cloud_run_domain
+  sensitive = true
 }
 
 output "app_id" {

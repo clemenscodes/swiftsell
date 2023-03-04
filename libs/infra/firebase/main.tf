@@ -1,7 +1,3 @@
-provider "google-beta" {
-  project = var.project_id
-}
-
 resource "google_project_service" "firebase" {
   provider = google-beta
   project  = var.project_id

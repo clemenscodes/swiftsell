@@ -169,7 +169,6 @@ cleanup() {
     IMAGE="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME/$REPO_NAME"
     TIMER_THRESHOLD=60
     START=$(date +%s)
-    gcloud config set project "$PROJECT"
     set +e
     while true; do
         NOW=$(date +%s)
