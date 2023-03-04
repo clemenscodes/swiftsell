@@ -72,6 +72,14 @@ module "cookie_secret_current" {
   secret_data     = var.cookie_secret_current
 }
 
+module "google_cloud_project" {
+  source          = "../secret"
+  project_id      = var.project_id
+  service_account = local.sa
+  secret_id       = "GOOGLE_CLOUD_PROJECT"
+  secret_data     = var.project_id
+}
+
 resource "google_project_service" "run" {
   project            = var.project_id
   service            = "run.googleapis.com"
@@ -107,6 +115,13 @@ resource "google_project_iam_member" "service_account_token_creator" {
   role    = "roles/iam.serviceAccountTokenCreator"
   member  = local.sa
 }
+
+resource "google_project_iam_member" "service_account_user" {
+  project = var.project_id
+  role    = "roles/iam.serviceAccountUser"
+  member  = local.sa
+}
+
 
 resource "google_cloud_run_v2_service" "default" {
   name     = var.cloud_run_service_name
