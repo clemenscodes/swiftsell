@@ -122,8 +122,17 @@ resource "google_project_iam_member" "service_account_user" {
   member  = local.sa
 }
 
+resource "google_project_iam_member" "service_account_key_admin" {
+  project = var.project_id
+  role    = "roles/iam.serviceAccountKeyAdmin"
+  member  = local.sa
+}
+
 resource "google_service_account_key" "pk" {
   service_account_id = google_service_account.cloud_run_service_account.name
+  depends_on = [
+    google_project_iam_member.service_account_key_admin
+  ]
 }
 
 module "firebase_client_email" {
