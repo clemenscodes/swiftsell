@@ -3,8 +3,6 @@
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-npm-debug.log
-yarn-error.log
 **/.next
 **/dist
 .yarn/*
@@ -13,8 +11,8 @@ yarn-error.log
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
-.terraform
-.nx-container
+**/.terraform
+**/.nx-container
 **/terraform.tfstate
 **/terraform.tfstate.backup
 **/plan.tfplan
@@ -25,3 +23,12 @@ apps/web/public/*
 !apps/web/public/robots.txt
 **/tmp
 **/.env**
+!**/.env.skeleton
+**/logs
+**/*.log
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/firebase-debug.log*
+**/firebase-debug.*.log*
+**/.firebase/

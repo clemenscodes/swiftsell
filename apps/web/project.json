@@ -32,9 +32,6 @@
                 ]
             }
         },
-        "analyze": {
-            "command": "ANALYZE=true nx build web --skip-nx-cache"
-        },
         "start": {
             "dependsOn": ["build"],
             "executor": "@nrwl/next:server",
@@ -53,6 +50,19 @@
                 }
             }
         },
+        "dev": {
+            "executor": "nx:run-commands",
+            "defaultConfiguration": "development",
+            "configurations": {
+                "development": {
+                    "command": "nx run-many --parallel --target=start --projects=web,firebase"
+                },
+                "production": {
+                    "command": "nx start web --configuration=production"
+                }
+            }
+        },
+
         "export": {
             "executor": "@nrwl/next:export",
             "options": {
@@ -79,6 +89,9 @@
             "options": {
                 "lintFilePatterns": ["apps/web/**/*.{ts,tsx,js,jsx}"]
             }
+        },
+        "analyze": {
+            "command": "ANALYZE=true nx build web --skip-nx-cache"
         },
         "docker": {
             "executor": "@nx-tools/nx-container:build",

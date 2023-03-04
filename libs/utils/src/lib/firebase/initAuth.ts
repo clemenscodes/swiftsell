@@ -1,3 +1,5 @@
+import { isProduction } from '../isProduction';
+import { getAuthEmulatorHost } from './getAuthEmulatorHost';
 import { onLoginRequestError } from './onLoginRequestError';
 import { onLogoutRequestError } from './onLogoutRequestError';
 import { onTokenRefreshError } from './onTokenRefreshError';
@@ -6,12 +8,11 @@ import { getFirebaseConfig, siteConfig } from '@config';
 import { Option, SetOption } from 'cookies';
 import { InitConfig, init } from 'next-firebase-auth';
 
+const debug = !isProduction();
 const TWELVE_DAYS_IN_MS = 12 * 60 * 60 * 24 * 1000;
 
 const cookies: Option & SetOption & { name: string } = {
     name: siteConfig.name,
-    // Keys are required unless you set `signed` to `false`.
-    // The keys cannot be accessible on the client side.
     keys: [
         process.env.COOKIE_SECRET_CURRENT as string,
         process.env.COOKIE_SECRET_PREVIOUS as string,
@@ -21,7 +22,7 @@ const cookies: Option & SetOption & { name: string } = {
     overwrite: true,
     path: '/',
     sameSite: 'strict',
-    secure: true, // set this to false in local (non-HTTPS) development
+    secure: !debug,
     signed: true,
 };
 
@@ -31,6 +32,7 @@ const config: InitConfig = {
     loginAPIEndpoint: '/api/login',
     logoutAPIEndpoint: '/api/logout',
     useFirebaseAdminDefaultCredential: true,
+    firebaseAuthEmulatorHost: getAuthEmulatorHost(),
     firebaseClientInitConfig: {
         ...getFirebaseConfig(),
     },
@@ -39,6 +41,7 @@ const config: InitConfig = {
     onLogoutRequestError,
     onVerifyTokenError,
     onTokenRefreshError,
+    debug,
 };
 
 export const initAuth = () => init(config);
