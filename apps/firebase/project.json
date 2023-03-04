@@ -12,7 +12,7 @@
             },
             "configurations": {
                 "emulators": {
-                    "command": "firebase emulators:start"
+                    "command": "firebase emulators:start -P"
                 }
             }
         }

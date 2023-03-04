@@ -55,14 +55,13 @@
             "defaultConfiguration": "development",
             "configurations": {
                 "development": {
-                    "command": "nx run-many --parallel --target=start --projects=web,firebase"
+                    "command": "nx run-many --parallel --target=start --projects=web,firebase swiftsell-development"
                 },
                 "production": {
                     "command": "nx start web --configuration=production"
                 }
             }
         },
-
         "export": {
             "executor": "@nrwl/next:export",
             "options": {

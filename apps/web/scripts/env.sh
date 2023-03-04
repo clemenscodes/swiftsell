@@ -10,7 +10,7 @@ env() {
     ENV="$APP_DIR/.env.local"
     echo "Setting up $APP_DIR/.env.local in $CONFIG configuration"
     [ -f "$ENV_FILE" ] || touch "$ENV_FILE"
-    cat $SKELETON > "$ENV"
+    grep -v "dummy" $SKELETON > "$ENV"
     cat "$ENV_FILE" >> "$ENV"
 }
 
