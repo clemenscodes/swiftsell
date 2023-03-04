@@ -26,7 +26,7 @@ const cookies: Option & SetOption & { name: string } = {
     overwrite: true,
     path: '/',
     sameSite: 'strict',
-    secure: true,
+    secure: isTrustedEnv,
     signed: true,
 };
 
@@ -36,14 +36,14 @@ const config: InitConfig = {
     loginAPIEndpoint: '/api/login',
     logoutAPIEndpoint: '/api/logout',
     useFirebaseAdminDefaultCredential: isTrustedEnv,
-    firebaseAuthEmulatorHost: undefined,
+    firebaseAuthEmulatorHost: getAuthEmulatorHost(),
     firebaseClientInitConfig: getFirebaseConfig(),
     cookies,
     onLoginRequestError,
     onLogoutRequestError,
     onVerifyTokenError,
     onTokenRefreshError,
-    debug: true,
+    debug,
 };
 
 export const initAuth = () => init(config);

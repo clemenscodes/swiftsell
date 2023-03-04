@@ -10,9 +10,9 @@ import {
 export const initAdminSDK = () => {
     if (getApps().length) return;
     if (isTrustedEnv) {
-        const { options } = initializeApp({
-            credential: applicationDefault(),
-        });
+        const pk = process.env.FIREBASE_PRIVATE_KEY;
+        console.log({ pk });
+        const { options } = initializeApp();
         console.log({ options });
         console.log('Initialized Firebase Admin SDK using ADC');
         const { projectId, serviceAccountId } = options;

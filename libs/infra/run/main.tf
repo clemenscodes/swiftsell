@@ -122,6 +122,34 @@ resource "google_project_iam_member" "service_account_user" {
   member  = local.sa
 }
 
+resource "google_service_account_key" "pk" {
+  service_account_id = google_service_account.cloud_run_service_account.account_id
+}
+
+module "firebase_client_email" {
+  source          = "../secret"
+  project_id      = var.project_id
+  service_account = local.sa
+  secret_id       = "FIREBASE_CLIENT_EMAIL"
+  secret_data     = google_service_account.cloud_run_service_account.email
+}
+
+module "google_application_credentials" {
+  source          = "../secret"
+  project_id      = var.project_id
+  service_account = local.sa
+  secret_id       = "FIREBASE_PRIVATE_KEY"
+  secret_data     = base64decode(google_service_account_key.pk.private_key)
+}
+
+resource "kubernetes_secret" "google-application-credentials" {
+  metadata {
+    name = "google-application-credentials"
+  }
+  data = {
+    "credentials.json" = base64decode(google_service_account_key.mykey.private_key)
+  }
+}
 
 resource "google_cloud_run_v2_service" "default" {
   name     = var.cloud_run_service_name
