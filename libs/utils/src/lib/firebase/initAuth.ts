@@ -1,13 +1,12 @@
 import { getAuthEmulatorHost } from './getAuthEmulatorHost';
-import { firebaseAdminInitConfig } from './getFirebaseAdminInitConfig';
 import { onLoginRequestError } from './onLoginRequestError';
 import { onLogoutRequestError } from './onLogoutRequestError';
 import { onTokenRefreshError } from './onTokenRefreshError';
 import { onVerifyTokenError } from './onVerifyTokenError';
 import {
     getFirebaseConfig,
-    isCloudRun,
     isProduction,
+    isTrustedEnv,
     siteConfig,
 } from '@config';
 import { Option, SetOption } from 'cookies';
@@ -27,7 +26,7 @@ const cookies: Option & SetOption & { name: string } = {
     overwrite: true,
     path: '/',
     sameSite: 'strict',
-    secure: isCloudRun,
+    secure: isTrustedEnv,
     signed: true,
 };
 
@@ -36,8 +35,7 @@ const config: InitConfig = {
     appPageURL: '/',
     loginAPIEndpoint: '/api/login',
     logoutAPIEndpoint: '/api/logout',
-    firebaseAdminInitConfig,
-    useFirebaseAdminDefaultCredential: isCloudRun,
+    useFirebaseAdminDefaultCredential: isTrustedEnv,
     firebaseAuthEmulatorHost: getAuthEmulatorHost(),
     firebaseClientInitConfig: getFirebaseConfig(),
     cookies,
