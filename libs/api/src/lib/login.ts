@@ -1,9 +1,9 @@
-// import { initAdminSDK } from '@server';
+import { initAdminSDK } from './initAdminSDK';
 import { initAuth, onLoginRequestError } from '@utils';
 import { type NextApiHandler } from 'next';
 import { setAuthCookies } from 'next-firebase-auth';
 
-// initAdminSDK();
+initAdminSDK();
 initAuth();
 
 export const loginHandler: NextApiHandler = async (req, res) => {
