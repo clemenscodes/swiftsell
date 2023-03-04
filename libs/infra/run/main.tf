@@ -96,6 +96,18 @@ resource "google_project_iam_member" "storage_admin" {
   member  = local.sa
 }
 
+resource "google_project_iam_member" "firebase_sdk_admin" {
+  project = var.project_id
+  role    = "roles/firebase.sdkAdminServiceAgent"
+  member  = local.sa
+}
+
+resource "google_project_iam_member" "service_account_token_creator" {
+  project = var.project_id
+  role    = "roles/iam.serviceAccountTokenCreator"
+  member  = local.sa
+}
+
 resource "google_cloud_run_v2_service" "default" {
   name     = var.cloud_run_service_name
   location = var.cloud_run_region

@@ -11,7 +11,7 @@ export const loginHandler: NextApiHandler = async (req, res) => {
         await setAuthCookies(req, res);
     } catch (e) {
         onLoginRequestError(e);
-        return res.status(500).json({ error: 'Unexpected error.' });
+        return res.status(500).json({ error: 'Unexpected error: ' + e });
     }
     return res.status(200).json({ success: true });
 };

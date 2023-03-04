@@ -7,6 +7,7 @@ interface AdminConfig {
         privateKey: string;
     };
     databaseURL: string;
+    projectId?: string;
 }
 
 const config: AdminConfig = {
@@ -20,6 +21,7 @@ const config: AdminConfig = {
                 : undefined) as string) || 'dummy',
     },
     databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL as string,
+    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
 };
 
 export const firebaseAdminInitConfig = !isTrustedEnv ? config : undefined;
