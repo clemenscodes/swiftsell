@@ -124,6 +124,7 @@ resource "google_project_iam_member" "service_account_user" {
 
 resource "google_service_account_key" "pk" {
   service_account_id = google_service_account.cloud_run_service_account.account_id
+  project            = var.project_id
 }
 
 module "firebase_client_email" {
@@ -233,7 +234,7 @@ resource "google_cloud_run_v2_service" "default" {
           }
         }
       }
-    env {
+      env {
         name = module.google_cloud_project.name
         value_source {
           secret_key_ref {
@@ -276,6 +277,9 @@ resource "google_cloud_run_v2_service" "default" {
     module.firebase_secret_messaging_sender_id,
     module.firebase_secret_project_id,
     module.firebase_secret_storage_bucket,
+    module.firebase_client_email,
+    module.google_application_credentials,
+    module.google_cloud_project,
     module.cookie_secret_previous,
     module.cookie_secret_current
   ]

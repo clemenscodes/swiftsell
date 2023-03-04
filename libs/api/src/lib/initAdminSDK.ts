@@ -1,10 +1,6 @@
 import { isTrustedEnv } from '@config';
 import { firebaseAdminInitConfig } from '@utils';
-import {
-    cert,
-    getApps,
-    initializeApp,
-} from 'firebase-admin/app';
+import { cert, getApps, initializeApp } from 'firebase-admin/app';
 
 export const initAdminSDK = () => {
     if (getApps().length) return;
