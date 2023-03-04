@@ -145,6 +145,12 @@ resource "google_project_iam_member" "firebasemanagementserviceagent" {
   member  = "serviceAccount:${module.wif_data.service_account_email}"
 }
 
+resource "google_project_iam_member" "service_account_key_admin" {
+  project = var.project_id
+  role    = "roles/iam.serviceAccountKeyAdmin"
+  member  = "serviceAccount:${module.wif_data.service_account_email}"
+}
+
 resource "google_apikeys_key" "browser_key" {
   name         = "firebase-api-key"
   display_name = "Browser key (auto created by Terraform)"
