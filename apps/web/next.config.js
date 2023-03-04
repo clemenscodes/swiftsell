@@ -75,18 +75,18 @@ const nextConfig = {
         // See: https://github.com/gregberge/svgr
         svgr: true,
     },
-    // webpack(config) {
-    //     config.module.rules.push({
-    //         test: /index\.(js|mjs|jsx|ts|tsx)$/,
-    //         sideEffects: false,
-    //     });
-    //     config.module.rules.push({
-    //         test: /\.svg$/i,
-    //         issuer: /\.[jt]sx?$/,
-    //         use: ['@svgr/webpack'],
-    //     });
-    //     return config;
-    // },
+    webpack(config) {
+        config.module.rules.push({
+            test: /index\.(js|mjs|jsx|ts|tsx)$/,
+            sideEffects: false,
+        });
+        config.module.rules.push({
+            test: /\.svg$/i,
+            issuer: /\.[jt]sx?$/,
+            use: ['@svgr/webpack'],
+        });
+        return config;
+    },
 };
 
 module.exports = withBundleAnalyzer(withPWA(withNx(nextConfig)));

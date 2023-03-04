@@ -1,6 +1,12 @@
 import { initAuth } from '@utils';
 import '../global.css';
 import { siteConfig } from '@config';
+import { GetServerSideProps } from 'next';
+import {
+    useAuthUser,
+    withAuthUser,
+    withAuthUserTokenSSR,
+} from 'next-firebase-auth';
 import type { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
@@ -19,6 +25,7 @@ const FontProvider = dynamic(() =>
 initAuth();
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
+    const AuthUser = useAuthUser();
     return (
         <>
             <Head>
@@ -30,7 +37,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
             </Head>
             <ThemeProvider attribute='class' defaultTheme='dark' enableSystem>
                 <FontProvider>
-                    <Header />
+                    <Header user={AuthUser} />
                     <Component {...pageProps} />
                     <TailwindIndicator />
                 </FontProvider>
@@ -39,4 +46,6 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
     );
 };
 
-export default App;
+export default withAuthUser()(App);
+
+export const getServerSideProps: GetServerSideProps = withAuthUserTokenSSR()();
