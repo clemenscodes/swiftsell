@@ -196,13 +196,13 @@ data "google_firebase_web_app_config" "basic" {
 resource "random_password" "cookie_secret_current" {
   length           = 16
   special          = true
-  override_special = "!#$%&*()-_=+[]{}<>:?"
+  override_special = "!#%&*()-_=+[]{}<>:?"
 }
 
 resource "random_password" "cookie_secret_previous" {
   length           = 16
   special          = true
-  override_special = "!#$%&*()-_=+[]{}<>:?"
+  override_special = "!#%&*()-_=+[]{}<>:?"
 }
 
 # resource "google_project_iam_member" "vpcaccess_admin" {

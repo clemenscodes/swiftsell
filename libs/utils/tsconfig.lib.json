@@ -25,6 +25,7 @@
         "src/**/*.ts",
         "src/**/*.tsx",
         "../config/src/lib/firebase.ts",
-        "../config/src/lib/env.ts"
+        "../config/src/lib/env.ts",
+        "../config/src/lib/isProduction.ts"
     ]
 }
