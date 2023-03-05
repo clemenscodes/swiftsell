@@ -12,7 +12,6 @@ import {
 import { Option, SetOption } from 'cookies';
 import { InitConfig, init } from 'next-firebase-auth';
 
-const debug = !isProduction();
 const TWELVE_DAYS_IN_MS = 12 * 60 * 60 * 24 * 1000;
 
 const cookies: Option & SetOption & { name: string } = {
@@ -31,6 +30,11 @@ const cookies: Option & SetOption & { name: string } = {
 };
 
 const config: InitConfig = {
+    cookies,
+    onLoginRequestError,
+    onLogoutRequestError,
+    onVerifyTokenError,
+    onTokenRefreshError,
     authPageURL: '/auth',
     appPageURL: '/',
     loginAPIEndpoint: '/api/login',
@@ -38,12 +42,7 @@ const config: InitConfig = {
     useFirebaseAdminDefaultCredential: isTrustedEnv,
     firebaseAuthEmulatorHost: getAuthEmulatorHost(),
     firebaseClientInitConfig: getFirebaseConfig(),
-    cookies,
-    onLoginRequestError,
-    onLogoutRequestError,
-    onVerifyTokenError,
-    onTokenRefreshError,
-    debug: true,
+    debug: !isProduction(),
 };
 
 export const initAuth = () => init(config);
