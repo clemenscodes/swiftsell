@@ -1,14 +1,17 @@
-import { isProduction } from '../isProduction';
 import { getAuthEmulatorHost } from './getAuthEmulatorHost';
 import { onLoginRequestError } from './onLoginRequestError';
 import { onLogoutRequestError } from './onLogoutRequestError';
 import { onTokenRefreshError } from './onTokenRefreshError';
 import { onVerifyTokenError } from './onVerifyTokenError';
-import { getFirebaseConfig, siteConfig } from '@config';
+import {
+    getFirebaseConfig,
+    isProduction,
+    isTrustedEnv,
+    siteConfig,
+} from '@config';
 import { Option, SetOption } from 'cookies';
 import { InitConfig, init } from 'next-firebase-auth';
 
-const debug = !isProduction();
 const TWELVE_DAYS_IN_MS = 12 * 60 * 60 * 24 * 1000;
 
 const cookies: Option & SetOption & { name: string } = {
@@ -22,26 +25,24 @@ const cookies: Option & SetOption & { name: string } = {
     overwrite: true,
     path: '/',
     sameSite: 'strict',
-    secure: !debug,
+    secure: isTrustedEnv,
     signed: true,
 };
 
 const config: InitConfig = {
-    authPageURL: '/auth',
-    appPageURL: '/',
-    loginAPIEndpoint: '/api/login',
-    logoutAPIEndpoint: '/api/logout',
-    useFirebaseAdminDefaultCredential: true,
-    firebaseAuthEmulatorHost: getAuthEmulatorHost(),
-    firebaseClientInitConfig: {
-        ...getFirebaseConfig(),
-    },
     cookies,
     onLoginRequestError,
     onLogoutRequestError,
     onVerifyTokenError,
     onTokenRefreshError,
-    debug,
+    authPageURL: '/auth',
+    appPageURL: '/',
+    loginAPIEndpoint: '/api/login',
+    logoutAPIEndpoint: '/api/logout',
+    useFirebaseAdminDefaultCredential: isTrustedEnv,
+    firebaseAuthEmulatorHost: getAuthEmulatorHost(),
+    firebaseClientInitConfig: getFirebaseConfig(),
+    debug: !isProduction(),
 };
 
 export const initAuth = () => init(config);

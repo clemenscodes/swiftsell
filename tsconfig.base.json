@@ -39,6 +39,9 @@
       "@redux": [
         "libs/redux/src/index.ts"
       ],
+      "@server": [
+        "libs/server/src/index.ts"
+      ],
       "@shared": [
         "libs/shared/src/index.ts"
       ],

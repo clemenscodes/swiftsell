@@ -1,5 +1,5 @@
-import { enableEmulator } from '../enableEmulator';
-import { isProduction } from '../isProduction';
+import { enableEmulator } from './enableEmulator';
+import { isProduction } from '@config';
 
 export const getAuthEmulatorHost = () => {
     if (isProduction() || !enableEmulator()) {

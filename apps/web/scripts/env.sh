@@ -10,8 +10,12 @@ env() {
     ENV="$APP_DIR/.env.local"
     echo "Setting up $APP_DIR/.env.local in $CONFIG configuration"
     [ -f "$ENV_FILE" ] || touch "$ENV_FILE"
-    grep -v "dummy" $SKELETON > "$ENV"
-    cat "$ENV_FILE" >> "$ENV"
+    grep -v "dummy" $SKELETON >"$ENV"
+    cat "$ENV_FILE" >>"$ENV"
+    if [ -n "$CI" ]; then
+        echo "NEXT_PUBLIC_CI=true" >>"$ENV"
+        echo "CI=true" >>"$ENV"
+    fi
 }
 
 case "$1" in

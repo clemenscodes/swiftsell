@@ -42,6 +42,7 @@
         "react-dom": "18.2.0",
         "react-env": "^0.0.0",
         "react-firebase-hooks": "^5.1.1",
+        "react-firebaseui": "^6.0.0",
         "react-loader-spinner": "^5.3.4",
         "react-redux": "8.0.5",
         "reactfire": "^4.2.2",

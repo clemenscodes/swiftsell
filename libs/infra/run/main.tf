@@ -72,6 +72,14 @@ module "cookie_secret_current" {
   secret_data     = var.cookie_secret_current
 }
 
+module "google_cloud_project" {
+  source          = "../secret"
+  project_id      = var.project_id
+  service_account = local.sa
+  secret_id       = "GOOGLE_CLOUD_PROJECT"
+  secret_data     = var.project_id
+}
+
 resource "google_project_service" "run" {
   project            = var.project_id
   service            = "run.googleapis.com"
@@ -96,6 +104,24 @@ resource "google_project_iam_member" "storage_admin" {
   member  = local.sa
 }
 
+resource "google_project_iam_member" "firebase_sdk_admin" {
+  project = var.project_id
+  role    = "roles/firebase.sdkAdminServiceAgent"
+  member  = local.sa
+}
+
+resource "google_project_iam_member" "service_account_token_creator" {
+  project = var.project_id
+  role    = "roles/iam.serviceAccountTokenCreator"
+  member  = local.sa
+}
+
+resource "google_project_iam_member" "service_account_user" {
+  project = var.project_id
+  role    = "roles/iam.serviceAccountUser"
+  member  = local.sa
+}
+
 resource "google_cloud_run_v2_service" "default" {
   name     = var.cloud_run_service_name
   location = var.cloud_run_region
@@ -116,7 +142,7 @@ resource "google_cloud_run_v2_service" "default" {
         container_port = 3000
       }
       env {
-        name = module.firebase_secret_api_key.name
+        name = module.firebase_secret_api_key.secret_id
         value_source {
           secret_key_ref {
             secret  = module.firebase_secret_api_key.secret_id
@@ -125,7 +151,7 @@ resource "google_cloud_run_v2_service" "default" {
         }
       }
       env {
-        name = module.firebase_secret_app_id.name
+        name = module.firebase_secret_app_id.secret_id
         value_source {
           secret_key_ref {
             secret  = module.firebase_secret_app_id.secret_id
@@ -134,7 +160,7 @@ resource "google_cloud_run_v2_service" "default" {
         }
       }
       env {
-        name = module.firebase_secret_project_id.name
+        name = module.firebase_secret_project_id.secret_id
         value_source {
           secret_key_ref {
             secret  = module.firebase_secret_project_id.secret_id
@@ -143,7 +169,7 @@ resource "google_cloud_run_v2_service" "default" {
         }
       }
       env {
-        name = module.firebase_secret_storage_bucket.name
+        name = module.firebase_secret_storage_bucket.secret_id
         value_source {
           secret_key_ref {
             secret  = module.firebase_secret_storage_bucket.secret_id
@@ -152,7 +178,7 @@ resource "google_cloud_run_v2_service" "default" {
         }
       }
       env {
-        name = module.firebase_secret_messaging_sender_id.name
+        name = module.firebase_secret_messaging_sender_id.secret_id
         value_source {
           secret_key_ref {
             secret  = module.firebase_secret_messaging_sender_id.secret_id
@@ -161,7 +187,7 @@ resource "google_cloud_run_v2_service" "default" {
         }
       }
       env {
-        name = module.firebase_secret_auth_domain.name
+        name = module.firebase_secret_auth_domain.secret_id
         value_source {
           secret_key_ref {
             secret  = module.firebase_secret_auth_domain.secret_id
@@ -170,7 +196,7 @@ resource "google_cloud_run_v2_service" "default" {
         }
       }
       env {
-        name = module.cookie_secret_previous.name
+        name = module.cookie_secret_previous.secret_id
         value_source {
           secret_key_ref {
             secret  = module.cookie_secret_previous.secret_id
@@ -179,10 +205,19 @@ resource "google_cloud_run_v2_service" "default" {
         }
       }
       env {
-        name = module.cookie_secret_current.name
+        name = module.cookie_secret_current.secret_id
         value_source {
           secret_key_ref {
             secret  = module.cookie_secret_current.secret_id
+            version = "latest"
+          }
+        }
+      }
+      env {
+        name = module.google_cloud_project.secret_id
+        value_source {
+          secret_key_ref {
+            secret  = module.google_cloud_project.secret_id
             version = "latest"
           }
         }
@@ -203,6 +238,7 @@ resource "google_cloud_run_v2_service" "default" {
     module.firebase_secret_messaging_sender_id,
     module.firebase_secret_project_id,
     module.firebase_secret_storage_bucket,
+    module.google_cloud_project,
     module.cookie_secret_previous,
     module.cookie_secret_current
   ]
