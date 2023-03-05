@@ -6,11 +6,13 @@ export const initAdminSDK = () => {
     if (getApps().length) return;
     if (isTrustedEnv) {
         // const project_id = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
-        // const cookie = process.env.COOKIE_SECRET_PREVIOUS;
+        const cookie = process.env.COOKIE_SECRET_PREVIOUS;
+        const mail = process.env.FIREBASE_CLIENT_EMAIL;
         // console.log({ project_id });
-        // console.log({ cookie });
+        console.log({ cookie });
+        console.log({ mail });
         const { options } = initializeApp();
-        // console.log({ options });
+        console.log({ options });
         console.log('Initialized Firebase Admin SDK using ADC');
         // const { projectId, serviceAccountId } = options;
         // console.log({ projectId }, { serviceAccountId });

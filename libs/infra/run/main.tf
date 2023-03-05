@@ -162,7 +162,7 @@ resource "google_cloud_run_v2_service" "default" {
         container_port = 3000
       }
       env {
-        name = module.firebase_secret_api_key.name
+        name = module.firebase_secret_api_key.secret_id
         value_source {
           secret_key_ref {
             secret  = module.firebase_secret_api_key.secret_id
@@ -171,7 +171,7 @@ resource "google_cloud_run_v2_service" "default" {
         }
       }
       env {
-        name = module.firebase_secret_app_id.name
+        name = module.firebase_secret_app_id.secret_id
         value_source {
           secret_key_ref {
             secret  = module.firebase_secret_app_id.secret_id
@@ -180,7 +180,7 @@ resource "google_cloud_run_v2_service" "default" {
         }
       }
       env {
-        name = module.firebase_secret_project_id.name
+        name = module.firebase_secret_project_id.secret_id
         value_source {
           secret_key_ref {
             secret  = module.firebase_secret_project_id.secret_id
@@ -189,7 +189,7 @@ resource "google_cloud_run_v2_service" "default" {
         }
       }
       env {
-        name = module.firebase_secret_storage_bucket.name
+        name = module.firebase_secret_storage_bucket.secret_id
         value_source {
           secret_key_ref {
             secret  = module.firebase_secret_storage_bucket.secret_id
@@ -198,7 +198,7 @@ resource "google_cloud_run_v2_service" "default" {
         }
       }
       env {
-        name = module.firebase_secret_messaging_sender_id.name
+        name = module.firebase_secret_messaging_sender_id.secret_id
         value_source {
           secret_key_ref {
             secret  = module.firebase_secret_messaging_sender_id.secret_id
@@ -207,7 +207,7 @@ resource "google_cloud_run_v2_service" "default" {
         }
       }
       env {
-        name = module.firebase_secret_auth_domain.name
+        name = module.firebase_secret_auth_domain.secret_id
         value_source {
           secret_key_ref {
             secret  = module.firebase_secret_auth_domain.secret_id
@@ -216,7 +216,7 @@ resource "google_cloud_run_v2_service" "default" {
         }
       }
       env {
-        name = module.cookie_secret_previous.name
+        name = module.cookie_secret_previous.secret_id
         value_source {
           secret_key_ref {
             secret  = module.cookie_secret_previous.secret_id
@@ -225,7 +225,7 @@ resource "google_cloud_run_v2_service" "default" {
         }
       }
       env {
-        name = module.cookie_secret_current.name
+        name = module.cookie_secret_current.secret_id
         value_source {
           secret_key_ref {
             secret  = module.cookie_secret_current.secret_id
@@ -234,7 +234,7 @@ resource "google_cloud_run_v2_service" "default" {
         }
       }
       env {
-        name = module.google_cloud_project.name
+        name = module.google_cloud_project.secret_id
         value_source {
           secret_key_ref {
             secret  = module.google_cloud_project.secret_id
@@ -243,7 +243,7 @@ resource "google_cloud_run_v2_service" "default" {
         }
       }
       env {
-        name = module.firebase_client_email.name
+        name = module.firebase_client_email.secret_id
         value_source {
           secret_key_ref {
             secret  = module.firebase_client_email.secret_id
@@ -252,7 +252,7 @@ resource "google_cloud_run_v2_service" "default" {
         }
       }
       env {
-        name = module.google_application_credentials.name
+        name = module.google_application_credentials.secret_id
         value_source {
           secret_key_ref {
             secret  = module.google_application_credentials.secret_id
