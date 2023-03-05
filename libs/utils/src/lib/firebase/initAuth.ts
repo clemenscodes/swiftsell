@@ -42,8 +42,7 @@ const config: InitConfig = {
     useFirebaseAdminDefaultCredential: isTrustedEnv,
     firebaseAuthEmulatorHost: getAuthEmulatorHost(),
     firebaseClientInitConfig: getFirebaseConfig(),
-    // debug: !isProduction(),
-    debug: true,
+    debug: !isProduction(),
 };
 
 export const initAuth = () => init(config);
