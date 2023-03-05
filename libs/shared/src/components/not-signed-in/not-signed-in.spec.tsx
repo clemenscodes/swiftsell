@@ -1,9 +1,9 @@
-import Header from './header';
+import NotSignedIn from './not-signed-in';
 import { render } from '@testing-library/react';
 
-describe('Header', () => {
+describe('NotSignedIn', () => {
     it('should render successfully', () => {
-        const { baseElement } = render(<Header />);
+        const { baseElement } = render(<NotSignedIn />);
         expect(baseElement).toBeTruthy();
     });
 });

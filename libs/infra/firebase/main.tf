@@ -73,9 +73,17 @@ resource "google_firebase_web_app" "basic" {
   ]
 }
 
+resource "google_project_service" "identitytoolkit" {
+  project = var.project_id
+  service = "identitytoolkit.googleapis.com"
+}
+
 resource "google_identity_platform_config" "default" {
   project                    = var.project_id
   autodelete_anonymous_users = true
+  depends_on = [
+    google_project_service.identitytoolkit
+  ]
 }
 
 resource "google_identity_platform_project_default_config" "default" {
@@ -92,4 +100,7 @@ resource "google_identity_platform_project_default_config" "default" {
       password_required = true
     }
   }
+  depends_on = [
+    google_identity_platform_config.default
+  ]
 }

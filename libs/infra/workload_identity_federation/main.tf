@@ -113,6 +113,11 @@ resource "google_project_service" "cloudresourcemanager" {
   service = "cloudresourcemanager.googleapis.com"
 }
 
+resource "google_project_service" "identitytoolkit" {
+  project = module.data.project_id
+  service = "identitytoolkit.googleapis.com"
+}
+
 resource "google_service_account" "gh_actions" {
   account_id = module.data.workload_identity_service_account_id
   project    = google_project.default.project_id

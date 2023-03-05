@@ -1,11 +1,11 @@
-import Home from './home';
+import SignedIn from './signed-in';
 import { render } from '@testing-library/react';
 
 jest.mock('next/router', () => require('next-router-mock'));
 
-describe('Home', () => {
-    it('should render successfully', async () => {
-        // const { baseElement } = render(<Home />);
+describe('SignedIn', () => {
+    it('should render successfully', () => {
+        // const { baseElement } = render(<SignedIn />);
         // expect(baseElement).toBeTruthy();
     });
 });
