@@ -44,5 +44,10 @@ module "run" {
   project_id             = module.app.project_id
   app_id                 = module.app.app_id
   api_key                = module.app.api_key
+  auth_domain            = module.app.auth_domain
+  storage_bucket         = module.app.storage_bucket
+  sender_id              = module.app.sender_id
+  cookie_secret_previous = module.app.cookie_secret_previous
+  cookie_secret_current  = module.app.cookie_secret_current
   #   subnet_cidr_range      = var.subnet_cidr_range
 }

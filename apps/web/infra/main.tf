@@ -145,6 +145,12 @@ resource "google_project_iam_member" "firebasemanagementserviceagent" {
   member  = "serviceAccount:${module.wif_data.service_account_email}"
 }
 
+resource "google_project_iam_member" "service_account_key_admin" {
+  project = module.project.project_id
+  role    = "roles/iam.serviceAccountKeyAdmin"
+  member  = "serviceAccount:${module.wif_data.service_account_email}"
+}
+
 resource "google_apikeys_key" "browser_key" {
   name         = "firebase-api-key"
   display_name = "Browser key (auto created by Terraform)"
@@ -185,6 +191,24 @@ module "isr_bucket" {
   source     = "../../../libs/infra/bucket/isr"
   project_id = module.project.project_id
   bucket     = var.isr_bucket
+}
+
+data "google_firebase_web_app_config" "basic" {
+  provider   = google-beta
+  project    = module.project.project_id
+  web_app_id = module.firebase.app_id
+}
+
+resource "random_password" "cookie_secret_current" {
+  length           = 16
+  special          = true
+  override_special = "!#%&*()-_=+[]{}<>:?"
+}
+
+resource "random_password" "cookie_secret_previous" {
+  length           = 16
+  special          = true
+  override_special = "!#%&*()-_=+[]{}<>:?"
 }
 
 # resource "google_project_iam_member" "vpcaccess_admin" {
