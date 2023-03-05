@@ -145,10 +145,27 @@ resource "google_project_iam_member" "firebasemanagementserviceagent" {
   member  = "serviceAccount:${module.wif_data.service_account_email}"
 }
 
-resource "google_project_iam_member" "service_account_key_admin" {
-  project = module.project.project_id
-  role    = "roles/iam.serviceAccountKeyAdmin"
-  member  = "serviceAccount:${module.wif_data.service_account_email}"
+resource "google_apikeys_key" "browser_key" {
+  name         = "firebase-api-key"
+  display_name = "Browser key (auto created by Terraform)"
+  project      = module.project.project_id
+  restrictions {
+    api_targets {
+      service = "firebase.googleapis.com"
+    }
+    api_targets {
+      service = "firestore.googleapis.com"
+    }
+    api_targets {
+      service = "firebasestorage.googleapis.com"
+    }
+    browser_key_restrictions {
+      allowed_referrers = [local.domain, "${local.domain}/*"]
+    }
+  }
+  depends_on = [
+    google_project_iam_member.firebasemanagementserviceagent
+  ]
 }
 
 module "state_bucket" {

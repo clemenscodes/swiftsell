@@ -22,12 +22,6 @@ resource "google_project_service" "firebasestorage" {
   service  = "firebasestorage.googleapis.com"
 }
 
-resource "google_project_service" "apikeys" {
-  provider = google-beta
-  project  = var.project_id
-  service  = "apikeys.googleapis.com"
-}
-
 resource "google_firebase_project" "default" {
   provider = google-beta
   project  = var.project_id
@@ -73,22 +67,3 @@ resource "google_firebase_web_app" "basic" {
   ]
 }
 
-resource "google_apikeys_key" "browser_key" {
-  name         = "firebase-api-key"
-  display_name = "Browser key (auto created by Terraform)"
-  project      = var.project_id
-  restrictions {
-    api_targets {
-      service = "firebase.googleapis.com"
-    }
-    api_targets {
-      service = "firestore.googleapis.com"
-    }
-    api_targets {
-      service = "firebasestorage.googleapis.com"
-    }
-    browser_key_restrictions {
-      allowed_referrers = [local.domain, "${local.domain}/*"]
-    }
-  }
-}

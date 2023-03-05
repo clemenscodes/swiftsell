@@ -1,45 +1,45 @@
 output "org_name" {
-  value = module.wif_data.org_name
+  value     = module.wif_data.org_name
   sensitive = true
 }
 
 output "domain" {
-  value = module.wif_data.domain
+  value     = module.wif_data.domain
   sensitive = true
 }
 
 output "project_id" {
-  value = module.project.project_id
+  value     = module.project.project_id
   sensitive = true
 }
 
 output "project_number" {
-  value = module.project.number
+  value     = module.project.number
   sensitive = true
 }
 
 output "project_name" {
-  value = module.project.name
+  value     = module.project.name
   sensitive = true
 }
 
 output "state_bucket" {
-  value = module.state_bucket.name
+  value     = module.state_bucket.name
   sensitive = true
 }
 
 output "isr_bucket" {
-  value = module.isr_bucket.name
+  value     = module.isr_bucket.name
   sensitive = true
 }
 
 output "repository_id" {
-  value = module.artifact-registry-repository.repository_id
+  value     = module.artifact-registry-repository.repository_id
   sensitive = true
 }
 
 output "artifact_region" {
-  value = module.artifact-registry-repository.region
+  value     = module.artifact-registry-repository.region
   sensitive = true
 }
 
@@ -53,7 +53,7 @@ output "app_id" {
 }
 
 output "api_key" {
-  value     = module.firebase.api_key
+  value     = google_apikeys_key.browser_key.key_string
   sensitive = true
 }
 
