@@ -277,7 +277,7 @@ resource "google_cloud_run_v2_service" "default" {
     module.firebase_secret_project_id,
     module.firebase_secret_storage_bucket,
     module.firebase_client_email,
-    module.google_application_credentials,
+    module.firebase_private_key,
     module.google_cloud_project,
     module.cookie_secret_previous,
     module.cookie_secret_current
