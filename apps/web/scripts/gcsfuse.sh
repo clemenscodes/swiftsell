@@ -55,7 +55,7 @@ cleanup() {
 authorize_gcloud
 mount_google_cloud_storage
 start_nextjs_app
-# debugging_env
+debugging_env
 
 # while true; do
 #     sync "$CONTAINER_PAGES" "$BUCKET_ADDRESS"
