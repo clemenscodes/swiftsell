@@ -1,9 +1,9 @@
-import Header from './header';
+import FirebaseAuth from './firebase-auth';
 import { render } from '@testing-library/react';
 
-describe('Header', () => {
+describe('FirebaseAuth', () => {
     it('should render successfully', () => {
-        // const { baseElement } = render(<Header />);
+        // const { baseElement } = render(<FirebaseAuth />);
         // expect(baseElement).toBeTruthy();
     });
 });

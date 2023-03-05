@@ -1,3 +1,5 @@
+export * from './components/firebase-auth/firebase-auth';
+export * from './pages/auth/auth';
 export * from './components/loader/loader';
 export * from './components/dropdown/dropdown-menu-radio-item/dropdown-menu-radio-item';
 export * from './components/dropdown/dropdown-menu-content/dropdown-menu-content';
