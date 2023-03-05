@@ -242,24 +242,24 @@ resource "google_cloud_run_v2_service" "default" {
           }
         }
       }
-      env {
-        name = module.firebase_client_email.secret_id
-        value_source {
-          secret_key_ref {
-            secret  = module.firebase_client_email.secret_id
-            version = "latest"
-          }
-        }
-      }
-      env {
-        name = module.firebase_private_key.secret_id
-        value_source {
-          secret_key_ref {
-            secret  = module.firebase_private_key.secret_id
-            version = "latest"
-          }
-        }
-      }
+    #   env {
+    #     name = module.firebase_client_email.secret_id
+    #     value_source {
+    #       secret_key_ref {
+    #         secret  = module.firebase_client_email.secret_id
+    #         version = "latest"
+    #       }
+    #     }
+    #   }
+    #   env {
+    #     name = module.firebase_private_key.secret_id
+    #     value_source {
+    #       secret_key_ref {
+    #         secret  = module.firebase_private_key.secret_id
+    #         version = "latest"
+    #       }
+    #     }
+    #   }
     }
   }
   traffic {
