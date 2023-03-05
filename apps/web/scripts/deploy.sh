@@ -95,44 +95,18 @@ run_tf_command() {
 populate_env_configs() {
     CONFIG="$1"
     ENV_CONFIG_FILE="$APP_DIR/config/.env.$CONFIG"
-
-    PROJECT_ID_VALUE="$($TF output project_id | tr -d '"')"
-    APP_ID_VALUE="$($TF output app_id | tr -d '"')"
-    API_KEY_VALUE="$($TF output api_key | tr -d '"')"
-    AUTH_DOMAIN_VALUE="$($TF output auth_domain | tr -d '"')"
-    MESSAGING_SENDER_ID_VALUE="$($TF output sender_id | tr -d '"')"
-    STORAGE_BUCKET_VALUE="$($TF output storage_bucket | tr -d '"')"
-    COOKIE_SECRET_PREVIOUS_VALUE="$($TF output cookie_secret_previous | tr -d '"')"
-    COOKIE_SECRET_CURRENT_VALUE="$($TF output cookie_secret_current | tr -d '"')"
-
-    PROJECT_ID_ENTRY="NEXT_PUBLIC_FIREBASE_PROJECT_ID=\"$PROJECT_ID_VALUE\""
-    API_KEY_ENTRY="NEXT_PUBLIC_FIREBASE_API_KEY=\"$API_KEY_VALUE\""
-    AUTH_DOMAIN_ENTRY="NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=\"$AUTH_DOMAIN_VALUE\""
-    MESSAGING_SENDER_ID_ENTRY="NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=\"$MESSAGING_SENDER_ID_VALUE\""
-    STORAGE_BUCKET_ENTRY="NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=\"$STORAGE_BUCKET_VALUE\""
-    APP_ID_ENTRY="NEXT_PUBLIC_FIREBASE_APP_ID=\"$APP_ID_VALUE\""
-    COOKIE_SECRET_PREVIOUS_ENTRY="COOKIE_SECRET_PREVIOUS=\"$COOKIE_SECRET_PREVIOUS_VALUE\""
-    COOKIE_SECRET_CURRENT_ENTRY="COOKIE_SECRET_CURRENT=\"$COOKIE_SECRET_CURRENT_VALUE\""
-    PROJECT_TYPE_ENTRY="NEXT_PUBLIC_PROJECT_TYPE=\"$CONFIG\""
-
-    file_writer "$PROJECT_ID_ENTRY" "$ENV_CONFIG_FILE"
-    file_writer "$API_KEY_ENTRY" "$ENV_CONFIG_FILE"
-    file_writer "$AUTH_DOMAIN_ENTRY" "$ENV_CONFIG_FILE"
-    file_writer "$MESSAGING_SENDER_ID_ENTRY" "$ENV_CONFIG_FILE"
-    file_writer "$STORAGE_BUCKET_ENTRY" "$ENV_CONFIG_FILE"
-    file_writer "$APP_ID_ENTRY" "$ENV_CONFIG_FILE"
-    file_writer "$COOKIE_SECRET_PREVIOUS_ENTRY" "$ENV_CONFIG_FILE"
-    file_writer "$COOKIE_SECRET_CURRENT_ENTRY" "$ENV_CONFIG_FILE"
-    file_writer "$PROJECT_TYPE_ENTRY" "$ENV_CONFIG_FILE"
-
+    {
+        echo "NEXT_PUBLIC_FIREBASE_PROJECT_ID=\"$($TF output project_id | tr -d '"')\""
+        echo "NEXT_PUBLIC_FIREBASE_API_KEY=\"$($TF output app_id | tr -d '"')\""
+        echo "NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=\"$($TF output api_key | tr -d '"')\""
+        echo "NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=\"$($TF output auth_domain | tr -d '"')\""
+        echo "NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=\"$($TF output sender_id | tr -d '"')\""
+        echo "NEXT_PUBLIC_FIREBASE_APP_ID=\"$($TF output storage_bucket | tr -d '"')\""
+        echo "COOKIE_SECRET_PREVIOUS=\"$($TF output cookie_secret_previous | tr -d '"')\""
+        echo "COOKIE_SECRET_CURRENT=\"$($TF output cookie_secret_current | tr -d '"')\""
+        echo "NEXT_PUBLIC_PROJECT_TYPE=\"$CONFIG\""
+    } >>"$ENV_CONFIG_FILE"
     purple "generated content of $ENV_CONFIG_FILE"
-    cat "$ENV_CONFIG_FILE"
-}
-
-file_writer() {
-    VALUE="$1"
-    FILE="$2"
-    echo "$VALUE" >>"$FILE"
 }
 
 image() {
@@ -151,7 +125,7 @@ image() {
             echo "Missing GitHub token"
             exit 1
         fi
-        populate_env_configs "$CONFIG"
+        # populate_env_configs "$CONFIG"
         NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache --configuration="$CONFIG"
         INPUT_GITHUB_TOKEN="$INPUT_GITHUB_TOKEN" INPUT_IMAGES="$INPUT_IMAGES" INPUT_TAGS="sha-$SHA" nx docker "$APP" --configuration=ci --skip-nx-cache
     fi
