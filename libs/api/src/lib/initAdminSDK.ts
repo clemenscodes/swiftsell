@@ -5,7 +5,8 @@ import { cert, getApps, initializeApp } from 'firebase-admin/app';
 export const initAdminSDK = () => {
     if (getApps().length) return;
     if (isTrustedEnv) {
-        initializeApp();
+        const { options } = initializeApp();
+        console.log({ options });
         console.log('Initialized Firebase Admin SDK using ADC');
         return;
     }
