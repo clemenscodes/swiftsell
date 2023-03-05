@@ -72,3 +72,23 @@ resource "google_firebase_web_app" "basic" {
     google_firebase_project.default
   ]
 }
+
+resource "google_apikeys_key" "browser_key" {
+  name         = "firebase-api-key"
+  display_name = "Browser key (auto created by Terraform)"
+  project      = var.project_id
+  restrictions {
+    api_targets {
+      service = "firebase.googleapis.com"
+    }
+    api_targets {
+      service = "firestore.googleapis.com"
+    }
+    api_targets {
+      service = "firebasestorage.googleapis.com"
+    }
+    browser_key_restrictions {
+      allowed_referrers = [local.domain, "${local.domain}/*"]
+    }
+  }
+}

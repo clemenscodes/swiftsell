@@ -53,41 +53,6 @@ output "mapped_cloud_run_domain" {
   sensitive = true
 }
 
-output "app_id" {
-  value     = module.app.app_id
-  sensitive = true
-}
-
-output "api_key" {
-  value     = module.app.api_key
-  sensitive = true
-}
-
-output "auth_domain" {
-  value     = module.app.auth_domain
-  sensitive = true
-}
-
-output "storage_bucket" {
-  value     = module.app.storage_bucket
-  sensitive = true
-}
-
-output "sender_id" {
-  value     = module.app.sender_id
-  sensitive = true
-}
-
-output "cookie_secret_previous" {
-  value     = module.app.cookie_secret_previous
-  sensitive = true
-}
-
-output "cookie_secret_current" {
-  value     = module.app.cookie_secret_current
-  sensitive = true
-}
-
 # output "ip" {
 #   value = module.app.ip
 # }

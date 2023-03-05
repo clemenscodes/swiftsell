@@ -92,23 +92,6 @@ run_tf_command() {
     eval "$TF_COMMAND"
 }
 
-populate_env_configs() {
-    CONFIG="$1"
-    ENV_CONFIG_FILE="$APP_DIR/config/.env.$CONFIG"
-    {
-        echo "NEXT_PUBLIC_FIREBASE_PROJECT_ID=\"$($TF output project_id | tr -d '"')\""
-        echo "NEXT_PUBLIC_FIREBASE_API_KEY=\"$($TF output app_id | tr -d '"')\""
-        echo "NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=\"$($TF output api_key | tr -d '"')\""
-        echo "NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=\"$($TF output auth_domain | tr -d '"')\""
-        echo "NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=\"$($TF output sender_id | tr -d '"')\""
-        echo "NEXT_PUBLIC_FIREBASE_APP_ID=\"$($TF output storage_bucket | tr -d '"')\""
-        echo "COOKIE_SECRET_PREVIOUS=\"$($TF output cookie_secret_previous | tr -d '"')\""
-        echo "COOKIE_SECRET_CURRENT=\"$($TF output cookie_secret_current | tr -d '"')\""
-        echo "NEXT_PUBLIC_PROJECT_TYPE=\"$CONFIG\""
-    } >>"$ENV_CONFIG_FILE"
-    purple "generated content of $ENV_CONFIG_FILE"
-}
-
 image() {
     CONFIG="$1"
     REGISTRY="docker.pkg.dev"
@@ -125,7 +108,6 @@ image() {
             echo "Missing GitHub token"
             exit 1
         fi
-        # populate_env_configs "$CONFIG"
         NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache --configuration="$CONFIG"
         INPUT_GITHUB_TOKEN="$INPUT_GITHUB_TOKEN" INPUT_IMAGES="$INPUT_IMAGES" INPUT_TAGS="sha-$SHA" nx docker "$APP" --configuration=ci --skip-nx-cache
     fi

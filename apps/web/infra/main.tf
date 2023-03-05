@@ -151,29 +151,6 @@ resource "google_project_iam_member" "service_account_key_admin" {
   member  = "serviceAccount:${module.wif_data.service_account_email}"
 }
 
-resource "google_apikeys_key" "browser_key" {
-  name         = "firebase-api-key"
-  display_name = "Browser key (auto created by Terraform)"
-  project      = module.project.project_id
-  restrictions {
-    api_targets {
-      service = "firebase.googleapis.com"
-    }
-    api_targets {
-      service = "firestore.googleapis.com"
-    }
-    api_targets {
-      service = "firebasestorage.googleapis.com"
-    }
-    browser_key_restrictions {
-      allowed_referrers = [local.domain, "${local.domain}/*"]
-    }
-  }
-  depends_on = [
-    google_project_iam_member.firebasemanagementserviceagent
-  ]
-}
-
 module "state_bucket" {
   source     = "../../../libs/infra/bucket/state"
   project_id = module.project.project_id
@@ -191,24 +168,6 @@ module "isr_bucket" {
   source     = "../../../libs/infra/bucket/isr"
   project_id = module.project.project_id
   bucket     = var.isr_bucket
-}
-
-data "google_firebase_web_app_config" "basic" {
-  provider   = google-beta
-  project    = module.project.project_id
-  web_app_id = module.firebase.app_id
-}
-
-resource "random_password" "cookie_secret_current" {
-  length           = 16
-  special          = true
-  override_special = "!#%&*()-_=+[]{}<>:?"
-}
-
-resource "random_password" "cookie_secret_previous" {
-  length           = 16
-  special          = true
-  override_special = "!#%&*()-_=+[]{}<>:?"
 }
 
 # resource "google_project_iam_member" "vpcaccess_admin" {
