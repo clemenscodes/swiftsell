@@ -43,7 +43,7 @@ const config: InitConfig = {
     firebaseAuthEmulatorHost: getAuthEmulatorHost(),
     firebaseClientInitConfig: getFirebaseConfig(),
     // debug: !isProduction(),
-    debug: true
+    debug: true,
 };
 
 export const initAuth = () => init(config);
