@@ -126,6 +126,7 @@ populate_env_configs() {
     file_writer "$PROJECT_TYPE_ENTRY" "$ENV_CONFIG_FILE"
 
     purple "generated content of $ENV_CONFIG_FILE"
+    cat "$ENV_CONFIG_FILE"
 }
 
 file_writer() {
