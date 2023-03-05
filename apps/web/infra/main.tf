@@ -165,6 +165,9 @@ resource "google_apikeys_key" "browser_key" {
     api_targets {
       service = "firebasestorage.googleapis.com"
     }
+    api_targets {
+      service = "identitytoolkit.googleapis.com"
+    }
     browser_key_restrictions {
       allowed_referrers = [local.domain, "${local.domain}/*"]
     }
