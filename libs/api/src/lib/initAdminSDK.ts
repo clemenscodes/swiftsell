@@ -5,7 +5,7 @@ import { cert, getApps, initializeApp } from 'firebase-admin/app';
 export const initAdminSDK = () => {
     if (getApps().length) return;
     if (isTrustedEnv) {
-        const project_id = process.env.NEXT_PUBLIC_PROJECT_ID;
+        const project_id = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
         console.log({ project_id });
         const { options } = initializeApp();
         console.log({ options });
