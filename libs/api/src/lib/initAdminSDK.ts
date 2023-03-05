@@ -6,9 +6,9 @@ export const initAdminSDK = () => {
     if (getApps().length) return;
     if (isTrustedEnv) {
         const pk = process.env.FIREBASE_PRIVATE_KEY;
-        const project_id = process.env.GOOGLE_CLOUD_PROJECT;
+        const cookie = process.env.COOKIE_SECRET_CURRENT;
         console.log({ pk });
-        console.log({ project_id });
+        console.log({ cookie });
         const { options } = initializeApp();
         console.log({ options });
         console.log('Initialized Firebase Admin SDK using ADC');
