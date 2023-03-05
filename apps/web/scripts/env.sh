@@ -16,7 +16,7 @@ env() {
         echo "NEXT_PUBLIC_CI=true" >>"$ENV"
         echo "CI=true" >>"$ENV"
     fi
-    cat $ENV
+    # cat $ENV
 }
 
 case "$1" in

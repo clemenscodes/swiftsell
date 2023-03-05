@@ -40,6 +40,11 @@ start_nextjs_app() {
     echo "Next.js app started"
 }
 
+debugging_env() {
+    echo "Debugging env..."
+    env
+}
+
 cleanup() {
     echo "Cleaning up..."
     sync "$CONTAINER_PAGES" "$BUCKET_ADDRESS"
@@ -50,6 +55,7 @@ cleanup() {
 authorize_gcloud
 mount_google_cloud_storage
 start_nextjs_app
+debugging_env
 
 # while true; do
 #     sync "$CONTAINER_PAGES" "$BUCKET_ADDRESS"
