@@ -134,7 +134,7 @@ module "firebase_client_email" {
   secret_data     = google_service_account.cloud_run_service_account.email
 }
 
-module "google_application_credentials" {
+module "firebase_private_key" {
   source          = "../secret"
   project_id      = var.project_id
   service_account = local.sa
@@ -252,10 +252,10 @@ resource "google_cloud_run_v2_service" "default" {
         }
       }
       env {
-        name = module.google_application_credentials.secret_id
+        name = module.firebase_private_key.secret_id
         value_source {
           secret_key_ref {
-            secret  = module.google_application_credentials.secret_id
+            secret  = module.firebase_private_key.secret_id
             version = "latest"
           }
         }
