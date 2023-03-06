@@ -89,6 +89,7 @@
         "@swc/core": "^1.2.173",
         "@swc/jest": "0.2.20",
         "@tailwindcss/typography": "^0.5.9",
+        "@testing-library/jest-dom": "^5.14.5",
         "@testing-library/react": "13.4.0",
         "@types/cookies": "^0.7.7",
         "@types/jest": "29.4.0",

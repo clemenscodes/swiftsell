@@ -45,4 +45,6 @@ const config: InitConfig = {
     debug: !isProduction(),
 };
 
-export const initAuth = () => init(config);
+export const initAuth = () => {
+    init(config);
+};

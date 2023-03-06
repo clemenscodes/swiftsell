@@ -13,7 +13,9 @@ export const SignedIn: React.FC<SignedInProps> = ({ ...props }) => {
                 'm-6 flex flex-col items-center justify-center text-2xl font-bold',
             ])}
         >
-            <p>Signed in as {user.email}</p>
+            <p>
+                Signed in as <span>{user.email}</span>
+            </p>
             <div className={cn('m-6')}>
                 <Button
                     onClick={() => {
