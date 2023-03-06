@@ -69,7 +69,7 @@ const nextConfig = {
         ],
         unoptimized: false,
     },
-    reactStrictMode: false,
+    reactStrictMode: true,
     nx: {
         // Set this to true if you would like to to use SVGR
         // See: https://github.com/gregberge/svgr
