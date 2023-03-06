@@ -12,26 +12,6 @@
                 "lintFilePatterns": ["libs/db/**/*.{ts,tsx,js,jsx}"]
             }
         },
-        "build": {
-            "executor": "@nrwl/rollup:rollup",
-            "outputs": ["{options.outputPath}"],
-            "options": {
-                "outputPath": "dist/libs/db",
-                "tsConfig": "libs/db/tsconfig.lib.json",
-                "project": "libs/db/package.json",
-                "entryFile": "libs/db/src/index.ts",
-                "external": ["react/jsx-runtime"],
-                "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
-                "compiler": "swc",
-                "assets": [
-                    {
-                        "glob": "libs/db/README.md",
-                        "input": ".",
-                        "output": "."
-                    }
-                ]
-            }
-        },
         "test": {
             "executor": "@nrwl/jest:jest",
             "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],

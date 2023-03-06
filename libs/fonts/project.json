@@ -12,26 +12,6 @@
                 "lintFilePatterns": ["libs/fonts/**/*.{ts,tsx,js,jsx}"]
             }
         },
-        "build": {
-            "executor": "@nrwl/rollup:rollup",
-            "outputs": ["{options.outputPath}"],
-            "options": {
-                "outputPath": "dist/libs/fonts",
-                "tsConfig": "libs/fonts/tsconfig.lib.json",
-                "project": "libs/fonts/package.json",
-                "entryFile": "libs/fonts/src/index.ts",
-                "external": ["react/jsx-runtime"],
-                "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
-                "compiler": "swc",
-                "assets": [
-                    {
-                        "glob": "libs/fonts/README.md",
-                        "input": ".",
-                        "output": "."
-                    }
-                ]
-            }
-        },
         "test": {
             "executor": "@nrwl/jest:jest",
             "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
