@@ -15,7 +15,6 @@ describe('SignedIn', () => {
         (withAuthUser as jest.Mock).mockImplementation(
             () => (wrappedComponent: typeof SignedIn) => wrappedComponent
         );
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
         SignedIn = require('./signed-in').default as typeof SignedIn;
     });
 
