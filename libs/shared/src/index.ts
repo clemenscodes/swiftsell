@@ -1,3 +1,6 @@
+export * from './components/not-signed-in/not-signed-in';
+export * from './components/signed-in/signed-in';
+export * from './pages/auth/auth';
 export * from './components/loader/loader';
 export * from './components/dropdown/dropdown-menu-radio-item/dropdown-menu-radio-item';
 export * from './components/dropdown/dropdown-menu-content/dropdown-menu-content';

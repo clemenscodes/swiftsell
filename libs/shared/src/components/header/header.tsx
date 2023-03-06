@@ -1,14 +1,11 @@
 import { siteConfig } from '@config';
-import { AuthUserContext } from 'next-firebase-auth';
 import dynamic from 'next/dynamic';
 
 const Navbar = dynamic(() => import('../navbar/navbar'));
 const ModeToggle = dynamic(() => import('../mode-toggle/mode-toggle'));
 
 /* eslint-disable-next-line */
-export interface HeaderProps {
-    user: AuthUserContext;
-}
+export interface HeaderProps {}
 
 export const Header: React.FC<HeaderProps> = ({ ...props }) => {
     return (
