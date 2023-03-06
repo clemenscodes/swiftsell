@@ -12460,13 +12460,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dialog-polyfill@npm:^0.4.7":
-  version: 0.4.10
-  resolution: "dialog-polyfill@npm:0.4.10"
-  checksum: f5f472542a059ade7f1f19bc7bf7acf19210a1d89f9dda99cc67027f58709307c8c8faff9e4217cf9ef4d06ef0be3bf9885d48a7304e0f5b01b4f36c0e4570e1
-  languageName: node
-  linkType: hard
-
 "didyoumean@npm:^1.2.2":
   version: 1.2.2
   resolution: "didyoumean@npm:1.2.2"
@@ -14404,18 +14397,6 @@ __metadata:
     "@firebase/storage-compat": 0.2.1
     "@firebase/util": 1.9.0
   checksum: 3e5aafb0bb07fdf7afba32506228ed486213992e0815b4e2489d03d8d82fae02eef607d48ba943f45623bb94140a02f60d67530c9ef534824d3447a604c68550
-  languageName: node
-  linkType: hard
-
-"firebaseui@npm:^6.0.2":
-  version: 6.0.2
-  resolution: "firebaseui@npm:6.0.2"
-  dependencies:
-    dialog-polyfill: ^0.4.7
-    material-design-lite: ^1.2.0
-  peerDependencies:
-    firebase: ^9.1.3
-  checksum: bbf88171ac19ecd9f36ecbfa95bedda359fe55d2179f4cf876ebf29a97b63b846df0ebed3802760c222bc47f13b0452aaf5ef965748c76907f8b7b528097b32a
   languageName: node
   linkType: hard
 
@@ -19381,13 +19362,6 @@ __metadata:
   bin:
     marked: bin/marked.js
   checksum: bd551cd61028ee639d4ca2ccdfcc5a6ba4227c1b143c4538f3cde27f569dcb57df8e6313560394645b418b84a7336c07ab1e438b89b6324c29d7d8cdd3102d63
-  languageName: node
-  linkType: hard
-
-"material-design-lite@npm:^1.2.0":
-  version: 1.3.0
-  resolution: "material-design-lite@npm:1.3.0"
-  checksum: f5d45f84408feb11c6e6da2389b69f73cbef3954b9259eced1f25070ad6e299f59782ca7e63e37635bdc177aea69a58aaa7b03fb9f74070a9dd6a44364d6bc9a
   languageName: node
   linkType: hard
 
@@ -25470,7 +25444,6 @@ __metadata:
     eslint-plugin-tailwindcss: ^3.9.0
     firebase: 9.16.0
     firebase-admin: ^11.5.0
-    firebaseui: ^6.0.2
     html-webpack-plugin: ^5.5.0
     husky: ^8.0.3
     jest: 29.4.3
