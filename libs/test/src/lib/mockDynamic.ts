@@ -4,4 +4,5 @@ jest.mock('next/dynamic', () => () => {
     DynamicComponent.preload = jest.fn();
     return DynamicComponent;
 });
+
 export {};

@@ -1,6 +1,5 @@
 const mockFirebaseUser = {
     displayName: 'Banana Manana',
-    // ... other fields from firebaseUser that you may use
 };
 
 const getMockAuthUser = (isLoggedIn = true) => ({
@@ -13,4 +12,5 @@ const getMockAuthUser = (isLoggedIn = true) => ({
     signOut: jest.fn(),
     serialize: jest.fn(() => 'serialized_auth_user'),
 });
+
 export default getMockAuthUser;
