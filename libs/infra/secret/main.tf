@@ -10,6 +10,9 @@ resource "google_secret_manager_secret" "secret" {
 resource "google_secret_manager_secret_version" "data" {
   secret      = google_secret_manager_secret.secret.id
   secret_data = var.secret_data
+  depends_on = [
+    google_secret_manager_secret.secret
+  ]
 }
 
 resource "google_secret_manager_secret_iam_member" "member" {
