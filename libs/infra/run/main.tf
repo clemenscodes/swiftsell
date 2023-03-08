@@ -273,6 +273,8 @@ resource "google_cloud_run_v2_service" "default" {
     module.firebase_secret_project_id,
     module.firebase_secret_storage_bucket,
     module.google_cloud_project,
+    module.database_url,
+    module.shadow_database_url,
     module.cookie_secret_previous,
     module.cookie_secret_current
   ]
