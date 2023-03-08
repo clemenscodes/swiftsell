@@ -11,6 +11,7 @@
                     "test",
                     "e2e",
                     "docker",
+                    "prisma-generate",
                     "deploy"
                 ],
                 "accessToken": "MjA0MWE2MTYtNjNlOC00NTc4LWI0MDYtZGEzOTBkMDY5MTMxfHJlYWQ="
