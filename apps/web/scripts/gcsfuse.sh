@@ -8,8 +8,6 @@ SERVER="$APP_HOME/$APP_DIR/server.js"
 MNT_DIR="$APP_HOME/gcsfuse"
 LOG_FILE="$APP_HOME/log.txt"
 
-tree "$APP_HOME"
-
 sync() {
     echo "Syncing newer files from $1 to $2..."
     gsutil -m rsync -u -r "$1" "$2"

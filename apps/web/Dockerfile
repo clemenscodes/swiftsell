@@ -19,7 +19,6 @@ RUN set -e; \
     py-crcmod \
     curl \
     fuse \
-    tree \
     bash \
     && curl https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz > /tmp/google-cloud-sdk.tar.gz \
     && mkdir -p /usr/local/gcloud \
