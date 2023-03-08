@@ -4572,6 +4572,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nx-tools/nx-prisma@npm:^4.0.3":
+  version: 4.0.3
+  resolution: "@nx-tools/nx-prisma@npm:4.0.3"
+  dependencies:
+    "@nx-tools/core": 4.0.3
+    "@swc/helpers": ^0.4.12
+  peerDependencies:
+    "@nrwl/devkit": ^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0
+    prisma: ^4.5.0
+    ts-node: "*"
+  checksum: 157c30175a958087471ca73c6a86e9650637a0ba04a4e744b2dc4e9e23457253bbe74e2396eb4f27fe66d24ed4f0dcd7f871f51acd86cb2034f1e021c5fe1406
+  languageName: node
+  linkType: hard
+
 "@octokit/auth-token@npm:^2.4.4":
   version: 2.5.0
   resolution: "@octokit/auth-token@npm:2.5.0"
@@ -4794,6 +4808,34 @@ __metadata:
   version: 1.0.0-next.21
   resolution: "@polka/url@npm:1.0.0-next.21"
   checksum: c7654046d38984257dd639eab3dc770d1b0340916097b2fac03ce5d23506ada684e05574a69b255c32ea6a144a957c8cd84264159b545fca031c772289d88788
+  languageName: node
+  linkType: hard
+
+"@prisma/client@npm:^4.5.0":
+  version: 4.11.0
+  resolution: "@prisma/client@npm:4.11.0"
+  dependencies:
+    "@prisma/engines-version": 4.11.0-57.8fde8fef4033376662cad983758335009d522acb
+  peerDependencies:
+    prisma: "*"
+  peerDependenciesMeta:
+    prisma:
+      optional: true
+  checksum: ca8d8f820caaf4a76b94674f88207d5bb14f57a9682d37d2f79c56378f259cd3b14b30a110ab59a97647fcf3c46f896e7a2d20ded2777e09b835d7accd70cf1d
+  languageName: node
+  linkType: hard
+
+"@prisma/engines-version@npm:4.11.0-57.8fde8fef4033376662cad983758335009d522acb":
+  version: 4.11.0-57.8fde8fef4033376662cad983758335009d522acb
+  resolution: "@prisma/engines-version@npm:4.11.0-57.8fde8fef4033376662cad983758335009d522acb"
+  checksum: f040b93d09b21feaef193080eed22142fa26b3cf86d089ebb4286f5f45ed17a98e030a8bb55c0bec2892e15880a697f6754c6966b7795cf7ba4553f59fb387e7
+  languageName: node
+  linkType: hard
+
+"@prisma/engines@npm:4.11.0":
+  version: 4.11.0
+  resolution: "@prisma/engines@npm:4.11.0"
+  checksum: 98030cead39e5009b7a91fd2463433ccdb16cbeb6c7345ed7950c25dbe0731a425fc888458a1423b594d659972e081ca3d63d301ef647f05a634209c75769db2
   languageName: node
   linkType: hard
 
@@ -20181,6 +20223,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"neon-sdk@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "neon-sdk@npm:1.1.0"
+  checksum: c49e9af6ccfb70143ec34cfc9fa5c12902030c00e37b0d481e674107c4d62c3b6d0862018d7362fd53635333d75cedbf2401ddeaf650e4cd848fea515050ae2f
+  languageName: node
+  linkType: hard
+
 "nested-error-stacks@npm:^2.0.0, nested-error-stacks@npm:^2.1.0":
   version: 2.1.1
   resolution: "nested-error-stacks@npm:2.1.1"
@@ -22364,6 +22413,18 @@ __metadata:
   version: 1.0.3
   resolution: "pretty-hrtime@npm:1.0.3"
   checksum: bae0e6832fe13c3de43d1a3d43df52bf6090499d74dc65a17f5552cb1a94f1f8019a23284ddf988c3c408a09678d743901e1d8f5b7a71bec31eeeac445bef371
+  languageName: node
+  linkType: hard
+
+"prisma@npm:^4.5.0":
+  version: 4.11.0
+  resolution: "prisma@npm:4.11.0"
+  dependencies:
+    "@prisma/engines": 4.11.0
+  bin:
+    prisma: build/index.js
+    prisma2: build/index.js
+  checksum: 760d80766ae16ad2d25cfc20d75433b020dff0937eab864b94b95beadd89e481508e4d3c6370a5df90749d5ac5c7af77c9c2f293b74bfdee0e548b04a905c2e7
   languageName: node
   linkType: hard
 
@@ -25534,6 +25595,8 @@ __metadata:
     "@nrwl/workspace": 15.8.3
     "@nx-tools/container-metadata": ^4.0.3
     "@nx-tools/nx-container": ^4.0.3
+    "@nx-tools/nx-prisma": ^4.0.3
+    "@prisma/client": ^4.5.0
     "@radix-ui/react-dropdown-menu": ^2.0.3
     "@radix-ui/react-icons": ^1.2.0
     "@rollup/plugin-url": ^7.0.0
@@ -25592,6 +25655,7 @@ __metadata:
     jest: 29.4.3
     jest-environment-jsdom: 29.4.3
     lucide-react: ^0.115.0
+    neon-sdk: ^1.1.0
     next: 13.1.1
     next-absolute-url: ^1.2.2
     next-compose-plugins: ^2.2.1
@@ -25604,6 +25668,7 @@ __metadata:
     nx: 15.8.3
     postcss: ^8.4.21
     prettier: ^2.6.2
+    prisma: ^4.5.0
     react: 18.2.0
     react-dom: 18.2.0
     react-env: ^0.0.0
