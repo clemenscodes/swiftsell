@@ -23292,13 +23292,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"reflect-metadata@npm:^0.1.13":
-  version: 0.1.13
-  resolution: "reflect-metadata@npm:0.1.13"
-  checksum: 798d379a7b6f6455501145419505c97dd11cbc23857a386add2b9ef15963ccf15a48d9d15507afe01d4cd74116df8a213247200bac00320bd7c11ddeaa5e8fb4
-  languageName: node
-  linkType: hard
-
 "regenerate-unicode-properties@npm:^10.1.0":
   version: 10.1.0
   resolution: "regenerate-unicode-properties@npm:10.1.0"
@@ -25698,7 +25691,6 @@ __metadata:
     react-redux: 8.0.5
     react-test-renderer: 18.2.0
     reactfire: ^4.2.2
-    reflect-metadata: ^0.1.13
     storybook-addon-next: ^1.6.6
     storybook-addon-swc: ^1.1.7
     storybook-tailwind-dark-mode: ^1.0.15
@@ -25710,7 +25702,6 @@ __metadata:
     ts-jest: 29.0.5
     ts-node: 10.9.1
     tslib: ^2.3.0
-    tsyringe: ^4.7.0
     typescript: 4.9.5
     url-loader: ^4.1.1
     zod: ^3.21.4
@@ -26483,15 +26474,6 @@ __metadata:
   peerDependencies:
     typescript: ">=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta"
   checksum: 1843f4c1b2e0f975e08c4c21caa4af4f7f65a12ac1b81b3b8489366826259323feb3fc7a243123453d2d1a02314205a7634e048d4a8009921da19f99755cdc48
-  languageName: node
-  linkType: hard
-
-"tsyringe@npm:^4.7.0":
-  version: 4.7.0
-  resolution: "tsyringe@npm:4.7.0"
-  dependencies:
-    tslib: ^1.9.3
-  checksum: 6d84e0767538fabf60eafb926bd285d08d25847875b635f8a3ab8b3093c8814aca4f47072fbb51837bd431259dc2464572e5c28a838b833c9ef097d5b1a895b3
   languageName: node
   linkType: hard
 
