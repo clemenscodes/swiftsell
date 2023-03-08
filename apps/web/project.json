@@ -62,18 +62,6 @@
                 }
             }
         },
-        "dev-supa": {
-            "executor": "nx:run-commands",
-            "defaultConfiguration": "development",
-            "configurations": {
-                "development": {
-                    "command": "nx run-many --parallel --target=start --projects=web,supabase apps/web"
-                },
-                "production": {
-                    "command": "nx start web --configuration=production"
-                }
-            }
-        },
         "export": {
             "executor": "@nrwl/next:export",
             "options": {
@@ -171,7 +159,7 @@
         "prisma-migrate": {
             "executor": "nx:run-commands",
             "options": {
-                "command": "PRISMA_DISABLE_WARNINGS=1 yarn prisma migrate dev --schema=prisma/schema.prisma",
+                "command": "PRISMA_DISABLE_WARNINGS=1 yarn prisma migrate dev --schema=prisma/schema.prisma --name",
                 "cwd": "apps/web"
             }
         },
@@ -197,6 +185,13 @@
             }
         },
         "prisma-status": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "PRISMA_DISABLE_WARNINGS=1 yarn prisma migrate status --schema=prisma/schema.prisma",
+                "cwd": "apps/web"
+            }
+        },
+        "prisma-studio": {
             "executor": "nx:run-commands",
             "options": {
                 "command": "PRISMA_DISABLE_WARNINGS=1 yarn prisma studio --schema=prisma/schema.prisma",
