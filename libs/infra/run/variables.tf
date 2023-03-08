@@ -93,6 +93,11 @@ variable "database_url" {
   type        = string
 }
 
+variable "shadow_database_url" {
+  description = "The url to the shadow database for migrations"
+  type        = string
+}
+
 # variable "subnet_cidr_range" {
 #   description = "The CIDR range for the subnet of the Cloud Run service"
 #   type = string
