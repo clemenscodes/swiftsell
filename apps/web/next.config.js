@@ -75,6 +75,10 @@ const nextConfig = {
         // See: https://github.com/gregberge/svgr
         svgr: true,
     },
+    i18n: {
+        locales: ['en'],
+        defaultLocale: 'en',
+    },
     webpack(config) {
         config.module.rules.push({
             test: /index\.(js|mjs|jsx|ts|tsx)$/,

@@ -5,6 +5,13 @@
     "projectType": "library",
     "tags": [],
     "targets": {
+        "start": {
+            "executor": "nx:run-commands",
+            "options": {
+                "cwd": "libs/db",
+                "command": "supabase start"
+            }
+        },
         "lint": {
             "executor": "@nrwl/linter:eslint",
             "outputs": ["{options.outputFile}"],
