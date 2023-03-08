@@ -80,6 +80,14 @@ module "google_cloud_project" {
   secret_data     = var.project_id
 }
 
+module "database_url" {
+  source          = "../secret"
+  project_id      = var.project_id
+  service_account = local.sa
+  secret_id       = "DATABASE_URL"
+  secret_data     = var.database_url
+}
+
 resource "google_project_service" "run" {
   project            = var.project_id
   service            = "run.googleapis.com"

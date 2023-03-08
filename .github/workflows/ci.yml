@@ -341,6 +341,7 @@ jobs:
                   cmd1: $NX_EXEC deploy --skip-nx-cache
               env:
                   INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
             - name: Run Agents (production)
               if: needs.deploy-agents.result != 'failure' &&
@@ -352,6 +353,7 @@ jobs:
                   cmd1: $NX_EXEC deploy --skip-nx-cache --configuration=production
               env:
                   INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
             - name: Stop Agents
               if: always()
@@ -447,6 +449,7 @@ jobs:
               run: npx nx-cloud start-agent
               env:
                   INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
             - name: Abort Workflow
               if: failure()

@@ -88,6 +88,11 @@ variable "cookie_secret_current" {
   type        = string
 }
 
+variable "database_url" {
+  description = "The url to the database"
+  type        = string
+}
+
 # variable "subnet_cidr_range" {
 #   description = "The CIDR range for the subnet of the Cloud Run service"
 #   type = string

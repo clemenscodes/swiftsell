@@ -69,6 +69,11 @@ variable "git_commit_sha" {
   type        = string
 }
 
+variable "database_url" {
+  description = "The url to the database"
+  type        = string
+}
+
 # variable "subnet_cidr_range" {
 #     default = "10.132.0.0/28"
 # }

@@ -18,6 +18,10 @@ if [ -z "$1" ]; then
     echo "No configuration (development or production) was given" && exit 1
 fi
 
+if [ -z "$DATABASE_URL" ]; then
+    echo "DATABASE_URL is not defined" && exit 1
+fi
+
 deploy() {
     CONFIG="$1"
 
@@ -30,7 +34,7 @@ deploy() {
     INPUT_ARG="-input=false"
     LOCK_ARG="-lock=false"
     LOCK_TIMEOUT_ARG="-lock-timeout=60s"
-    VAR_ARG="-var=git_commit_sha=$SHA"
+    VAR_ARG="-var=git_commit_sha=$SHA -var=database_url=$DATABASE_URL"
     TARGET_ARG="-target=module.app"
     APPROVE_ARG="-auto-approve"
 
