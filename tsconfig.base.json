@@ -24,14 +24,17 @@
       "@config": [
         "libs/config/src/index.ts"
       ],
-      "@db": [
-        "libs/db/src/index.ts"
+      "@db/web": [
+        "libs/db/web/src/index.ts"
       ],
       "@fonts": [
         "libs/fonts/src/index.ts"
       ],
       "@hooks": [
         "libs/hooks/src/index.ts"
+      ],
+      "@prismas/*": [
+        "node_modules/.prisma/*"
       ],
       "@providers": [
         "libs/providers/src/index.ts"

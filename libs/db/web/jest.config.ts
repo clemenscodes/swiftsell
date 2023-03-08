@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
-    displayName: 'db',
-    preset: '../../jest.preset.js',
+    displayName: 'db-web',
+    preset: '../../../jest.preset.js',
     transform: {
         '^.+\\.[tj]sx?$': [
             '@swc/jest',

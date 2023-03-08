@@ -1,13 +1,13 @@
 import { authedHandler } from './authedHandler';
-import { listProjects } from '@db/web';
+import { getAllUsers } from '@db/web';
 import { onLoginRequestError } from '@utils';
 import { type NextApiHandler } from 'next';
 
-export const neonApi: NextApiHandler = async (req, res) => {
+export const getUsersHandler: NextApiHandler = async (req, res) => {
     return await authedHandler(req, res, async () => {
         try {
-            const projects = await listProjects();
-            return res.status(200).json({ projects });
+            const users = await getAllUsers();
+            return res.status(200).json({ users });
         } catch (e) {
             onLoginRequestError(e);
             return res.status(500).json({ error: 'Unexpected error' });

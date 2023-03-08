@@ -1,0 +1,27 @@
+{
+    "name": "db",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/db",
+    "projectType": "application",
+    "targets": {
+        "start": {
+            "dependsOn": ["image"],
+            "command": "docker run --rm -d -p 5432:5432/tcp postgres:latest"
+        },
+        "image": {
+            "command": "INPUT_TAGS=latest nx docker db"
+        },
+        "docker": {
+            "executor": "@nx-tools/nx-container:build",
+            "options": {
+                "engine": "docker",
+                "load": true,
+                "metadata": {
+                    "images": ["postgres"]
+                }
+            }
+        }
+    },
+    "implicitDependencies": [],
+    "tags": []
+}
