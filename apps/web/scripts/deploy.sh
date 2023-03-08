@@ -22,6 +22,10 @@ if [ -z "$DATABASE_URL" ]; then
     echo "DATABASE_URL is not defined" && exit 1
 fi
 
+if [ -z "$SHADOW_DATABASE_URL" ]; then
+    echo "SHADOW_DATABASE_URL is not defined" && exit 1
+fi
+
 deploy() {
     CONFIG="$1"
 

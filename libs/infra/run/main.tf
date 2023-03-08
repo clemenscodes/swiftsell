@@ -146,7 +146,7 @@ resource "google_cloud_run_v2_service" "default" {
   template {
     execution_environment            = "EXECUTION_ENVIRONMENT_GEN2"
     max_instance_request_concurrency = 80
-    timeout                          = "30s"
+    timeout                          = "300s"
     service_account                  = google_service_account.cloud_run_service_account.email
     scaling {
       min_instance_count = 0
