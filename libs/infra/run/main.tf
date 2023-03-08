@@ -88,6 +88,14 @@ module "database_url" {
   secret_data     = var.database_url
 }
 
+module "shadow_database_url" {
+  source          = "../secret"
+  project_id      = var.project_id
+  service_account = local.sa
+  secret_id       = "SHADOW_DATABASE_URL"
+  secret_data     = var.shadow_database_url
+}
+
 resource "google_project_service" "run" {
   project            = var.project_id
   service            = "run.googleapis.com"
@@ -235,6 +243,15 @@ resource "google_cloud_run_v2_service" "default" {
         value_source {
           secret_key_ref {
             secret  = module.database_url.secret_id
+            version = "latest"
+          }
+        }
+      }
+      env {
+        name = module.shadow_database_url.secret_id
+        value_source {
+          secret_key_ref {
+            secret  = module.shadow_database_url.secret_id
             version = "latest"
           }
         }

@@ -74,6 +74,11 @@ variable "database_url" {
   type        = string
 }
 
+variable "shadow_database_url" {
+  description = "The url to the shadow database for migrations"
+  type        = string
+}
+
 # variable "subnet_cidr_range" {
 #     default = "10.132.0.0/28"
 # }

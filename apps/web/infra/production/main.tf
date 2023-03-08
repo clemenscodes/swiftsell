@@ -50,5 +50,6 @@ module "run" {
   cookie_secret_previous = module.app.cookie_secret_previous
   cookie_secret_current  = module.app.cookie_secret_current
   database_url           = var.database_url
+  shadow_database_url    = var.shadow_database_url
   #   subnet_cidr_range      = var.subnet_cidr_range
 }

@@ -74,6 +74,11 @@ variable "database_url" {
   type        = string
 }
 
+variable "shadow_database_url" {
+  description = "The url to the shadow database for migrations"
+  type        = string
+}
+
 # variable "cdn_bucket" {
 #   description = "The name of the CDN bucket that will be created"
 #   type        = string
