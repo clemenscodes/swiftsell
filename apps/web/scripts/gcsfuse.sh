@@ -59,8 +59,8 @@ migrate_prisma() {
 
 authorize_gcloud
 mount_google_cloud_storage
-debugging_env
-migrate_prisma
+# debugging_env
+# migrate_prisma
 start_nextjs_app
 
 # while true; do

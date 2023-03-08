@@ -17,7 +17,7 @@
             }
         },
         "build": {
-            "dependsOn": ["env", "prisma-generate"],
+            "dependsOn": ["env"],
             "executor": "@nrwl/next:build",
             "outputs": ["{options.outputPath}"],
             "options": {
@@ -31,6 +31,9 @@
                     }
                 ]
             }
+        },
+        "seed": {
+            "command": "nx prisma-seed web --skip-nx-cache"
         },
         "start": {
             "dependsOn": ["build"],
@@ -51,11 +54,12 @@
             }
         },
         "dev": {
+            "dependsOn": ["seed"],
             "executor": "nx:run-commands",
             "defaultConfiguration": "development",
             "configurations": {
                 "development": {
-                    "command": "nx run-many --parallel --target=start --projects=web,firebase swiftsell-development"
+                    "command": "nx run-many --parallel=3 --target=start --output-style=stream --projects=web,firebase swiftsell-development"
                 },
                 "production": {
                     "command": "nx start web --configuration=production"
@@ -128,27 +132,7 @@
                 }
             }
         },
-        "build-custom-server": {
-            "executor": "@nrwl/js:tsc",
-            "defaultConfiguration": "production",
-            "options": {
-                "outputPath": "dist/apps/web/.next/standalone/apps/web/server",
-                "main": "apps/web/server.ts",
-                "tsConfig": "apps/web/tsconfig.server.json",
-                "clean": false,
-                "assets": []
-            },
-            "configurations": {
-                "development": {},
-                "production": {}
-            }
-        },
-        "server": {
-            "command": "apps/web/scripts/server.sh"
-        },
-        "serve": {
-            "command": "apps/web/scripts/standalone.sh"
-        },
+
         "prisma-generate": {
             "executor": "nx:run-commands",
             "options": {
@@ -157,9 +141,18 @@
             }
         },
         "prisma-migrate": {
+            "dependsOn": ["prisma-generate", "^start"],
             "executor": "nx:run-commands",
             "options": {
-                "command": "PRISMA_DISABLE_WARNINGS=1 yarn prisma migrate dev --schema=prisma/schema.prisma --name",
+                "command": "PRISMA_DISABLE_WARNINGS=1 yarn prisma migrate dev --schema=prisma/schema.prisma --name $(git rev-parse --short HEAD)",
+                "cwd": "apps/web"
+            }
+        },
+        "prisma-seed": {
+            "dependsOn": ["prisma-migrate"],
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "PRISMA_DISABLE_WARNINGS=1 yarn ts-node prisma/seed.ts",
                 "cwd": "apps/web"
             }
         },
@@ -197,10 +190,32 @@
                 "command": "PRISMA_DISABLE_WARNINGS=1 yarn prisma studio --schema=prisma/schema.prisma",
                 "cwd": "apps/web"
             }
+        },
+        "build-custom-server": {
+            "executor": "@nrwl/js:tsc",
+            "defaultConfiguration": "production",
+            "options": {
+                "outputPath": "dist/apps/web/.next/standalone/apps/web/server",
+                "main": "apps/web/server.ts",
+                "tsConfig": "apps/web/tsconfig.server.json",
+                "clean": false,
+                "assets": []
+            },
+            "configurations": {
+                "development": {},
+                "production": {}
+            }
+        },
+        "server": {
+            "command": "apps/web/scripts/server.sh"
+        },
+        "serve": {
+            "command": "apps/web/scripts/standalone.sh"
         }
     },
     "implicitDependencies": [
         "infra-run",
+        "db",
         "infra-wif",
         "infra-firebase",
         "infra-artifact",

@@ -25700,7 +25700,7 @@ __metadata:
     tailwindcss: ^3.2.6
     tailwindcss-animate: ^1.0.5
     ts-jest: 29.0.5
-    ts-node: 10.9.1
+    ts-node: ^10.9.1
     tslib: ^2.3.0
     typescript: 4.9.5
     url-loader: ^4.1.1
@@ -26356,7 +26356,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-node@npm:10.9.1, ts-node@npm:^10.8.1":
+"ts-node@npm:10.9.1, ts-node@npm:^10.8.1, ts-node@npm:^10.9.1":
   version: 10.9.1
   resolution: "ts-node@npm:10.9.1"
   dependencies:
