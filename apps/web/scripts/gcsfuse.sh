@@ -8,6 +8,8 @@ SERVER="$APP_HOME/$APP_DIR/server.js"
 MNT_DIR="$APP_HOME/gcsfuse"
 LOG_FILE="$APP_HOME/log.txt"
 
+tree "$APP_HOME"
+
 sync() {
     echo "Syncing newer files from $1 to $2..."
     gsutil -m rsync -u -r "$1" "$2"
@@ -52,10 +54,16 @@ cleanup() {
     echo "Adios."
 }
 
+migrate_prisma() {
+    echo "Migrating Prisma..."
+    npx prisma migrate deploy
+}
+
 authorize_gcloud
 mount_google_cloud_storage
+debugging_env
+migrate_prisma
 start_nextjs_app
-# debugging_env
 
 # while true; do
 #     sync "$CONTAINER_PAGES" "$BUCKET_ADDRESS"
