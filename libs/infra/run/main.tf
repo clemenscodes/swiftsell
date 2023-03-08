@@ -230,6 +230,15 @@ resource "google_cloud_run_v2_service" "default" {
           }
         }
       }
+      env {
+        name = module.database_url.secret_id
+        value_source {
+          secret_key_ref {
+            secret  = module.database_url.secret_id
+            version = "latest"
+          }
+        }
+      }
     }
   }
   traffic {
