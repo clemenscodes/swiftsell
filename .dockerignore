@@ -6,6 +6,7 @@
 .vscode
 node_modules/
 !node_modules/tslib
+!node_modules/@prisma
 .commitlintrc.js
 .czrc
 .dockerignore

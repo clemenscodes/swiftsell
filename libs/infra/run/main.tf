@@ -80,6 +80,22 @@ module "google_cloud_project" {
   secret_data     = var.project_id
 }
 
+module "database_url" {
+  source          = "../secret"
+  project_id      = var.project_id
+  service_account = local.sa
+  secret_id       = "DATABASE_URL"
+  secret_data     = var.database_url
+}
+
+module "shadow_database_url" {
+  source          = "../secret"
+  project_id      = var.project_id
+  service_account = local.sa
+  secret_id       = "SHADOW_DATABASE_URL"
+  secret_data     = var.shadow_database_url
+}
+
 resource "google_project_service" "run" {
   project            = var.project_id
   service            = "run.googleapis.com"
@@ -130,7 +146,7 @@ resource "google_cloud_run_v2_service" "default" {
   template {
     execution_environment            = "EXECUTION_ENVIRONMENT_GEN2"
     max_instance_request_concurrency = 80
-    timeout                          = "30s"
+    timeout                          = "300s"
     service_account                  = google_service_account.cloud_run_service_account.email
     scaling {
       min_instance_count = 0
@@ -222,6 +238,24 @@ resource "google_cloud_run_v2_service" "default" {
           }
         }
       }
+      env {
+        name = module.database_url.secret_id
+        value_source {
+          secret_key_ref {
+            secret  = module.database_url.secret_id
+            version = "latest"
+          }
+        }
+      }
+      env {
+        name = module.shadow_database_url.secret_id
+        value_source {
+          secret_key_ref {
+            secret  = module.shadow_database_url.secret_id
+            version = "latest"
+          }
+        }
+      }
     }
   }
   traffic {
@@ -239,6 +273,8 @@ resource "google_cloud_run_v2_service" "default" {
     module.firebase_secret_project_id,
     module.firebase_secret_storage_bucket,
     module.google_cloud_project,
+    module.database_url,
+    module.shadow_database_url,
     module.cookie_secret_previous,
     module.cookie_secret_current
   ]

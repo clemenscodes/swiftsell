@@ -69,6 +69,16 @@ variable "git_commit_sha" {
   type        = string
 }
 
+variable "database_url" {
+  description = "The url to the database"
+  type        = string
+}
+
+variable "shadow_database_url" {
+  description = "The url to the shadow database for migrations"
+  type        = string
+}
+
 # variable "cdn_bucket" {
 #   description = "The name of the CDN bucket that will be created"
 #   type        = string

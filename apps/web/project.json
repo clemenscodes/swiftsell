@@ -17,7 +17,7 @@
             }
         },
         "build": {
-            "dependsOn": ["env"],
+            "dependsOn": ["env", "prisma-generate"],
             "executor": "@nrwl/next:build",
             "outputs": ["{options.outputPath}"],
             "options": {
@@ -148,6 +148,55 @@
         },
         "serve": {
             "command": "apps/web/scripts/standalone.sh"
+        },
+        "prisma-generate": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "PRISMA_DISABLE_WARNINGS=1 yarn prisma generate --schema=prisma/schema.prisma",
+                "cwd": "apps/web"
+            }
+        },
+        "prisma-migrate": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "PRISMA_DISABLE_WARNINGS=1 yarn prisma migrate dev --schema=prisma/schema.prisma --name",
+                "cwd": "apps/web"
+            }
+        },
+        "prisma-pull": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "PRISMA_DISABLE_WARNINGS=1 yarn prisma db pull --schema=prisma/schema.prisma",
+                "cwd": "apps/web"
+            }
+        },
+        "prisma-push": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "PRISMA_DISABLE_WARNINGS=1 yarn prisma db push --schema=prisma/schema.prisma",
+                "cwd": "apps/web"
+            }
+        },
+        "prisma-deploy": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "PRISMA_DISABLE_WARNINGS=1 yarn prisma migrate deploy --schema=prisma/schema.prisma",
+                "cwd": "apps/web"
+            }
+        },
+        "prisma-status": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "PRISMA_DISABLE_WARNINGS=1 yarn prisma migrate status --schema=prisma/schema.prisma",
+                "cwd": "apps/web"
+            }
+        },
+        "prisma-studio": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "PRISMA_DISABLE_WARNINGS=1 yarn prisma studio --schema=prisma/schema.prisma",
+                "cwd": "apps/web"
+            }
         }
     },
     "implicitDependencies": [
