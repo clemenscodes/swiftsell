@@ -83,7 +83,7 @@ jobs:
     test:
         name: Test
         runs-on: ubuntu-latest
-        needs: build
+        needs: prisma
         defaults:
             run:
                 shell: bash
@@ -162,7 +162,7 @@ jobs:
 
     agents:
         name: Agent ${{ matrix.agent }}
-        needs: [set-agents, build]
+        needs: [set-agents, prisma]
         runs-on: ubuntu-latest
         defaults:
             run:
