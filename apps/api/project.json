@@ -1,5 +1,5 @@
 {
-    "name": "nest",
+    "name": "api",
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "apps/api/src",
     "projectType": "application",
@@ -28,11 +28,11 @@
         "serve": {
             "executor": "@nrwl/js:node",
             "options": {
-                "buildTarget": "nest:build"
+                "buildTarget": "api:build"
             },
             "configurations": {
                 "production": {
-                    "buildTarget": "nest:build:production"
+                    "buildTarget": "api:build:production"
                 }
             }
         },

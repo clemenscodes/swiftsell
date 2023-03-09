@@ -56,7 +56,7 @@
             "defaultConfiguration": "development",
             "configurations": {
                 "development": {
-                    "command": "nx run-many --parallel=3 --target=start --output-style=stream --projects=web,firebase swiftsell-development"
+                    "command": "nx run-many --parallel=8 --target=start --output-style=stream --projects=web,firebase,api swiftsell-development"
                 },
                 "production": {
                     "command": "nx start web --configuration=production"
