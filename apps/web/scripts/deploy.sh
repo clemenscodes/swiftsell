@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -e
+set -ex
 
 export TF_IN_AUTOMATION=true
 
@@ -123,15 +123,26 @@ image() {
     PROJECT=$($TF output project_id | tr -d '"')
     ARTIFACT_REGION=$($TF output artifact_region | tr -d '"')
     REPO_NAME=$($TF output repository_id | tr -d '"')
-    SERVICE_NAME=$($TF output cloud_run_service_name | tr -d '"')
-    if [ -z "$SERVICE_NAME" ]; then
-        SERVICE_NAME="web"
+    WEB_SERVICE_NAME=$($TF output cloud_run_service_name | tr -d '"')
+    API_SERVICE_NAME=$($TF output cloud_run_api_service_name | tr -d '"')
+    TAG="sha-$SHA"
+    if [ -z "$WEB_SERVICE_NAME" ]; then
+        WEB_SERVICE_NAME="web"
     fi
-    INPUT_IMAGES="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME/$SERVICE_NAME"
-    TAGGED_IMAGE="$INPUT_IMAGES:sha-$SHA"
+    if [ -z "$API_SERVICE_NAME" ]; then
+        API_SERVICE_NAME="api"
+    fi
+    REPO="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME"
+    WEB_IMAGE="$REPO/$WEB_SERVICE_NAME"
+    API_IMAGE="$REPO/$API_SERVICE_NAME"
+    TAGGED_WEB_IMAGE="$WEB_IMAGE:$TAG"
+    TAGGED_API_IMAGE="$API_IMAGE:$TAG"
     if [ -z "$CI" ]; then
         NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache --configuration="$CONFIG"
-        INPUT_IMAGES="$INPUT_IMAGES" INPUT_TAGS="sha-$SHA" nx docker "$APP" --skip-nx-cache
+        echo "Building web image"
+        INPUT_IMAGES="$WEB_IMAGE" INPUT_TAGS="$TAG" nx docker "$APP" --skip-nx-cache
+        echo "Building API image"
+        INPUT_IMAGES="$API_IMAGE" INPUT_TAGS="$TAG" nx docker "$API_SERVICE_NAME" --skip-nx-cache
     else
         if [ -z "$INPUT_GITHUB_TOKEN" ]; then
             echo "Missing GitHub token"
@@ -139,9 +150,15 @@ image() {
         fi
         populate_env_configs "$CONFIG"
         NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache --configuration="$CONFIG"
-        INPUT_GITHUB_TOKEN="$INPUT_GITHUB_TOKEN" INPUT_IMAGES="$INPUT_IMAGES" INPUT_TAGS="sha-$SHA" nx docker "$APP" --configuration=ci --skip-nx-cache
+        echo "Building web image"
+        INPUT_GITHUB_TOKEN="$INPUT_GITHUB_TOKEN" INPUT_IMAGES="$INPUT_IMAGES" INPUT_TAGS="$TAG" nx docker "$APP" --configuration=ci --skip-nx-cache
+        echo "Building API image"
+        INPUT_IMAGES="$API_IMAGE" INPUT_TAGS="$TAG" nx docker "$API_SERVICE_NAME" --skip-nx-cache
     fi
-    docker push "$TAGGED_IMAGE"
+    echo "Pushing web image"
+    docker push "$TAGGED_WEB_IMAGE"
+    echo "Pushing API image"
+    docker push "$TAGGED_API_IMAGE"
 }
 
 purple() {
@@ -155,11 +172,22 @@ cleanup() {
     ARTIFACT_REGION=$($TF output artifact_region | tr -d '"')
     REPO_NAME=$($TF output repository_id | tr -d '"')
     REPO="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME"
-    SERVICE_NAME=$($TF output cloud_run_service_name | tr -d '"')
-    if [ -z "$SERVICE_NAME" ]; then
-        SERVICE_NAME="web"
+    WEB_SERVICE_NAME=$($TF output cloud_run_service_name | tr -d '"')
+    if [ -z "$WEB_SERVICE_NAME" ]; then
+        WEB_SERVICE_NAME="web"
     fi
-    IMAGE="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME/$SERVICE_NAME"
+    WEB_IMAGE="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME/$WEB_SERVICE_NAME"
+    clean "$WEB_IMAGE"
+    API_SERVICE_NAME=$($TF output cloud_run_api_service_name | tr -d '"')
+    if [ -z "$API_SERVICE_NAME" ]; then
+        API_SERVICE_NAME="api"
+    fi
+    API_IMAGE="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME/$API_SERVICE_NAME"
+    clean "$API_IMAGE"
+}
+
+clean() {
+    IMAGE="$1"
     TIMER_THRESHOLD=60
     START=$(date +%s)
     set +e
@@ -170,7 +198,7 @@ cleanup() {
             purple "timer threshold exceeded, probably stuck in an infinite loop, breaking out"
             break
         fi
-        IMAGES=$(gcloud artifacts docker images list "$REPO" --include-tags --sort-by=CREATE_TIME | tail -n +2)
+        IMAGES=$(gcloud artifacts docker images list "$IMAGE" --include-tags --sort-by=CREATE_TIME | tail -n +2)
         echo "$IMAGES"
         IMAGE_COUNT=$(echo "$IMAGES" | wc -l | tr -d ' ')
         i="$IMAGE_COUNT_THRESHOLD"
@@ -191,7 +219,7 @@ cleanup() {
             esac
             i=$((i + 1))
         done
-        IMAGES=$(gcloud artifacts docker images list "$REPO" --include-tags --sort-by=CREATE_TIME | tail -n +2)
+        IMAGES=$(gcloud artifacts docker images list "$IMAGE" --include-tags --sort-by=CREATE_TIME | tail -n +2)
         echo "$IMAGES"
         IMAGE_COUNT=$(echo "$IMAGES" | wc -l | tr -d ' ')
         if [ "$IMAGE_COUNT" -gt "$IMAGE_COUNT_THRESHOLD" ]; then
@@ -243,10 +271,15 @@ generate_cdn_dns_entry() {
 generate_domain_mapping_dns_entry() {
     DOMAIN=$($TF output domain | tr -d '"')
     SUBDOMAIN=$($TF output cloud_run_subdomain | tr -d '"')
+    API_SUBDOMAIN=$($TF output cloud_run_api_subdomain | tr -d '"')
     VALUE="ghs.googlehosted.com."
-    echo "The following DNS entry needs to be added to the (verified!) domain $DOMAIN, so that the Cloud Run domain mapping works"
+    echo "The following DNS entries needs to be added to the (verified!) domain $DOMAIN, so that the Cloud Run domain mapping works"
     echo "Type:  CNAME"
     echo "Host:  $SUBDOMAIN"
+    echo "Value: $VALUE"
+    echo
+    echo "Type:  CNAME"
+    echo "Host:  $API_SUBDOMAIN"
     echo "Value: $VALUE"
 }
 

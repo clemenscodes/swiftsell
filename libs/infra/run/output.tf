@@ -17,3 +17,13 @@ output "cloud_run_service_name" {
   value     = var.cloud_run_service_name
   sensitive = true
 }
+
+output "cloud_run_api_service_name" {
+  value     = var.cloud_run_api_service_name
+  sensitive = true
+}
+
+output "cloud_run_api_subdomain" {
+  value     = var.cloud_run_api_subdomain
+  sensitive = true
+}
