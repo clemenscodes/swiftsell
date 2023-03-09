@@ -19,7 +19,7 @@ const config: AdminConfig = {
             : undefined) as string,
     },
     databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL as string,
-    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID as string,
 };
 
 export const firebaseAdminInitConfig = !isTrustedEnv ? config : undefined;
