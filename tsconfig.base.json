@@ -18,8 +18,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@api": [
-        "libs/api/src/index.ts"
+      "@api/web": [
+        "libs/api/web/src/index.ts"
       ],
       "@config": [
         "libs/config/src/index.ts"

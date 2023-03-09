@@ -1,3 +1,3 @@
-import { getUsersHandler } from '@api';
+import { getUsersHandler } from '@server';
 
 export default getUsersHandler;
