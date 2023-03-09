@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -ex
+set -e
 
 export TF_IN_AUTOMATION=true
 
@@ -151,7 +151,7 @@ image() {
         populate_env_configs "$CONFIG"
         NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache --configuration="$CONFIG"
         echo "Building web image"
-        INPUT_GITHUB_TOKEN="$INPUT_GITHUB_TOKEN" INPUT_IMAGES="$INPUT_IMAGES" INPUT_TAGS="$TAG" nx docker "$APP" --configuration=ci --skip-nx-cache
+        INPUT_GITHUB_TOKEN="$INPUT_GITHUB_TOKEN" INPUT_IMAGES="$WEB_IMAGE" INPUT_TAGS="$TAG" nx docker "$APP" --configuration=ci --skip-nx-cache
         echo "Building API image"
         INPUT_IMAGES="$API_IMAGE" INPUT_TAGS="$TAG" nx docker "$API_SERVICE_NAME" --skip-nx-cache
     fi
