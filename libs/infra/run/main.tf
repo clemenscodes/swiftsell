@@ -410,6 +410,9 @@ resource "google_cloud_run_domain_mapping" "api" {
   spec {
     route_name = google_cloud_run_v2_service.api.name
   }
+  depends_on = [
+    google_cloud_run_v2_service.api
+  ]
 }
 
 # locals {
