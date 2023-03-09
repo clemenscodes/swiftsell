@@ -14,9 +14,6 @@
         "bump": "nx version workspace",
         "postinstall": "husky install"
     },
-    "workspaces": [
-        "apps/api"
-    ],
     "private": true,
     "dependencies": {
         "@hookform/resolvers": "^2.9.11",

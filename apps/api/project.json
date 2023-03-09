@@ -12,7 +12,8 @@
                 "compiler": "tsc",
                 "outputPath": "dist/apps/api",
                 "main": "apps/api/src/main.ts",
-                "tsConfig": "apps/api/tsconfig.json",
+                "tsConfig": "apps/api/tsconfig.app.json",
+                "generatePackageJson": true,
                 "isolatedConfig": true,
                 "webpackConfig": "apps/api/webpack.config.js"
             },
@@ -56,9 +57,20 @@
                 }
             }
         },
-        "docker-build": {
+        "start": {
+            "command": "apps/api/scripts/start.sh"
+        },
+        "docker": {
             "dependsOn": ["build"],
-            "command": "docker build -f apps/api/Dockerfile . -t nest"
+            "executor": "@nx-tools/nx-container:build",
+            "options": {
+                "engine": "docker",
+                "load": true,
+                "metadata": {
+                    "images": [],
+                    "tags": ["type=schedule", "type=sha"]
+                }
+            }
         }
     },
     "tags": []
