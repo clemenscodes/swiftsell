@@ -325,20 +325,20 @@ resource "google_project_iam_member" "api_service_account_user" {
   member  = local.api_sa
 }
 
-module "api_database_url" {
-  source          = "../secret"
-  project_id      = var.project_id
-  service_account = local.api_sa
-  secret_id       = "DATABASE_URL"
-  secret_data     = var.database_url
+resource "google_secret_manager_secret_iam_member" "api_database_url_member" {
+  project    = var.project_id
+  secret_id  = "DATABASE_URL"
+  role       = "roles/secretmanager.secretAccessor"
+  member     = local.api_sa
+  depends_on = [module.database_url]
 }
 
-module "api_shadow_database_url" {
-  source          = "../secret"
-  project_id      = var.project_id
-  service_account = local.api_sa
-  secret_id       = "SHADOW_DATABASE_URL"
-  secret_data     = var.shadow_database_url
+resource "google_secret_manager_secret_iam_member" "api_shadow_database_url_member" {
+  project    = var.project_id
+  secret_id  = "SHADOW_DATABASE_URL"
+  role       = "roles/secretmanager.secretAccessor"
+  member     = local.api_sa
+  depends_on = [module.shadow_database_url]
 }
 
 resource "google_cloud_run_v2_service" "api" {
@@ -361,19 +361,19 @@ resource "google_cloud_run_v2_service" "api" {
         container_port = 3000
       }
       env {
-        name = module.api_database_url.secret_id
+        name = module.database_url.secret_id
         value_source {
           secret_key_ref {
-            secret  = module.api_database_url.secret_id
+            secret  = module.database_url.secret_id
             version = "latest"
           }
         }
       }
       env {
-        name = module.api_shadow_database_url.secret_id
+        name = module.shadow_database_url.secret_id
         value_source {
           secret_key_ref {
-            secret  = module.api_shadow_database_url.secret_id
+            secret  = module.shadow_database_url.secret_id
             version = "latest"
           }
         }
@@ -388,8 +388,8 @@ resource "google_cloud_run_v2_service" "api" {
     prevent_destroy = false
   }
   depends_on = [
-    module.api_database_url,
-    module.api_shadow_database_url,
+    module.database_url,
+    module.shadow_database_url,
   ]
 }
 
