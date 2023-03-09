@@ -123,7 +123,8 @@ image() {
     PROJECT=$($TF output project_id | tr -d '"')
     ARTIFACT_REGION=$($TF output artifact_region | tr -d '"')
     REPO_NAME=$($TF output repository_id | tr -d '"')
-    INPUT_IMAGES="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME/$REPO_NAME"
+    SERVICE_NAME=$($TF output cloud_run_service_name | tr -d '"')
+    INPUT_IMAGES="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME/$SERVICE_NAME"
     TAGGED_IMAGE="$INPUT_IMAGES:sha-$SHA"
     if [ -z "$CI" ]; then
         NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache --configuration="$CONFIG"

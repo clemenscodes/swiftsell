@@ -153,7 +153,7 @@ resource "google_cloud_run_v2_service" "default" {
       max_instance_count = 30
     }
     containers {
-      image = "${var.artifact_region}-docker.pkg.dev/${var.project_id}/${var.repository_id}/${var.repository_id}:sha-${var.git_commit_sha}"
+      image = "${var.artifact_region}-docker.pkg.dev/${var.project_id}/${var.repository_id}/${var.cloud_run_service_name}:sha-${var.git_commit_sha}"
       ports {
         container_port = 3000
       }
