@@ -13,7 +13,7 @@ output "mapped_cloud_run_domain" {
   sensitive = true
 }
 
-output "cloud_run_serivce_name" {
+output "cloud_run_service_name" {
   value     = var.cloud_run_service_name
   sensitive = true
 }
