@@ -58,6 +58,18 @@ variable "cloud_run_service_name" {
   default     = "web"
 }
 
+variable "cloud_run_api_service_name" {
+  description = "The name of the API Cloud Run service"
+  type        = string
+  default     = "api"
+}
+
+variable "cloud_run_api_subdomain" {
+  description = "The subdomain that the API Cloud Run Service will have"
+  type        = string
+  default     = "api.dev.shop"
+}
+
 variable "cloud_run_subdomain" {
   description = "The domain that will be used for the Cloud Run service"
   type        = string

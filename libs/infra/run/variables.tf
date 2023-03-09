@@ -28,6 +28,11 @@ variable "domain" {
   type        = string
 }
 
+variable "cloud_run_api_subdomain" {
+  description = "The subdomain that the API Cloud Run Service will have"
+  type        = string
+}
+
 variable "cloud_run_subdomain" {
   description = "The subdomain that the Cloud Run Service will have"
   type        = string
@@ -40,6 +45,11 @@ variable "cloud_run_region" {
 
 variable "cloud_run_service_name" {
   description = "The name of the Cloud Run service"
+  type        = string
+}
+
+variable "cloud_run_api_service_name" {
+  description = "The name of the API Cloud Run service"
   type        = string
 }
 
