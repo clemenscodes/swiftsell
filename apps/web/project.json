@@ -32,16 +32,9 @@
                 ]
             }
         },
-        "seed": {
-            "command": "nx prisma-seed web --skip-nx-cache"
-        },
         "start": {
-            "dependsOn": ["build"],
             "executor": "@nrwl/next:server",
             "defaultConfiguration": "development",
-            "options": {
-                "buildTarget": "web:build:production"
-            },
             "configurations": {
                 "development": {
                     "buildTarget": "web:build:development",
@@ -52,6 +45,9 @@
                     "dev": false
                 }
             }
+        },
+        "seed": {
+            "command": "nx prisma-seed web --skip-nx-cache"
         },
         "dev": {
             "dependsOn": ["seed"],

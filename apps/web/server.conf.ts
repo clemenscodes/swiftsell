@@ -34,7 +34,14 @@ export const config: Config = {
             dangerouslyAllowSVG: false,
             contentSecurityPolicy:
                 "script-src 'none'; frame-src 'none'; sandbox;",
-            remotePatterns: [],
+            remotePatterns: [
+                {
+                    protocol: 'https',
+                    hostname: '**.swiftsell.de',
+                    port: '443',
+                    pathname: '**',
+                },
+            ],
             unoptimized: false,
         },
         devIndicators: {
@@ -46,7 +53,7 @@ export const config: Config = {
         basePath: '',
         sassOptions: {},
         trailingSlash: false,
-        i18n: null,
+        i18n: { locales: ['en'], defaultLocale: 'en' },
         productionBrowserSourceMaps: false,
         optimizeFonts: true,
         excludeDefaultMomentLocales: true,
@@ -90,6 +97,13 @@ export const config: Config = {
             enableUndici: false,
             adjustFontFallbacks: false,
             adjustFontFallbacksWithSizeAdjust: false,
+            fontLoaders: [
+                {
+                    loader: '@next/font/google',
+                    options: { subsets: ['latin'] },
+                },
+                { loader: '@next/font/local' },
+            ],
         },
         configFileName: 'next.config.js',
     },

@@ -34,9 +34,56 @@ jobs:
                   echo $AGENTS_JSON_ARRAY
                   echo "matrix=$AGENTS_JSON_ARRAY" >> $GITHUB_OUTPUT
 
+    prisma:
+        name: Prisma
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                shell: bash
+        steps:
+            - name: Checkout [Pull Request]
+              uses: actions/checkout@v3
+              if: github.event_name == 'pull_request'
+              with:
+                  ref: ${{ github.event.pull_request.head.sha }}
+                  fetch-depth: 0
+
+            - name: Checkout [Main]
+              uses: actions/checkout@v3
+              if: github.event_name != 'pull_request'
+              with:
+                  fetch-depth: 0
+
+            - name: Install Node
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 16
+
+            - name: Derive SHAs
+              uses: nrwl/nx-set-shas@v3
+
+            - name: Node Cache
+              id: node_cache
+              uses: actions/cache@v3
+              with:
+                  path: |
+                      ~/.cache/Cypress/
+                      dist/**/.next/cache
+                      node_modules/
+                  key: ubuntu-latest-node-${{ hashFiles('yarn.lock') }}
+                  restore-keys: ubuntu-latest-node-
+
+            - name: Install Node Dependencies
+              if: steps.node_cache.outputs.cache-hit != 'true'
+              run: yarn install --immutable
+
+            - name: Build Prisma Clients
+              run: npx nx affected --base=$NX_BASE --head=$NX_HEAD --target=prisma-generate --skip-nx-cache --output-style=stream
+
     test:
         name: Test
         runs-on: ubuntu-latest
+        needs: build
         defaults:
             run:
                 shell: bash
@@ -115,7 +162,7 @@ jobs:
 
     agents:
         name: Agent ${{ matrix.agent }}
-        needs: set-agents
+        needs: [set-agents, build]
         runs-on: ubuntu-latest
         defaults:
             run:
