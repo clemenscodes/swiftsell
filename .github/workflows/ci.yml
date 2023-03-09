@@ -78,7 +78,7 @@ jobs:
               run: yarn install --immutable
 
             - name: Build Prisma Clients
-              run: npx nx affected --base=$NX_BASE --head=$NX_HEAD --target=prisma-generate --skip-nx-cache --output-style=stream
+              run: npx nx affected --base=$NX_BASE --head=$NX_HEAD --target=prisma-generate --output-style=stream
 
     test:
         name: Test
