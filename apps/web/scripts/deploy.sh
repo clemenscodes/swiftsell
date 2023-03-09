@@ -124,6 +124,9 @@ image() {
     ARTIFACT_REGION=$($TF output artifact_region | tr -d '"')
     REPO_NAME=$($TF output repository_id | tr -d '"')
     SERVICE_NAME=$($TF output cloud_run_service_name | tr -d '"')
+    if [ -z "$SERVICE_NAME" ]; then
+        SERVICE_NAME="web"
+    fi
     INPUT_IMAGES="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME/$SERVICE_NAME"
     TAGGED_IMAGE="$INPUT_IMAGES:sha-$SHA"
     if [ -z "$CI" ]; then
@@ -152,7 +155,11 @@ cleanup() {
     ARTIFACT_REGION=$($TF output artifact_region | tr -d '"')
     REPO_NAME=$($TF output repository_id | tr -d '"')
     REPO="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME"
-    IMAGE="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME/$REPO_NAME"
+    SERVICE_NAME=$($TF output cloud_run_service_name | tr -d '"')
+    if [ -z "$SERVICE_NAME" ]; then
+        SERVICE_NAME="web"
+    fi
+    IMAGE="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME/$SERVICE_NAME"
     TIMER_THRESHOLD=60
     START=$(date +%s)
     set +e
