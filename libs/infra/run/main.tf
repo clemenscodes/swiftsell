@@ -308,7 +308,7 @@ resource "google_cloud_run_domain_mapping" "default" {
 }
 
 resource "google_service_account" "cloud_run_api_service_account" {
-  account_id  = var.project_name
+  account_id  = "${var.project_name}-api"
   project     = var.project_id
   description = "The service account that will be used by the API Cloud Run instance"
 }
