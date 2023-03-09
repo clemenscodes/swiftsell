@@ -25,12 +25,27 @@
                 }
             }
         },
-        "serve": {
-            "executor": "@nrwl/js:node",
+        "start": {
+            "executor": "nx:run-commands",
             "options": {
-                "buildTarget": "api:build"
+                "command": "apps/api/scripts/start.sh"
             },
             "configurations": {
+                "development": {
+                    "command": "nx serve api"
+                },
+                "production": {
+                    "command": "nx serve api --configuration=production"
+                }
+            }
+        },
+        "serve": {
+            "executor": "@nrwl/js:node",
+            "defaultConfiguration": "development",
+            "configurations": {
+                "development": {
+                    "buildTarget": "api:build"
+                },
                 "production": {
                     "buildTarget": "api:build:production"
                 }
@@ -56,9 +71,6 @@
                     "codeCoverage": true
                 }
             }
-        },
-        "start": {
-            "command": "apps/api/scripts/start.sh"
         },
         "docker": {
             "dependsOn": ["build"],
