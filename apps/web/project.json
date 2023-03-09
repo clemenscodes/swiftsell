@@ -17,7 +17,7 @@
             }
         },
         "build": {
-            "dependsOn": ["env"],
+            "dependsOn": ["env", "prisma-generate"],
             "executor": "@nrwl/next:build",
             "outputs": ["{options.outputPath}"],
             "options": {
@@ -33,6 +33,7 @@
             }
         },
         "start": {
+            "dependsOn": ["build"],
             "executor": "@nrwl/next:server",
             "defaultConfiguration": "development",
             "configurations": {
