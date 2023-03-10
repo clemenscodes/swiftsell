@@ -10,10 +10,10 @@ services:
             dockerfile: apps/web/docker/Dockerfile.development
         ports:
             - '4200:4200'
-        command: "npx nx start web"
+        command: 'npx nx start web'
         volumes:
-          - '../../../apps/web:/app/apps/web'
-          - '../../../libs:/app/libs'
+            - '../../../apps/web:/app/apps/web'
+            - '../../../libs:/app/libs'
         networks:
             - frontend
             - backend
@@ -21,16 +21,16 @@ services:
         env_file: '../../api/.env'
         depends_on: ['db-main']
         container_name: api
-        command: "npx nx start api"
+        command: 'npx nx start api'
         build:
             context: '../../../'
             dockerfile: apps/api/docker/Dockerfile.development
         ports:
             - '5000:5000'
         volumes:
-          - '../../../apps/api:/app/apps/api'
-          - '../../../apps/db:/app/apps/db'
-          - '../../../libs:/app/libs'
+            - '../../../apps/api:/app/apps/api'
+            - '../../../apps/db:/app/apps/db'
+            - '../../../libs:/app/libs'
         networks:
             - backend
     db-main:
