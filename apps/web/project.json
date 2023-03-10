@@ -49,19 +49,28 @@
         },
         "start:docker": {
             "dependsOn": ["build"],
+            "color": true,
             "command": "apps/web/scripts/start.sh"
         },
+        "prepare:docker": {
+            "color": true,
+            "command": "nx run-many --target=build --all --output-style=stream"
+        },
         "dev": {
+            "dependsOn": ["prepare:docker"],
             "executor": "nx:run-commands",
             "defaultConfiguration": "docker",
             "configurations": {
                 "development": {
+                    "color": true,
                     "command": "nx run-many --parallel=8 --target=start:docker --output-style=stream --projects=web,firebase,api swiftsell-development"
                 },
                 "docker": {
+                    "color": true,
                     "command": "docker-compose -f apps/web/docker/docker-compose.yml up -d"
                 },
                 "production": {
+                    "color": true,
                     "command": "nx start web --configuration=production"
                 }
             }
@@ -139,9 +148,11 @@
             "defaultConfiguration": "development",
             "configurations": {
                 "development": {
+                    "color": true,
                     "command": "apps/web/scripts/deploy.sh development"
                 },
                 "production": {
+                    "color": true,
                     "command": "apps/web/scripts/deploy.sh production"
                 }
             }
