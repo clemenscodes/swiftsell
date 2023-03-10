@@ -1,6 +1,19 @@
 FROM node:16.19-alpine as builder
+
+ENV APP api
+ENV APP_DIR apps/$APP
+
 WORKDIR /app
-COPY . .
+
+COPY apps/api ./apps/api
+COPY libs/ ./libs
+COPY dist/$APP_DIR/package.json ./
+COPY tsconfig.base.json ./
+COPY tailwind-workspace-preset.js ./
+COPY babel.config.json ./
+
+COPY $APP_DIR/prisma ./prisma/
+COPY node_modules/@prisma ./node_modules/@prisma/
 RUN cd apps/api && npx prisma generate --schema=prisma/schema.prisma
 
 FROM node:16.19-alpine
@@ -8,6 +21,7 @@ FROM node:16.19-alpine
 ENV HOST=0.0.0.0
 ENV PORT=3000
 ENV APP api
+ENV APP_DIR apps/$APP
 
 WORKDIR /app
 
@@ -22,11 +36,11 @@ RUN addgroup --system $APP && \
 
 COPY dist/apps/$APP $APP
 COPY $APP_DIR/prisma ./prisma/
-COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma/
+COPY node_modules/@prisma ./node_modules/@prisma/
+
 RUN chown -R $APP:$APP .
 
 RUN npm --prefix $APP --omit=dev -f install
-RUN npx prisma migrate deploy
 
 ENTRYPOINT ["/sbin/tini", "--"]
 

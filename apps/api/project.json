@@ -90,6 +90,7 @@
             "dependsOn": ["build"],
             "executor": "@nx-tools/nx-container:build",
             "options": {
+                "file": "apps/api/docker/Dockerfile.production",
                 "engine": "docker",
                 "load": true,
                 "metadata": {

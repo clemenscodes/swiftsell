@@ -1,7 +1,7 @@
 import { ApiWebService } from './api-web.service';
 import { Controller, Get } from '@nestjs/common';
 
-@Controller('api-web')
+@Controller()
 export class ApiWebController {
     constructor(private apiWebService: ApiWebService) {}
 
