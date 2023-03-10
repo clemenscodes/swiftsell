@@ -1,0 +1,76 @@
+version: '3.9'
+name: swiftsell
+services:
+    web:
+        env_file: '../.env.local'
+        depends_on: ['firebase', 'api']
+        container_name: web
+        build:
+            context: '../../../'
+            dockerfile: apps/web/docker/Dockerfile.development
+        ports:
+            - '4200:4200'
+        command: "npx nx start web"
+        volumes:
+          - '../../../apps/web:/app/apps/web'
+          - '../../../libs:/app/libs'
+        networks:
+            - frontend
+            - backend
+    api:
+        env_file: '../../api/.env'
+        depends_on: ['db-main']
+        container_name: api
+        command: "npx nx start api"
+        build:
+            context: '../../../'
+            dockerfile: apps/api/docker/Dockerfile.development
+        ports:
+            - '5000:5000'
+        volumes:
+          - '../../../apps/api:/app/apps/api'
+          - '../../../apps/db:/app/apps/db'
+          - '../../../libs:/app/libs'
+        networks:
+            - backend
+    db-main:
+        depends_on: ['db-shadow']
+        container_name: db-main
+        build:
+            context: '../../../'
+            dockerfile: apps/db/Dockerfile
+        ports:
+            - '5432:5432'
+        networks:
+            - backend
+    db-shadow:
+        container_name: db-shadow
+        build:
+            context: '../../../'
+            dockerfile: apps/db/Dockerfile
+        ports:
+            - '6543:5432'
+        networks:
+            - backend
+    firebase:
+        container_name: firebase
+        env_file: '../../firebase/.env.skeleton'
+        build:
+            context: '../../../'
+            dockerfile: apps/firebase/Dockerfile
+        ports:
+            - '4000:4000'
+            - '5001:5001'
+            - '8080:8080'
+            - '8085:8085'
+            - '9000:9000'
+            - '9099:9099'
+            - '9199:9199'
+        networks:
+            - backend
+
+networks:
+    frontend:
+        driver: bridge
+    backend:
+        driver: bridge

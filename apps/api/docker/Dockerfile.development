@@ -31,9 +31,6 @@ ENV NEXT_TELEMETRY_DISABLED 1
 
 WORKDIR /app
 
-COPY apps/api ./apps/api
-COPY apps/db ./apps/db
-COPY libs/ ./libs
 COPY package.json ./
 COPY yarn.lock ./
 COPY tsconfig.base.json ./
@@ -48,6 +45,3 @@ EXPOSE $PORT
 # Use tini to manage zombie processes and signal forwarding
 # https://github.com/krallin/tini
 ENTRYPOINT ["/sbin/tini", "--"]
-
-# Pass the startup script as arguments to Tini
-CMD ["npx", "nx", "start", "api"]

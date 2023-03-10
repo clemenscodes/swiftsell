@@ -18,5 +18,4 @@ nx image firebase &&
         -p=5001:5001 \
         -p=9199:9199 \
         --env "GCP_PROJECT=$PROJECT" \
-        --env "ENABLE_UI=true" \
         firebase:latest

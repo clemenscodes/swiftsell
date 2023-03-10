@@ -30,8 +30,6 @@ ENV NEXT_TELEMETRY_DISABLED 1
 
 WORKDIR /app
 
-COPY apps/web ./apps/web
-COPY libs/ ./libs
 COPY tsconfig.base.json ./
 COPY tailwind-workspace-preset.js ./
 COPY babel.config.json ./
@@ -42,6 +40,3 @@ EXPOSE $PORT
 # Use tini to manage zombie processes and signal forwarding
 # https://github.com/krallin/tini
 ENTRYPOINT ["/sbin/tini", "--"]
-
-# Pass the startup script as arguments to Tini
-CMD ["npx", "nx", "start", "web"]

@@ -53,15 +53,21 @@
         },
         "dev": {
             "executor": "nx:run-commands",
-            "defaultConfiguration": "development",
+            "defaultConfiguration": "docker",
             "configurations": {
                 "development": {
                     "command": "nx run-many --parallel=8 --target=start:docker --output-style=stream --projects=web,firebase,api swiftsell-development"
+                },
+                "docker": {
+                    "command": "docker-compose -f apps/web/docker/docker-compose.yml up -d"
                 },
                 "production": {
                     "command": "nx start web --configuration=production"
                 }
             }
+        },
+        "stop": {
+            "command": "docker-compose -f apps/web/docker/docker-compose.yml stop"
         },
         "export": {
             "executor": "@nrwl/next:export",
