@@ -11,9 +11,9 @@ COPY dist/$APP_DIR/package.json ./
 COPY tsconfig.base.json ./
 COPY tailwind-workspace-preset.js ./
 COPY babel.config.json ./
-
 COPY $APP_DIR/prisma ./prisma/
 COPY node_modules/@prisma ./node_modules/@prisma/
+
 RUN cd apps/api && npx prisma generate --schema=prisma/schema.prisma
 
 FROM node:16.19-alpine

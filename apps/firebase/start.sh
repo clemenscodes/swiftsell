@@ -6,6 +6,8 @@ if [ -z "$1" ]; then
     PROJECT="demo-project"
 fi
 
+nx image firebase
+
 docker run \
     --rm \
     -d \
@@ -18,4 +20,4 @@ docker run \
     -p=9199:9199 \
     --env "GCP_PROJECT=$PROJECT" \
     --env "ENABLE_UI=true" \
-    spine3/firebase-emulator
+    firebase:latest

@@ -4,9 +4,9 @@
     "sourceRoot": "apps/db",
     "projectType": "application",
     "targets": {
-        "start": {
+        "start:docker": {
             "dependsOn": ["image"],
-            "command": "docker run --rm -d -p 5432:5432/tcp postgres:latest && docker run --rm -d -p 6543:5432/tcp postgres:shadow"
+            "command": "docker run --rm -d -p 5432:5432/tcp db:latest && docker run --rm -d -p 6543:5432/tcp db:shadow"
         },
         "image": {
             "dependsOn": ["shadow"],
@@ -21,7 +21,7 @@
                 "engine": "docker",
                 "load": true,
                 "metadata": {
-                    "images": ["postgres"]
+                    "images": ["db"]
                 }
             }
         }

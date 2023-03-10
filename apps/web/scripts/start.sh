@@ -5,9 +5,8 @@ set -e
 APP="web"
 APP_DIR="apps/$APP"
 ENV="$(pwd)/$APP_DIR/.env.local"
-TAG="sha-$(git rev-parse --short HEAD)"
 IMAGE="$APP"
-TAGGED_IMAGE="$IMAGE:$TAG"
+TAGGED_IMAGE="$IMAGE:latest"
 
 [ -f "$ENV" ] || { echo "$ENV does not exist" && exit 1; }
 
@@ -21,10 +20,10 @@ FIREBASE_CLIENT_EMAIL="$(grep "FIREBASE_CLIENT_EMAIL" "$ENV" | awk -F '"' '{prin
 [ -n "$FIREBASE_PRIVATE_KEY" ] || { echo "FIREBASE_PRIVATE_KEY is not defined in $ENV" && exit 1; }
 [ -n "$FIREBASE_CLIENT_EMAIL" ] || { echo "FIREBASE_CLIENT_EMAIL is not defined in $ENV" && exit 1; }
 
-INPUT_IMAGES="$IMAGE" INPUT_TAGS="$TAG" nx docker "$APP" --configuration=development
+INPUT_IMAGES="$IMAGE" INPUT_TAGS="latest" nx docker "$APP" --configuration=development
 
-docker run --rm -it \
-    -p 3000:3000/tcp \
+docker run --rm -d \
+    -p 4200:4200/tcp \
     --env COOKIE_SECRET_PREVIOUS="$COOKIE_SECRET_PREVIOUS" \
     --env COOKIE_SECRET_CURRENT="$COOKIE_SECRET_CURRENT" \
     --env FIREBASE_PRIVATE_KEY="$FIREBASE_PRIVATE_KEY" \
