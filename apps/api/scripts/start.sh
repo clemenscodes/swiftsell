@@ -16,10 +16,10 @@ image() {
     fi
     if [ -z "$CI" ]; then
         INPUT_IMAGES=$APP
-        INPUT_TAGS="latest" INPUT_IMAGES=$INPUT_IMAGES nx docker $APP --skip-nx-cache
         IMAGE="$INPUT_IMAGES:latest"
         echo "$IMAGE"
-        docker run --rm -d -p 5000:5000/tcp "$IMAGE"
+        INPUT_TAGS="latest" INPUT_IMAGES=$INPUT_IMAGES nx docker $APP --skip-nx-cache &&
+            docker run --rm -d -p 5000:5000/tcp "$IMAGE"
     else
         echo "In CI"
         INPUT_IMAGES="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME/$SERVICE_NAME"
