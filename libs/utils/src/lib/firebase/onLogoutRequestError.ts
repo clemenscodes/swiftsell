@@ -1,3 +1,5 @@
-export const onLogoutRequestError = (error: unknown) => {
-    console.error(error);
+import { error } from '../error';
+
+export const onLogoutRequestError = (err: unknown) => {
+    error(err);
 };

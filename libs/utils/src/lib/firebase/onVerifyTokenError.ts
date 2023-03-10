@@ -1,3 +1,5 @@
-export const onVerifyTokenError = (error: unknown) => {
-    console.error(error);
+import { error } from '../error';
+
+export const onVerifyTokenError = (err: unknown) => {
+    error(error);
 };

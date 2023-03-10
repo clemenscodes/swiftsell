@@ -17,7 +17,7 @@
             }
         },
         "build": {
-            "dependsOn": ["prisma-generate"],
+            "dependsOn": ["env", "prisma-generate"],
             "executor": "@nrwl/webpack:webpack",
             "outputs": ["{options.outputPath}"],
             "options": {

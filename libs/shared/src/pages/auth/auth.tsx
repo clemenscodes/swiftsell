@@ -2,6 +2,7 @@ import { Button } from '../../components/button/button';
 import H1 from '../../components/typography/h1/h1';
 import { cn } from '@styles';
 import { AuthProps } from '@types';
+import { error, log } from '@utils';
 import { getApp } from 'firebase/app';
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { NextPage } from 'next';
@@ -31,13 +32,13 @@ export const Auth: NextPage<AuthProps> = ({ ...props }) => {
         )
             .then((userCredential) => {
                 const user = userCredential.user;
-                console.log({ user });
+                log({ user });
             })
-            .catch((error) => {
-                const errorCode = error.code;
-                console.log({ errorCode });
-                const errorMessage = error.message;
-                console.log({ errorMessage });
+            .catch((err) => {
+                const errorCode = err.code;
+                error({ errorCode });
+                const errorMessage = err.message;
+                error({ errorMessage });
             });
     };
 

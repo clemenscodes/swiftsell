@@ -1,3 +1,5 @@
-export const onLoginRequestError = (error: unknown) => {
-    console.error(error);
+import { error } from '../error';
+
+export const onLoginRequestError = (err: unknown) => {
+    error(err);
 };
