@@ -39,6 +39,7 @@
             }
         },
         "start": {
+            "dependsOn": ["seed"],
             "executor": "nx:run-commands",
             "options": {
                 "command": "apps/api/scripts/start.sh"
