@@ -52,12 +52,8 @@
             "color": true,
             "command": "apps/web/scripts/start.sh"
         },
-        "prepare:docker": {
-            "color": true,
-            "command": "nx run-many --target=build --all --output-style=stream"
-        },
         "dev": {
-            "dependsOn": ["prepare:docker"],
+            "dependsOn": ["^build", "build"],
             "executor": "nx:run-commands",
             "defaultConfiguration": "docker",
             "configurations": {
@@ -157,7 +153,6 @@
                 }
             }
         },
-
         "build-custom-server": {
             "executor": "@nrwl/js:tsc",
             "defaultConfiguration": "production",
@@ -181,6 +176,8 @@
         }
     },
     "implicitDependencies": [
+        "api",
+        "firebase",
         "infra-run",
         "infra-wif",
         "infra-firebase",
