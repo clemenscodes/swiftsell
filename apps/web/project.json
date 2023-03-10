@@ -17,7 +17,7 @@
             }
         },
         "build": {
-            "dependsOn": ["env", "prisma-generate"],
+            "dependsOn": ["env"],
             "executor": "@nrwl/next:build",
             "outputs": ["{options.outputPath}"],
             "options": {
@@ -33,12 +33,12 @@
             }
         },
         "start": {
-            "dependsOn": ["build"],
             "executor": "@nrwl/next:server",
             "defaultConfiguration": "development",
             "configurations": {
                 "development": {
                     "buildTarget": "web:build:development",
+                    "hostname": "0.0.0.0",
                     "dev": true
                 },
                 "production": {
@@ -47,21 +47,27 @@
                 }
             }
         },
-        "seed": {
-            "command": "nx prisma-seed web --skip-nx-cache"
+        "start:docker": {
+            "dependsOn": ["build"],
+            "command": "apps/web/scripts/start.sh"
         },
         "dev": {
-            "dependsOn": ["seed"],
             "executor": "nx:run-commands",
-            "defaultConfiguration": "development",
+            "defaultConfiguration": "docker",
             "configurations": {
                 "development": {
-                    "command": "nx run-many --parallel=8 --target=start --output-style=stream --projects=web,firebase,api swiftsell-development"
+                    "command": "nx run-many --parallel=8 --target=start:docker --output-style=stream --projects=web,firebase,api swiftsell-development"
+                },
+                "docker": {
+                    "command": "docker-compose -f apps/web/docker/docker-compose.yml up -d"
                 },
                 "production": {
                     "command": "nx start web --configuration=production"
                 }
             }
+        },
+        "stop": {
+            "command": "docker-compose -f apps/web/docker/docker-compose.yml stop"
         },
         "export": {
             "executor": "@nrwl/next:export",
@@ -97,8 +103,18 @@
             "executor": "@nx-tools/nx-container:build",
             "defaultConfiguration": "local",
             "configurations": {
+                "development": {
+                    "engine": "docker",
+                    "file": "apps/web/docker/Dockerfile.development",
+                    "load": true,
+                    "metadata": {
+                        "images": ["web"],
+                        "tags": ["type=schedule", "type=sha"]
+                    }
+                },
                 "local": {
                     "engine": "docker",
+                    "file": "apps/web/docker/Dockerfile.production",
                     "load": true,
                     "metadata": {
                         "images": [],
@@ -107,6 +123,7 @@
                 },
                 "ci": {
                     "engine": "docker",
+                    "file": "apps/web/docker/Dockerfile.production",
                     "load": true,
                     "cache-from": ["type=gha"],
                     "cache-to": ["type=gha,mode=max"],
@@ -130,64 +147,6 @@
             }
         },
 
-        "prisma-generate": {
-            "executor": "nx:run-commands",
-            "options": {
-                "command": "PRISMA_DISABLE_WARNINGS=1 yarn prisma generate --schema=prisma/schema.prisma",
-                "cwd": "apps/web"
-            }
-        },
-        "prisma-migrate": {
-            "dependsOn": ["prisma-generate", "^start"],
-            "executor": "nx:run-commands",
-            "options": {
-                "command": "PRISMA_DISABLE_WARNINGS=1 yarn prisma migrate dev --schema=prisma/schema.prisma --name $(git rev-parse --short HEAD)",
-                "cwd": "apps/web"
-            }
-        },
-        "prisma-seed": {
-            "dependsOn": ["prisma-migrate"],
-            "executor": "nx:run-commands",
-            "options": {
-                "command": "PRISMA_DISABLE_WARNINGS=1 yarn ts-node prisma/seed.ts",
-                "cwd": "apps/web"
-            }
-        },
-        "prisma-pull": {
-            "executor": "nx:run-commands",
-            "options": {
-                "command": "PRISMA_DISABLE_WARNINGS=1 yarn prisma db pull --schema=prisma/schema.prisma",
-                "cwd": "apps/web"
-            }
-        },
-        "prisma-push": {
-            "executor": "nx:run-commands",
-            "options": {
-                "command": "PRISMA_DISABLE_WARNINGS=1 yarn prisma db push --schema=prisma/schema.prisma",
-                "cwd": "apps/web"
-            }
-        },
-        "prisma-deploy": {
-            "executor": "nx:run-commands",
-            "options": {
-                "command": "PRISMA_DISABLE_WARNINGS=1 yarn prisma migrate deploy --schema=prisma/schema.prisma",
-                "cwd": "apps/web"
-            }
-        },
-        "prisma-status": {
-            "executor": "nx:run-commands",
-            "options": {
-                "command": "PRISMA_DISABLE_WARNINGS=1 yarn prisma migrate status --schema=prisma/schema.prisma",
-                "cwd": "apps/web"
-            }
-        },
-        "prisma-studio": {
-            "executor": "nx:run-commands",
-            "options": {
-                "command": "PRISMA_DISABLE_WARNINGS=1 yarn prisma studio --schema=prisma/schema.prisma",
-                "cwd": "apps/web"
-            }
-        },
         "build-custom-server": {
             "executor": "@nrwl/js:tsc",
             "defaultConfiguration": "production",
@@ -212,7 +171,6 @@
     },
     "implicitDependencies": [
         "infra-run",
-        "db",
         "infra-wif",
         "infra-firebase",
         "infra-artifact",

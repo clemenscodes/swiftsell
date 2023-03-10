@@ -1,3 +1,3 @@
-import { loginHandler } from '@api';
+import { loginHandler } from '@server';
 
 export default loginHandler;

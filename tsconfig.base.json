@@ -18,23 +18,17 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@api": [
-        "libs/api/src/index.ts"
+      "@api/web": [
+        "libs/api/web/src/index.ts"
       ],
       "@config": [
         "libs/config/src/index.ts"
-      ],
-      "@db/web": [
-        "libs/db/web/src/index.ts"
       ],
       "@fonts": [
         "libs/fonts/src/index.ts"
       ],
       "@hooks": [
         "libs/hooks/src/index.ts"
-      ],
-      "@prismas/*": [
-        "node_modules/.prisma/*"
       ],
       "@providers": [
         "libs/providers/src/index.ts"

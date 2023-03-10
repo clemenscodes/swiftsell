@@ -3990,10 +3990,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/font@npm:^13.2.1":
-  version: 13.2.1
-  resolution: "@next/font@npm:13.2.1"
-  checksum: 6231ca2d3fc887c0dd4e25ae8cebb090c477c6fc980b96b56f43b2ad6b989c9f588490ae680fc578b5584ae3b18a40d129c27b642afe9cfc4a953ea43145b1ee
+"@next/font@npm:13.1.1":
+  version: 13.1.1
+  resolution: "@next/font@npm:13.1.1"
+  checksum: 468a77d3a6db4a95ece3cc99c28dcaaf6135354ad81c3954a08a6c7d977693d7b7f07ff835b972a80d25794b711d6cb6545ea55fe6bed4c624346f3524061d19
   languageName: node
   linkType: hard
 
@@ -20825,13 +20825,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"neon-sdk@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "neon-sdk@npm:1.1.0"
-  checksum: c49e9af6ccfb70143ec34cfc9fa5c12902030c00e37b0d481e674107c4d62c3b6d0862018d7362fd53635333d75cedbf2401ddeaf650e4cd848fea515050ae2f
-  languageName: node
-  linkType: hard
-
 "nested-error-stacks@npm:^2.0.0, nested-error-stacks@npm:^2.1.0":
   version: 2.1.1
   resolution: "nested-error-stacks@npm:2.1.1"
@@ -26304,7 +26297,7 @@ __metadata:
     "@nestjs/schematics": ^9.0.0
     "@nestjs/testing": ^9.0.0
     "@next/bundle-analyzer": ^13.2.1
-    "@next/font": ^13.2.1
+    "@next/font": 13.1.1
     "@next/plugin-storybook": ^13.1.6
     "@nrwl/cypress": 15.8.3
     "@nrwl/esbuild": 15.8.3
@@ -26386,7 +26379,6 @@ __metadata:
     jest-environment-node: ^29.4.1
     jest-mock-extended: ^3.0.3
     lucide-react: ^0.115.0
-    neon-sdk: ^1.1.0
     next: 13.1.1
     next-absolute-url: ^1.2.2
     next-compose-plugins: ^2.2.1

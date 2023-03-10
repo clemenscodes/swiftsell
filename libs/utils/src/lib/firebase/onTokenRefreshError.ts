@@ -1,3 +1,5 @@
-export const onTokenRefreshError = (error: unknown) => {
-    console.error(error);
+import { error } from '../error';
+
+export const onTokenRefreshError = (err: unknown) => {
+    error(error);
 };

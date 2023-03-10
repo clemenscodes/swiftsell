@@ -4,15 +4,20 @@
     "sourceRoot": "apps/firebase",
     "projectType": "application",
     "targets": {
-        "start": {
-            "executor": "nx:run-commands",
-            "defaultConfiguration": "emulators",
+        "start:docker": {
+            "command": "apps/firebase/start.sh"
+        },
+        "image": {
+            "command": "INPUT_TAGS=latest nx docker firebase"
+        },
+        "docker": {
+            "executor": "@nx-tools/nx-container:build",
             "options": {
-                "cwd": "apps/firebase"
-            },
-            "configurations": {
-                "emulators": {
-                    "command": "firebase emulators:start -P"
+                "engine": "docker",
+                "load": true,
+                "metadata": {
+                    "images": ["firebase"],
+                    "tags": ["type=schedule", "type=sha"]
                 }
             }
         }
