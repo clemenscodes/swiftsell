@@ -5,16 +5,7 @@
     "projectType": "application",
     "targets": {
         "start": {
-            "executor": "nx:run-commands",
-            "defaultConfiguration": "emulators",
-            "options": {
-                "cwd": "apps/firebase"
-            },
-            "configurations": {
-                "emulators": {
-                    "command": "firebase emulators:start -P"
-                }
-            }
+            "command": "apps/firebase/start.sh"
         }
     },
     "implicitDependencies": [],
