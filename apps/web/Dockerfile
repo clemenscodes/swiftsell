@@ -5,11 +5,6 @@ ENV GOPATH /go
 RUN apk --update --no-cache add git fuse fuse-dev \
     && GO111MODULE=auto go get -u github.com/googlecloudplatform/gcsfuse
 
-FROM node:16.19-alpine as builder
-WORKDIR /app
-COPY . .
-RUN cd apps/web && npx prisma generate --schema=prisma/schema.prisma
-
 FROM node:16.19-alpine as runner
 
 RUN set -e; \
@@ -47,12 +42,10 @@ RUN mkdir gcsfuse && chown nextjs:nodejs gcsfuse && touch log.txt && chown nextj
 USER nextjs
 
 COPY --from=gcsfuse /go/bin/gcsfuse /sbin
-COPY --from=builder --chown=nextjs:nodejs /app/node_modules/@prisma ./node_modules/@prisma/
 COPY --chown=nextjs:nodejs dist/$APP_DIR/.next/standalone ./
 COPY --chown=nextjs:nodejs dist/$APP_DIR/public ./$APP_DIR/public
 COPY --chown=nextjs:nodejs dist/$APP_DIR/.next/static ./dist/$APP_DIR/.next/static
 COPY --chown=nextjs:nodejs $APP_DIR/scripts/gcsfuse.sh ./
-COPY --chown=nextjs:nodejs $APP_DIR/prisma ./prisma/
 
 EXPOSE $PORT
 

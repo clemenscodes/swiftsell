@@ -1,3 +1,8 @@
+FROM node:16.19-alpine as builder
+WORKDIR /app
+COPY . .
+RUN cd apps/api && npx prisma generate --schema=prisma/schema.prisma
+
 FROM node:16.19-alpine
 
 ENV HOST=0.0.0.0
@@ -16,9 +21,12 @@ RUN addgroup --system $APP && \
     adduser --system -G $APP $APP
 
 COPY dist/apps/$APP $APP
+COPY $APP_DIR/prisma ./prisma/
+COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma/
 RUN chown -R $APP:$APP .
 
 RUN npm --prefix $APP --omit=dev -f install
+RUN npx prisma migrate deploy
 
 ENTRYPOINT ["/sbin/tini", "--"]
 

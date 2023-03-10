@@ -52,15 +52,9 @@ cleanup() {
     echo "Adios."
 }
 
-migrate_prisma() {
-    echo "Migrating Prisma..."
-    npx prisma migrate deploy
-}
-
+# debugging_env
 authorize_gcloud
 mount_google_cloud_storage
-# debugging_env
-# migrate_prisma
 start_nextjs_app
 
 # while true; do
