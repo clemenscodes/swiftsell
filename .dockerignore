@@ -4,9 +4,9 @@
 .nx-container
 .storybook
 .vscode
-node_modules/
 !node_modules/tslib
 !node_modules/@prisma
+.yarn/cache
 .commitlintrc.js
 .czrc
 .dockerignore

@@ -33,9 +33,11 @@
             }
         },
         "start": {
-            "dependsOn": ["build"],
             "executor": "@nrwl/next:server",
             "defaultConfiguration": "development",
+            "options": {
+                "port": 3000
+            },
             "configurations": {
                 "development": {
                     "buildTarget": "web:build:development",
@@ -46,6 +48,10 @@
                     "dev": false
                 }
             }
+        },
+        "start:docker": {
+            "dependsOn": ["build"],
+            "command": "apps/web/scripts/start.sh"
         },
         "dev": {
             "executor": "nx:run-commands",
@@ -93,8 +99,18 @@
             "executor": "@nx-tools/nx-container:build",
             "defaultConfiguration": "local",
             "configurations": {
+                "development": {
+                    "engine": "docker",
+                    "file": "apps/web/docker/Dockerfile.development",
+                    "load": true,
+                    "metadata": {
+                        "images": ["web"],
+                        "tags": ["type=schedule", "type=sha"]
+                    }
+                },
                 "local": {
                     "engine": "docker",
+                    "file": "apps/web/docker/Dockerfile.production",
                     "load": true,
                     "metadata": {
                         "images": [],
@@ -103,6 +119,7 @@
                 },
                 "ci": {
                     "engine": "docker",
+                    "file": "apps/web/docker/Dockerfile.production",
                     "load": true,
                     "cache-from": ["type=gha"],
                     "cache-to": ["type=gha,mode=max"],
