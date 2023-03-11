@@ -57,13 +57,13 @@
             "executor": "nx:run-commands",
             "defaultConfiguration": "docker",
             "configurations": {
+                "docker": {
+                    "color": true,
+                    "command": "apps/web/scripts/dev.sh"
+                },
                 "development": {
                     "color": true,
                     "command": "nx run-many --parallel=8 --target=start:docker --output-style=stream --projects=web,firebase,api swiftsell-development"
-                },
-                "docker": {
-                    "color": true,
-                    "command": "docker-compose -f apps/web/docker/docker-compose.yml up -d"
                 },
                 "production": {
                     "color": true,
@@ -72,7 +72,7 @@
             }
         },
         "stop": {
-            "command": "docker-compose -f apps/web/docker/docker-compose.yml stop"
+            "command": "docker compose -f apps/web/docker/docker-compose.yml stop"
         },
         "export": {
             "executor": "@nrwl/next:export",
