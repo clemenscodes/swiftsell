@@ -5,7 +5,7 @@ NEXT_PORT=4200
 FIREBASE_UI_PORT=4000
 NEST_PORT=5000
 HASURA_PORT=9090
-nx run-many --target=build --all --output-style=stream
+nx run-many --target=env --all --output-style=stream --skip-nx-cache
 docker compose -f apps/web/docker/docker-compose.yml up -d &&
     nx seed api &&
     echo "Next.js app running on $HOST:$NEXT_PORT" &&
