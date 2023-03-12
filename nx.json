@@ -12,7 +12,10 @@
                     "e2e",
                     "docker",
                     "deploy",
-                    "prisma-generate"
+                    "seed",
+                    "prisma-generate",
+                    "prisma-migrate",
+                    "prisma-seed"
                 ],
                 "accessToken": "MjA0MWE2MTYtNjNlOC00NTc4LWI0MDYtZGEzOTBkMDY5MTMxfHJlYWQ="
             }

@@ -1,5 +1,8 @@
 {
     "tailwindCSS.experimental.classRegex": [
         ["(cn|clsx|twMerge)\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
-    ]
+    ],
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    }
 }

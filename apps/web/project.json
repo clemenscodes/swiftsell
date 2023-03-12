@@ -49,25 +49,30 @@
         },
         "start:docker": {
             "dependsOn": ["build"],
+            "color": true,
             "command": "apps/web/scripts/start.sh"
         },
         "dev": {
+            "dependsOn": ["^env", "env"],
             "executor": "nx:run-commands",
             "defaultConfiguration": "docker",
             "configurations": {
+                "docker": {
+                    "color": true,
+                    "command": "apps/web/scripts/dev.sh"
+                },
                 "development": {
+                    "color": true,
                     "command": "nx run-many --parallel=8 --target=start:docker --output-style=stream --projects=web,firebase,api swiftsell-development"
                 },
-                "docker": {
-                    "command": "docker-compose -f apps/web/docker/docker-compose.yml up -d"
-                },
                 "production": {
+                    "color": true,
                     "command": "nx start web --configuration=production"
                 }
             }
         },
         "stop": {
-            "command": "docker-compose -f apps/web/docker/docker-compose.yml stop"
+            "command": "docker compose -f apps/web/docker/docker-compose.yml stop"
         },
         "export": {
             "executor": "@nrwl/next:export",
@@ -139,14 +144,15 @@
             "defaultConfiguration": "development",
             "configurations": {
                 "development": {
+                    "color": true,
                     "command": "apps/web/scripts/deploy.sh development"
                 },
                 "production": {
+                    "color": true,
                     "command": "apps/web/scripts/deploy.sh production"
                 }
             }
         },
-
         "build-custom-server": {
             "executor": "@nrwl/js:tsc",
             "defaultConfiguration": "production",
@@ -170,6 +176,8 @@
         }
     },
     "implicitDependencies": [
+        "api",
+        "firebase",
         "infra-run",
         "infra-wif",
         "infra-firebase",

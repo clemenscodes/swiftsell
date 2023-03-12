@@ -38,8 +38,6 @@ COPY tailwind-workspace-preset.js ./
 COPY babel.config.json ./
 COPY --from=builder /app/node_modules ./node_modules
 
-RUN cd apps/api && npx prisma generate --schema=prisma/schema.prisma && cd -
-
 EXPOSE $PORT
 
 # Use tini to manage zombie processes and signal forwarding
