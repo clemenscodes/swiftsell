@@ -118,6 +118,14 @@
                 "cwd": "apps/api"
             }
         },
+        "prisma-migrate-deploy": {
+            "dependsOn": ["prisma-generate"],
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "PRISMA_DISABLE_WARNINGS=1 yarn prisma migrate deploy --schema=prisma/schema.prisma",
+                "cwd": "apps/api"
+            }
+        },
         "prisma-seed": {
             "dependsOn": ["prisma-migrate"],
             "executor": "nx:run-commands",

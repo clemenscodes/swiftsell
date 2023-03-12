@@ -154,6 +154,8 @@ image() {
         INPUT_GITHUB_TOKEN="$INPUT_GITHUB_TOKEN" INPUT_IMAGES="$WEB_IMAGE" INPUT_TAGS="$TAG" nx docker "$APP" --configuration=ci --skip-nx-cache
         echo "Building API image"
         INPUT_IMAGES="$API_IMAGE" INPUT_TAGS="$TAG" nx docker "$API_SERVICE_NAME" --skip-nx-cache --configuration=production
+        echo "Migrating Schema"
+        nx prisma-migrate-deploy api --skip-nx-cache
     fi
     echo "Pushing web image"
     docker push "$TAGGED_WEB_IMAGE"
