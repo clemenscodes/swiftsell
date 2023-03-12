@@ -6,6 +6,13 @@
     "targets": {
         "start:docker": {
             "command": "docker compose -f apps/graphql/docker-compose.yml up -d"
+        },
+        "console": {
+            "executor": "nx:run-commands",
+            "options": {
+                "cwd": "apps/graphql",
+                "command": "hasura console --envfile .env.skeleton"
+            }
         }
     },
     "implicitDependencies": [],

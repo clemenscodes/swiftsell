@@ -53,7 +53,7 @@
             "command": "apps/web/scripts/start.sh"
         },
         "dev": {
-            "dependsOn": ["^build", "build"],
+            "dependsOn": ["^env", "env"],
             "executor": "nx:run-commands",
             "defaultConfiguration": "docker",
             "configurations": {
