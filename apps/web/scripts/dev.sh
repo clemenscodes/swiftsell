@@ -5,7 +5,7 @@ APP_DIR="apps/$APP"
 WEB_ENV="$(pwd)/$APP_DIR/.env.local"
 API_ENV="$(pwd)/apps/api/.env"
 HOST="http://localhost"
-NEXT_PORT=4200
+NEXT_PORT=3000
 FIREBASE_UI_PORT=4000
 NEST_PORT=5000
 HASURA_PORT=9090
@@ -47,6 +47,3 @@ docker compose -f apps/web/docker/docker-compose.yml up -d --remove-orphans &&
     echo "Nest.js app running on $HOST:$NEST_PORT" &&
     echo "Hasura running on $HOST:$HASURA_PORT" &&
     echo "Firabase emulator UI running on $HOST:$FIREBASE_UI_PORT" || exit 1
-
-echo "Opening hasura console"
-nx console graphql

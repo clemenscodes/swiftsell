@@ -10,7 +10,7 @@ services:
             dockerfile: apps/web/docker/Dockerfile.development
         restart: always
         ports:
-            - '4200:4200'
+            - '3000:3000'
         command: 'npx nx start web'
         volumes:
             - '../../web:/app/apps/web'
