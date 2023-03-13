@@ -5,12 +5,8 @@
         "esbenp.prettier-vscode",
         "hashicorp.terraform",
         "ms-azuretools.vscode-docker",
-        "googlecloudtools.cloudcode",
-        "jsayol.firebase-explorer",
-        "vscode-icons-team.vscode-icons",
         "bradlc.vscode-tailwindcss",
         "Prisma.prisma",
-        "nrwl.angular-console",
-        "firsttris.vscode-jest-runner"
+        "nrwl.angular-console"
     ]
 }

@@ -118,6 +118,22 @@
                 "cwd": "apps/api"
             }
         },
+        "prisma-migrate-diff": {
+            "dependsOn": ["prisma-migrate"],
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "PRISMA_DISABLE_WARNINGS=1 yarn  prisma migrate diff  --from-url postgres://postgres:postgres@localhost:5432/postgres --to-url postgres://swiftsellshop:YcTQNCsR17hK@ep-autumn-water-534682.eu-central-1.aws.neon.tech/neondb?connect_timeout=20 ",
+                "cwd": "apps/api"
+            }
+        },
+        "prisma-migrate-deploy": {
+            "dependsOn": ["prisma-generate"],
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "PRISMA_DISABLE_WARNINGS=1 yarn prisma migrate deploy",
+                "cwd": "apps/api"
+            }
+        },
         "prisma-seed": {
             "dependsOn": ["prisma-migrate"],
             "executor": "nx:run-commands",

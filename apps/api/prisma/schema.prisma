@@ -17,6 +17,7 @@ model users {
     createdAt DateTime @default(now())
     email     String   @unique
     name      String?
+    surname   String?
     role      Role     @default(USER)
 }
 
