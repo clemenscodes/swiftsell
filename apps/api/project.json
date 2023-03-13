@@ -17,7 +17,7 @@
             }
         },
         "build": {
-            "dependsOn": ["env", "prisma-generate"],
+            "dependsOn": ["env", "prisma-migrate"],
             "executor": "@nrwl/webpack:webpack",
             "outputs": ["{options.outputPath}"],
             "options": {
