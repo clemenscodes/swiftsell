@@ -1,7 +1,6 @@
 import { initAuth } from '@utils';
 import '../global.css';
-import { ApolloProvider } from '@apollo/client';
-import { apolloClient, siteConfig } from '@config';
+import { siteConfig } from '@config';
 import { GetServerSideProps } from 'next';
 import { withAuthUser, withAuthUserTokenSSR } from 'next-firebase-auth';
 import type { AppProps } from 'next/app';
@@ -32,20 +31,14 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
                     content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=5,user-scalable=yes,viewport-fit=cover'
                 />
             </Head>
-            <ApolloProvider client={apolloClient}>
-                <ThemeProvider
-                    attribute='class'
-                    defaultTheme='dark'
-                    enableSystem
-                >
-                    <FontProvider>
-                        <Header />
-                        <Component {...pageProps} />
-                        <TailwindIndicator />
-                        <Toaster />
-                    </FontProvider>
-                </ThemeProvider>
-            </ApolloProvider>
+            <ThemeProvider attribute='class' defaultTheme='dark' enableSystem>
+                <FontProvider>
+                    <Header />
+                    <Component {...pageProps} />
+                    <TailwindIndicator />
+                    <Toaster />
+                </FontProvider>
+            </ThemeProvider>
         </>
     );
 };
