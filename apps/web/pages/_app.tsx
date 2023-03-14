@@ -8,6 +8,7 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 
 const Header = dynamic(() => import('@shared').then((mod) => mod.Header));
+const Toaster = dynamic(() => import('@shared').then((mod) => mod.Toaster));
 const TailwindIndicator = dynamic(() =>
     import('@shared').then((mod) => mod.TailwindIndicator)
 );
@@ -35,6 +36,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
                     <Header />
                     <Component {...pageProps} />
                     <TailwindIndicator />
+                    <Toaster />
                 </FontProvider>
             </ThemeProvider>
         </>

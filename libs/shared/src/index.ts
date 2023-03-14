@@ -1,3 +1,7 @@
+export * from './components/toaster/toaster';
+export * from './components/toast/toast';
+export * from './pages/products/products';
+export * from './components/product-list/product-list';
 export * from './components/not-signed-in/not-signed-in';
 export * from './components/signed-in/signed-in';
 export * from './pages/auth/auth';
