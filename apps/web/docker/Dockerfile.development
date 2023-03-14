@@ -22,7 +22,7 @@ RUN set -e; \
 
 ENV APP web
 ENV APP_DIR apps/$APP
-ENV PORT 4200
+ENV PORT 3000
 ENV HOST 0.0.0.0
 ENV HOSTNAME localhost
 ENV NODE_ENV=development
