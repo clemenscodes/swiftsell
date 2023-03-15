@@ -1,16 +1,16 @@
 {
-    "name": "graphql",
+    "name": "hasura",
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
-    "sourceRoot": "apps/graphql",
+    "sourceRoot": "services/hasura",
     "projectType": "application",
     "targets": {
         "start:docker": {
-            "command": "docker compose -f apps/graphql/docker-compose.yml up -d"
+            "command": "docker compose -f services/hasura/docker-compose.yml up -d"
         },
         "console": {
             "executor": "nx:run-commands",
             "options": {
-                "cwd": "apps/graphql",
+                "cwd": "services/hasura",
                 "command": "hasura console --envfile .env.skeleton"
             }
         }

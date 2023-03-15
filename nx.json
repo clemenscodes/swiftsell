@@ -1,5 +1,6 @@
 {
     "$schema": "./node_modules/nx/schemas/nx-schema.json",
+    "defaultProject": "web",
     "tasksRunnerOptions": {
         "default": {
             "runner": "@nrwl/nx-cloud",
@@ -78,5 +79,9 @@
                 "linter": "eslint"
             }
         }
+    },
+    "workspaceLayout": {
+        "appsDir": "apps",
+        "libsDir": "libs"
     }
 }

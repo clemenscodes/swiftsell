@@ -49,4 +49,4 @@ docker compose -f apps/web/docker/docker-compose.yml up -d --remove-orphans &&
     echo "Firabase emulator UI running on $HOST:$FIREBASE_UI_PORT" || exit 1
 
 echo "Opening hasura console"
-nx console graphql
+nx console hasura

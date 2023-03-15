@@ -27,6 +27,9 @@
       "@fonts": [
         "libs/fonts/src/index.ts"
       ],
+      "@graphql": [
+        "libs/graphql/src/index.ts"
+      ],
       "@hooks": [
         "libs/hooks/src/index.ts"
       ],

@@ -170,6 +170,6 @@
             }
         }
     },
-    "implicitDependencies": ["db"],
+    "implicitDependencies": ["postgres"],
     "tags": []
 }

@@ -15,15 +15,15 @@ services:
         volumes:
             - '../../web:/app/apps/web'
             - '../../api:/app/apps/api'
-            - '../../db:/app/apps/db'
-            - '../../firebase:/app/apps/firebase'
+            - '../../../services/postgres:/app/services/postgres'
+            - '../../../services/firebase:/app/services/firebase'
             - '../../../libs:/app/libs'
         networks:
             - frontend
             - backend
     api:
         env_file: '../../api/.env'
-        depends_on: ['db']
+        depends_on: ['postgres']
         container_name: api
         command: 'npx nx start api'
         restart: always
@@ -34,54 +34,54 @@ services:
             - '5000:5000'
         volumes:
             - '../../api:/app/apps/api'
-            - '../../db:/app/apps/db'
+            - '../../../services/postgres:/app/services/postgres'
             - '../../../libs:/app/libs'
         networks:
             - backend
-    db:
+    postgres:
         depends_on: ['shadow']
         container_name: postgres
         build:
             context: '../../../'
-            dockerfile: apps/db/Dockerfile
+            dockerfile: services/postgres/Dockerfile
         restart: always
         ports:
             - '5432:5432'
         volumes:
-            - '../../graphql/init.sql:/docker-entrypoint-initdb.d/init.sql'
+            - '../../../services/hasura/init.sql:/docker-entrypoint-initdb.d/init.sql'
         networks:
             - backend
     shadow:
         container_name: shadow
         build:
             context: '../../../'
-            dockerfile: apps/db/Dockerfile
+            dockerfile: services/postgres/Dockerfile
         restart: always
         ports:
             - '6543:5432'
         volumes:
-            - '../../graphql/init.sql:/docker-entrypoint-initdb.d/init.sql'
+            - '../../../services/hasura/init.sql:/docker-entrypoint-initdb.d/init.sql'
         networks:
             - backend
-    graphql:
-        env_file: '../../graphql/.env.skeleton'
+    hasura:
+        env_file: '../../../services/hasura/.env.skeleton'
         container_name: hasura
         build:
             context: '../../../'
-            dockerfile: apps/graphql/Dockerfile
+            dockerfile: services/hasura/Dockerfile
         ports:
             - '9090:8080'
-        depends_on: ['db']
+        depends_on: ['postgres']
         restart: always
         networks:
             - backend
     firebase:
         container_name: firebase
-        env_file: '../../firebase/.env.skeleton'
+        env_file: '../../../services/firebase/.env.skeleton'
         restart: always
         build:
             context: '../../../'
-            dockerfile: apps/firebase/Dockerfile
+            dockerfile: services/firebase/Dockerfile
         ports:
             - '4000:4000'
             - '5001:5001'

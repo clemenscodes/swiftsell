@@ -1,3 +1,4 @@
+- '!include public__prisma_migrations.yaml'
 - '!include public_cart.yaml'
 - '!include public_inventory.yaml'
 - '!include public_order.yaml'

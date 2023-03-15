@@ -1,11 +1,11 @@
 {
     "name": "firebase",
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
-    "sourceRoot": "apps/firebase",
+    "sourceRoot": "services/firebase",
     "projectType": "application",
     "targets": {
         "start:docker": {
-            "command": "apps/firebase/start.sh"
+            "command": "services/firebase/start.sh"
         },
         "image": {
             "command": "INPUT_TAGS=latest nx docker firebase"
