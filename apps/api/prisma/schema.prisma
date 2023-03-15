@@ -13,77 +13,77 @@ datasource db {
 }
 
 model user {
-    id        Int      @id @default(autoincrement())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    email     String   @unique
-    password  String
-    name      String?
-    surname   String?
-    role      Role     @default(USER)
-    order     order[]
-    cart      cart[]
+    id           Int      @id @default(autoincrement())
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+    email        String   @unique
+    passwordHash String
+    name         String?
+    surname      String?
+    role         Role     @default(USER)
+    // order     order[]
+    // cart      cart[]
 }
 
 // Define the Product table for storing product data.
 model product {
-    id          Int         @id @default(autoincrement())
+    id          Int      @id @default(autoincrement())
     name        String
     description String?
     price       Float
     image       String?
-    createdAt   DateTime    @default(now())
-    updatedAt   DateTime    @updatedAt
-    store       store       @relation(fields: [storeId], references: [id])
-    storeId     Int
-    inventory   inventory[]
-    order       order?      @relation(fields: [orderId], references: [id])
-    orderId     Int?
-    cart        cart?       @relation(fields: [cartId], references: [id])
-    cartId      Int?
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    // store       store       @relation(fields: [storeId], references: [id])
+    // storeId     Int
+    // inventory   inventory[]
+    // order       order?      @relation(fields: [orderId], references: [id])
+    // orderId     Int?
+    // cart        cart?       @relation(fields: [cartId], references: [id])
+    // cartId      Int?
 }
 
-// Define the Order table for storing order data.
-model order {
-    id         Int       @id @default(autoincrement())
-    createdAt  DateTime  @default(now())
-    updatedAt  DateTime  @updatedAt
-    user       user      @relation(fields: [userId], references: [id])
-    userId     Int
-    products   product[]
-    totalPrice Float
-}
+// // Define the Order table for storing order data.
+// model order {
+//     id         Int       @id @default(autoincrement())
+//     createdAt  DateTime  @default(now())
+//     updatedAt  DateTime  @updatedAt
+//     user       user      @relation(fields: [userId], references: [id])
+//     userId     Int
+//     products   product[]
+//     totalPrice Float
+// }
 
-// Define the Cart table for storing cart data.
-model cart {
-    id        Int       @id @default(autoincrement())
-    createdAt DateTime  @default(now())
-    updatedAt DateTime  @updatedAt
-    user      user      @relation(fields: [userId], references: [id])
-    userId    Int
-    products  product[]
-}
+// // Define the Cart table for storing cart data.
+// model cart {
+//     id        Int       @id @default(autoincrement())
+//     createdAt DateTime  @default(now())
+//     updatedAt DateTime  @updatedAt
+//     user      user      @relation(fields: [userId], references: [id])
+//     userId    Int
+//     products  product[]
+// }
 
-// Define the Store table for storing store data.
-model store {
-    id        Int         @id @default(autoincrement())
-    name      String
-    address   String
-    createdAt DateTime    @default(now())
-    updatedAt DateTime    @updatedAt
-    products  product[]
-    inventory inventory[]
-}
+// // Define the Store table for storing store data.
+// model store {
+//     id        Int         @id @default(autoincrement())
+//     name      String
+//     address   String
+//     createdAt DateTime    @default(now())
+//     updatedAt DateTime    @updatedAt
+//     products  product[]
+//     inventory inventory[]
+// }
 
-// Define the Inventory table for storing inventory data.
-model inventory {
-    id        Int     @id @default(autoincrement())
-    quantity  Int
-    product   product @relation(fields: [productId], references: [id])
-    productId Int
-    store     store   @relation(fields: [storeId], references: [id])
-    storeId   Int
-}
+// // Define the Inventory table for storing inventory data.
+// model inventory {
+//     id        Int     @id @default(autoincrement())
+//     quantity  Int
+//     product   product @relation(fields: [productId], references: [id])
+//     productId Int
+//     store     store   @relation(fields: [storeId], references: [id])
+//     storeId   Int
+// }
 
 enum Role {
     ANONYMOUS
