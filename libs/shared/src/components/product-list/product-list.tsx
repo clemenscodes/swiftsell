@@ -2,7 +2,7 @@ import { useToast } from '../toaster/useToaster';
 import H2 from '../typography/h2/h2';
 import Lead from '../typography/lead/lead';
 import P from '../typography/p/p';
-import { graphql } from '@graphql';
+import { getProductsQuery } from '@graphql';
 import { cn } from '@styles';
 import { error as logError } from '@utils';
 import Image from 'next/image';
@@ -12,22 +12,8 @@ import { useQuery } from 'urql';
 /* eslint-disable-next-line */
 export interface ProductListProps {}
 
-export const getProductsQuery = graphql(`
-    query getProducts {
-        product {
-            id
-            name
-            description
-            price
-            image
-        }
-    }
-`);
-
 export const ProductList: React.FC<ProductListProps> = ({ ...props }) => {
-    const [{ data, error, fetching }] = useQuery({
-        query: getProductsQuery,
-    });
+    const [{ data, error, fetching }] = useQuery({ query: getProductsQuery });
 
     const { toast } = useToast();
 
@@ -43,10 +29,7 @@ export const ProductList: React.FC<ProductListProps> = ({ ...props }) => {
     }, [error, toast]);
 
     if (fetching) return <P>Loading...</P>;
-
-    if (error) {
-        return <p>Error:( </p>;
-    }
+    if (error) return <p>Error:( </p>;
 
     return (
         <ul
