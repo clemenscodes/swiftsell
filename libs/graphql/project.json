@@ -23,7 +23,7 @@
             "options": {
                 "color": true,
                 "cwd": "libs/graphql",
-                "command": "yarn graphql-code-generator"
+                "command": "[ -z $CI ] && yarn graphql-code-generator"
             }
         },
         "lint": {

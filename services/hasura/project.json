@@ -8,10 +8,25 @@
             "command": "docker compose -f services/hasura/docker-compose.yml up -d"
         },
         "console": {
+            "dependsOn": ["apply"],
             "executor": "nx:run-commands",
             "options": {
                 "cwd": "services/hasura",
                 "command": "npx hasura console --envfile .env.skeleton"
+            }
+        },
+        "apply": {
+            "executor": "nx:run-commands",
+            "options": {
+                "cwd": "services/hasura",
+                "command": "npx hasura metadata apply --envfile .env.skeleton"
+            }
+        },
+        "export": {
+            "executor": "nx:run-commands",
+            "options": {
+                "cwd": "services/hasura",
+                "command": "npx hasura metadata export --envfile .env.skeleton -o json > metadata.json"
             }
         }
     },
