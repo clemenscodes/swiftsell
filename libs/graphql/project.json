@@ -1,0 +1,55 @@
+{
+    "name": "graphql",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "libs/graphql/src",
+    "projectType": "library",
+    "tags": [],
+    "namedInputs": {
+        "codegen": ["default", "{projectRoot}/codegen.ts"]
+    },
+    "targets": {
+        "env": {
+            "executor": "nx:run-commands",
+            "defaultConfiguration": "development",
+            "configurations": {
+                "development": {
+                    "command": "libs/graphql/scripts/env.sh development"
+                },
+                "production": {
+                    "command": "libs/graphql/scripts/env.sh production"
+                }
+            }
+        },
+        "build": {
+            "dependsOn": ["env"],
+            "inputs": ["codegen"],
+            "executor": "nx:run-commands",
+            "options": {
+                "color": true,
+                "cwd": "libs/graphql",
+                "command": "[ -z $CI ] || exit 0; yarn graphql-code-generator"
+            }
+        },
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "outputs": ["{options.outputFile}"],
+            "options": {
+                "lintFilePatterns": ["libs/graphql/**/*.{ts,tsx,js,jsx}"]
+            }
+        },
+        "test": {
+            "executor": "@nrwl/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+            "options": {
+                "jestConfig": "libs/graphql/jest.config.ts",
+                "passWithNoTests": true
+            },
+            "configurations": {
+                "ci": {
+                    "ci": true,
+                    "codeCoverage": true
+                }
+            }
+        }
+    }
+}

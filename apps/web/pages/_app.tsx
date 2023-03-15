@@ -8,6 +8,7 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 
 const Header = dynamic(() => import('@shared').then((mod) => mod.Header));
+const Toaster = dynamic(() => import('@shared').then((mod) => mod.Toaster));
 const TailwindIndicator = dynamic(() =>
     import('@shared').then((mod) => mod.TailwindIndicator)
 );
@@ -16,6 +17,9 @@ const ThemeProvider = dynamic(() =>
 );
 const FontProvider = dynamic(() =>
     import('@providers').then((mod) => mod.FontProvider)
+);
+const GraphqlProvider = dynamic(() =>
+    import('@providers').then((mod) => mod.GraphqlProvider)
 );
 
 initAuth();
@@ -30,13 +34,20 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
                     content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=5,user-scalable=yes,viewport-fit=cover'
                 />
             </Head>
-            <ThemeProvider attribute='class' defaultTheme='dark' enableSystem>
-                <FontProvider>
-                    <Header />
-                    <Component {...pageProps} />
-                    <TailwindIndicator />
-                </FontProvider>
-            </ThemeProvider>
+            <GraphqlProvider>
+                <ThemeProvider
+                    attribute='class'
+                    defaultTheme='dark'
+                    enableSystem
+                >
+                    <FontProvider>
+                        <Header />
+                        <Component {...pageProps} />
+                        <TailwindIndicator />
+                        <Toaster />
+                    </FontProvider>
+                </ThemeProvider>
+            </GraphqlProvider>
         </>
     );
 };

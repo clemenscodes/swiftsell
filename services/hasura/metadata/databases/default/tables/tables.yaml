@@ -1,0 +1,2 @@
+- "!include public_product.yaml"
+- "!include public_user.yaml"

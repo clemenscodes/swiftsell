@@ -1,0 +1,27 @@
+{
+    "name": "firebase",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "services/firebase",
+    "projectType": "application",
+    "targets": {
+        "start:docker": {
+            "command": "services/firebase/start.sh"
+        },
+        "image": {
+            "command": "INPUT_TAGS=latest nx docker firebase"
+        },
+        "docker": {
+            "executor": "@nx-tools/nx-container:build",
+            "options": {
+                "engine": "docker",
+                "load": true,
+                "metadata": {
+                    "images": ["firebase"],
+                    "tags": ["type=schedule", "type=sha"]
+                }
+            }
+        }
+    },
+    "implicitDependencies": [],
+    "tags": []
+}

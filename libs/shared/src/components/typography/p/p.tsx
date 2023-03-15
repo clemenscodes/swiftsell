@@ -1,13 +1,10 @@
-/* eslint-disable-next-line */
-export interface PProps {}
+import { PropsWithChildren } from 'react';
 
-export const P: React.FC<PProps> = ({ ...props }) => {
-    return (
-        <p className='leading-7 [&:not(:first-child)]:mt-6'>
-            The king, seeing how much happier his subjects were, realized the
-            error of his ways and repealed the joke tax.
-        </p>
-    );
+/* eslint-disable-next-line */
+export interface PProps extends PropsWithChildren {}
+
+export const P: React.FC<PProps> = ({ children, ...props }) => {
+    return <p className='leading-7 [&:not(:first-child)]:mt-1'>{children}</p>;
 };
 
 export default P;

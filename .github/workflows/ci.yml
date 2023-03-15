@@ -390,6 +390,8 @@ jobs:
                   INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   DATABASE_URL: ${{ secrets.DEV_DATABASE_URL }}
                   SHADOW_DATABASE_URL: ${{ secrets.DEV_SHADOW_DATABASE_URL }}
+                  HASURA_GRAPHQL_ENDPOINT: ${{ secrets.DEV_HASURA_GRAPHQL_ENDPOINT }}
+                  HASURA_GRAPHQL_ADMIN_SECRET: ${{ secrets.DEV_HASURA_GRAPHQL_ADMIN_SECRET }}
 
             - name: Run Agents (production)
               if: needs.deploy-agents.result != 'failure' &&
@@ -403,6 +405,8 @@ jobs:
                   INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   DATABASE_URL: ${{ secrets.DATABASE_URL }}
                   SHADOW_DATABASE_URL: ${{ secrets.SHADOW_DATABASE_URL }}
+                  HASURA_GRAPHQL_ENDPOINT: ${{ secrets.HASURA_GRAPHQL_ENDPOINT }}
+                  HASURA_GRAPHQL_ADMIN_SECRET: ${{ secrets.HASURA_GRAPHQL_ADMIN_SECRET }}
 
             - name: Stop Agents
               if: always()
@@ -494,14 +498,6 @@ jobs:
               with:
                   terraform_wrapper: false
 
-            - name: Run Agent (production)
-              run: npx nx-cloud start-agent
-              if: github.event_name != 'pull_request' && github.ref_name == 'main'
-              env:
-                  INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  DATABASE_URL: ${{ secrets.DATABASE_URL }}
-                  SHADOW_DATABASE_URL: ${{ secrets.SHADOW_DATABASE_URL }}
-
             - name: Run Agent (development)
               run: npx nx-cloud start-agent
               if: github.event.pull_request.head.repo.full_name == github.repository
@@ -509,6 +505,18 @@ jobs:
                   INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   DATABASE_URL: ${{ secrets.DEV_DATABASE_URL }}
                   SHADOW_DATABASE_URL: ${{ secrets.DEV_SHADOW_DATABASE_URL }}
+                  HASURA_GRAPHQL_ENDPOINT: ${{ secrets.DEV_HASURA_GRAPHQL_ENDPOINT }}
+                  HASURA_GRAPHQL_ADMIN_SECRET: ${{ secrets.DEV_HASURA_GRAPHQL_ADMIN_SECRET }}
+
+            - name: Run Agent (production)
+              run: npx nx-cloud start-agent
+              if: github.event_name != 'pull_request' && github.ref_name == 'main'
+              env:
+                  INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+                  SHADOW_DATABASE_URL: ${{ secrets.SHADOW_DATABASE_URL }}
+                  HASURA_GRAPHQL_ENDPOINT: ${{ secrets.HASURA_GRAPHQL_ENDPOINT }}
+                  HASURA_GRAPHQL_ADMIN_SECRET: ${{ secrets.HASURA_GRAPHQL_ADMIN_SECRET }}
 
             - name: Abort Workflow
               if: failure()

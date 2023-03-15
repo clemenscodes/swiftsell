@@ -1,0 +1,42 @@
+version: '3.9'
+name: hasura
+services:
+    postgres:
+        depends_on: ['shadow']
+        container_name: postgres
+        build:
+            context: '../../'
+            dockerfile: services/postgres/Dockerfile
+        restart: always
+        ports:
+            - '5432:5432'
+        volumes:
+            - './init.sql:/docker-entrypoint-initdb.d/init.sql'
+        networks:
+            - backend
+    shadow:
+        container_name: shadow
+        build:
+            context: '../../'
+            dockerfile: services/postgres/Dockerfile
+        restart: always
+        ports:
+            - '6543:5432'
+        volumes:
+            - './init.sql:/docker-entrypoint-initdb.d/init.sql'
+        networks:
+            - backend
+    graphql:
+        env_file: '.env.skeleton'
+        container_name: hasura
+        image: hasura/graphql-engine:v2.20.0
+        ports:
+            - '8082:8080'
+        depends_on: ['postgres']
+        restart: always
+        networks:
+            - backend
+
+networks:
+    backend:
+        driver: bridge

@@ -1,0 +1,13 @@
+table:
+  name: product
+  schema: public
+select_permissions:
+  - role: anonymous
+    permission:
+      columns:
+        - description
+        - id
+        - image
+        - name
+        - price
+      filter: {}
