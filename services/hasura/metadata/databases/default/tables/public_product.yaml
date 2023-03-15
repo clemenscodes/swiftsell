@@ -1,3 +1,31 @@
 table:
   name: product
   schema: public
+object_relationships:
+  - name: cart
+    using:
+      foreign_key_constraint_on: cartId
+  - name: order
+    using:
+      foreign_key_constraint_on: orderId
+  - name: store
+    using:
+      foreign_key_constraint_on: storeId
+array_relationships:
+  - name: inventories
+    using:
+      foreign_key_constraint_on:
+        column: productId
+        table:
+          name: inventory
+          schema: public
+select_permissions:
+  - role: anonymous
+    permission:
+      columns:
+        - description
+        - id
+        - image
+        - name
+        - price
+      filter: {}

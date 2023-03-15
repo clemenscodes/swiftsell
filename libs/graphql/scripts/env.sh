@@ -12,9 +12,6 @@ env() {
     [ -f "$ENV_FILE" ] || touch "$ENV_FILE"
     grep -v "dummy" $SKELETON >"$ENV"
     cat "$ENV_FILE" >>"$ENV"
-    if [ -n "$CI" ]; then
-        echo "CI=true" >>"$ENV"
-    fi
 }
 
 case "$1" in

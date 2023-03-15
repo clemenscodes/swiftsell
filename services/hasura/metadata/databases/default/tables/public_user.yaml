@@ -1,3 +1,18 @@
 table:
   name: user
   schema: public
+array_relationships:
+  - name: carts
+    using:
+      foreign_key_constraint_on:
+        column: userId
+        table:
+          name: cart
+          schema: public
+  - name: orders
+    using:
+      foreign_key_constraint_on:
+        column: userId
+        table:
+          name: order
+          schema: public

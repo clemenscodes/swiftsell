@@ -22,9 +22,26 @@ if [ -z "$DATABASE_URL" ]; then
     echo "DATABASE_URL is not defined" && exit 1
 fi
 
+if [ -z "$HASURA_GRAPHQL_ADMIN_SECRET" ]; then
+    echo "HASURA_GRAPHQL_ADMIN_SECRET is not defined" && exit 1
+fi
+
+if [ -z "$HASURA_GRAPHQL_ENDPOINT" ]; then
+    echo "HASURA_GRAPHQL_ENDPOINT is not defined" && exit 1
+fi
 if [ -z "$SHADOW_DATABASE_URL" ]; then
     echo "SHADOW_DATABASE_URL is not defined" && exit 1
 fi
+
+deploy_prisma() {
+    echo "Migrating Schema"
+    nx prisma-migrate-deploy api --skip-nx-cache
+}
+
+deploy_hasura() {
+    echo "Deploying Hasura Metadata"
+    npx hasura metadata apply --project services/hasura --endpoint "$HASURA_GRAPHQL_ENDPOINT" --admin-secret "$HASURA_GRAPHQL_ADMIN_SECRET"
+}
 
 deploy() {
     CONFIG="$1"
@@ -45,6 +62,9 @@ deploy() {
     DEFAULT_PLAN="$PLAN_ARG $INPUT_ARG $LOCK_TIMEOUT_ARG $LOCK_ARG $VAR_ARG"
     ARTIFACT_PLAN="$TARGET_ARG $DEFAULT_PLAN"
     APPLY_ARGS="$INPUT_ARG $APPROVE_ARG $LOCK_ARG $LOCK_TIMEOUT_ARG $PLAN"
+
+    deploy_prisma
+    deploy_hasura
 
     if grep -q "local" "$BACKEND"; then
         local_plan "$CONFIG"
@@ -154,8 +174,6 @@ image() {
         INPUT_GITHUB_TOKEN="$INPUT_GITHUB_TOKEN" INPUT_IMAGES="$WEB_IMAGE" INPUT_TAGS="$TAG" nx docker "$APP" --configuration=ci --skip-nx-cache
         echo "Building API image"
         INPUT_IMAGES="$API_IMAGE" INPUT_TAGS="$TAG" nx docker "$API_SERVICE_NAME" --skip-nx-cache --configuration=production
-        echo "Migrating Schema"
-        nx prisma-migrate-deploy api --skip-nx-cache
     fi
     echo "Pushing web image"
     docker push "$TAGGED_WEB_IMAGE"

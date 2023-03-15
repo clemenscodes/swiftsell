@@ -1,68 +1,227 @@
 {
-    "version": 3,
-    "sources": [
+  "version": 3,
+  "sources": [
+    {
+      "name": "default",
+      "kind": "postgres",
+      "tables": [
         {
-            "name": "default",
-            "kind": "postgres",
-            "tables": [
-                {
-                    "table": {
-                        "name": "_prisma_migrations",
-                        "schema": "public"
-                    }
-                },
-                {
-                    "table": {
-                        "name": "cart",
-                        "schema": "public"
-                    }
-                },
-                {
-                    "table": {
-                        "name": "inventory",
-                        "schema": "public"
-                    }
-                },
-                {
-                    "table": {
-                        "name": "order",
-                        "schema": "public"
-                    }
-                },
-                {
-                    "table": {
-                        "name": "product",
-                        "schema": "public"
-                    }
-                },
-                {
-                    "table": {
-                        "name": "store",
-                        "schema": "public"
-                    }
-                },
-                {
-                    "table": {
-                        "name": "user",
-                        "schema": "public"
-                    }
-                }
-            ],
-            "configuration": {
-                "connection_info": {
-                    "database_url": {
-                        "from_env": "HASURA_GRAPHQL_DATABASE_URL"
-                    },
-                    "isolation_level": "read-committed",
-                    "pool_settings": {
-                        "connection_lifetime": 600,
-                        "idle_timeout": 180,
-                        "max_connections": 50,
-                        "retries": 1
-                    },
-                    "use_prepared_statements": true
-                }
+          "table": {
+            "name": "_prisma_migrations",
+            "schema": "public"
+          }
+        },
+        {
+          "table": {
+            "name": "cart",
+            "schema": "public"
+          },
+          "object_relationships": [
+            {
+              "name": "user",
+              "using": {
+                "foreign_key_constraint_on": "userId"
+              }
             }
+          ],
+          "array_relationships": [
+            {
+              "name": "products",
+              "using": {
+                "foreign_key_constraint_on": {
+                  "column": "cartId",
+                  "table": {
+                    "name": "product",
+                    "schema": "public"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "table": {
+            "name": "inventory",
+            "schema": "public"
+          },
+          "object_relationships": [
+            {
+              "name": "product",
+              "using": {
+                "foreign_key_constraint_on": "productId"
+              }
+            },
+            {
+              "name": "store",
+              "using": {
+                "foreign_key_constraint_on": "storeId"
+              }
+            }
+          ]
+        },
+        {
+          "table": {
+            "name": "order",
+            "schema": "public"
+          },
+          "object_relationships": [
+            {
+              "name": "user",
+              "using": {
+                "foreign_key_constraint_on": "userId"
+              }
+            }
+          ],
+          "array_relationships": [
+            {
+              "name": "products",
+              "using": {
+                "foreign_key_constraint_on": {
+                  "column": "orderId",
+                  "table": {
+                    "name": "product",
+                    "schema": "public"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "table": {
+            "name": "product",
+            "schema": "public"
+          },
+          "object_relationships": [
+            {
+              "name": "cart",
+              "using": {
+                "foreign_key_constraint_on": "cartId"
+              }
+            },
+            {
+              "name": "order",
+              "using": {
+                "foreign_key_constraint_on": "orderId"
+              }
+            },
+            {
+              "name": "store",
+              "using": {
+                "foreign_key_constraint_on": "storeId"
+              }
+            }
+          ],
+          "array_relationships": [
+            {
+              "name": "inventories",
+              "using": {
+                "foreign_key_constraint_on": {
+                  "column": "productId",
+                  "table": {
+                    "name": "inventory",
+                    "schema": "public"
+                  }
+                }
+              }
+            }
+          ],
+          "select_permissions": [
+            {
+              "role": "anonymous",
+              "permission": {
+                "columns": [
+                  "description",
+                  "id",
+                  "image",
+                  "name",
+                  "price"
+                ],
+                "filter": {}
+              }
+            }
+          ]
+        },
+        {
+          "table": {
+            "name": "store",
+            "schema": "public"
+          },
+          "array_relationships": [
+            {
+              "name": "inventories",
+              "using": {
+                "foreign_key_constraint_on": {
+                  "column": "storeId",
+                  "table": {
+                    "name": "inventory",
+                    "schema": "public"
+                  }
+                }
+              }
+            },
+            {
+              "name": "products",
+              "using": {
+                "foreign_key_constraint_on": {
+                  "column": "storeId",
+                  "table": {
+                    "name": "product",
+                    "schema": "public"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "table": {
+            "name": "user",
+            "schema": "public"
+          },
+          "array_relationships": [
+            {
+              "name": "carts",
+              "using": {
+                "foreign_key_constraint_on": {
+                  "column": "userId",
+                  "table": {
+                    "name": "cart",
+                    "schema": "public"
+                  }
+                }
+              }
+            },
+            {
+              "name": "orders",
+              "using": {
+                "foreign_key_constraint_on": {
+                  "column": "userId",
+                  "table": {
+                    "name": "order",
+                    "schema": "public"
+                  }
+                }
+              }
+            }
+          ]
         }
-    ]
+      ],
+      "configuration": {
+        "connection_info": {
+          "database_url": {
+            "from_env": "HASURA_GRAPHQL_DATABASE_URL"
+          },
+          "isolation_level": "read-committed",
+          "pool_settings": {
+            "connection_lifetime": 600,
+            "idle_timeout": 180,
+            "max_connections": 50,
+            "retries": 1
+          },
+          "use_prepared_statements": true
+        }
+      }
+    }
+  ]
 }

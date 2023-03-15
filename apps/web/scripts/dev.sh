@@ -52,3 +52,4 @@ docker compose -f apps/web/docker/docker-compose.yml up -d --remove-orphans &&
 
 echo "Opening hasura console"
 nx console hasura --skip-nx-cache
+nx export hasura --skip-nx-cache

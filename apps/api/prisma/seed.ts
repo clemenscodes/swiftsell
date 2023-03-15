@@ -43,7 +43,7 @@ async function main() {
             name: 'Product 1',
             description: 'This is product 1',
             price: 10.0,
-            image: 'https://example.com/product1.jpg',
+            image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1099&q=80',
             storeId: store1.id,
             inventory: {
                 create: { quantity: 10, storeId: store1.id },
@@ -56,7 +56,7 @@ async function main() {
             name: 'Product 2',
             description: 'This is product 2',
             price: 20.0,
-            image: 'https://example.com/product2.jpg',
+            image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80',
             storeId: store2.id,
             inventory: {
                 create: { quantity: 5, storeId: store2.id },

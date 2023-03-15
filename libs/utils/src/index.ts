@@ -6,6 +6,5 @@ export * from './lib/firebase/onTokenRefreshError';
 export * from './lib/firebase/getFirebaseAdminInitConfig';
 export * from './lib/firebase/onVerifyTokenError';
 export * from './lib/firebase/enableEmulator';
-export * from './lib/graphql/getProducts';
 export * from './lib/log';
 export * from './lib/error';

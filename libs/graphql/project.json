@@ -4,6 +4,9 @@
     "sourceRoot": "libs/graphql/src",
     "projectType": "library",
     "tags": [],
+    "namedInputs": {
+        "codegen": ["default", "{projectRoot}/codegen.ts"]
+    },
     "targets": {
         "env": {
             "executor": "nx:run-commands",
@@ -19,11 +22,12 @@
         },
         "build": {
             "dependsOn": ["env"],
+            "inputs": ["codegen"],
             "executor": "nx:run-commands",
             "options": {
                 "color": true,
                 "cwd": "libs/graphql",
-                "command": "[ -n $CI ] && exit 0; yarn graphql-code-generator"
+                "command": "[ -z $CI ] || exit 0; yarn graphql-code-generator"
             }
         },
         "lint": {
