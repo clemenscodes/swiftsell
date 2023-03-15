@@ -144,6 +144,9 @@ jobs:
                   cmd2: $NX_EXEC build
                   cmd3: $NX_EXEC test
                   cmd4: npx nx affected --base=$NX_BASE --head=$NX_HEAD --parallel=1 --target=e2e
+              env:
+                  HASURA_GRAPHQL_ENDPOINT: ${{ secrets.DEV_HASURA_GRAPHQL_ENDPOINT }}
+                  HASURA_GRAPHQL_ADMIN_SECRET: ${{ secrets.DEV_HASURA_GRAPHQL_ADMIN_SECRET }}
 
             - name: Stop Agents
               if: always()
@@ -210,6 +213,9 @@ jobs:
 
             - name: Run Agent
               run: npx nx-cloud start-agent
+              env:
+                  HASURA_GRAPHQL_ENDPOINT: ${{ secrets.DEV_HASURA_GRAPHQL_ENDPOINT }}
+                  HASURA_GRAPHQL_ADMIN_SECRET: ${{ secrets.DEV_HASURA_GRAPHQL_ADMIN_SECRET }}
 
             - name: Delete Artifacts
               if: failure()

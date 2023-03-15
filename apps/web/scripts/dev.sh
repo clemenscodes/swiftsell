@@ -1,5 +1,7 @@
 #!/bin/sh
 
+yarn kill
+
 APP="web"
 APP_DIR="apps/$APP"
 WEB_ENV="$(pwd)/$APP_DIR/.env.local"
@@ -42,11 +44,11 @@ check_env "$WEB_ENV"
 check_env "$API_ENV"
 
 docker compose -f apps/web/docker/docker-compose.yml up -d --remove-orphans &&
-    nx seed api &&
+    nx seed api --skip-nx-cache &&
     echo "Next.js app running on $HOST:$NEXT_PORT" &&
     echo "Nest.js app running on $HOST:$NEST_PORT" &&
     echo "Hasura running on $HOST:$HASURA_PORT" &&
     echo "Firabase emulator UI running on $HOST:$FIREBASE_UI_PORT" || exit 1
 
 echo "Opening hasura console"
-nx console hasura
+nx console hasura --skip-nx-cache

@@ -11,7 +11,7 @@
             "executor": "nx:run-commands",
             "options": {
                 "cwd": "services/hasura",
-                "command": "hasura console --envfile .env.skeleton"
+                "command": "npx hasura console --envfile .env.skeleton"
             }
         }
     },

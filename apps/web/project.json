@@ -178,6 +178,7 @@
     },
     "implicitDependencies": [
         "api",
+        "graphql",
         "firebase",
         "infra-run",
         "infra-wif",

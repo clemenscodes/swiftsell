@@ -5,7 +5,20 @@
     "projectType": "library",
     "tags": [],
     "targets": {
+        "env": {
+            "executor": "nx:run-commands",
+            "defaultConfiguration": "development",
+            "configurations": {
+                "development": {
+                    "command": "libs/graphql/scripts/env.sh development"
+                },
+                "production": {
+                    "command": "libs/graphql/scripts/env.sh production"
+                }
+            }
+        },
         "build": {
+            "dependsOn": ["env"],
             "executor": "nx:run-commands",
             "options": {
                 "color": true,

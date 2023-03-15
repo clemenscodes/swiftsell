@@ -170,6 +170,6 @@
             }
         }
     },
-    "implicitDependencies": ["postgres"],
+    "implicitDependencies": ["postgres", "graphql"],
     "tags": []
 }
