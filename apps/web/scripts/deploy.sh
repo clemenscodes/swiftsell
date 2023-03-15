@@ -18,6 +18,10 @@ if [ -z "$1" ]; then
     echo "No configuration (development or production) was given" && exit 1
 fi
 
+if [ -z "$HASURA_GRAPHQL_ENDPOINT" ]; then
+    echo "HASURA_GRAPHQL_ENDPOINT is not defined" && exit 1
+fi
+
 if [ -z "$DATABASE_URL" ]; then
     echo "DATABASE_URL is not defined" && exit 1
 fi
@@ -104,6 +108,7 @@ populate_env_configs() {
     CONFIG="$1"
     ENV_CONFIG_FILE="$APP_DIR/config/.env.$CONFIG"
     {
+        echo "NEXT_PUBLIC_HASURA_GRAPHQL_ENDPOINT=\"$HASURA_GRAPHQL_ENDPOINT\""
         echo "NEXT_PUBLIC_FIREBASE_PROJECT_ID=\"$($TF output project_id | tr -d '"')\""
         echo "NEXT_PUBLIC_FIREBASE_API_KEY=\"$($TF output api_key | tr -d '"')\""
         echo "NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=\"$($TF output auth_domain | tr -d '"')\""

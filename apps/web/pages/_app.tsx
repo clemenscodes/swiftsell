@@ -6,7 +6,6 @@ import { withAuthUser, withAuthUserTokenSSR } from 'next-firebase-auth';
 import type { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
-import { Provider, createClient } from 'urql';
 
 const Header = dynamic(() => import('@shared').then((mod) => mod.Header));
 const Toaster = dynamic(() => import('@shared').then((mod) => mod.Toaster));
@@ -19,11 +18,11 @@ const ThemeProvider = dynamic(() =>
 const FontProvider = dynamic(() =>
     import('@providers').then((mod) => mod.FontProvider)
 );
+const GraphqlProvider = dynamic(() =>
+    import('@providers').then((mod) => mod.GraphqlProvider)
+);
 
 initAuth();
-
-const url = process.env.NEXT_PUBLIC_HASURA_GRAPHQL_ENDPOINT;
-export const client = createClient({ url });
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
     return (
@@ -35,7 +34,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
                     content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=5,user-scalable=yes,viewport-fit=cover'
                 />
             </Head>
-            <Provider value={client}>
+            <GraphqlProvider>
                 <ThemeProvider
                     attribute='class'
                     defaultTheme='dark'
@@ -48,7 +47,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
                         <Toaster />
                     </FontProvider>
                 </ThemeProvider>
-            </Provider>
+            </GraphqlProvider>
         </>
     );
 };
