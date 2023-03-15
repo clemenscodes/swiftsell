@@ -28,8 +28,12 @@
                 "cwd": "services/hasura",
                 "command": "npx hasura metadata export --envfile .env.skeleton -o json > metadata.json"
             }
+        },
+        "deploy": {
+            "dependsOn": ["^prisma-migrate-deploy"],
+            "command": "services/hasura/scripts/deploy.sh"
         }
     },
-    "implicitDependencies": [],
+    "implicitDependencies": ["api"],
     "tags": []
 }
