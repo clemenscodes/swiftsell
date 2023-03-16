@@ -13,11 +13,6 @@ output "project_id" {
   sensitive = true
 }
 
-output "folder_name" {
-  value     = var.folder_name
-  sensitive = true
-}
-
 output "project_name" {
   value     = var.project_name
   sensitive = true
@@ -48,18 +43,8 @@ output "cloud_run_subdomain" {
   sensitive = true
 }
 
-output "cloud_run_api_subdomain" {
-  value     = module.run.cloud_run_api_subdomain
-  sensitive = true
-}
-
 output "cloud_run_service_name" {
   value     = module.run.cloud_run_service_name
-  sensitive = true
-}
-
-output "cloud_run_api_service_name" {
-  value     = module.run.cloud_run_api_service_name
   sensitive = true
 }
 

@@ -100,6 +100,17 @@
                         "images": [],
                         "tags": ["type=schedule", "type=sha"]
                     }
+                },
+                "ci": {
+                    "engine": "docker",
+                    "file": "apps/api/docker/Dockerfile.production",
+                    "load": true,
+                    "cache-from": ["type=gha"],
+                    "cache-to": ["type=gha,mode=max"],
+                    "metadata": {
+                        "images": [],
+                        "tags": ["type=schedule", "type=sha"]
+                    }
                 }
             }
         },
@@ -168,8 +179,29 @@
                 "command": "PRISMA_DISABLE_WARNINGS=1 yarn prisma studio --schema=prisma/schema.prisma",
                 "cwd": "apps/api"
             }
+        },
+        "deploy": {
+            "executor": "nx:run-commands",
+            "defaultConfiguration": "development",
+            "configurations": {
+                "development": {
+                    "color": true,
+                    "command": "apps/api/scripts/deploy.sh development"
+                },
+                "production": {
+                    "color": true,
+                    "command": "apps/api/scripts/deploy.sh production"
+                }
+            }
         }
     },
-    "implicitDependencies": ["postgres", "graphql"],
+    "implicitDependencies": [
+        "postgres",
+        "graphql",
+        "infra-run-server",
+        "infra-wif",
+        "infra-artifact",
+        "infra-bucket-state"
+    ],
     "tags": []
 }

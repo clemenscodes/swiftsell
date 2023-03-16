@@ -4,13 +4,11 @@ set -e
 
 export TF_IN_AUTOMATION=true
 
-APP="web"
+APP="api"
 APP_DIR="apps/$APP"
 PLAN="plan.tfplan"
 IMAGE_COUNT_THRESHOLD=1
 SHA="$(git rev-parse --short HEAD)"
-PUBLIC="dist/$APP_DIR/public"
-STATIC="dist/$APP_DIR/.next/static"
 PURPLE="\\033[0;35m"
 SET="\\033[0m\\n"
 
@@ -20,6 +18,14 @@ fi
 
 if [ -z "$HASURA_GRAPHQL_ENDPOINT" ]; then
     echo "HASURA_GRAPHQL_ENDPOINT is not defined" && exit 1
+fi
+
+if [ -z "$DATABASE_URL" ]; then
+    echo "DATABASE_URL is not defined" && exit 1
+fi
+
+if [ -z "$SHADOW_DATABASE_URL" ]; then
+    echo "SHADOW_DATABASE_URL is not defined" && exit 1
 fi
 
 deploy() {
@@ -34,7 +40,7 @@ deploy() {
     INPUT_ARG="-input=false"
     LOCK_ARG="-lock=false"
     LOCK_TIMEOUT_ARG="-lock-timeout=60s"
-    VAR_ARG="-var=git_commit_sha=$SHA"
+    VAR_ARG="-var=git_commit_sha=$SHA -var=database_url=$DATABASE_URL -var=shadow_database_url=$SHADOW_DATABASE_URL"
     TARGET_ARG="-target=module.app"
     APPROVE_ARG="-auto-approve"
 
@@ -48,9 +54,7 @@ deploy() {
         remote_plan "$CONFIG"
     fi
     rm "$TF_DIR/$PLAN"
-    # upload_assets_to_cdn
     cleanup
-    # generate_cdn_dns_entry
     generate_domain_mapping_dns_entry
 }
 
@@ -100,16 +104,9 @@ populate_env_configs() {
     CONFIG="$1"
     ENV_CONFIG_FILE="$APP_DIR/config/.env.$CONFIG"
     {
-        echo "NEXT_PUBLIC_HASURA_GRAPHQL_ENDPOINT=\"$HASURA_GRAPHQL_ENDPOINT\""
-        echo "NEXT_PUBLIC_FIREBASE_PROJECT_ID=\"$($TF output project_id | tr -d '"')\""
-        echo "NEXT_PUBLIC_FIREBASE_API_KEY=\"$($TF output api_key | tr -d '"')\""
-        echo "NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=\"$($TF output auth_domain | tr -d '"')\""
-        echo "NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=\"$($TF output sender_id | tr -d '"')\""
-        echo "NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=\"$($TF output storage_bucket | tr -d '"')\""
-        echo "NEXT_PUBLIC_FIREBASE_APP_ID=\"$($TF output app_id | tr -d '"')\""
+        echo "HASURA_GRAPHQL_ENDPOINT=\"$HASURA_GRAPHQL_ENDPOINT\""
         echo "COOKIE_SECRET_PREVIOUS=\"$($TF output cookie_secret_previous | tr -d '"')\""
         echo "COOKIE_SECRET_CURRENT=\"$($TF output cookie_secret_current | tr -d '"')\""
-        echo "NEXT_PUBLIC_PROJECT_TYPE=\"$CONFIG\""
     } >>"$ENV_CONFIG_FILE"
     purple "generated content of $ENV_CONFIG_FILE"
 }
@@ -123,14 +120,14 @@ image() {
     SERVICE_NAME=$($TF output cloud_run_service_name | tr -d '"')
     TAG="sha-$SHA"
     if [ -z "$SERVICE_NAME" ]; then
-        SERVICE_NAME="web"
+        SERVICE_NAME="api"
     fi
     REPO="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME"
     IMAGE="$REPO/$SERVICE_NAME"
     TAGGED_IMAGE="$IMAGE:$TAG"
     if [ -z "$CI" ]; then
         NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache --configuration="$CONFIG"
-        echo "Building web image"
+        echo "Building api image"
         INPUT_IMAGES="$IMAGE" INPUT_TAGS="$TAG" nx docker "$APP" --configuration=production --skip-nx-cache
     else
         if [ -z "$INPUT_GITHUB_TOKEN" ]; then
@@ -139,10 +136,10 @@ image() {
         fi
         populate_env_configs "$CONFIG"
         NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache --configuration="$CONFIG"
-        echo "Building web image"
+        echo "Building api image"
         INPUT_GITHUB_TOKEN="$INPUT_GITHUB_TOKEN" INPUT_IMAGES="$IMAGE" INPUT_TAGS="$TAG" nx docker "$APP" --configuration=ci --skip-nx-cache
     fi
-    echo "Pushing web image"
+    echo "Pushing api image"
     docker push "$TAGGED_IMAGE"
 }
 
@@ -159,7 +156,7 @@ cleanup() {
     REPO="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME"
     SERVICE_NAME=$($TF output cloud_run_service_name | tr -d '"')
     if [ -z "$SERVICE_NAME" ]; then
-        SERVICE_NAME="web"
+        SERVICE_NAME="api"
     fi
     IMAGE="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME/$SERVICE_NAME"
     clean "$IMAGE"
@@ -211,47 +208,11 @@ clean() {
     set -e
 }
 
-upload_assets_to_cdn() {
-    PROJECT_ID=$($TF output project_id | tr -d '"')
-    BUCKETS="$(gsutil ls -p "$PROJECT_ID")"
-    echo "Buckets: $BUCKETS"
-    BUCKET="$($TF output cdn_bucket | tr -d '"')"
-    echo "Bucket: $BUCKET"
-    BUCKET_ADDRESS="gs://$BUCKET"
-    echo "Bucket address: $BUCKET_ADDRESS"
-    PUBLIC_BUCKET_ADDRESS="$BUCKET_ADDRESS/public"
-    echo "Public: $PUBLIC_BUCKET_ADDRESS"
-    STATIC_BUCKET_ADDRESS="$BUCKET_ADDRESS/_next/static"
-    echo "Static: $STATIC_BUCKET_ADDRESS"
-    upload_static
-    upload_public
-}
-
-upload_static() {
-    echo "Uploading static assets to $STATIC_BUCKET_ADDRESS"
-    gsutil -m rsync -u -r "$STATIC" "$STATIC_BUCKET_ADDRESS"
-}
-
-upload_public() {
-    echo "Uploading public assets to $PUBLIC_BUCKET_ADDRESS"
-    gsutil -m rsync -u -r "$PUBLIC" "$PUBLIC_BUCKET_ADDRESS"
-}
-
-generate_cdn_dns_entry() {
-    DOMAIN=$($TF output domain | tr -d '"')
-    SUBDOMAIN=$($TF output cdn_subdomain | tr -d '"')
-    VALUE=$($TF output ip | tr -d '"')
-    echo "The following DNS entry needs to be added to the domain $DOMAIN, so that the CDN works"
-    echo "Type:  A"
-    echo "Host:  $SUBDOMAIN"
-    echo "Value: $VALUE"
-}
-
 generate_domain_mapping_dns_entry() {
     DOMAIN=$($TF output domain | tr -d '"')
     SUBDOMAIN=$($TF output cloud_run_subdomain | tr -d '"')
     VALUE="ghs.googlehosted.com."
-    echo "The following DNS entry needs to be added to the (verified!) domain $DOMAIN, so that the Cloud Run domain mapping works"
+    echo "The following DNS entries needs to be added to the (verified!) domain $DOMAIN, so that the Cloud Run domain mapping works"
     echo "Type:  CNAME"
     echo "Host:  $SUBDOMAIN"
     echo "Value: $VALUE"

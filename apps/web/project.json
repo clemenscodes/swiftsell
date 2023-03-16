@@ -180,7 +180,7 @@
         "api",
         "graphql",
         "firebase",
-        "infra-run",
+        "infra-run-client",
         "infra-wif",
         "infra-firebase",
         "infra-artifact",

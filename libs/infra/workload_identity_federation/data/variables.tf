@@ -1,7 +1,7 @@
 variable "domain" {
   description = "The domain of the organization"
   type        = string
-    default     = "swiftsell.de"
+  default     = "swiftsell.de"
 }
 
 variable "region" {
@@ -25,7 +25,7 @@ variable "project_name" {
 variable "billing_account" {
   description = "The billing account that should be enabled for the project"
   type        = string
-  default     = "01E946-904325-984CFD"
+  default     = "012010-82D8B7-4C1858"
 }
 
 variable "folder_name" {
