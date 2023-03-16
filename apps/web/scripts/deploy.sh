@@ -34,7 +34,7 @@ deploy() {
     INPUT_ARG="-input=false"
     LOCK_ARG="-lock=false"
     LOCK_TIMEOUT_ARG="-lock-timeout=60s"
-    VAR_ARG="-var=git_commit_sha=$SHA -var=database_url=$DATABASE_URL -var=shadow_database_url=$SHADOW_DATABASE_URL"
+    VAR_ARG="-var=git_commit_sha=$SHA"
     TARGET_ARG="-target=module.app"
     APPROVE_ARG="-auto-approve"
 
