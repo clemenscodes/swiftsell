@@ -189,7 +189,8 @@ resource "google_cloud_run_domain_mapping" "default" {
     namespace = var.project_id
   }
   spec {
-    route_name = google_cloud_run_v2_service.default.name
+    force_override = true
+    route_name     = google_cloud_run_v2_service.default.name
   }
 }
 
