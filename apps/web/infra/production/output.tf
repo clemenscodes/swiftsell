@@ -13,11 +13,6 @@ output "project_id" {
   sensitive = true
 }
 
-output "folder_name" {
-  value     = var.folder_name
-  sensitive = true
-}
-
 output "project_name" {
   value     = var.project_name
   sensitive = true

@@ -1,9 +1,3 @@
-variable "folder_name" {
-  description = "The name of the folder in which the project for this application should be created"
-  type        = string
-  default     = "shop"
-}
-
 variable "project_name" {
   description = "The name of the project in which the buckets will be created"
   type        = string
