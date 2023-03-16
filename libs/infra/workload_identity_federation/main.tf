@@ -57,6 +57,11 @@ resource "google_project_iam_member" "iam_service_account_token_creator" {
   member  = "serviceAccount:${google_service_account.gh_actions.email}"
 }
 
+resource "google_project_service" "cloudbilling" {
+  project = module.data.project_id
+  service = "cloudbilling.googleapis.com"
+}
+
 resource "google_project_service" "service_usage" {
   project = module.data.project_id
   service = "serviceusage.googleapis.com"

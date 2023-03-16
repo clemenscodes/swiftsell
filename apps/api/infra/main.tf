@@ -21,6 +21,7 @@ module "project" {
     "iamcredentials.googleapis.com",
     "secretmanager.googleapis.com",
     "cloudresourcemanager.googleapis.com",
+    "cloudbilling.googleapis.com",
     "serviceusage.googleapis.com",
     # "firebase.googleapis.com",
     # "firestore.googleapis.com",

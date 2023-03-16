@@ -16,9 +16,9 @@ if [ -z "$1" ]; then
     echo "No configuration (development or production) was given" && exit 1
 fi
 
-if [ -z "$HASURA_GRAPHQL_ENDPOINT" ]; then
-    echo "HASURA_GRAPHQL_ENDPOINT is not defined" && exit 1
-fi
+# if [ -z "$HASURA_GRAPHQL_ENDPOINT" ]; then
+#     echo "HASURA_GRAPHQL_ENDPOINT is not defined" && exit 1
+# fi
 
 if [ -z "$DATABASE_URL" ]; then
     echo "DATABASE_URL is not defined" && exit 1
@@ -54,9 +54,7 @@ deploy() {
         remote_plan "$CONFIG"
     fi
     rm "$TF_DIR/$PLAN"
-    # upload_assets_to_cdn
     cleanup
-    # generate_cdn_dns_entry
     generate_domain_mapping_dns_entry
 }
 

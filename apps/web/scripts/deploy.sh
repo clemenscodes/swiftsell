@@ -22,14 +22,6 @@ if [ -z "$HASURA_GRAPHQL_ENDPOINT" ]; then
     echo "HASURA_GRAPHQL_ENDPOINT is not defined" && exit 1
 fi
 
-if [ -z "$DATABASE_URL" ]; then
-    echo "DATABASE_URL is not defined" && exit 1
-fi
-
-if [ -z "$SHADOW_DATABASE_URL" ]; then
-    echo "SHADOW_DATABASE_URL is not defined" && exit 1
-fi
-
 deploy() {
     CONFIG="$1"
 
@@ -128,26 +120,18 @@ image() {
     PROJECT=$($TF output project_id | tr -d '"')
     ARTIFACT_REGION=$($TF output artifact_region | tr -d '"')
     REPO_NAME=$($TF output repository_id | tr -d '"')
-    WEB_SERVICE_NAME=$($TF output cloud_run_service_name | tr -d '"')
-    API_SERVICE_NAME=$($TF output cloud_run_api_service_name | tr -d '"')
+    SERVICE_NAME=$($TF output cloud_run_service_name | tr -d '"')
     TAG="sha-$SHA"
-    if [ -z "$WEB_SERVICE_NAME" ]; then
-        WEB_SERVICE_NAME="web"
-    fi
-    if [ -z "$API_SERVICE_NAME" ]; then
-        API_SERVICE_NAME="api"
+    if [ -z "$SERVICE_NAME" ]; then
+        SERVICE_NAME="web"
     fi
     REPO="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME"
-    WEB_IMAGE="$REPO/$WEB_SERVICE_NAME"
-    API_IMAGE="$REPO/$API_SERVICE_NAME"
-    TAGGED_WEB_IMAGE="$WEB_IMAGE:$TAG"
-    TAGGED_API_IMAGE="$API_IMAGE:$TAG"
+    IMAGE="$REPO/$SERVICE_NAME"
+    TAGGED_IMAGE="$IMAGE:$TAG"
     if [ -z "$CI" ]; then
         NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache --configuration="$CONFIG"
         echo "Building web image"
-        INPUT_IMAGES="$WEB_IMAGE" INPUT_TAGS="$TAG" nx docker "$APP" --skip-nx-cache
-        echo "Building API image"
-        INPUT_IMAGES="$API_IMAGE" INPUT_TAGS="$TAG" nx docker "$API_SERVICE_NAME" --skip-nx-cache
+        INPUT_IMAGES="$IMAGE" INPUT_TAGS="$TAG" nx docker "$APP" --skip-nx-cache
     else
         if [ -z "$INPUT_GITHUB_TOKEN" ]; then
             echo "Missing GitHub token"
@@ -156,14 +140,10 @@ image() {
         populate_env_configs "$CONFIG"
         NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache --configuration="$CONFIG"
         echo "Building web image"
-        INPUT_GITHUB_TOKEN="$INPUT_GITHUB_TOKEN" INPUT_IMAGES="$WEB_IMAGE" INPUT_TAGS="$TAG" nx docker "$APP" --configuration=ci --skip-nx-cache
-        echo "Building API image"
-        INPUT_IMAGES="$API_IMAGE" INPUT_TAGS="$TAG" nx docker "$API_SERVICE_NAME" --skip-nx-cache --configuration=production
+        INPUT_GITHUB_TOKEN="$INPUT_GITHUB_TOKEN" INPUT_IMAGES="$IMAGE" INPUT_TAGS="$TAG" nx docker "$APP" --configuration=ci --skip-nx-cache
     fi
     echo "Pushing web image"
-    docker push "$TAGGED_WEB_IMAGE"
-    echo "Pushing API image"
-    docker push "$TAGGED_API_IMAGE"
+    docker push "$TAGGED_IMAGE"
 }
 
 purple() {
@@ -177,18 +157,12 @@ cleanup() {
     ARTIFACT_REGION=$($TF output artifact_region | tr -d '"')
     REPO_NAME=$($TF output repository_id | tr -d '"')
     REPO="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME"
-    WEB_SERVICE_NAME=$($TF output cloud_run_service_name | tr -d '"')
-    if [ -z "$WEB_SERVICE_NAME" ]; then
-        WEB_SERVICE_NAME="web"
+    SERVICE_NAME=$($TF output cloud_run_service_name | tr -d '"')
+    if [ -z "$SERVICE_NAME" ]; then
+        SERVICE_NAME="web"
     fi
-    WEB_IMAGE="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME/$WEB_SERVICE_NAME"
-    clean "$WEB_IMAGE"
-    API_SERVICE_NAME=$($TF output cloud_run_api_service_name | tr -d '"')
-    if [ -z "$API_SERVICE_NAME" ]; then
-        API_SERVICE_NAME="api"
-    fi
-    API_IMAGE="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME/$API_SERVICE_NAME"
-    clean "$API_IMAGE"
+    IMAGE="$ARTIFACT_REGION-$REGISTRY/$PROJECT/$REPO_NAME/$SERVICE_NAME"
+    clean "$IMAGE"
 }
 
 clean() {
@@ -276,15 +250,10 @@ generate_cdn_dns_entry() {
 generate_domain_mapping_dns_entry() {
     DOMAIN=$($TF output domain | tr -d '"')
     SUBDOMAIN=$($TF output cloud_run_subdomain | tr -d '"')
-    API_SUBDOMAIN=$($TF output cloud_run_api_subdomain | tr -d '"')
     VALUE="ghs.googlehosted.com."
-    echo "The following DNS entries needs to be added to the (verified!) domain $DOMAIN, so that the Cloud Run domain mapping works"
+    echo "The following DNS entry needs to be added to the (verified!) domain $DOMAIN, so that the Cloud Run domain mapping works"
     echo "Type:  CNAME"
     echo "Host:  $SUBDOMAIN"
-    echo "Value: $VALUE"
-    echo
-    echo "Type:  CNAME"
-    echo "Host:  $API_SUBDOMAIN"
     echo "Value: $VALUE"
 }
 

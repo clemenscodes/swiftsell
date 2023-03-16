@@ -3,11 +3,6 @@ variable "subdomain" {
   type        = string
 }
 
-variable "folder_name" {
-  description = "The name of the folder in which the project for this application should be created"
-  type        = string
-}
-
 variable "project_name" {
   description = "The name of the project in which the buckets will be created"
   type        = string

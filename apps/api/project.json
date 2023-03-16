@@ -184,6 +184,13 @@
             }
         }
     },
-    "implicitDependencies": ["postgres", "graphql"],
+    "implicitDependencies": [
+        "postgres",
+        "graphql",
+        "infra-run-server",
+        "infra-wif",
+        "infra-artifact",
+        "infra-bucket-state"
+    ],
     "tags": []
 }

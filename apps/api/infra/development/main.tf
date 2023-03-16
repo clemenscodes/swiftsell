@@ -15,7 +15,6 @@ module "app" {
   source          = "../"
   project_name    = var.project_name
   state_bucket    = var.state_bucket
-  folder_name     = var.folder_name
   artifact_region = var.artifact_region
   repository_id   = var.repository_id
   subdomain       = var.cloud_run_subdomain
@@ -30,7 +29,7 @@ module "app" {
 }
 
 module "run" {
-  source                 = "../../../../libs/infra/run"
+  source                 = "../../../../libs/infra/run/server"
   git_commit_sha         = var.git_commit_sha
   org_name               = module.app.org_name
   domain                 = module.app.domain
