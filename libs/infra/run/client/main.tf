@@ -232,6 +232,7 @@ resource "google_cloud_run_v2_service" "default" {
     prevent_destroy = false
   }
   depends_on = [
+    google_project_service.run,
     module.firebase_secret_api_key,
     module.firebase_secret_app_id,
     module.firebase_secret_auth_domain,

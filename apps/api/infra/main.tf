@@ -23,6 +23,7 @@ module "project" {
     "cloudresourcemanager.googleapis.com",
     "cloudbilling.googleapis.com",
     "serviceusage.googleapis.com",
+    "run.googleapis.com",
     # "firebase.googleapis.com",
     # "firestore.googleapis.com",
     # "firebasestorage.googleapis.com",

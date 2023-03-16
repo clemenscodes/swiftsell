@@ -128,7 +128,7 @@ image() {
     if [ -z "$CI" ]; then
         NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache --configuration="$CONFIG"
         echo "Building api image"
-        INPUT_IMAGES="$IMAGE" INPUT_TAGS="$TAG" nx docker "$APP" --skip-nx-cache
+        INPUT_IMAGES="$IMAGE" INPUT_TAGS="$TAG" nx docker "$APP" --configuration=production --skip-nx-cache
     else
         if [ -z "$INPUT_GITHUB_TOKEN" ]; then
             echo "Missing GitHub token"
