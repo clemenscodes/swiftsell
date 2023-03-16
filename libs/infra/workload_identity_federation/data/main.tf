@@ -8,5 +8,5 @@ data "google_project" "project" {
 
 data "google_service_account" "wif_sa" {
   account_id = var.workload_identity_service_account_id
-  project = var.project_id
+  project    = var.project_id
 }

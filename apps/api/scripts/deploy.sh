@@ -104,10 +104,9 @@ populate_env_configs() {
     CONFIG="$1"
     ENV_CONFIG_FILE="$APP_DIR/config/.env.$CONFIG"
     {
-        echo "NEXT_PUBLIC_HASURA_GRAPHQL_ENDPOINT=\"$HASURA_GRAPHQL_ENDPOINT\""
+        echo "HASURA_GRAPHQL_ENDPOINT=\"$HASURA_GRAPHQL_ENDPOINT\""
         echo "COOKIE_SECRET_PREVIOUS=\"$($TF output cookie_secret_previous | tr -d '"')\""
         echo "COOKIE_SECRET_CURRENT=\"$($TF output cookie_secret_current | tr -d '"')\""
-        echo "NEXT_PUBLIC_PROJECT_TYPE=\"$CONFIG\""
     } >>"$ENV_CONFIG_FILE"
     purple "generated content of $ENV_CONFIG_FILE"
 }
@@ -128,7 +127,7 @@ image() {
     TAGGED_IMAGE="$IMAGE:$TAG"
     if [ -z "$CI" ]; then
         NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache --configuration="$CONFIG"
-        echo "Building web image"
+        echo "Building api image"
         INPUT_IMAGES="$IMAGE" INPUT_TAGS="$TAG" nx docker "$APP" --skip-nx-cache
     else
         if [ -z "$INPUT_GITHUB_TOKEN" ]; then
@@ -137,10 +136,10 @@ image() {
         fi
         populate_env_configs "$CONFIG"
         NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache --configuration="$CONFIG"
-        echo "Building web image"
+        echo "Building api image"
         INPUT_GITHUB_TOKEN="$INPUT_GITHUB_TOKEN" INPUT_IMAGES="$IMAGE" INPUT_TAGS="$TAG" nx docker "$APP" --configuration=ci --skip-nx-cache
     fi
-    echo "Pushing web image"
+    echo "Pushing api image"
     docker push "$TAGGED_IMAGE"
 }
 

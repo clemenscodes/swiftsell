@@ -100,6 +100,17 @@
                         "images": [],
                         "tags": ["type=schedule", "type=sha"]
                     }
+                },
+                "ci": {
+                    "engine": "docker",
+                    "file": "apps/api/docker/Dockerfile.production",
+                    "load": true,
+                    "cache-from": ["type=gha"],
+                    "cache-to": ["type=gha,mode=max"],
+                    "metadata": {
+                        "images": [],
+                        "tags": ["type=schedule", "type=sha"]
+                    }
                 }
             }
         },

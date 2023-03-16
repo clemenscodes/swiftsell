@@ -158,6 +158,7 @@ resource "google_cloud_run_v2_service" "default" {
     prevent_destroy = false
   }
   depends_on = [
+    google_project_service.run,
     module.google_cloud_project,
     module.database_url,
     module.shadow_database_url,
