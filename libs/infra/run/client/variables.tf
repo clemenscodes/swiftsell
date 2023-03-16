@@ -3,11 +3,6 @@ variable "org_name" {
   type        = string
 }
 
-variable "folder_name" {
-  description = "The name of the folder in which the project will be created"
-  type        = string
-}
-
 variable "project_name" {
   description = "The name of the project in which the Cloud Run service will be created"
   type        = string
@@ -28,11 +23,6 @@ variable "domain" {
   type        = string
 }
 
-variable "cloud_run_api_subdomain" {
-  description = "The subdomain that the API Cloud Run Service will have"
-  type        = string
-}
-
 variable "cloud_run_subdomain" {
   description = "The subdomain that the Cloud Run Service will have"
   type        = string
@@ -45,11 +35,6 @@ variable "cloud_run_region" {
 
 variable "cloud_run_service_name" {
   description = "The name of the Cloud Run service"
-  type        = string
-}
-
-variable "cloud_run_api_service_name" {
-  description = "The name of the API Cloud Run service"
   type        = string
 }
 
@@ -98,17 +83,13 @@ variable "cookie_secret_current" {
   type        = string
 }
 
-variable "database_url" {
-  description = "The url to the database"
-  type        = string
-}
-
-variable "shadow_database_url" {
-  description = "The url to the shadow database for migrations"
-  type        = string
-}
-
 # variable "subnet_cidr_range" {
 #   description = "The CIDR range for the subnet of the Cloud Run service"
 #   type = string
 # }
+
+# variable "folder_name" {
+#   description = "The name of the folder in which the project will be created"
+#   type        = string
+# }
+
