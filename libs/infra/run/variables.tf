@@ -3,11 +3,6 @@ variable "org_name" {
   type        = string
 }
 
-variable "folder_name" {
-  description = "The name of the folder in which the project will be created"
-  type        = string
-}
-
 variable "project_name" {
   description = "The name of the project in which the Cloud Run service will be created"
   type        = string
@@ -112,3 +107,9 @@ variable "shadow_database_url" {
 #   description = "The CIDR range for the subnet of the Cloud Run service"
 #   type = string
 # }
+
+# variable "folder_name" {
+#   description = "The name of the folder in which the project will be created"
+#   type        = string
+# }
+

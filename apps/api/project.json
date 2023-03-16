@@ -168,6 +168,20 @@
                 "command": "PRISMA_DISABLE_WARNINGS=1 yarn prisma studio --schema=prisma/schema.prisma",
                 "cwd": "apps/api"
             }
+        },
+        "deploy": {
+            "executor": "nx:run-commands",
+            "defaultConfiguration": "development",
+            "configurations": {
+                "development": {
+                    "color": true,
+                    "command": "apps/api/scripts/deploy.sh development"
+                },
+                "production": {
+                    "color": true,
+                    "command": "apps/api/scripts/deploy.sh production"
+                }
+            }
         }
     },
     "implicitDependencies": ["postgres", "graphql"],
