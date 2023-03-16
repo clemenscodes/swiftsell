@@ -62,7 +62,7 @@ local_plan() {
     $TF init -upgrade
     default_plan
     BUCKET=$($TF output state_bucket | tr -d '"')
-    sed -i "s/backend \"local\"/backend \"gcs\" {\n  bucket = \"$BUCKET\"\n}/" "$BACKEND"
+    sed -i "s/backend \"local\" {}/backend \"gcs\" {\n  bucket = \"$BUCKET\"\n}/" "$BACKEND"
     echo "Migrating state"
     echo "yes" | $TF init -upgrade -migrate-state
 }
@@ -131,7 +131,7 @@ image() {
     if [ -z "$CI" ]; then
         NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache --configuration="$CONFIG"
         echo "Building web image"
-        INPUT_IMAGES="$IMAGE" INPUT_TAGS="$TAG" nx docker "$APP" --skip-nx-cache
+        INPUT_IMAGES="$IMAGE" INPUT_TAGS="$TAG" nx docker "$APP" --configuration=production --skip-nx-cache
     else
         if [ -z "$INPUT_GITHUB_TOKEN" ]; then
             echo "Missing GitHub token"

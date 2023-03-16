@@ -66,7 +66,7 @@ local_plan() {
     $TF init -upgrade
     default_plan
     BUCKET=$($TF output state_bucket | tr -d '"')
-    sed -i "s/backend \"local\"/backend \"gcs\" {\n  bucket = \"$BUCKET\"\n}/" "$BACKEND"
+    sed -i "s/backend \"local\" {}/backend \"gcs\" {\n  bucket = \"$BUCKET\"\n}/" "$BACKEND"
     echo "Migrating state"
     echo "yes" | $TF init -upgrade -migrate-state
 }
