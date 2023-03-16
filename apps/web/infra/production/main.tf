@@ -35,7 +35,6 @@ module "run" {
   domain                 = module.app.domain
   cloud_run_subdomain    = var.cloud_run_subdomain
   project_name           = var.project_name
-  folder_name            = var.folder_name
   repository_id          = var.repository_id
   cloud_run_service_name = var.cloud_run_service_name
   cloud_run_region       = var.cloud_run_region
