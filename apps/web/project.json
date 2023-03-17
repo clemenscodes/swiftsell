@@ -20,6 +20,7 @@
             "dependsOn": ["env"],
             "executor": "@nrwl/next:build",
             "outputs": ["{options.outputPath}"],
+            "defaultConfiguration": "production",
             "options": {
                 "root": "apps/web",
                 "outputPath": "dist/apps/web",
@@ -30,6 +31,12 @@
                         "output": ""
                     }
                 ]
+            },
+            "configurations": {
+                "development": {
+                    "outputPath": "apps/web"
+                },
+                "production": {}
             }
         },
         "start": {
