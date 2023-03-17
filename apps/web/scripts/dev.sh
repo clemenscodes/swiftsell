@@ -44,12 +44,12 @@ check_env "$WEB_ENV"
 check_env "$API_ENV"
 
 docker compose -f apps/web/docker/docker-compose.yml up -d --remove-orphans &&
-    nx seed api --skip-nx-cache &&
+    nx seed api --skip-nx-cache --output-style=stream &&
     echo "Next.js app running on $HOST:$NEXT_PORT" &&
     echo "Nest.js app running on $HOST:$NEST_PORT" &&
     echo "Hasura running on $HOST:$HASURA_PORT" &&
     echo "Firabase emulator UI running on $HOST:$FIREBASE_UI_PORT" || exit 1
 
 echo "Opening hasura console"
-nx console hasura --skip-nx-cache
-nx export hasura --skip-nx-cache
+nx console hasura --skip-nx-cache --output-style=stream
+nx export hasura --skip-nx-cache --output-style=stream
