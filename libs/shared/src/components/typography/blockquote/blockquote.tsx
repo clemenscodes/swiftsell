@@ -18,8 +18,8 @@ export const Blockquote: React.FC<BlockquoteProps> = ({ ...props }) => {
                 'dark:text-slate-200',
             ])}
         >
-            "After all," he said, "everyone enjoys a good joke, so it's only
-            fair that they should pay for the privilege."
+            "After all," he said, "everyone enjoys a good joke, so it's only fair that they should pay for the
+            privilege."
         </blockquote>
     );
 };

@@ -1,11 +1,5 @@
 import DropdownMenuCheckboxItem from './dropdown-menu-checkbox-item';
-import {
-    Root,
-    Trigger,
-    Portal,
-    Content,
-    Item,
-} from '@radix-ui/react-dropdown-menu';
+import { Root, Trigger, Portal, Content, Item } from '@radix-ui/react-dropdown-menu';
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
 const Story: ComponentMeta<typeof DropdownMenuCheckboxItem> = {
@@ -20,9 +14,7 @@ const Template: ComponentStory<typeof DropdownMenuCheckboxItem> = (args) => (
         <Portal>
             <Content>
                 <Item></Item>
-                <DropdownMenuCheckboxItem {...args}>
-                    Test
-                </DropdownMenuCheckboxItem>
+                <DropdownMenuCheckboxItem {...args}>Test</DropdownMenuCheckboxItem>
             </Content>
         </Portal>
     </Root>

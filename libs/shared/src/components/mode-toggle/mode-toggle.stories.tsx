@@ -7,9 +7,7 @@ const Story: ComponentMeta<typeof ModeToggle> = {
 };
 export default Story;
 
-const Template: ComponentStory<typeof ModeToggle> = (args) => (
-    <ModeToggle {...args} />
-);
+const Template: ComponentStory<typeof ModeToggle> = (args) => <ModeToggle {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {};

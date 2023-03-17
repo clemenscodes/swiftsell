@@ -22,9 +22,7 @@ describe('Auth', () => {
     });
 
     it('should render successfully', () => {
-        const { baseElement } = render(
-            <Auth name={''} email={''} password={''} confirmPassword={''} />
-        );
+        const { baseElement } = render(<Auth name={''} email={''} password={''} confirmPassword={''} />);
         expect(baseElement).toBeTruthy();
     });
 });

@@ -7,20 +7,12 @@ import type { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 
+const ThemeProvider = dynamic(() => import('next-themes').then((mod) => mod.ThemeProvider));
+const FontProvider = dynamic(() => import('@providers').then((mod) => mod.FontProvider));
+const GraphqlProvider = dynamic(() => import('@providers').then((mod) => mod.GraphqlProvider));
 const Header = dynamic(() => import('@shared').then((mod) => mod.Header));
 const Toaster = dynamic(() => import('@shared').then((mod) => mod.Toaster));
-const TailwindIndicator = dynamic(() =>
-    import('@shared').then((mod) => mod.TailwindIndicator)
-);
-const ThemeProvider = dynamic(() =>
-    import('next-themes').then((mod) => mod.ThemeProvider)
-);
-const FontProvider = dynamic(() =>
-    import('@providers').then((mod) => mod.FontProvider)
-);
-const GraphqlProvider = dynamic(() =>
-    import('@providers').then((mod) => mod.GraphqlProvider)
-);
+const TailwindIndicator = dynamic(() => import('@shared').then((mod) => mod.TailwindIndicator));
 
 initAuth();
 
@@ -35,11 +27,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
                 />
             </Head>
             <GraphqlProvider>
-                <ThemeProvider
-                    attribute='class'
-                    defaultTheme='dark'
-                    enableSystem
-                >
+                <ThemeProvider attribute='class' defaultTheme='dark' enableSystem>
                     <FontProvider>
                         <Header />
                         <Component {...pageProps} />

@@ -7,9 +7,7 @@ const Story: ComponentMeta<typeof TailwindIndicator> = {
 };
 export default Story;
 
-const Template: ComponentStory<typeof TailwindIndicator> = (args) => (
-    <TailwindIndicator {...args} />
-);
+const Template: ComponentStory<typeof TailwindIndicator> = (args) => <TailwindIndicator {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {};

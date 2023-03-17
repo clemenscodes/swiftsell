@@ -5,8 +5,7 @@ type FirebaseAuthModuleMock = {
     signOut: jest.Mock;
 };
 
-const firebaseAuthMock =
-    jest.createMockFromModule<FirebaseAuthModuleMock>('firebase/auth');
+const firebaseAuthMock = jest.createMockFromModule<FirebaseAuthModuleMock>('firebase/auth');
 
 const mockOnIdTokenChangedUnsubscribe = jest.fn();
 const createUserWithEmailAndPassword = jest.fn();
@@ -17,7 +16,6 @@ const mockSignOut = jest.fn(() => Promise.resolve());
 firebaseAuthMock.onIdTokenChanged = mockOnIdTokenChanged;
 firebaseAuthMock.signOut = mockSignOut;
 firebaseAuthMock.getAuth = getAuth;
-firebaseAuthMock.createUserWithEmailAndPassword =
-    createUserWithEmailAndPassword;
+firebaseAuthMock.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
 
 module.exports = firebaseAuthMock;

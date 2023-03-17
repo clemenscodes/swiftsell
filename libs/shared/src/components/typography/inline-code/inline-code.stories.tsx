@@ -7,9 +7,7 @@ const Story: ComponentMeta<typeof InlineCode> = {
 };
 export default Story;
 
-const Template: ComponentStory<typeof InlineCode> = (args) => (
-    <InlineCode {...args} />
-);
+const Template: ComponentStory<typeof InlineCode> = (args) => <InlineCode {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {};

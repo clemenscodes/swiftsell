@@ -11,11 +11,7 @@ const robotoCondensed = Roboto_Condensed({
 export interface FontsProps extends React.PropsWithChildren {}
 
 export function RobotoCondensed({ children }: FontsProps) {
-    return (
-        <main className={`${robotoCondensed.variable} font-sans`}>
-            {children}
-        </main>
-    );
+    return <main className={`${robotoCondensed.variable} font-sans`}>{children}</main>;
 }
 
 export default RobotoCondensed;

@@ -12,11 +12,7 @@ export interface HomeProps {}
 export const Home: NextPage<HomeProps> = ({ ...props }) => {
     // const user = useAuthUser();
     return (
-        <main
-            className={cn(
-                'flex max-w-full flex-col items-center justify-center'
-            )}
-        >
+        <main className={cn('flex max-w-full flex-col items-center justify-center')}>
             {/* {user.email ? <SignedIn /> : <NotSignedIn />} */}
             <Products />
         </main>

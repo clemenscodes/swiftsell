@@ -5,10 +5,7 @@ import path from 'path';
 const config: StorybookConfig = {
     ...rootMain,
     core: { ...rootMain.core, builder: 'webpack5' },
-    stories: [
-        ...rootMain.stories,
-        '../../libs/shared/**/*.stories.@(js|jsx|ts|tsx|mdx)',
-    ],
+    stories: [...rootMain.stories, '../../libs/shared/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
     staticDirs: ['../web/public'],
     addons: [
         ...(rootMain.addons || []),
@@ -18,10 +15,7 @@ const config: StorybookConfig = {
         {
             name: 'storybook-addon-next',
             options: {
-                nextConfigPath: path.resolve(
-                    __dirname,
-                    '../web/next.config.js'
-                ),
+                nextConfigPath: path.resolve(__dirname, '../web/next.config.js'),
             },
         },
     ],

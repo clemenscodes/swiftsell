@@ -7,9 +7,7 @@ const Story: ComponentMeta<typeof DropdownMenuSubTrigger> = {
 };
 export default Story;
 
-const Template: ComponentStory<typeof DropdownMenuSubTrigger> = (args) => (
-    <DropdownMenuSubTrigger {...args} />
-);
+const Template: ComponentStory<typeof DropdownMenuSubTrigger> = (args) => <DropdownMenuSubTrigger {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {};

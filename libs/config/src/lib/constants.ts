@@ -22,11 +22,7 @@ const hostname = isCloudRunProd ? prodCDN : devCDN;
 const prefix = isCloudRun ? `${protocol}://${hostname}` : '';
 const PORT = process.env.PORT || 3000;
 const localDomain = `http://localhost:${PORT}`;
-const domain = isCloudRun
-    ? isCloudRunProd
-        ? prodDomain
-        : devDomain
-    : localDomain;
+const domain = isCloudRun ? (isCloudRunProd ? prodDomain : devDomain) : localDomain;
 
 export const siteConfig: SiteConfig = {
     domain,

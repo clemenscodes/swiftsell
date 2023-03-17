@@ -5,8 +5,7 @@ type FirebaseAppModuleMock = {
     getApp: jest.Mock<FirebaseApp | undefined>;
 };
 
-const firebaseAppMock =
-    jest.createMockFromModule<FirebaseAppModuleMock>('firebase/app');
+const firebaseAppMock = jest.createMockFromModule<FirebaseAppModuleMock>('firebase/app');
 
 firebaseAppMock.getApps = jest.fn(() => []);
 firebaseAppMock.getApp = jest.fn(() => undefined);
