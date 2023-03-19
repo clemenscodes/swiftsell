@@ -130,7 +130,7 @@ image() {
     IMAGE="$REPO/$SERVICE_NAME"
     TAGGED_IMAGE="$IMAGE:$TAG"
     if [ -z "$CI" ]; then
-        NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache --configuration=production
+        NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache --configuration="$CONFIG"
         echo "Building web image"
         INPUT_IMAGES="$IMAGE" INPUT_TAGS="$TAG" nx docker "$APP" --configuration=production --skip-nx-cache
     else
@@ -139,7 +139,7 @@ image() {
             exit 1
         fi
         populate_env_configs "$CONFIG"
-        NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache --configuration=production
+        NEXT_PUBLIC_PROJECT_TYPE="$CONFIG" nx build "$APP" --skip-nx-cache --configuration="$CONFIG"
         echo "Building web image"
         INPUT_GITHUB_TOKEN="$INPUT_GITHUB_TOKEN" INPUT_IMAGES="$IMAGE" INPUT_TAGS="$TAG" nx docker "$APP" --configuration=ci --skip-nx-cache
     fi
