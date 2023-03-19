@@ -34,17 +34,12 @@ export const ProductList: React.FC<ProductListProps> = ({ ...props }) => {
     return (
         <ul
             className={cn(
-                'm-12 my-6 ml-6 grid list-disc grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 [&>li]:mt-2'
+                'm-12 my-6 ml-6 grid list-disc grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 [&>li]:mt-2'
             )}
         >
             {data &&
                 data.product.map((product) => (
-                    <li
-                        className={cn(
-                            'overflow-hidden rounded-lg shadow-lg dark:bg-slate-900 '
-                        )}
-                        key={product.id}
-                    >
+                    <li className={cn('overflow-hidden rounded-lg shadow-lg dark:bg-slate-900 ')} key={product.id}>
                         <H2>{product.name}</H2>
                         <P>{product.description}</P>
                         <Lead>Price: {product.price}€</Lead>

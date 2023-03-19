@@ -5,8 +5,7 @@ type FirebaseAdminAppModuleMock = {
     getApp: jest.Mock<App | undefined>;
 };
 
-const firebaseAdminApp =
-    jest.createMockFromModule<FirebaseAdminAppModuleMock>('firebase-admin/app');
+const firebaseAdminApp = jest.createMockFromModule<FirebaseAdminAppModuleMock>('firebase-admin/app');
 
 firebaseAdminApp.getApps = jest.fn(() => []);
 firebaseAdminApp.getApp = jest.fn(() => undefined);

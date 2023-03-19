@@ -8,14 +8,7 @@
                 "syncVersions": false,
                 "tagPrefix": "v",
                 "allowEmptyRelease": false,
-                "skipCommitTypes": [
-                    "chore",
-                    "build",
-                    "ci",
-                    "docs",
-                    "refactor",
-                    "test"
-                ],
+                "skipCommitTypes": ["chore", "build", "ci", "docs", "refactor", "test"],
                 "noVerify": true,
                 "changelogHeader": "# Universal Changelog\n",
                 "push": false,

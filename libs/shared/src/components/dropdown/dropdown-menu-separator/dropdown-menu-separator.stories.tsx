@@ -7,9 +7,7 @@ const Story: ComponentMeta<typeof DropdownMenuSeparator> = {
 };
 export default Story;
 
-const Template: ComponentStory<typeof DropdownMenuSeparator> = (args) => (
-    <DropdownMenuSeparator {...args} />
-);
+const Template: ComponentStory<typeof DropdownMenuSeparator> = (args) => <DropdownMenuSeparator {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {};

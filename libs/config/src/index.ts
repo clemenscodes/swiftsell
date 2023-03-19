@@ -5,4 +5,3 @@ export * from './lib/isProduction';
 export * from './lib/isTrustedEnv';
 export * from './lib/firebaseAuthConfig';
 export * from './lib/isCloudRun';
-export * from './lib/apolloClient';

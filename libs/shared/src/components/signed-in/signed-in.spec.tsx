@@ -12,9 +12,7 @@ describe('SignedIn', () => {
 
     beforeEach(() => {
         (useAuthUser as jest.Mock).mockReturnValue(getMockAuthUser());
-        (withAuthUser as jest.Mock).mockImplementation(
-            () => (wrappedComponent: typeof SignedIn) => wrappedComponent
-        );
+        (withAuthUser as jest.Mock).mockImplementation(() => (wrappedComponent: typeof SignedIn) => wrappedComponent);
         SignedIn = require('./signed-in').default as typeof SignedIn;
     });
 

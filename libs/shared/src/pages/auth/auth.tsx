@@ -25,11 +25,7 @@ export const Auth: NextPage<AuthProps> = ({ ...props }) => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        createUserWithEmailAndPassword(
-            auth,
-            formState.email,
-            formState.password
-        )
+        createUserWithEmailAndPassword(auth, formState.email, formState.password)
             .then((userCredential) => {
                 const user = userCredential.user;
                 log({ user });
@@ -46,15 +42,9 @@ export const Auth: NextPage<AuthProps> = ({ ...props }) => {
         <div className={cn(['m-12 flex flex-col items-center justify-center'])}>
             <H1>Login Page</H1>
             <div className='m-12 items-center justify-center'>
-                <form
-                    onSubmit={handleSubmit}
-                    className='mb-4 rounded p-12 px-8 pt-6 pb-8'
-                >
+                <form onSubmit={handleSubmit} className='mb-4 rounded p-12 px-8 pt-6 pb-8'>
                     <div className='mb-4'>
-                        <label
-                            className='text-md mb-2 block font-bold text-slate-900 dark:text-white'
-                            htmlFor='email'
-                        >
+                        <label className='text-md mb-2 block font-bold text-slate-900 dark:text-white' htmlFor='email'>
                             Email
                         </label>
                         <input

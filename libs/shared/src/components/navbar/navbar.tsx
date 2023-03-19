@@ -30,8 +30,7 @@ export function Navbar({ items }: MainNavProps) {
                                     href={item.href}
                                     className={cn(
                                         'flex items-center text-lg font-semibold text-slate-600 hover:text-slate-900 dark:text-slate-100 sm:text-sm',
-                                        item.disabled &&
-                                            'cursor-not-allowed opacity-80'
+                                        item.disabled && 'cursor-not-allowed opacity-80'
                                     )}
                                 >
                                     {item.title}
@@ -49,11 +48,7 @@ export function Navbar({ items }: MainNavProps) {
                         <Icons.Logo />
                     </Button>
                 </Trigger>
-                <DropdownMenuContent
-                    align='start'
-                    sideOffset={24}
-                    className='w-[300px] overflow-scroll'
-                >
+                <DropdownMenuContent align='start' sideOffset={24} className='w-[300px] overflow-scroll'>
                     <DropdownMenuLabel>
                         <Link href='/' className='flex items-center'>
                             Home

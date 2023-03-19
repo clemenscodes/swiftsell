@@ -669,6 +669,7 @@ export type User = {
   createdAt: Scalars['timestamp'];
   email: Scalars['String'];
   id: Scalars['Int'];
+  lastSeen: Scalars['timestamp'];
   name?: Maybe<Scalars['String']>;
   passwordHash: Scalars['String'];
   role: Scalars['Role'];
@@ -720,6 +721,7 @@ export type User_Bool_Exp = {
   createdAt?: InputMaybe<Timestamp_Comparison_Exp>;
   email?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<Int_Comparison_Exp>;
+  lastSeen?: InputMaybe<Timestamp_Comparison_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
   passwordHash?: InputMaybe<String_Comparison_Exp>;
   role?: InputMaybe<Role_Comparison_Exp>;
@@ -745,6 +747,7 @@ export type User_Insert_Input = {
   createdAt?: InputMaybe<Scalars['timestamp']>;
   email?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
+  lastSeen?: InputMaybe<Scalars['timestamp']>;
   name?: InputMaybe<Scalars['String']>;
   passwordHash?: InputMaybe<Scalars['String']>;
   role?: InputMaybe<Scalars['Role']>;
@@ -758,6 +761,7 @@ export type User_Max_Fields = {
   createdAt?: Maybe<Scalars['timestamp']>;
   email?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
+  lastSeen?: Maybe<Scalars['timestamp']>;
   name?: Maybe<Scalars['String']>;
   passwordHash?: Maybe<Scalars['String']>;
   role?: Maybe<Scalars['Role']>;
@@ -771,6 +775,7 @@ export type User_Min_Fields = {
   createdAt?: Maybe<Scalars['timestamp']>;
   email?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
+  lastSeen?: Maybe<Scalars['timestamp']>;
   name?: Maybe<Scalars['String']>;
   passwordHash?: Maybe<Scalars['String']>;
   role?: Maybe<Scalars['Role']>;
@@ -799,6 +804,7 @@ export type User_Order_By = {
   createdAt?: InputMaybe<Order_By>;
   email?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  lastSeen?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
   passwordHash?: InputMaybe<Order_By>;
   role?: InputMaybe<Order_By>;
@@ -820,6 +826,8 @@ export enum User_Select_Column {
   /** column name */
   Id = 'id',
   /** column name */
+  LastSeen = 'lastSeen',
+  /** column name */
   Name = 'name',
   /** column name */
   PasswordHash = 'passwordHash',
@@ -836,6 +844,7 @@ export type User_Set_Input = {
   createdAt?: InputMaybe<Scalars['timestamp']>;
   email?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
+  lastSeen?: InputMaybe<Scalars['timestamp']>;
   name?: InputMaybe<Scalars['String']>;
   passwordHash?: InputMaybe<Scalars['String']>;
   role?: InputMaybe<Scalars['Role']>;
@@ -874,6 +883,7 @@ export type User_Stream_Cursor_Value_Input = {
   createdAt?: InputMaybe<Scalars['timestamp']>;
   email?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
+  lastSeen?: InputMaybe<Scalars['timestamp']>;
   name?: InputMaybe<Scalars['String']>;
   passwordHash?: InputMaybe<Scalars['String']>;
   role?: InputMaybe<Scalars['Role']>;
@@ -895,6 +905,8 @@ export enum User_Update_Column {
   Email = 'email',
   /** column name */
   Id = 'id',
+  /** column name */
+  LastSeen = 'lastSeen',
   /** column name */
   Name = 'name',
   /** column name */

@@ -101,6 +101,7 @@ populate_env_configs() {
     ENV_CONFIG_FILE="$APP_DIR/config/.env.$CONFIG"
     {
         echo "NEXT_PUBLIC_HASURA_GRAPHQL_ENDPOINT=\"$HASURA_GRAPHQL_ENDPOINT\""
+        echo "HASURA_GRAPHQL_ENDPOINT=\"$HASURA_GRAPHQL_ENDPOINT\""
         echo "NEXT_PUBLIC_FIREBASE_PROJECT_ID=\"$($TF output project_id | tr -d '"')\""
         echo "NEXT_PUBLIC_FIREBASE_API_KEY=\"$($TF output api_key | tr -d '"')\""
         echo "NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=\"$($TF output auth_domain | tr -d '"')\""

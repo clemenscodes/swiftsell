@@ -8,11 +8,7 @@ export interface SignedInProps {}
 export const SignedIn: React.FC<SignedInProps> = ({ ...props }) => {
     const user = useAuthUser();
     return (
-        <div
-            className={cn([
-                'm-6 flex flex-col items-center justify-center text-2xl font-bold',
-            ])}
-        >
+        <div className={cn(['m-6 flex flex-col items-center justify-center text-2xl font-bold'])}>
             <p>
                 Signed in as <span>{user.email}</span>
             </p>

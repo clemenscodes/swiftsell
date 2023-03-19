@@ -32,8 +32,7 @@ export const config: Config = {
             minimumCacheTTL: 60,
             formats: ['image/webp'],
             dangerouslyAllowSVG: false,
-            contentSecurityPolicy:
-                "script-src 'none'; frame-src 'none'; sandbox;",
+            contentSecurityPolicy: "script-src 'none'; frame-src 'none'; sandbox;",
             remotePatterns: [
                 {
                     protocol: 'https',

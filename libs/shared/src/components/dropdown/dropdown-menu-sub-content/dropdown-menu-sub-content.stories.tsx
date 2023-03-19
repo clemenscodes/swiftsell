@@ -7,9 +7,7 @@ const Story: ComponentMeta<typeof DropdownMenuSubContent> = {
 };
 export default Story;
 
-const Template: ComponentStory<typeof DropdownMenuSubContent> = (args) => (
-    <DropdownMenuSubContent {...args} />
-);
+const Template: ComponentStory<typeof DropdownMenuSubContent> = (args) => <DropdownMenuSubContent {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {};

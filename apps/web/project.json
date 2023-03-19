@@ -20,6 +20,7 @@
             "dependsOn": ["env"],
             "executor": "@nrwl/next:build",
             "outputs": ["{options.outputPath}"],
+            "defaultConfiguration": "production",
             "options": {
                 "root": "apps/web",
                 "outputPath": "dist/apps/web",
@@ -30,6 +31,13 @@
                         "output": ""
                     }
                 ]
+            },
+            "configurations": {
+                "local": {
+                    "outputPath": "apps/web"
+                },
+                "development": {},
+                "production": {}
             }
         },
         "start": {
@@ -37,7 +45,7 @@
             "defaultConfiguration": "development",
             "configurations": {
                 "development": {
-                    "buildTarget": "web:build:development",
+                    "buildTarget": "web:build:local",
                     "port": 3000,
                     "hostname": "0.0.0.0",
                     "dev": true

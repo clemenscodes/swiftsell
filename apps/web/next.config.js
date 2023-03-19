@@ -54,9 +54,7 @@ const nextConfig = {
     experimental: {
         outputFileTracingRoot: join(__dirname, '../../'),
         isrMemoryCacheSize: 0,
-        fontLoaders: [
-            { loader: '@next/font/google', options: { subsets: ['latin'] } },
-        ],
+        fontLoaders: [{ loader: '@next/font/google', options: { subsets: ['latin'] } }],
     },
     images: {
         remotePatterns: [

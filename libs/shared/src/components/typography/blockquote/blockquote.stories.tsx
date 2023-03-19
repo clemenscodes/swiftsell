@@ -7,9 +7,7 @@ const Story: ComponentMeta<typeof Blockquote> = {
 };
 export default Story;
 
-const Template: ComponentStory<typeof Blockquote> = (args) => (
-    <Blockquote {...args} />
-);
+const Template: ComponentStory<typeof Blockquote> = (args) => <Blockquote {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {};

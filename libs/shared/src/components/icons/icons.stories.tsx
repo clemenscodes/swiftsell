@@ -7,9 +7,7 @@ const Story: ComponentMeta<typeof Icons.Sun> = {
 };
 export default Story;
 
-const Template: ComponentStory<typeof Icons.Sun> = (args) => (
-    <Icons.Sun {...args} />
-);
+const Template: ComponentStory<typeof Icons.Sun> = (args) => <Icons.Sun {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {};
