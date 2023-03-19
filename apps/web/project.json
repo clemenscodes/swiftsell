@@ -33,9 +33,10 @@
                 ]
             },
             "configurations": {
-                "development": {
+                "local": {
                     "outputPath": "apps/web"
                 },
+                "development": {},
                 "production": {}
             }
         },
@@ -44,7 +45,7 @@
             "defaultConfiguration": "development",
             "configurations": {
                 "development": {
-                    "buildTarget": "web:build:development",
+                    "buildTarget": "web:build:local",
                     "port": 3000,
                     "hostname": "0.0.0.0",
                     "dev": true
