@@ -1,3 +1,4 @@
+export * from './components/product/product';
 export * from './components/toaster/toaster';
 export * from './components/toast/toast';
 export * from './pages/products/products';
