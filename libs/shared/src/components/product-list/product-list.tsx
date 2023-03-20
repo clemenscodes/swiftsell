@@ -38,7 +38,7 @@ export const ProductList: React.FC<ProductListProps> = ({ ...props }) => {
             )}
         >
             {data &&
-                data.product.map((product) => (
+                data.Product.map((product) => (
                     <li className={cn('overflow-hidden rounded-lg shadow-lg dark:bg-slate-900 ')} key={product.id}>
                         <H2>{product.name}</H2>
                         <P>{product.description}</P>
