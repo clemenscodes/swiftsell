@@ -127,6 +127,25 @@ resource "random_password" "next_auth_secret" {
   override_special = "!#%&*()-_=+[]{}<>:?"
 }
 
+module "state_bucket" {
+  source     = "../../../libs/infra/bucket/state"
+  project_id = module.project.project_id
+  bucket     = var.state_bucket
+}
+
+module "artifact-registry-repository" {
+  source        = "../../../libs/infra/artifact"
+  location      = var.artifact_region
+  project_id    = module.project.project_id
+  repository_id = var.repository_id
+}
+
+module "isr_bucket" {
+  source     = "../../../libs/infra/bucket/isr"
+  project_id = module.project.project_id
+  bucket     = var.isr_bucket
+}
+
 # resource "google_project_iam_member" "vpcaccess_admin" {
 #   project = module.project.project_id
 #   role    = "roles/vpcaccess.admin"
