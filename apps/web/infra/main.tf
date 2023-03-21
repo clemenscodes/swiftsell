@@ -20,7 +20,6 @@ module "project" {
     "iam.googleapis.com",
     "iamcredentials.googleapis.com",
     "secretmanager.googleapis.com",
-    "firebase.googleapis.com",
     "cloudresourcemanager.googleapis.com",
     "serviceusage.googleapis.com"
   ]
