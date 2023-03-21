@@ -72,6 +72,11 @@ output "sender_id" {
   sensitive = true
 }
 
+output "next_auth_secret" {
+  value     = random_password.next_auth_secret.result
+  sensitive = true
+}
+
 output "cookie_secret_previous" {
   value     = random_password.cookie_secret_previous.result
   sensitive = true

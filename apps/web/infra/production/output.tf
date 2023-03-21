@@ -78,6 +78,11 @@ output "sender_id" {
   sensitive = true
 }
 
+output "next_auth_secret" {
+  value     = module.app.next_auth_secret
+  sensitive = true
+}
+
 output "cookie_secret_previous" {
   value     = module.app.cookie_secret_previous
   sensitive = true
