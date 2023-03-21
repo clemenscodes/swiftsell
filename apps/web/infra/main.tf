@@ -23,6 +23,7 @@ module "project" {
     "cloudresourcemanager.googleapis.com",
     "serviceusage.googleapis.com"
   ]
+  disable_dependent_services = true
 }
 
 resource "google_project_iam_member" "wif" {
@@ -41,12 +42,6 @@ resource "google_project_iam_member" "wif_service_account_token_creator" {
   project = module.project.project_id
   role    = "roles/iam.serviceAccountTokenCreator"
   member  = module.wif_data.wif_principal
-}
-
-resource "google_project_iam_member" "appengine_admin" {
-  project = module.project.project_id
-  role    = "roles/appengine.appAdmin"
-  member  = "serviceAccount:${module.wif_data.service_account_email}"
 }
 
 resource "google_project_iam_member" "iam_service_account_user" {
@@ -106,12 +101,6 @@ resource "google_project_iam_member" "artifact_registry_admin" {
 resource "google_project_iam_member" "compute_admin" {
   project = module.project.project_id
   role    = "roles/compute.admin"
-  member  = "serviceAccount:${module.wif_data.service_account_email}"
-}
-
-resource "google_project_iam_member" "service_account_key_admin" {
-  project = module.project.project_id
-  role    = "roles/iam.serviceAccountKeyAdmin"
   member  = "serviceAccount:${module.wif_data.service_account_email}"
 }
 
