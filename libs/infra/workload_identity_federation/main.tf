@@ -21,6 +21,18 @@ resource "google_organization_iam_member" "organization_admin" {
   member = "serviceAccount:${google_service_account.gh_actions.email}"
 }
 
+resource "google_organization_iam_member" "service_usage_admin" {
+  org_id = module.data.org_id
+  role   = "roles/serviceusage.serviceUsageAdmin"
+  member = "serviceAccount:${google_service_account.gh_actions.email}"
+}
+
+resource "google_organization_iam_member" "project_manager" {
+  org_id = module.data.org_id
+  role   = "roles/resourcemanager.projectIamAdmin"
+  member = "serviceAccount:${google_service_account.gh_actions.email}"
+}
+
 resource "google_organization_iam_member" "workload_identity_pool_admin" {
   org_id = module.data.org_id
   role   = "roles/iam.workloadIdentityPoolAdmin"
