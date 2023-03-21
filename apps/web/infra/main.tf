@@ -27,9 +27,6 @@ module "project" {
     disable_on_destroy         = true
     disable_dependent_services = true
   }
-  labels = {
-    "firebase" = "enabled"
-  }
 }
 
 resource "google_project_iam_member" "wif" {

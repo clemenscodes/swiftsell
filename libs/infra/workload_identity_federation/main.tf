@@ -27,9 +27,15 @@ resource "google_organization_iam_member" "service_usage_admin" {
   member = "serviceAccount:${google_service_account.gh_actions.email}"
 }
 
-resource "google_organization_iam_member" "project_manager" {
+resource "google_organization_iam_member" "project_iam_manager" {
   org_id = module.data.org_id
   role   = "roles/resourcemanager.projectIamAdmin"
+  member = "serviceAccount:${google_service_account.gh_actions.email}"
+}
+
+resource "google_organization_iam_member" "project_mover" {
+  org_id = module.data.org_id
+  role   = "roles/resourcemanager.projectMover"
   member = "serviceAccount:${google_service_account.gh_actions.email}"
 }
 
