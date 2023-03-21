@@ -18,21 +18,6 @@ variable "isr_bucket" {
   type        = string
 }
 
-variable "firebase_region" {
-  description = "The region of the Firebase resources"
-  type        = string
-}
-
-variable "firestore_location" {
-  description = "The location of the Firestore database"
-  type        = string
-}
-
-variable "firebase_location" {
-  description = "The location of the Firebase project"
-  type        = string
-}
-
 variable "artifact_region" {
   description = "The region of the Artifact Registry Repository"
   type        = string

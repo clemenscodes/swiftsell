@@ -21,6 +21,24 @@ resource "google_organization_iam_member" "organization_admin" {
   member = "serviceAccount:${google_service_account.gh_actions.email}"
 }
 
+resource "google_organization_iam_member" "service_usage_admin" {
+  org_id = module.data.org_id
+  role   = "roles/serviceusage.serviceUsageAdmin"
+  member = "serviceAccount:${google_service_account.gh_actions.email}"
+}
+
+resource "google_organization_iam_member" "project_iam_manager" {
+  org_id = module.data.org_id
+  role   = "roles/resourcemanager.projectIamAdmin"
+  member = "serviceAccount:${google_service_account.gh_actions.email}"
+}
+
+resource "google_organization_iam_member" "project_mover" {
+  org_id = module.data.org_id
+  role   = "roles/resourcemanager.projectMover"
+  member = "serviceAccount:${google_service_account.gh_actions.email}"
+}
+
 resource "google_organization_iam_member" "workload_identity_pool_admin" {
   org_id = module.data.org_id
   role   = "roles/iam.workloadIdentityPoolAdmin"
@@ -72,37 +90,6 @@ resource "google_project_service" "iam" {
   service = "iam.googleapis.com"
 }
 
-resource "google_project_service" "firebase" {
-  provider = google-beta
-  project  = module.data.project_id
-  service  = "firebase.googleapis.com"
-}
-
-resource "google_project_service" "firestore" {
-  provider = google-beta
-  project  = module.data.project_id
-  service  = "firestore.googleapis.com"
-}
-
-resource "google_project_service" "apikeys" {
-  provider = google-beta
-  project  = module.data.project_id
-  service  = "apikeys.googleapis.com"
-}
-
-resource "google_project_service" "firebasestorage" {
-  provider = google-beta
-  project  = module.data.project_id
-  service  = "firebasestorage.googleapis.com"
-}
-
-resource "google_project_service" "appengine" {
-  provider = google-beta
-  project  = module.data.project_id
-  service  = "appengine.googleapis.com"
-}
-
-
 resource "google_project_service" "iam_credentials" {
   project = module.data.project_id
   service = "iamcredentials.googleapis.com"
@@ -116,11 +103,6 @@ resource "google_project_service" "sts_api" {
 resource "google_project_service" "cloudresourcemanager" {
   project = module.data.project_id
   service = "cloudresourcemanager.googleapis.com"
-}
-
-resource "google_project_service" "identitytoolkit" {
-  project = module.data.project_id
-  service = "identitytoolkit.googleapis.com"
 }
 
 resource "google_service_account" "gh_actions" {

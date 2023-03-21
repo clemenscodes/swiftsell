@@ -11,10 +11,6 @@ env() {
     ENV="$APP_DIR/.env"
     echo "Setting up $APP_DIR/.env.local in $CONFIG configuration"
     [ -f "$ENV_FILE" ] || touch "$ENV_FILE"
-    COOKIE_SECRET_PREVIOUS="$(grep "COOKIE_SECRET_PREVIOUS" "$ENV_FILE" | awk -F '"' '{print $2}')"
-    COOKIE_SECRET_CURRENT="$(grep "COOKIE_SECRET_CURRENT" "$ENV_FILE" | awk -F '"' '{print $2}')"
-    [ -n "$COOKIE_SECRET_PREVIOUS" ] || echo "COOKIE_SECRET_PREVIOUS=\"$(openssl rand -base64 16)\"" >>"$ENV_FILE"
-    [ -n "$COOKIE_SECRET_CURRENT" ] || echo "COOKIE_SECRET_CURRENT=\"$(openssl rand -base64 16)\"" >>"$ENV_FILE"
     grep -v "dummy" $SKELETON >"$LOCAL_ENV"
     cat "$ENV_FILE" >>"$LOCAL_ENV"
     if [ -n "$CI" ]; then

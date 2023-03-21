@@ -72,7 +72,7 @@
                 },
                 "development": {
                     "color": true,
-                    "command": "nx run-many --parallel=8 --target=start:docker --output-style=stream --projects=web,firebase,api swiftsell-development"
+                    "command": "nx run-many --parallel=8 --target=start:docker --output-style=stream --projects=web,api swiftsell-development"
                 },
                 "production": {
                     "color": true,
@@ -187,10 +187,8 @@
     "implicitDependencies": [
         "api",
         "graphql",
-        "firebase",
         "infra-run-client",
         "infra-wif",
-        "infra-firebase",
         "infra-artifact",
         "infra-bucket-cdn",
         "infra-bucket-state",

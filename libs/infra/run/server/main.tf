@@ -2,30 +2,6 @@ locals {
   sa = "serviceAccount:${google_service_account.cloud_run_service_account.email}"
 }
 
-module "cookie_secret_previous" {
-  source          = "../../secret"
-  project_id      = var.project_id
-  service_account = local.sa
-  secret_id       = "COOKIE_SECRET_PREVIOUS"
-  secret_data     = var.cookie_secret_previous
-}
-
-module "cookie_secret_current" {
-  source          = "../../secret"
-  project_id      = var.project_id
-  service_account = local.sa
-  secret_id       = "COOKIE_SECRET_CURRENT"
-  secret_data     = var.cookie_secret_current
-}
-
-module "google_cloud_project" {
-  source          = "../../secret"
-  project_id      = var.project_id
-  service_account = local.sa
-  secret_id       = "GOOGLE_CLOUD_PROJECT"
-  secret_data     = var.project_id
-}
-
 module "database_url" {
   source          = "../../secret"
   project_id      = var.project_id
@@ -66,12 +42,6 @@ resource "google_project_iam_member" "storage_admin" {
   member  = local.sa
 }
 
-resource "google_project_iam_member" "firebase_sdk_admin" {
-  project = var.project_id
-  role    = "roles/firebase.sdkAdminServiceAgent"
-  member  = local.sa
-}
-
 resource "google_project_iam_member" "service_account_token_creator" {
   project = var.project_id
   role    = "roles/iam.serviceAccountTokenCreator"
@@ -104,33 +74,6 @@ resource "google_cloud_run_v2_service" "default" {
         container_port = 3000
       }
       env {
-        name = module.cookie_secret_previous.secret_id
-        value_source {
-          secret_key_ref {
-            secret  = module.cookie_secret_previous.secret_id
-            version = "latest"
-          }
-        }
-      }
-      env {
-        name = module.cookie_secret_current.secret_id
-        value_source {
-          secret_key_ref {
-            secret  = module.cookie_secret_current.secret_id
-            version = "latest"
-          }
-        }
-      }
-      env {
-        name = module.google_cloud_project.secret_id
-        value_source {
-          secret_key_ref {
-            secret  = module.google_cloud_project.secret_id
-            version = "latest"
-          }
-        }
-      }
-      env {
         name = module.database_url.secret_id
         value_source {
           secret_key_ref {
@@ -159,11 +102,8 @@ resource "google_cloud_run_v2_service" "default" {
   }
   depends_on = [
     google_project_service.run,
-    module.google_cloud_project,
     module.database_url,
     module.shadow_database_url,
-    module.cookie_secret_previous,
-    module.cookie_secret_current
   ]
 }
 

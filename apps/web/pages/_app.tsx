@@ -1,10 +1,7 @@
-import { initAuth } from '@utils';
 import '../global.css';
 import { siteConfig } from '@config';
-import { GetServerSideProps } from 'next';
 import { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
-import { withAuthUser, withAuthUserTokenSSR } from 'next-firebase-auth';
 import type { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
@@ -16,8 +13,6 @@ const Header = dynamic(() => import('@shared').then((mod) => mod.Header));
 const Auth = dynamic(() => import('@shared').then((mod) => mod.Auth));
 const Toaster = dynamic(() => import('@shared').then((mod) => mod.Toaster));
 const TailwindIndicator = dynamic(() => import('@shared').then((mod) => mod.TailwindIndicator));
-
-initAuth();
 
 const App: React.FC<AppProps<{ session: Session }>> = ({ Component, pageProps: { session, ...pageProps } }) => {
     return (
@@ -53,6 +48,4 @@ const App: React.FC<AppProps<{ session: Session }>> = ({ Component, pageProps: {
     );
 };
 
-export default withAuthUser()(App);
-
-export const getServerSideProps: GetServerSideProps = withAuthUserTokenSSR()();
+export default App;

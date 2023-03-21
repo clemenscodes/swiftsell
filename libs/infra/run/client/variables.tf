@@ -43,48 +43,13 @@ variable "git_commit_sha" {
   type        = string
 }
 
-variable "app_id" {
-  description = "The app id of the firebase app that will be needed to configure the secrets"
-  type        = string
-}
-
 variable "project_id" {
   description = "The id of the project in which the Cloud Run service will be created"
   type        = string
 }
 
-variable "api_key" {
-  description = "The API key used by Firebase"
-  type        = string
-}
-
-variable "auth_domain" {
-  description = "The API key used by Firebase"
-  type        = string
-}
-
-variable "storage_bucket" {
-  description = "The storage bucket used by Firebase"
-  type        = string
-}
-
-variable "sender_id" {
-  description = "The messaging sender id used by Firebase"
-  type        = string
-}
-
 variable "next_auth_secret" {
   description = "The secret used for next-auth"
-  type        = string
-}
-
-variable "cookie_secret_previous" {
-  description = "The previous cookie secret used by Firebase"
-  type        = string
-}
-
-variable "cookie_secret_current" {
-  description = "The current cookie secret used by Firebase"
   type        = string
 }
 
