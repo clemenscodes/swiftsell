@@ -45,6 +45,7 @@ module "run" {
   auth_domain            = module.app.auth_domain
   storage_bucket         = module.app.storage_bucket
   sender_id              = module.app.sender_id
+  next_auth_secret       = module.app.next_auth_secret
   cookie_secret_previous = module.app.cookie_secret_previous
   cookie_secret_current  = module.app.cookie_secret_current
   #   subnet_cidr_range      = var.subnet_cidr_range
