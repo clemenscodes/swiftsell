@@ -48,16 +48,6 @@ variable "project_id" {
   type        = string
 }
 
-variable "cookie_secret_previous" {
-  description = "The previous cookie secret used by Firebase"
-  type        = string
-}
-
-variable "cookie_secret_current" {
-  description = "The current cookie secret used by Firebase"
-  type        = string
-}
-
 variable "database_url" {
   description = "The url to the database"
   type        = string

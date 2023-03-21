@@ -105,8 +105,6 @@ populate_env_configs() {
     ENV_CONFIG_FILE="$APP_DIR/config/.env.$CONFIG"
     {
         echo "HASURA_GRAPHQL_ENDPOINT=\"$HASURA_GRAPHQL_ENDPOINT\""
-        echo "COOKIE_SECRET_PREVIOUS=\"$($TF output cookie_secret_previous | tr -d '"')\""
-        echo "COOKIE_SECRET_CURRENT=\"$($TF output cookie_secret_current | tr -d '"')\""
     } >>"$ENV_CONFIG_FILE"
     purple "generated content of $ENV_CONFIG_FILE"
 }

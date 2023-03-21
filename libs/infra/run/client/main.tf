@@ -3,60 +3,6 @@ locals {
   domain = "${var.cloud_run_subdomain}.${var.domain}"
 }
 
-data "google_firebase_web_app_config" "basic" {
-  provider   = google-beta
-  project    = var.project_id
-  web_app_id = var.app_id
-}
-
-module "firebase_secret_project_id" {
-  source          = "../../secret"
-  project_id      = var.project_id
-  service_account = local.sa
-  secret_id       = "NEXT_PUBLIC_FIREBASE_PROJECT_ID"
-  secret_data     = var.project_id
-}
-
-module "firebase_secret_app_id" {
-  source          = "../../secret"
-  project_id      = var.project_id
-  service_account = local.sa
-  secret_id       = "NEXT_PUBLIC_FIREBASE_APP_ID"
-  secret_data     = var.app_id
-}
-
-module "firebase_secret_api_key" {
-  source          = "../../secret"
-  project_id      = var.project_id
-  service_account = local.sa
-  secret_id       = "NEXT_PUBLIC_FIREBASE_API_KEY"
-  secret_data     = var.api_key
-}
-
-module "firebase_secret_auth_domain" {
-  source          = "../../secret"
-  project_id      = var.project_id
-  service_account = local.sa
-  secret_id       = "NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN"
-  secret_data     = var.auth_domain
-}
-
-module "firebase_secret_storage_bucket" {
-  source          = "../../secret"
-  project_id      = var.project_id
-  service_account = local.sa
-  secret_id       = "NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET"
-  secret_data     = var.storage_bucket
-}
-
-module "firebase_secret_messaging_sender_id" {
-  source          = "../../secret"
-  project_id      = var.project_id
-  service_account = local.sa
-  secret_id       = "NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID"
-  secret_data     = var.sender_id
-}
-
 module "next_auth_url" {
   source          = "../../secret"
   project_id      = var.project_id
@@ -71,30 +17,6 @@ module "next_auth_secret" {
   service_account = local.sa
   secret_id       = "NEXTAUTH_SECRET"
   secret_data     = var.next_auth_secret
-}
-
-module "cookie_secret_previous" {
-  source          = "../../secret"
-  project_id      = var.project_id
-  service_account = local.sa
-  secret_id       = "COOKIE_SECRET_PREVIOUS"
-  secret_data     = var.cookie_secret_previous
-}
-
-module "cookie_secret_current" {
-  source          = "../../secret"
-  project_id      = var.project_id
-  service_account = local.sa
-  secret_id       = "COOKIE_SECRET_CURRENT"
-  secret_data     = var.cookie_secret_current
-}
-
-module "google_cloud_project" {
-  source          = "../../secret"
-  project_id      = var.project_id
-  service_account = local.sa
-  secret_id       = "GOOGLE_CLOUD_PROJECT"
-  secret_data     = var.project_id
 }
 
 resource "google_project_service" "run" {
@@ -118,12 +40,6 @@ resource "google_project_iam_member" "storage_object_admin" {
 resource "google_project_iam_member" "storage_admin" {
   project = var.project_id
   role    = "roles/storage.admin"
-  member  = local.sa
-}
-
-resource "google_project_iam_member" "firebase_sdk_admin" {
-  project = var.project_id
-  role    = "roles/firebase.sdkAdminServiceAgent"
   member  = local.sa
 }
 
@@ -159,60 +75,6 @@ resource "google_cloud_run_v2_service" "default" {
         container_port = 3000
       }
       env {
-        name = module.firebase_secret_api_key.secret_id
-        value_source {
-          secret_key_ref {
-            secret  = module.firebase_secret_api_key.secret_id
-            version = "latest"
-          }
-        }
-      }
-      env {
-        name = module.firebase_secret_app_id.secret_id
-        value_source {
-          secret_key_ref {
-            secret  = module.firebase_secret_app_id.secret_id
-            version = "latest"
-          }
-        }
-      }
-      env {
-        name = module.firebase_secret_project_id.secret_id
-        value_source {
-          secret_key_ref {
-            secret  = module.firebase_secret_project_id.secret_id
-            version = "latest"
-          }
-        }
-      }
-      env {
-        name = module.firebase_secret_storage_bucket.secret_id
-        value_source {
-          secret_key_ref {
-            secret  = module.firebase_secret_storage_bucket.secret_id
-            version = "latest"
-          }
-        }
-      }
-      env {
-        name = module.firebase_secret_messaging_sender_id.secret_id
-        value_source {
-          secret_key_ref {
-            secret  = module.firebase_secret_messaging_sender_id.secret_id
-            version = "latest"
-          }
-        }
-      }
-      env {
-        name = module.firebase_secret_auth_domain.secret_id
-        value_source {
-          secret_key_ref {
-            secret  = module.firebase_secret_auth_domain.secret_id
-            version = "latest"
-          }
-        }
-      }
-      env {
         name = module.next_auth_url.secret_id
         value_source {
           secret_key_ref {
@@ -230,33 +92,6 @@ resource "google_cloud_run_v2_service" "default" {
           }
         }
       }
-      env {
-        name = module.cookie_secret_previous.secret_id
-        value_source {
-          secret_key_ref {
-            secret  = module.cookie_secret_previous.secret_id
-            version = "latest"
-          }
-        }
-      }
-      env {
-        name = module.cookie_secret_current.secret_id
-        value_source {
-          secret_key_ref {
-            secret  = module.cookie_secret_current.secret_id
-            version = "latest"
-          }
-        }
-      }
-      env {
-        name = module.google_cloud_project.secret_id
-        value_source {
-          secret_key_ref {
-            secret  = module.google_cloud_project.secret_id
-            version = "latest"
-          }
-        }
-      }
     }
   }
   traffic {
@@ -268,17 +103,8 @@ resource "google_cloud_run_v2_service" "default" {
   }
   depends_on = [
     google_project_service.run,
-    module.firebase_secret_api_key,
-    module.firebase_secret_app_id,
-    module.firebase_secret_auth_domain,
-    module.firebase_secret_messaging_sender_id,
-    module.firebase_secret_project_id,
-    module.firebase_secret_storage_bucket,
-    module.google_cloud_project,
     module.next_auth_url,
     module.next_auth_secret,
-    module.cookie_secret_previous,
-    module.cookie_secret_current
   ]
 }
 

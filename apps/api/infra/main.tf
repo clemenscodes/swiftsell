@@ -24,26 +24,8 @@ module "project" {
     "cloudbilling.googleapis.com",
     "serviceusage.googleapis.com",
     "run.googleapis.com",
-    # "firebase.googleapis.com",
-    # "firestore.googleapis.com",
-    # "firebasestorage.googleapis.com",
-    # "apikeys.googleapis.com",
-    # "appengine.googleapis.com",
   ]
-  #   labels = {
-  #     "firebase" = "enabled"
-  #   }
 }
-
-# module "firebase" {
-#   source               = "../../../libs/infra/firebase"
-#   project_id           = module.project.project_id
-#   project_name         = var.project_name
-#   firebase_bucket_name = "${module.project.name}-firebase"
-#   region               = var.firebase_region
-#   firestore_location   = var.firestore_location
-#   firebase_location    = var.firebase_location
-# }
 
 resource "google_project_iam_member" "wif" {
   project = module.project.project_id
@@ -63,18 +45,6 @@ resource "google_project_iam_member" "wif_service_account_token_creator" {
   member  = module.wif_data.wif_principal
 }
 
-# resource "google_project_iam_member" "api_keys_viewer" {
-#   project = module.project.project_id
-#   role    = "roles/serviceusage.apiKeysViewer"
-#   member  = "serviceAccount:${module.wif_data.service_account_email}"
-# }
-
-# resource "google_project_iam_member" "appengine_admin" {
-#   project = module.project.project_id
-#   role    = "roles/appengine.appAdmin"
-#   member  = "serviceAccount:${module.wif_data.service_account_email}"
-# }
-
 resource "google_project_iam_member" "iam_service_account_user" {
   project = module.project.project_id
   role    = "roles/iam.serviceAccountUser"
@@ -92,12 +62,6 @@ resource "google_project_iam_member" "run_service_agent" {
   role    = "roles/run.serviceAgent"
   member  = "serviceAccount:${module.wif_data.service_account_email}"
 }
-
-# resource "google_project_iam_member" "firebase_admin" {
-#   project = module.project.project_id
-#   role    = "roles/firebase.admin"
-#   member  = "serviceAccount:${module.wif_data.service_account_email}"
-# }
 
 resource "google_project_iam_member" "secret_manager_admin" {
   project = module.project.project_id
@@ -147,44 +111,6 @@ resource "google_project_iam_member" "service_account_admin" {
   member  = "serviceAccount:${module.wif_data.service_account_email}"
 }
 
-# resource "google_project_iam_member" "firebasemanagementserviceagent" {
-#   project = module.project.project_id
-#   role    = "roles/firebase.managementServiceAgent"
-#   member  = "serviceAccount:${module.wif_data.service_account_email}"
-# }
-
-# resource "google_project_iam_member" "service_account_key_admin" {
-#   project = module.project.project_id
-#   role    = "roles/iam.serviceAccountKeyAdmin"
-#   member  = "serviceAccount:${module.wif_data.service_account_email}"
-# }
-
-# resource "google_apikeys_key" "browser_key" {
-#   name         = "firebase-api-key"
-#   display_name = "Browser key (auto created by Terraform)"
-#   project      = module.project.project_id
-#   restrictions {
-#     api_targets {
-#       service = "firebase.googleapis.com"
-#     }
-#     api_targets {
-#       service = "firestore.googleapis.com"
-#     }
-#     api_targets {
-#       service = "firebasestorage.googleapis.com"
-#     }
-#     api_targets {
-#       service = "identitytoolkit.googleapis.com"
-#     }
-#     browser_key_restrictions {
-#       allowed_referrers = [local.domain, "${local.domain}/*"]
-#     }
-#   }
-#   depends_on = [
-#     google_project_iam_member.firebasemanagementserviceagent
-#   ]
-# }
-
 module "state_bucket" {
   source     = "../../../libs/infra/bucket/state"
   project_id = module.project.project_id
@@ -196,30 +122,6 @@ module "artifact-registry-repository" {
   location      = var.artifact_region
   project_id    = module.project.project_id
   repository_id = var.repository_id
-}
-
-# module "isr_bucket" {
-#   source     = "../../../libs/infra/bucket/isr"
-#   project_id = module.project.project_id
-#   bucket     = var.isr_bucket
-# }
-
-# data "google_firebase_web_app_config" "basic" {
-#   provider   = google-beta
-#   project    = module.project.project_id
-#   web_app_id = module.firebase.app_id
-# }
-
-resource "random_password" "cookie_secret_current" {
-  length           = 16
-  special          = true
-  override_special = "!#%&*()-_=+[]{}<>:?"
-}
-
-resource "random_password" "cookie_secret_previous" {
-  length           = 16
-  special          = true
-  override_special = "!#%&*()-_=+[]{}<>:?"
 }
 
 # resource "google_project_iam_member" "vpcaccess_admin" {

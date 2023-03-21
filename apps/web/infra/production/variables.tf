@@ -34,18 +34,6 @@ variable "cloud_run_region" {
   default     = "europe-west1"
 }
 
-variable "firestore_location" {
-  description = "The region of the Firestore"
-  type        = string
-  default     = "eur3"
-}
-
-variable "firebase_location" {
-  description = "The location of the Firebase project"
-  type        = string
-  default     = "europe-west"
-}
-
 variable "cloud_run_service_name" {
   description = "The name for the Cloud Run service"
   type        = string

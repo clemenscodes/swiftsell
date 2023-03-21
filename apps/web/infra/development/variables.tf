@@ -28,18 +28,6 @@ variable "artifact_region" {
   default     = "europe-west1"
 }
 
-variable "firestore_location" {
-  description = "The region of the Firestore"
-  type        = string
-  default     = "eur3"
-}
-
-variable "firebase_location" {
-  description = "The location of the Firebase project"
-  type        = string
-  default     = "europe-west"
-}
-
 variable "cloud_run_region" {
   description = "The region in which the Cloud Run service will be hosted"
   type        = string

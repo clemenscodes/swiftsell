@@ -3,6 +3,6 @@
     "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "libs/infra/run/client",
     "projectType": "library",
-    "implicitDependencies": ["infra-secret", "infra-firebase"],
+    "implicitDependencies": ["infra-secret"],
     "tags": []
 }

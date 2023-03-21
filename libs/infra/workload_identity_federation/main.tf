@@ -72,37 +72,6 @@ resource "google_project_service" "iam" {
   service = "iam.googleapis.com"
 }
 
-resource "google_project_service" "firebase" {
-  provider = google-beta
-  project  = module.data.project_id
-  service  = "firebase.googleapis.com"
-}
-
-resource "google_project_service" "firestore" {
-  provider = google-beta
-  project  = module.data.project_id
-  service  = "firestore.googleapis.com"
-}
-
-resource "google_project_service" "apikeys" {
-  provider = google-beta
-  project  = module.data.project_id
-  service  = "apikeys.googleapis.com"
-}
-
-resource "google_project_service" "firebasestorage" {
-  provider = google-beta
-  project  = module.data.project_id
-  service  = "firebasestorage.googleapis.com"
-}
-
-resource "google_project_service" "appengine" {
-  provider = google-beta
-  project  = module.data.project_id
-  service  = "appengine.googleapis.com"
-}
-
-
 resource "google_project_service" "iam_credentials" {
   project = module.data.project_id
   service = "iamcredentials.googleapis.com"
@@ -116,11 +85,6 @@ resource "google_project_service" "sts_api" {
 resource "google_project_service" "cloudresourcemanager" {
   project = module.data.project_id
   service = "cloudresourcemanager.googleapis.com"
-}
-
-resource "google_project_service" "identitytoolkit" {
-  project = module.data.project_id
-  service = "identitytoolkit.googleapis.com"
 }
 
 resource "google_service_account" "gh_actions" {

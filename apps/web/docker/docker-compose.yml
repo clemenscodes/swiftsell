@@ -3,7 +3,7 @@ name: swiftsell
 services:
     web:
         env_file: '../.env.local'
-        depends_on: ['firebase', 'api']
+        depends_on: ['api']
         container_name: web
         build:
             context: '../../../'
@@ -73,23 +73,6 @@ services:
             - '9090:8080'
         depends_on: ['postgres']
         restart: always
-        networks:
-            - backend
-    firebase:
-        container_name: firebase
-        env_file: '../../../services/firebase/.env.skeleton'
-        restart: always
-        build:
-            context: '../../../'
-            dockerfile: services/firebase/Dockerfile
-        ports:
-            - '4000:4000'
-            - '5001:5001'
-            - '8080:8080'
-            - '8085:8085'
-            - '9000:9000'
-            - '9099:9099'
-            - '9199:9199'
         networks:
             - backend
 
