@@ -23,7 +23,9 @@ module "project" {
     "cloudresourcemanager.googleapis.com",
     "serviceusage.googleapis.com"
   ]
-  disable_dependent_services = true
+  service_config = {
+    disable_dependent_services = true
+  }
 }
 
 resource "google_project_iam_member" "wif" {
