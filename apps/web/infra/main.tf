@@ -23,10 +23,6 @@ module "project" {
     "cloudresourcemanager.googleapis.com",
     "serviceusage.googleapis.com"
   ]
-  service_config = {
-    disable_on_destroy         = true
-    disable_dependent_services = true
-  }
 }
 
 resource "google_project_iam_member" "wif" {
