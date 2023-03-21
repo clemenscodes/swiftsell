@@ -24,6 +24,7 @@ module "project" {
     "serviceusage.googleapis.com"
   ]
   service_config = {
+    disable_on_destroy         = true
     disable_dependent_services = true
   }
 }
