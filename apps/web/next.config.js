@@ -1,5 +1,6 @@
-const { join } = require('path');
 const { withNx } = require('@nrwl/next/plugins/with-nx');
+const { join } = require('path');
+
 const protocol = 'https';
 const apexDomain = 'swiftsell.de';
 // const isCloudRunProd = process.env.NEXT_PUBLIC_PROJECT_TYPE === 'production';
@@ -26,6 +27,7 @@ const withPWA = require('next-pwa')({
     dest: 'public',
     skipWaiting: true,
     register: true,
+    maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
     // exclude: [
     //     ({ asset }) =>
     //         asset.name.startsWith('public/') ||

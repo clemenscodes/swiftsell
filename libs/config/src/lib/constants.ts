@@ -29,5 +29,12 @@ export const siteConfig: SiteConfig = {
     prefix,
     name: 'SWIFTSELL',
     description: 'Sell swiftly',
-    navbar: [],
+    navbar: [
+        {
+            href: '/products',
+            external: false,
+            disabled: false,
+            title: 'Products',
+        },
+    ],
 };

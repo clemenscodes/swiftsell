@@ -12,7 +12,7 @@ datasource db {
     shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-model user {
+model User {
     id           Int      @id @default(autoincrement())
     createdAt    DateTime @default(now())
     lastSeen     DateTime @default(now())
@@ -27,7 +27,7 @@ model user {
 }
 
 // Define the Product table for storing product data.
-model product {
+model Product {
     id          Int      @id @default(autoincrement())
     name        String
     description String?
@@ -35,54 +35,54 @@ model product {
     image       String?
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
-    // store       store       @relation(fields: [storeId], references: [id])
+    // store       Store       @relation(fields: [storeId], references: [id])
     // storeId     Int
-    // inventory   inventory[]
-    // order       order?      @relation(fields: [orderId], references: [id])
+    // inventory   Inventory[]
+    // order       Order?      @relation(fields: [orderId], references: [id])
     // orderId     Int?
-    // cart        cart?       @relation(fields: [cartId], references: [id])
+    // cart        Cart?       @relation(fields: [cartId], references: [id])
     // cartId      Int?
 }
 
 // // Define the Order table for storing order data.
-// model order {
+// model Order {
 //     id         Int       @id @default(autoincrement())
 //     createdAt  DateTime  @default(now())
 //     updatedAt  DateTime  @updatedAt
-//     user       user      @relation(fields: [userId], references: [id])
+//     user       User      @relation(fields: [userId], references: [id])
 //     userId     Int
-//     products   product[]
+//     products   Product[]
 //     totalPrice Float
 // }
 
 // // Define the Cart table for storing cart data.
-// model cart {
+// model Cart {
 //     id        Int       @id @default(autoincrement())
 //     createdAt DateTime  @default(now())
 //     updatedAt DateTime  @updatedAt
-//     user      user      @relation(fields: [userId], references: [id])
+//     user      User      @relation(fields: [userId], references: [id])
 //     userId    Int
-//     products  product[]
+//     products  Product[]
 // }
 
 // // Define the Store table for storing store data.
-// model store {
+// model Store {
 //     id        Int         @id @default(autoincrement())
 //     name      String
 //     address   String
 //     createdAt DateTime    @default(now())
 //     updatedAt DateTime    @updatedAt
-//     products  product[]
-//     inventory inventory[]
+//     products  Product[]
+//     inventory Inventory[]
 // }
 
 // // Define the Inventory table for storing inventory data.
-// model inventory {
+// model Inventory {
 //     id        Int     @id @default(autoincrement())
 //     quantity  Int
-//     product   product @relation(fields: [productId], references: [id])
+//     product   Product @relation(fields: [productId], references: [id])
 //     productId Int
-//     store     store   @relation(fields: [storeId], references: [id])
+//     store     Store   @relation(fields: [storeId], references: [id])
 //     storeId   Int
 // }
 

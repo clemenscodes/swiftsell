@@ -208,6 +208,12 @@ data "google_firebase_web_app_config" "basic" {
   web_app_id = module.firebase.app_id
 }
 
+resource "random_password" "next_auth_secret" {
+  length           = 16
+  special          = true
+  override_special = "!#%&*()-_=+[]{}<>:?"
+}
+
 resource "random_password" "cookie_secret_current" {
   length           = 16
   special          = true

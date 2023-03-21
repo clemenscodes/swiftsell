@@ -2,6 +2,8 @@ import { initAuth } from '@utils';
 import '../global.css';
 import { siteConfig } from '@config';
 import { GetServerSideProps } from 'next';
+import { Session } from 'next-auth';
+import { SessionProvider } from 'next-auth/react';
 import { withAuthUser, withAuthUserTokenSSR } from 'next-firebase-auth';
 import type { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
@@ -11,12 +13,13 @@ const ThemeProvider = dynamic(() => import('next-themes').then((mod) => mod.Them
 const FontProvider = dynamic(() => import('@providers').then((mod) => mod.FontProvider));
 const GraphqlProvider = dynamic(() => import('@providers').then((mod) => mod.GraphqlProvider));
 const Header = dynamic(() => import('@shared').then((mod) => mod.Header));
+const Auth = dynamic(() => import('@shared').then((mod) => mod.Auth));
 const Toaster = dynamic(() => import('@shared').then((mod) => mod.Toaster));
 const TailwindIndicator = dynamic(() => import('@shared').then((mod) => mod.TailwindIndicator));
 
 initAuth();
 
-const App: React.FC<AppProps> = ({ Component, pageProps }) => {
+const App: React.FC<AppProps<{ session: Session }>> = ({ Component, pageProps: { session, ...pageProps } }) => {
     return (
         <>
             <Head>
@@ -26,16 +29,26 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
                     content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=5,user-scalable=yes,viewport-fit=cover'
                 />
             </Head>
-            <GraphqlProvider>
-                <ThemeProvider attribute='class' defaultTheme='dark' enableSystem>
-                    <FontProvider>
-                        <Header />
-                        <Component {...pageProps} />
-                        <TailwindIndicator />
-                        <Toaster />
-                    </FontProvider>
-                </ThemeProvider>
-            </GraphqlProvider>
+            <SessionProvider session={session}>
+                <GraphqlProvider>
+                    <ThemeProvider attribute='class' defaultTheme='dark' enableSystem>
+                        <FontProvider>
+                            <Header />
+                            {Component.defaultProps &&
+                            'auth' in Component.defaultProps &&
+                            Component.defaultProps.auth ? (
+                                <Auth>
+                                    <Component {...pageProps} />
+                                </Auth>
+                            ) : (
+                                <Component {...pageProps} />
+                            )}
+                            <TailwindIndicator />
+                            <Toaster />
+                        </FontProvider>
+                    </ThemeProvider>
+                </GraphqlProvider>
+            </SessionProvider>
         </>
     );
 };

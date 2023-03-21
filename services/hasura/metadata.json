@@ -7,7 +7,7 @@
       "tables": [
         {
           "table": {
-            "name": "product",
+            "name": "Product",
             "schema": "public"
           },
           "select_permissions": [
@@ -28,7 +28,7 @@
         },
         {
           "table": {
-            "name": "user",
+            "name": "User",
             "schema": "public"
           }
         }

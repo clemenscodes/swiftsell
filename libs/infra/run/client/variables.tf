@@ -73,6 +73,11 @@ variable "sender_id" {
   type        = string
 }
 
+variable "next_auth_secret" {
+  description = "The secret used for next-auth"
+  type        = string
+}
+
 variable "cookie_secret_previous" {
   description = "The previous cookie secret used by Firebase"
   type        = string

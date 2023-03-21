@@ -1,2 +1,2 @@
 export { type NavItem } from './lib/nav';
-export { type AuthProps } from './lib/auth-props';
+export { type LoginProps } from './lib/auth-props';

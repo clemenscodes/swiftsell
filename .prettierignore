@@ -14,7 +14,6 @@
 **/.next
 apps/web/public/*.js
 gha-creds-*.json
-tsconfig.base.json
 **/tmp
 libs/graphql/src/lib/graphql/**/*
 services/hasura/metadata/**/*.yaml

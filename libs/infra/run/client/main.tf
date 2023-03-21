@@ -1,5 +1,6 @@
 locals {
-  sa = "serviceAccount:${google_service_account.cloud_run_service_account.email}"
+  sa     = "serviceAccount:${google_service_account.cloud_run_service_account.email}"
+  domain = "${var.cloud_run_subdomain}.${var.domain}"
 }
 
 data "google_firebase_web_app_config" "basic" {
@@ -54,6 +55,22 @@ module "firebase_secret_messaging_sender_id" {
   service_account = local.sa
   secret_id       = "NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID"
   secret_data     = var.sender_id
+}
+
+module "next_auth_url" {
+  source          = "../../secret"
+  project_id      = var.project_id
+  service_account = local.sa
+  secret_id       = "NEXTAUTH_URL"
+  secret_data     = "https://${local.domain}"
+}
+
+module "next_auth_secret" {
+  source          = "../../secret"
+  project_id      = var.project_id
+  service_account = local.sa
+  secret_id       = "NEXTAUTH_SECRET"
+  secret_data     = var.next_auth_secret
 }
 
 module "cookie_secret_previous" {
@@ -196,6 +213,24 @@ resource "google_cloud_run_v2_service" "default" {
         }
       }
       env {
+        name = module.next_auth_url.secret_id
+        value_source {
+          secret_key_ref {
+            secret  = module.next_auth_url.secret_id
+            version = "latest"
+          }
+        }
+      }
+      env {
+        name = module.next_auth_secret.secret_id
+        value_source {
+          secret_key_ref {
+            secret  = module.next_auth_secret.secret_id
+            version = "latest"
+          }
+        }
+      }
+      env {
         name = module.cookie_secret_previous.secret_id
         value_source {
           secret_key_ref {
@@ -240,6 +275,8 @@ resource "google_cloud_run_v2_service" "default" {
     module.firebase_secret_project_id,
     module.firebase_secret_storage_bucket,
     module.google_cloud_project,
+    module.next_auth_url,
+    module.next_auth_secret,
     module.cookie_secret_previous,
     module.cookie_secret_current
   ]
@@ -262,7 +299,7 @@ resource "google_cloud_run_v2_service_iam_policy" "default" {
 resource "google_cloud_run_domain_mapping" "default" {
   location = google_cloud_run_v2_service.default.location
   project  = google_cloud_run_v2_service.default.project
-  name     = "${var.cloud_run_subdomain}.${var.domain}"
+  name     = local.domain
   metadata {
     namespace = var.project_id
   }

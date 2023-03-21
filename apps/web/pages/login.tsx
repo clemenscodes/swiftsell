@@ -1,11 +1,10 @@
-import { AuthProps } from '@types';
 import { AuthAction, withAuthUser } from 'next-firebase-auth';
 import dynamic from 'next/dynamic';
 
-const Auth = dynamic(() => import('@shared').then((mod) => mod.Auth));
+const Login = dynamic(() => import('@shared').then((mod) => mod.Login));
 
-export default withAuthUser<AuthProps>({
+export default withAuthUser({
     whenAuthed: AuthAction.REDIRECT_TO_APP,
     whenUnauthedBeforeInit: AuthAction.RETURN_NULL,
     whenUnauthedAfterInit: AuthAction.RENDER,
-})(Auth);
+})(Login);

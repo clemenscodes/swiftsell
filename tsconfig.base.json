@@ -1,66 +1,35 @@
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "rootDir": ".",
-    "sourceMap": true,
-    "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "importHelpers": true,
-    "target": "es2015",
-    "module": "esnext",
-    "lib": [
-      "es2017",
-      "dom"
-    ],
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
-    "baseUrl": ".",
-    "paths": {
-      "@api/web": [
-        "libs/api/web/src/index.ts"
-      ],
-      "@config": [
-        "libs/config/src/index.ts"
-      ],
-      "@fonts": [
-        "libs/fonts/src/index.ts"
-      ],
-      "@graphql": [
-        "libs/graphql/src/index.ts"
-      ],
-      "@hooks": [
-        "libs/hooks/src/index.ts"
-      ],
-      "@providers": [
-        "libs/providers/src/index.ts"
-      ],
-      "@redux": [
-        "libs/redux/src/index.ts"
-      ],
-      "@server": [
-        "libs/server/src/index.ts"
-      ],
-      "@shared": [
-        "libs/shared/src/index.ts"
-      ],
-      "@styles": [
-        "libs/styles/src/index.ts"
-      ],
-      "@test/*": [
-        "libs/test/src/*"
-      ],
-      "@types": [
-        "libs/types/src/index.ts"
-      ],
-      "@utils": [
-        "libs/utils/src/index.ts"
-      ]
-    }
-  },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+    "compileOnSave": false,
+    "compilerOptions": {
+        "rootDir": ".",
+        "sourceMap": true,
+        "declaration": false,
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "importHelpers": true,
+        "target": "es2015",
+        "module": "esnext",
+        "lib": ["es2017", "dom"],
+        "skipLibCheck": true,
+        "skipDefaultLibCheck": true,
+        "baseUrl": ".",
+        "paths": {
+            "@api/web": ["libs/api/web/src/index.ts"],
+            "@config": ["libs/config/src/index.ts"],
+            "@fonts": ["libs/fonts/src/index.ts"],
+            "@graphql": ["libs/graphql/src/index.ts"],
+            "@hooks": ["libs/hooks/src/index.ts"],
+            "@providers": ["libs/providers/src/index.ts"],
+            "@redux": ["libs/redux/src/index.ts"],
+            "@server": ["libs/server/src/index.ts"],
+            "@shared": ["libs/shared/src/index.ts"],
+            "@styles": ["libs/styles/src/index.ts"],
+            "@test/*": ["libs/test/src/*"],
+            "@types": ["libs/types/src/index.ts"],
+            "@types/next-auth": ["libs/types/src/lib/next-auth.d.ts"],
+            "@utils": ["libs/utils/src/index.ts"]
+        }
+    },
+    "exclude": ["node_modules", "tmp"]
 }
