@@ -23,6 +23,10 @@ module "project" {
     "cloudresourcemanager.googleapis.com",
     "serviceusage.googleapis.com"
   ]
+  service_config = {
+    disable_on_destroy         = true
+    disable_dependent_services = true
+  }
 }
 
 resource "google_project_iam_member" "wif" {
@@ -76,6 +80,12 @@ resource "google_project_iam_member" "storage_admin" {
 resource "google_project_iam_member" "storage_object_admin" {
   project = module.project.project_id
   role    = "roles/storage.objectAdmin"
+  member  = "serviceAccount:${module.wif_data.service_account_email}"
+}
+
+resource "google_project_iam_member" "project_manager" {
+  project = module.project.project_id
+  role    = "roles/resourcemanager.projectIamAdmin"
   member  = "serviceAccount:${module.wif_data.service_account_email}"
 }
 
