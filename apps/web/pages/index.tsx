@@ -7,7 +7,7 @@ import path from 'path';
 // see https://github.com/nrwl/nx/issues/9017#issuecomment-1284740346
 path.resolve('./next.config.js');
 
-const Home = dynamic(() => import('@shared').then((mod) => mod.Home));
+const Home = dynamic(() => import('@pages').then((mod) => mod.Home));
 
 export const Index: NextPage = () => {
     return <Home />;

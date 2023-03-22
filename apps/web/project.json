@@ -26,7 +26,7 @@
                 "outputPath": "dist/apps/web",
                 "assets": [
                     {
-                        "input": "libs/shared/assets",
+                        "input": "libs/components/assets",
                         "glob": "**/*",
                         "output": ""
                     }
