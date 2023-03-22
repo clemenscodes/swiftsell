@@ -43,7 +43,7 @@ export function Navbar({ items }: MainNavProps) {
                 <Trigger asChild>
                     <Button
                         variant='ghost'
-                        className='flex h-14 w-14 items-center rounded-md text-base hover:bg-transparent focus:ring-0 md:hidden'
+                        className='flex h-14 w-14 items-center rounded-md text-base hover:bg-slate-100 focus:ring-0 md:hidden'
                     >
                         <Icons.Logo />
                     </Button>
