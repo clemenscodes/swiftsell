@@ -6,6 +6,8 @@ interface SiteConfig {
     prefix: string;
     name: string;
     description: string;
+    keywords: string;
+    summary: string;
     navbar: NavItem[];
 }
 
@@ -29,6 +31,8 @@ export const siteConfig: SiteConfig = {
     prefix,
     name: 'SWIFTSELL',
     description: 'Sell swiftly',
+    keywords: 'shopping',
+    summary: 'Sell swiftly',
     navbar: [
         {
             href: '/products',

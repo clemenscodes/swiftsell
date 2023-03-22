@@ -1,3 +1,4 @@
+export * from './lib/layout/layout';
 export * from './lib/footer/footer';
 export * from './lib/auth/auth';
 export * from './lib/banner/banner';

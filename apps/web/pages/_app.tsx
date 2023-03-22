@@ -9,11 +9,8 @@ import Head from 'next/head';
 const ThemeProvider = dynamic(() => import('next-themes').then((mod) => mod.ThemeProvider));
 const FontProvider = dynamic(() => import('@providers').then((mod) => mod.FontProvider));
 const GraphqlProvider = dynamic(() => import('@providers').then((mod) => mod.GraphqlProvider));
-const Header = dynamic(() => import('@components').then((mod) => mod.Header));
-const Footer = dynamic(() => import('@components').then((mod) => mod.Footer));
+const Layout = dynamic(() => import('@components').then((mod) => mod.Layout));
 const Auth = dynamic(() => import('@components').then((mod) => mod.Auth));
-const Toaster = dynamic(() => import('@components').then((mod) => mod.Toaster));
-const TailwindIndicator = dynamic(() => import('@components').then((mod) => mod.TailwindIndicator));
 
 const App: React.FC<AppProps<{ session: Session }>> = ({ Component, pageProps: { session, ...pageProps } }) => {
     return (
@@ -29,19 +26,19 @@ const App: React.FC<AppProps<{ session: Session }>> = ({ Component, pageProps: {
                 <GraphqlProvider>
                     <ThemeProvider attribute='class' defaultTheme='dark' enableSystem>
                         <FontProvider>
-                            <Header />
                             {Component.defaultProps &&
                             'auth' in Component.defaultProps &&
                             Component.defaultProps.auth ? (
-                                <Auth>
-                                    <Component {...pageProps} />
-                                </Auth>
+                                <Layout>
+                                    <Auth>
+                                        <Component {...pageProps} />
+                                    </Auth>
+                                </Layout>
                             ) : (
-                                <Component {...pageProps} />
+                                <Layout>
+                                    <Component {...pageProps} />
+                                </Layout>
                             )}
-                            <Footer />
-                            <TailwindIndicator />
-                            <Toaster />
                         </FontProvider>
                     </ThemeProvider>
                 </GraphqlProvider>
