@@ -8,7 +8,7 @@ export interface HomeProps {}
 
 export const Home: NextPage<HomeProps> = ({ ...props }) => {
     return (
-        <main className={cn('flex max-w-full flex-col items-center justify-center')}>
+        <main className={cn('')}>
             <Banner />
             <Products />
         </main>
