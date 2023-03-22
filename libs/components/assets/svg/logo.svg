@@ -5,6 +5,7 @@
       .d {
         stroke: #000;
         stroke-miterlimit: 10;
+        fill: #fff;
       }
     </style>
   </defs>
