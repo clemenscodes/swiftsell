@@ -9,10 +9,10 @@ import Head from 'next/head';
 const ThemeProvider = dynamic(() => import('next-themes').then((mod) => mod.ThemeProvider));
 const FontProvider = dynamic(() => import('@providers').then((mod) => mod.FontProvider));
 const GraphqlProvider = dynamic(() => import('@providers').then((mod) => mod.GraphqlProvider));
-const Header = dynamic(() => import('@shared').then((mod) => mod.Header));
-const Auth = dynamic(() => import('@shared').then((mod) => mod.Auth));
-const Toaster = dynamic(() => import('@shared').then((mod) => mod.Toaster));
-const TailwindIndicator = dynamic(() => import('@shared').then((mod) => mod.TailwindIndicator));
+const Header = dynamic(() => import('@components').then((mod) => mod.Header));
+const Auth = dynamic(() => import('@components').then((mod) => mod.Auth));
+const Toaster = dynamic(() => import('@components').then((mod) => mod.Toaster));
+const TailwindIndicator = dynamic(() => import('@components').then((mod) => mod.TailwindIndicator));
 
 const App: React.FC<AppProps<{ session: Session }>> = ({ Component, pageProps: { session, ...pageProps } }) => {
     return (

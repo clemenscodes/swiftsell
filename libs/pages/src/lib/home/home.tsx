@@ -1,5 +1,5 @@
-import Banner from '../../components/banner/banner';
 import Products from '../products/products';
+import { Banner } from '@components';
 import { cn } from '@styles';
 import { NextPage } from 'next';
 

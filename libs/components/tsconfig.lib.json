@@ -19,18 +19,5 @@
         "src/**/*.spec.jsx",
         "src/**/*.test.jsx"
     ],
-    "include": [
-        "src/**/*.js",
-        "src/**/*.jsx",
-        "src/**/*.ts",
-        "src/**/*.tsx",
-        "../styles/**/*.ts",
-        "../styles/**/*.tsx",
-        "../config/**/*.ts",
-        "../config/**/*.tsx",
-        "../hooks/**/*.tsx",
-        "../hooks/**/*.ts",
-        "../redux/**/*.tsx",
-        "../redux/**/*.ts"
-    ]
+    "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"]
 }

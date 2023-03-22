@@ -1,5 +1,4 @@
-import ProductList from '../../components/product-list/product-list';
-import H1 from '../../components/typography/h1/h1';
+import { ProductList, H1 } from '@components';
 import { cn } from '@styles';
 import { NextPage } from 'next';
 

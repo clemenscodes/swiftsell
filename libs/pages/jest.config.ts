@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-    displayName: 'shared',
+    displayName: 'pages',
     preset: '../../jest.preset.js',
     transform: {
         '^.+\\.[tj]sx?$': ['@swc/jest', { jsc: { transform: { react: { runtime: 'automatic' } } } }],
