@@ -29,7 +29,7 @@ export const ProductList: React.FC<ProductListProps> = ({ ...props }) => {
     if (error) return <p>Error:( </p>;
 
     return (
-        <ul className={cn('m-12 my-6 grid list-disc grid-cols-1 items-center gap-6 sm:grid-cols-2 lg:grid-cols-3')}>
+        <ul className={cn('m-6 grid list-disc grid-cols-1 items-center gap-6 sm:grid-cols-2 lg:grid-cols-3')}>
             {data && data.Product.map((product) => <Product product={product} key={product.id} />)}
         </ul>
     );
