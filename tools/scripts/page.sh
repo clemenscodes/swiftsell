@@ -1,14 +1,13 @@
 #!/bin/sh
 
 pwd=$(pwd)
-lib="$pwd/libs/shared/src"
-scripts="$pwd/tools/scripts"
+lib="$pwd/libs/pages/src"
 
 page="$1"
 directory="$2"
 
 if [ -z "$directory" ]; then
-    directory="pages"
+    directory="lib"
 fi
 
 path="$directory/$page/$page"
@@ -22,11 +21,11 @@ remove_css() {
     sed -i 's/className={[^\}]*}//g' "$tsx"
 }
 
-nx generate @nrwl/next:component "$page" --directory="$directory" --project=shared --export -s=css
+nx generate @nrwl/next:component "$page" --directory="$directory" --project=pages --export -s=css
 
 remove_css
 
-nx generate @nrwl/react:component-story --componentPath="$file" --project=shared
+nx generate @nrwl/react:component-story --componentPath="$file" --project=pages
 
 nx format
 
@@ -39,4 +38,5 @@ use_ts() {
 
 use_ts
 
-"$scripts/use_cn.sh" "$page" "$directory"
+sed -i "1i\ import { cn } from '@styles';" "$tsx"
+sed -i "s/<div>\(.*\)$/<div className={cn([])}>/" "$tsx"

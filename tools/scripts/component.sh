@@ -1,17 +1,19 @@
 #!/bin/sh
 
-pwd=$(pwd)
-lib="$pwd/libs/shared/src"
-scripts="$pwd/tools/scripts"
-
 component="$1"
 directory="$2"
+project="$3"
 
 if [ -z "$directory" ]; then
-    directory="components"
-else
-    directory="components/$2"
+    directory="lib"
 fi
+
+if [ -z "$project" ]; then
+    project="components"
+fi
+
+pwd=$(pwd)
+lib="$pwd/libs/$project/src"
 
 path="$directory/$component/$component"
 file="$path.tsx"
@@ -24,11 +26,11 @@ remove_css() {
     sed -i 's/className={[^\}]*}//g' "$lib/$file"
 }
 
-nx generate @nrwl/next:component "$component" --directory="$directory" --project=shared --export -s=css
+nx generate @nrwl/next:component "$component" --directory="$directory" --project="$project" --export -s=css
 
 remove_css
 
-nx generate @nrwl/react:component-story --componentPath="$file" --project=shared
+nx generate @nrwl/react:component-story --componentPath="$file" --project="$project"
 
 nx format
 
@@ -40,4 +42,5 @@ use_ts() {
 
 use_ts
 
-"$scripts/use_cn.sh" "$component" "$directory"
+sed -i "1i\ import { cn } from '@styles';" "$tsx"
+sed -i "s/<div>\(.*\)$/<div className={cn([])}>/" "$tsx"

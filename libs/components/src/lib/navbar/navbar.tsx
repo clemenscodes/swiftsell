@@ -29,7 +29,7 @@ export function Navbar({ items }: MainNavProps) {
                                     key={index}
                                     href={item.href}
                                     className={cn(
-                                        'flex items-center text-lg font-semibold text-slate-600 hover:text-slate-900 dark:text-slate-100 sm:text-sm',
+                                        'dark:text-dimmed-font hover:text-dimmed-600 ml-2 flex items-center text-lg font-semibold sm:text-sm',
                                         item.disabled && 'cursor-not-allowed opacity-80'
                                     )}
                                 >

@@ -10,6 +10,7 @@ const ThemeProvider = dynamic(() => import('next-themes').then((mod) => mod.Them
 const FontProvider = dynamic(() => import('@providers').then((mod) => mod.FontProvider));
 const GraphqlProvider = dynamic(() => import('@providers').then((mod) => mod.GraphqlProvider));
 const Header = dynamic(() => import('@components').then((mod) => mod.Header));
+const Footer = dynamic(() => import('@components').then((mod) => mod.Footer));
 const Auth = dynamic(() => import('@components').then((mod) => mod.Auth));
 const Toaster = dynamic(() => import('@components').then((mod) => mod.Toaster));
 const TailwindIndicator = dynamic(() => import('@components').then((mod) => mod.TailwindIndicator));
@@ -38,6 +39,7 @@ const App: React.FC<AppProps<{ session: Session }>> = ({ Component, pageProps: {
                             ) : (
                                 <Component {...pageProps} />
                             )}
+                            <Footer />
                             <TailwindIndicator />
                             <Toaster />
                         </FontProvider>

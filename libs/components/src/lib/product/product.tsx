@@ -12,7 +12,7 @@ export interface ProductProps {
 
 export const Product: React.FC<ProductProps> = ({ product, ...props }) => {
     return (
-        <li className={cn('overflow-hidden rounded-lg shadow-lg dark:bg-slate-900 ')}>
+        <li className={cn('dark:border-dimmed-700 overflow-hidden rounded-lg border text-center')}>
             <H2>{product.name}</H2>
             <P>{product.description}</P>
             <Lead>Price: {product.price}€</Lead>

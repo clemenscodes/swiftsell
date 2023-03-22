@@ -1,3 +1,4 @@
+export * from './lib/footer/footer';
 export * from './lib/auth/auth';
 export * from './lib/banner/banner';
 export * from './lib/toaster/toaster';

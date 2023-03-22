@@ -7,7 +7,7 @@ export interface ProductsProps {}
 
 export const Products: NextPage<ProductsProps> = ({ ...props }) => {
     return (
-        <div className={cn(['m-12 flex flex-col items-center justify-center'])}>
+        <div className={cn(['my-6 flex flex-col items-center justify-center'])}>
             <H1>Products</H1>
             <ProductList />
         </div>
