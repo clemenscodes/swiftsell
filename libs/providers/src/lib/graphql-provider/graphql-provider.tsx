@@ -1,10 +1,7 @@
+import { clientUrl } from '@config';
 import { Provider, createClient } from 'urql';
 
-const endpoint = (process.env.NEXT_PUBLIC_HASURA_GRAPHQL_ENDPOINT as string) || 'http://localhost:9090';
-
-const url = `${endpoint}/v1/graphql`;
-
-export const client = createClient({ url });
+export const client = createClient({ url: clientUrl });
 
 /* eslint-disable-next-line */
 export interface GraphqlProviderProps extends React.PropsWithChildren {}

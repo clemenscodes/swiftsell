@@ -16,8 +16,11 @@ const config: CodegenConfig = {
     ],
     documents: ['./src/**/*.tsx', './src/**/*.ts'],
     generates: {
-        './src/lib/graphql/': {
+        './src/lib/graphql/client/': {
             preset: 'client',
+        },
+        './src/lib/graphql/sdk.ts': {
+            plugins: ['typescript', 'typescript-operations', 'typescript-graphql-request'],
         },
     },
 };

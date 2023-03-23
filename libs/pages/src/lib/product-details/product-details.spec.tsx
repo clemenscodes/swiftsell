@@ -1,10 +1,10 @@
-import Product from './product';
+import ProductDetails from './product-details';
 import { mockProduct } from '@test/lib/productMock';
 import { render } from '@testing-library/react';
 
-describe('Product', () => {
+describe('ProductDetails', () => {
     it('should render successfully', () => {
-        const { baseElement } = render(<Product product={mockProduct} />);
+        const { baseElement } = render(<ProductDetails product={mockProduct} />);
         expect(baseElement).toBeTruthy();
     });
 });
