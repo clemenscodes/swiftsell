@@ -12,11 +12,11 @@ import Link from 'next/link';
 
 const Logo = dynamic(() => import('../logo/logo'));
 
-interface MainNavProps {
+interface NavbarProps {
     items?: NavItem[];
 }
 
-export function Navbar({ items }: MainNavProps) {
+export const Navbar: React.FC<NavbarProps> = ({ items, ...props }) => {
     return (
         <div className='flex'>
             <Logo />
@@ -67,6 +67,6 @@ export function Navbar({ items }: MainNavProps) {
             </Root>
         </div>
     );
-}
+};
 
 export default Navbar;
