@@ -12,14 +12,14 @@ terraform {
 }
 
 module "app" {
-  source             = "../"
-  project_name       = var.project_name
-  state_bucket       = var.state_bucket
-  artifact_region    = var.artifact_region
-  repository_id      = var.repository_id
-  git_commit_sha     = var.git_commit_sha
-  isr_bucket         = var.isr_bucket
-  subdomain          = var.cloud_run_subdomain
+  source          = "../"
+  project_name    = var.project_name
+  state_bucket    = var.state_bucket
+  artifact_region = var.artifact_region
+  repository_id   = var.repository_id
+  git_commit_sha  = var.git_commit_sha
+  isr_bucket      = var.isr_bucket
+  subdomain       = var.cloud_run_subdomain
   #   cdn_bucket      = var.cdn_bucket
   #   cdn_region      = var.cdn_region
   #   cdn_subdomain   = var.cdn_subdomain
@@ -38,5 +38,6 @@ module "run" {
   artifact_region        = var.artifact_region
   project_id             = module.app.project_id
   next_auth_secret       = module.app.next_auth_secret
+  hasura_endpoint        = var.hasura_endpoint
   #   subnet_cidr_range      = var.subnet_cidr_range
 }

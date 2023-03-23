@@ -3,6 +3,14 @@ locals {
   domain = "${var.cloud_run_subdomain}.${var.domain}"
 }
 
+module "hasura_endpoint" {
+  source          = "../../secret"
+  project_id      = var.project_id
+  service_account = local.sa
+  secret_id       = "HASURA_GRAPHQL_ENDPOINT"
+  secret_data     = var.hasura_endpoint
+}
+
 module "next_auth_url" {
   source          = "../../secret"
   project_id      = var.project_id
@@ -75,6 +83,15 @@ resource "google_cloud_run_v2_service" "default" {
         container_port = 3000
       }
       env {
+        name = module.hasura_endpoint.secret_id
+        value_source {
+          secret_key_ref {
+            secret  = module.hasura_endpoint.secret_id
+            version = "latest"
+          }
+        }
+      }
+      env {
         name = module.next_auth_url.secret_id
         value_source {
           secret_key_ref {
@@ -103,6 +120,7 @@ resource "google_cloud_run_v2_service" "default" {
   }
   depends_on = [
     google_project_service.run,
+    module.hasura_endpoint,
     module.next_auth_url,
     module.next_auth_secret,
   ]

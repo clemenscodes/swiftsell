@@ -51,6 +51,11 @@ variable "git_commit_sha" {
   type        = string
 }
 
+variable "hasura_endpoint" {
+  description = "The hasura endpoint"
+  type        = string
+}
+
 # variable "cdn_bucket" {
 #   description = "The name of the CDN bucket that will be created"
 #   type        = string

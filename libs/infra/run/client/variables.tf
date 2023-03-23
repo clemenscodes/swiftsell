@@ -48,6 +48,11 @@ variable "project_id" {
   type        = string
 }
 
+variable "hasura_endpoint" {
+  description = "The hasura endpoint"
+  type        = string
+}
+
 variable "next_auth_secret" {
   description = "The secret used for next-auth"
   type        = string

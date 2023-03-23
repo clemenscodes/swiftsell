@@ -34,7 +34,7 @@ deploy() {
     INPUT_ARG="-input=false"
     LOCK_ARG="-lock=false"
     LOCK_TIMEOUT_ARG="-lock-timeout=60s"
-    VAR_ARG="-var=git_commit_sha=$SHA"
+    VAR_ARG="-var=git_commit_sha=$SHA -var=hasura_endpoint=$HASURA_GRAPHQL_ENDPOINT"
     TARGET_ARG="-target=module.app"
     APPROVE_ARG="-auto-approve"
 
