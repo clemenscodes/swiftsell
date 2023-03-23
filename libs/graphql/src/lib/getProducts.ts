@@ -2,7 +2,7 @@ import { graphql } from './graphql/client';
 
 export const getProductsQuery = graphql(`
     query getProducts {
-        Product {
+        Product(limit: 8) {
             id
             name
             description

@@ -985,7 +985,7 @@ export const GetProductIDsDocument = gql`
     `;
 export const GetProductsDocument = gql`
     query getProducts {
-  Product {
+  Product(limit: 8) {
     id
     name
     description
