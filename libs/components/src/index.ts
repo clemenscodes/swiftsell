@@ -1,3 +1,5 @@
+export * from './lib/cart-button/cart-button';
+export * from './lib/profile-button/profile-button';
 export * from './lib/search/search';
 export * from './lib/dialog/dialog';
 export * from './lib/input/input';

@@ -1,3 +1,5 @@
+import CartButton from '../cart-button/cart-button';
+import ProfileButton from '../profile-button/profile-button';
 import { Search } from '../search/search';
 import { siteConfig } from '@config';
 import dynamic from 'next/dynamic';
@@ -16,6 +18,8 @@ export const Header: React.FC<HeaderProps> = ({ ...props }) => {
                 <div className='flex flex-1 items-center justify-end space-x-4'>
                     <nav className='flex items-center space-x-4'>
                         <Search />
+                        <CartButton />
+                        <ProfileButton />
                         <ModeToggle />
                     </nav>
                 </div>

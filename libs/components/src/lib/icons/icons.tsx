@@ -26,6 +26,7 @@ import {
     User,
     X,
     type Icon as LucideIcon,
+    ShoppingCart,
 } from 'lucide-react';
 
 export type Icon = LucideIcon;
@@ -59,6 +60,7 @@ export const Icons = {
     Pizza: Pizza,
     Twitter: Twitter,
     Check: Check,
+    Cart: ShoppingCart,
     Copy: Copy,
     CopyDone: ClipboardCheck,
     Sun: SunMedium,
