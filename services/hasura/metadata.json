@@ -31,6 +31,12 @@
             "name": "User",
             "schema": "public"
           }
+        },
+        {
+          "table": {
+            "name": "Variant",
+            "schema": "public"
+          }
         }
       ],
       "configuration": {
