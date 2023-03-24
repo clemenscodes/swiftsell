@@ -49,8 +49,8 @@ model Product {
     name        String
     description String?
     price       Float
-    color       Color
-    size        Size
+    color       Color?
+    size        Size?
     image       String?
     createdAt   DateTime  @default(now())
     updatedAt   DateTime  @updatedAt
