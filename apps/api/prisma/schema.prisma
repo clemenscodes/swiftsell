@@ -26,16 +26,37 @@ model User {
     // cart      cart[]
 }
 
+enum Size {
+    XS
+    S
+    M
+    L
+    XL
+    XXL
+}
+
+enum Color {
+    Black
+    Blue
+    Green
+    Lightblue
+    White
+}
+
 // Define the Product table for storing product data.
 model Product {
     id          Int       @id @default(autoincrement())
     name        String
     description String?
     price       Float
+    color       Color
+    size        Size
     image       String?
     createdAt   DateTime  @default(now())
     updatedAt   DateTime  @updatedAt
-    Variant     Variant[]
+    parent      Product?  @relation("VariantParent", fields: [parentId], references: [id])
+    parentId    Int?
+    variants    Product[] @relation("VariantParent")
     // store       Store       @relation(fields: [storeId], references: [id])
     // storeId     Int
     // inventory   Inventory[]
@@ -43,18 +64,6 @@ model Product {
     // orderId     Int?
     // cart        Cart?       @relation(fields: [cartId], references: [id])
     // cartId      Int?
-}
-
-// Define the Variant table for storing variant data.
-model Variant {
-    id        Int      @id @default(autoincrement())
-    name      String
-    option    String
-    product   Product  @relation(fields: [productId], references: [id])
-    productId Int
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    @@unique([productId, name, option])
 }
 
 // // Define the Order table for storing order data.
