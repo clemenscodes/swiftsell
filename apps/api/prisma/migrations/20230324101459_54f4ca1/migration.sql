@@ -2,8 +2,6 @@
   Warnings:
 
   - You are about to drop the `Variant` table. If the table is not empty, all the data it contains will be lost.
-  - Added the required column `color` to the `Product` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `size` to the `Product` table without a default value. This is not possible if the table is not empty.
 
 */
 -- CreateEnum
@@ -16,9 +14,9 @@ CREATE TYPE "Color" AS ENUM ('Black', 'Blue', 'Green', 'Lightblue', 'White');
 ALTER TABLE "Variant" DROP CONSTRAINT "Variant_productId_fkey";
 
 -- AlterTable
-ALTER TABLE "Product" ADD COLUMN     "color" "Color" NOT NULL,
+ALTER TABLE "Product" ADD COLUMN     "color" "Color",
 ADD COLUMN     "parentId" INTEGER,
-ADD COLUMN     "size" "Size" NOT NULL;
+ADD COLUMN     "size" "Size";
 
 -- DropTable
 DROP TABLE "Variant";
