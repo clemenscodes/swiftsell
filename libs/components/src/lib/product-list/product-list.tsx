@@ -30,7 +30,7 @@ const useProductListStore = create<ProductListState>()(
                 products: [],
                 lastProducts: [],
                 offset: 0,
-                limit: 9,
+                limit: 8,
                 setProducts: (newProducts) =>
                     set((state) => ({
                         ...state,
@@ -53,7 +53,7 @@ export interface ProductListProps {}
 export const ProductList: React.FC<ProductListProps> = ({ ...props }) => {
     const { loading, products, lastProducts, offset, limit, setProducts, setLoading, setLastProducts, setOffset } =
         useProductListStore((state) => state);
-    const { data, error, isError } = useGetProductsQuery({ offset, limit }, { keepPreviousData: true });
+    const { data, error, isError, isLoading } = useGetProductsQuery({ offset, limit }, { keepPreviousData: true });
     const { toast } = useToast();
 
     useEffect(() => {
@@ -106,8 +106,8 @@ export const ProductList: React.FC<ProductListProps> = ({ ...props }) => {
         setLoading(true);
     };
 
-    if (!data) return <P>Loading...</P>;
-    if (error) return <p>Error:( </p>;
+    if (isLoading) return <P>Loading...</P>;
+    if (isError) return <p>Error:( </p>;
 
     return (
         <div className='flex flex-col'>
@@ -115,13 +115,17 @@ export const ProductList: React.FC<ProductListProps> = ({ ...props }) => {
                 {products && products.map((product) => <Product product={product} key={product.id} />)}
             </ul>
             <div className='flex flex-col items-center'>
-                <Button
-                    variant={'outline'}
-                    className='flex w-48 max-w-[12rem] flex-col items-center justify-center'
-                    onClick={handleClick}
-                >
-                    Load more
-                </Button>
+                {products && lastProducts.length < limit ? (
+                    <P>No more products available</P>
+                ) : (
+                    <Button
+                        variant={'outline'}
+                        className='flex w-48 max-w-[12rem] flex-col items-center justify-center'
+                        onClick={handleClick}
+                    >
+                        Load more
+                    </Button>
+                )}
             </div>
         </div>
     );

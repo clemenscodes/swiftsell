@@ -22,6 +22,10 @@ if [ -z "$HASURA_GRAPHQL_ENDPOINT" ]; then
     echo "HASURA_GRAPHQL_ENDPOINT is not defined" && exit 1
 fi
 
+if [ -z "$HASURA_GRAPHQL_ENDPOINT_URL" ]; then
+    echo "HASURA_GRAPHQL_ENDPOINT_URL is not defined" && exit 1
+fi
+
 deploy() {
     CONFIG="$1"
 
@@ -101,6 +105,7 @@ populate_env_configs() {
     ENV_CONFIG_FILE="$APP_DIR/config/.env.$CONFIG"
     {
         echo "NEXT_PUBLIC_HASURA_GRAPHQL_ENDPOINT=\"$HASURA_GRAPHQL_ENDPOINT\""
+        echo "NEXT_PUBLIC_HASURA_GRAPHQL_ENDPOINT_URL=\"$HASURA_GRAPHQL_ENDPOINT_URL\""
         echo "HASURA_GRAPHQL_ENDPOINT=\"$HASURA_GRAPHQL_ENDPOINT\""
         echo "NEXT_PUBLIC_PROJECT_TYPE=\"$CONFIG\""
     } >>"$ENV_CONFIG_FILE"

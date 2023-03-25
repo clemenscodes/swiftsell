@@ -391,6 +391,7 @@ jobs:
                   DATABASE_URL: ${{ secrets.DEV_DATABASE_URL }}
                   SHADOW_DATABASE_URL: ${{ secrets.DEV_SHADOW_DATABASE_URL }}
                   HASURA_GRAPHQL_ENDPOINT: ${{ secrets.DEV_HASURA_GRAPHQL_ENDPOINT }}
+                  HASURA_GRAPHQL_ENDPOINT_URL: ${{ secrets.DEV_HASURA_GRAPHQL_ENDPOINT_URL }}
                   HASURA_GRAPHQL_ADMIN_SECRET: ${{ secrets.DEV_HASURA_GRAPHQL_ADMIN_SECRET }}
 
             - name: Run Agents (production)
@@ -406,6 +407,7 @@ jobs:
                   DATABASE_URL: ${{ secrets.DATABASE_URL }}
                   SHADOW_DATABASE_URL: ${{ secrets.SHADOW_DATABASE_URL }}
                   HASURA_GRAPHQL_ENDPOINT: ${{ secrets.HASURA_GRAPHQL_ENDPOINT }}
+                  HASURA_GRAPHQL_ENDPOINT_URL: ${{ secrets.HASURA_GRAPHQL_ENDPOINT_URL }}
                   HASURA_GRAPHQL_ADMIN_SECRET: ${{ secrets.HASURA_GRAPHQL_ADMIN_SECRET }}
 
             - name: Stop Agents
@@ -506,6 +508,7 @@ jobs:
                   DATABASE_URL: ${{ secrets.DEV_DATABASE_URL }}
                   SHADOW_DATABASE_URL: ${{ secrets.DEV_SHADOW_DATABASE_URL }}
                   HASURA_GRAPHQL_ENDPOINT: ${{ secrets.DEV_HASURA_GRAPHQL_ENDPOINT }}
+                  HASURA_GRAPHQL_ENDPOINT_URL: ${{ secrets.DEV_HASURA_GRAPHQL_ENDPOINT_URL }}
                   HASURA_GRAPHQL_ADMIN_SECRET: ${{ secrets.DEV_HASURA_GRAPHQL_ADMIN_SECRET }}
 
             - name: Run Agent (production)
@@ -516,6 +519,7 @@ jobs:
                   DATABASE_URL: ${{ secrets.DATABASE_URL }}
                   SHADOW_DATABASE_URL: ${{ secrets.SHADOW_DATABASE_URL }}
                   HASURA_GRAPHQL_ENDPOINT: ${{ secrets.HASURA_GRAPHQL_ENDPOINT }}
+                  HASURA_GRAPHQL_ENDPOINT_URL: ${{ secrets.HASURA_GRAPHQL_ENDPOINT_URL }}
                   HASURA_GRAPHQL_ADMIN_SECRET: ${{ secrets.HASURA_GRAPHQL_ADMIN_SECRET }}
 
             - name: Abort Workflow

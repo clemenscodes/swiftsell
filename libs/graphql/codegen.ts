@@ -1,7 +1,7 @@
 import type { CodegenConfig } from '@graphql-codegen/cli';
 
 const hasura_secret = process.env.HASURA_GRAPHQL_ADMIN_SECRET as string;
-const hasura_endpoint = (process.env.HASURA_GRAPHQL_ENDPOINT as string) || 'http://localhost:9090/v1/graphql';
+const hasura_endpoint = (process.env.HASURA_GRAPHQL_ENDPOINT_URL as string) || 'http://localhost:9090/v1/graphql';
 
 const commonOptions = {
     pureMagicComment: true,
@@ -34,7 +34,7 @@ const config: CodegenConfig = {
             plugins: ['typescript', 'typescript-operations', 'typescript-react-query'],
             config: {
                 fetcher: {
-                    endpoint: 'process.env.NEXT_PUBLIC_HASURA_GRAPHQL_ENDPOINT',
+                    endpoint: 'process.env.NEXT_PUBLIC_HASURA_GRAPHQL_ENDPOINT_URL',
                 },
                 exposeDocument: true,
                 exposeQueryKeys: true,
