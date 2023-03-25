@@ -1,10 +1,11 @@
+import { Button } from '../button/button';
 import Product from '../product/product';
 import { ProductProps } from '../product/product';
 import { useToast } from '../toaster/useToaster';
 import P from '../typography/p/p';
 import { useGetProductsQuery } from '@graphql';
 import { cn } from '@styles';
-import { log, error as logError } from '@utils';
+import { error as logError } from '@utils';
 import { useEffect } from 'react';
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
@@ -29,7 +30,7 @@ const useProductListStore = create<ProductListState>()(
                 products: [],
                 lastProducts: [],
                 offset: 0,
-                limit: 1,
+                limit: 9,
                 setProducts: (newProducts) =>
                     set((state) => ({
                         ...state,
@@ -56,7 +57,6 @@ export const ProductList: React.FC<ProductListProps> = ({ ...props }) => {
     const { toast } = useToast();
 
     useEffect(() => {
-        log('data changed');
         let newProducts: ProductProps['product'][] = [];
         if (data) {
             const { Product } = data;
@@ -64,7 +64,6 @@ export const ProductList: React.FC<ProductListProps> = ({ ...props }) => {
         }
         setLastProducts(newProducts);
         setProducts(newProducts);
-        log(data);
     }, [data, setLastProducts, setProducts]);
 
     useEffect(() => {
@@ -80,15 +79,14 @@ export const ProductList: React.FC<ProductListProps> = ({ ...props }) => {
 
     useEffect(() => {
         const handleScroll = () => {
-            log('handling scroll');
             const scrollHeight = document.body.scrollHeight;
-            const scrollPosition = window.innerHeight + window.pageYOffset;
-            const offset = 2;
-            if (scrollPosition + offset >= scrollHeight && !loading) {
+            const scrollTop = window.scrollY;
+            const clientHeight = document.body.clientHeight;
+            const calc = Math.abs(scrollHeight - scrollTop - clientHeight);
+            if (calc < 2 && !loading) {
                 setLoading(true);
             }
         };
-
         window.addEventListener('scroll', handleScroll);
 
         return () => {
@@ -99,21 +97,32 @@ export const ProductList: React.FC<ProductListProps> = ({ ...props }) => {
     useEffect(() => {
         if (loading) {
             if (products && lastProducts.length < limit) return;
-            log('loading more products...');
             setOffset(offset + limit);
             setLoading(false);
-            log('products loaded');
         }
     }, [lastProducts.length, limit, loading, offset, products, setOffset, setLoading]);
+
+    const handleClick = () => {
+        setLoading(true);
+    };
 
     if (!data) return <P>Loading...</P>;
     if (error) return <p>Error:( </p>;
 
     return (
-        <div>
-            <ul className={cn('m-6 grid grid-cols-1 items-center gap-6 sm:grid-cols-2 lg:grid-cols-3')}>
+        <div className='flex flex-col'>
+            <ul className={cn('m-6 grid grid-cols-1 items-center gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4')}>
                 {products && products.map((product) => <Product product={product} key={product.id} />)}
             </ul>
+            <div className='flex flex-col items-center'>
+                <Button
+                    variant={'outline'}
+                    className='flex w-48 max-w-[12rem] flex-col items-center justify-center'
+                    onClick={handleClick}
+                >
+                    Load more
+                </Button>
+            </div>
         </div>
     );
 };

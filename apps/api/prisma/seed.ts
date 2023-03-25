@@ -65,9 +65,11 @@ async function main() {
             ],
         },
     };
-    await prisma.product.create({
-        data: productWithVariants,
-    });
+    for (let i = 0; i < 100; i++) {
+        await prisma.product.create({
+            data: productWithVariants,
+        });
+    }
 
     // Seed some products.
     // const product1 = await prisma.product.create({

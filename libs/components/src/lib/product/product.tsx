@@ -17,7 +17,7 @@ export const Product: React.FC<ProductProps> = ({ product, ...props }) => {
         <Link href={`/product/${product.id}`}>
             <li
                 className={cn(
-                    'dark:border-dimmed-700 dark:hover:bg-dimmed-800 border-dimmed-100 my-2 overflow-hidden rounded-lg border text-center shadow-xl hover:cursor-pointer hover:bg-slate-100'
+                    'dark:border-dimmed-700 dark:hover:bg-dimmed-800 border-dimmed-100 overflow-hidden rounded-lg border text-center shadow-xl hover:cursor-pointer hover:bg-slate-100'
                 )}
             >
                 <H2>{product.name}</H2>
