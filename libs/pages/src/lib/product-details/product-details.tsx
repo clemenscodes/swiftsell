@@ -1,12 +1,12 @@
 import { H1, Lead, P } from '@components';
-import { Product } from '@graphql';
+import { IProduct } from '@graphql';
 import { cn } from '@styles';
 import { NextPage } from 'next';
 import Image from 'next/image';
 
 /* eslint-disable-next-line */
 export interface ProductDetailsProps {
-    product: Product;
+    product: IProduct;
 }
 
 export const ProductDetails: NextPage<ProductDetailsProps> = ({ product, ...props }) => {

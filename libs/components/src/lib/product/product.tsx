@@ -1,13 +1,15 @@
 import H2 from '../typography/h2/h2';
 import Lead from '../typography/lead/lead';
 import P from '../typography/p/p';
-import { type Product as TProduct } from '@graphql';
+import { type IProduct } from '@graphql';
 import { cn } from '@styles';
 import Image from 'next/image';
 import Link from 'next/link';
 
+type OmittedFields = 'updatedAt' | 'createdAt' | 'Products' | 'Products_aggregate';
+
 export interface ProductProps {
-    product: Omit<Omit<TProduct, 'updatedAt'>, 'createdAt'>;
+    product: Pick<IProduct, Exclude<keyof IProduct, OmittedFields>>;
 }
 
 export const Product: React.FC<ProductProps> = ({ product, ...props }) => {

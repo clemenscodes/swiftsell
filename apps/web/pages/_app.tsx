@@ -1,5 +1,6 @@
 import '../global.css';
 import { siteConfig } from '@config';
+import { DehydratedState } from '@tanstack/react-query';
 import { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
 import type { AppProps } from 'next/app';
@@ -8,11 +9,14 @@ import Head from 'next/head';
 
 const ThemeProvider = dynamic(() => import('next-themes').then((mod) => mod.ThemeProvider));
 const FontProvider = dynamic(() => import('@providers').then((mod) => mod.FontProvider));
-const GraphqlProvider = dynamic(() => import('@providers').then((mod) => mod.GraphqlProvider));
+const QueryProvider = dynamic(() => import('@providers').then((mod) => mod.QueryProvider));
 const Layout = dynamic(() => import('@components').then((mod) => mod.Layout));
 const Auth = dynamic(() => import('@components').then((mod) => mod.Auth));
 
-const App: React.FC<AppProps<{ session: Session }>> = ({ Component, pageProps: { session, ...pageProps } }) => {
+const App: React.FC<AppProps<{ session: Session; dehydratedState: DehydratedState }>> = ({
+    Component,
+    pageProps: { session, dehydratedState, ...pageProps },
+}) => {
     return (
         <>
             <Head>
@@ -23,7 +27,7 @@ const App: React.FC<AppProps<{ session: Session }>> = ({ Component, pageProps: {
                 />
             </Head>
             <SessionProvider session={session}>
-                <GraphqlProvider>
+                <QueryProvider dehydratedState={dehydratedState}>
                     <ThemeProvider attribute='class' defaultTheme='dark' enableSystem>
                         <FontProvider>
                             {Component.defaultProps &&
@@ -41,7 +45,7 @@ const App: React.FC<AppProps<{ session: Session }>> = ({ Component, pageProps: {
                             )}
                         </FontProvider>
                     </ThemeProvider>
-                </GraphqlProvider>
+                </QueryProvider>
             </SessionProvider>
         </>
     );

@@ -1,5 +1,3 @@
-export * from './lib/graphql/client';
 export * from './lib/graphql/sdk';
-export * from './lib/getProducts';
-export * from './lib/getProduct';
-export * from './lib/graphQLClient';
+export * from './lib/graphqlClient';
+export * from './lib/graphqlServer';

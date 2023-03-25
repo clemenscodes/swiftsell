@@ -1,1 +1,1 @@
-export { usePrefixStore } from './usePrefixStore';
+export { usePrefixStore } from './lib/usePrefixStore';

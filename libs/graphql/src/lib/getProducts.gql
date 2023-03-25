@@ -1,0 +1,9 @@
+query getProducts($offset: Int!, $limit: Int!) {
+    Product(offset: $offset, limit: $limit) {
+        id
+        name
+        description
+        price
+        image
+    }
+}

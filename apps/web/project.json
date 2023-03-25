@@ -6,8 +6,11 @@
     "targets": {
         "env": {
             "executor": "nx:run-commands",
-            "defaultConfiguration": "development",
+            "defaultConfiguration": "production",
             "configurations": {
+                "local": {
+                    "command": "apps/web/scripts/env.sh local"
+                },
                 "development": {
                     "command": "apps/web/scripts/env.sh development"
                 },
@@ -41,10 +44,11 @@
             }
         },
         "start": {
+            "dependsOn": ["env"],
             "executor": "@nrwl/next:server",
-            "defaultConfiguration": "development",
+            "defaultConfiguration": "local",
             "configurations": {
-                "development": {
+                "local": {
                     "buildTarget": "web:build:local",
                     "port": 3000,
                     "hostname": "0.0.0.0",

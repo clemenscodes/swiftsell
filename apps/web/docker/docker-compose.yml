@@ -11,7 +11,7 @@ services:
         restart: always
         ports:
             - '3000:3000'
-        command: 'npx nx start web'
+        command: 'npx nx start web --configuration=local'
         volumes:
             - '../../web:/app/apps/web'
             - '../../api:/app/apps/api'

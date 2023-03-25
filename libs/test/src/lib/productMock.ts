@@ -1,6 +1,6 @@
-import { Product } from '@graphql';
+import { type IProduct } from '@graphql';
 
-export const mockProduct: Product = {
+export const mockProduct: IProduct = {
     id: 0,
     name: 'mockProduct',
     price: 20,
@@ -8,4 +8,9 @@ export const mockProduct: Product = {
     image: '/mockImageUrl',
     createdAt: undefined,
     updatedAt: undefined,
+    Products: [],
+    Products_aggregate: {
+        aggregate: undefined,
+        nodes: [],
+    },
 };

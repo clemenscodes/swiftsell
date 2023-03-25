@@ -12,6 +12,7 @@ export * from './lib/banner/banner';
 export * from './lib/toaster/toaster';
 export * from './lib/toast/toast';
 export * from './lib/product-list/product-list';
+export * from './lib/product/product';
 export * from './lib/dropdown/dropdown-menu-radio-item/dropdown-menu-radio-item';
 export * from './lib/dropdown/dropdown-menu-content/dropdown-menu-content';
 export * from './lib/dropdown/dropdown-menu-sub-trigger/dropdown-menu-sub-trigger';

@@ -1,28 +1,12 @@
-import { useQuery, useInfiniteQuery, UseQueryOptions, UseInfiniteQueryOptions } from '@tanstack/react-query';
+import type { GraphQLClient } from 'graphql-request';
+import type * as Dom from 'graphql-request/dist/types.dom';
+import { print } from 'graphql'
+import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-
-function fetcher<TData, TVariables>(query: string, variables?: TVariables) {
-  return async (): Promise<TData> => {
-    const res = await fetch(process.env.NEXT_PUBLIC_HASURA_GRAPHQL_ENDPOINT as string, {
-    method: "POST",
-      body: JSON.stringify({ query, variables }),
-    });
-
-    const json = await res.json();
-
-    if (json.errors) {
-      const { message } = json.errors[0];
-
-      throw new Error(message);
-    }
-
-    return json.data;
-  }
-}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -1306,7 +1290,7 @@ export type IGetProductsQueryVariables = Exact<{
 export type IGetProductsQuery = { Product: Array<{ id: number, name: string, description?: string | null, price: any, image?: string | null }> };
 
 
-export const GetProductDocument = /*#__PURE__*/ `
+export const GetProductDocument = /*#__PURE__*/ gql`
     query getProduct($id: Int!) {
   Product(where: {id: {_eq: $id}}) {
     id
@@ -1317,86 +1301,14 @@ export const GetProductDocument = /*#__PURE__*/ `
   }
 }
     `;
-export const useGetProductQuery = <
-      TData = IGetProductQuery,
-      TError = Error
-    >(
-      variables: IGetProductQueryVariables,
-      options?: UseQueryOptions<IGetProductQuery, TError, TData>
-    ) =>
-    useQuery<IGetProductQuery, TError, TData>(
-      ['getProduct', variables],
-      fetcher<IGetProductQuery, IGetProductQueryVariables>(GetProductDocument, variables),
-      options
-    );
-useGetProductQuery.document = GetProductDocument;
-
-
-useGetProductQuery.getKey = (variables: IGetProductQueryVariables) => ['getProduct', variables];
-;
-
-export const useInfiniteGetProductQuery = <
-      TData = IGetProductQuery,
-      TError = Error
-    >(
-      pageParamKey: keyof IGetProductQueryVariables,
-      variables: IGetProductQueryVariables,
-      options?: UseInfiniteQueryOptions<IGetProductQuery, TError, TData>
-    ) =>
-    useInfiniteQuery<IGetProductQuery, TError, TData>(
-      ['getProduct.infinite', variables],
-      (metaData) => fetcher<IGetProductQuery, IGetProductQueryVariables>(GetProductDocument, {...variables, ...(metaData.pageParam ?? {})})(),
-      options
-    );
-
-
-useInfiniteGetProductQuery.getKey = (variables: IGetProductQueryVariables) => ['getProduct.infinite', variables];
-;
-
-export const GetProductIDsDocument = /*#__PURE__*/ `
+export const GetProductIDsDocument = /*#__PURE__*/ gql`
     query getProductIDs {
   Product {
     id
   }
 }
     `;
-export const useGetProductIDsQuery = <
-      TData = IGetProductIDsQuery,
-      TError = Error
-    >(
-      variables?: IGetProductIDsQueryVariables,
-      options?: UseQueryOptions<IGetProductIDsQuery, TError, TData>
-    ) =>
-    useQuery<IGetProductIDsQuery, TError, TData>(
-      variables === undefined ? ['getProductIDs'] : ['getProductIDs', variables],
-      fetcher<IGetProductIDsQuery, IGetProductIDsQueryVariables>(GetProductIDsDocument, variables),
-      options
-    );
-useGetProductIDsQuery.document = GetProductIDsDocument;
-
-
-useGetProductIDsQuery.getKey = (variables?: IGetProductIDsQueryVariables) => variables === undefined ? ['getProductIDs'] : ['getProductIDs', variables];
-;
-
-export const useInfiniteGetProductIDsQuery = <
-      TData = IGetProductIDsQuery,
-      TError = Error
-    >(
-      pageParamKey: keyof IGetProductIDsQueryVariables,
-      variables?: IGetProductIDsQueryVariables,
-      options?: UseInfiniteQueryOptions<IGetProductIDsQuery, TError, TData>
-    ) =>
-    useInfiniteQuery<IGetProductIDsQuery, TError, TData>(
-      variables === undefined ? ['getProductIDs.infinite'] : ['getProductIDs.infinite', variables],
-      (metaData) => fetcher<IGetProductIDsQuery, IGetProductIDsQueryVariables>(GetProductIDsDocument, {...variables, ...(metaData.pageParam ?? {})})(),
-      options
-    );
-
-
-useInfiniteGetProductIDsQuery.getKey = (variables?: IGetProductIDsQueryVariables) => variables === undefined ? ['getProductIDs.infinite'] : ['getProductIDs.infinite', variables];
-;
-
-export const GetProductsDocument = /*#__PURE__*/ `
+export const GetProductsDocument = /*#__PURE__*/ gql`
     query getProducts($offset: Int!, $limit: Int!) {
   Product(offset: $offset, limit: $limit) {
     id
@@ -1407,38 +1319,25 @@ export const GetProductsDocument = /*#__PURE__*/ `
   }
 }
     `;
-export const useGetProductsQuery = <
-      TData = IGetProductsQuery,
-      TError = Error
-    >(
-      variables: IGetProductsQueryVariables,
-      options?: UseQueryOptions<IGetProductsQuery, TError, TData>
-    ) =>
-    useQuery<IGetProductsQuery, TError, TData>(
-      ['getProducts', variables],
-      fetcher<IGetProductsQuery, IGetProductsQueryVariables>(GetProductsDocument, variables),
-      options
-    );
-useGetProductsQuery.document = GetProductsDocument;
+
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
 
-useGetProductsQuery.getKey = (variables: IGetProductsQueryVariables) => ['getProducts', variables];
-;
-
-export const useInfiniteGetProductsQuery = <
-      TData = IGetProductsQuery,
-      TError = Error
-    >(
-      pageParamKey: keyof IGetProductsQueryVariables,
-      variables: IGetProductsQueryVariables,
-      options?: UseInfiniteQueryOptions<IGetProductsQuery, TError, TData>
-    ) =>
-    useInfiniteQuery<IGetProductsQuery, TError, TData>(
-      ['getProducts.infinite', variables],
-      (metaData) => fetcher<IGetProductsQuery, IGetProductsQueryVariables>(GetProductsDocument, {...variables, ...(metaData.pageParam ?? {})})(),
-      options
-    );
-
-
-useInfiniteGetProductsQuery.getKey = (variables: IGetProductsQueryVariables) => ['getProducts.infinite', variables];
-;
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationType) => action();
+const GetProductDocumentString = print(GetProductDocument);
+const GetProductIDsDocumentString = print(GetProductIDsDocument);
+const GetProductsDocumentString = print(GetProductsDocument);
+export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  return {
+    getProduct(variables: IGetProductQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<{ data: IGetProductQuery; extensions?: any; headers: Dom.Headers; status: number; }> {
+        return withWrapper((wrappedRequestHeaders) => client.rawRequest<IGetProductQuery>(GetProductDocumentString, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getProduct', 'query');
+    },
+    getProductIDs(variables?: IGetProductIDsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<{ data: IGetProductIDsQuery; extensions?: any; headers: Dom.Headers; status: number; }> {
+        return withWrapper((wrappedRequestHeaders) => client.rawRequest<IGetProductIDsQuery>(GetProductIDsDocumentString, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getProductIDs', 'query');
+    },
+    getProducts(variables: IGetProductsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<{ data: IGetProductsQuery; extensions?: any; headers: Dom.Headers; status: number; }> {
+        return withWrapper((wrappedRequestHeaders) => client.rawRequest<IGetProductsQuery>(GetProductsDocumentString, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getProducts', 'query');
+    }
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;
