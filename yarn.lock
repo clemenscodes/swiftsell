@@ -8041,6 +8041,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tabler/icons-react@npm:^2.11.0":
+  version: 2.11.0
+  resolution: "@tabler/icons-react@npm:2.11.0"
+  dependencies:
+    "@tabler/icons": 2.11.0
+    prop-types: ^15.7.2
+  peerDependencies:
+    react: ^16.5.1 || ^17.0.0 || ^18.0.0
+  checksum: 12aa82bfeee168e2a12adc7848a8bdd36e595f3ce02129bf662b47b59dfb188c74e4f0f8c64443d939815ba4f944121fd19f31700dbc383ac7bf999a4a5f16f2
+  languageName: node
+  linkType: hard
+
+"@tabler/icons@npm:2.11.0":
+  version: 2.11.0
+  resolution: "@tabler/icons@npm:2.11.0"
+  checksum: 23d7f9f15f46d9e9edd26d6220ff5c3cf125a51beb23d0fd2a1f8a7b871f2632eec93056a044bc6042c3eba54136e51c037987c83c8d8bc4d7b20bf78519d776
+  languageName: node
+  linkType: hard
+
 "@tailwindcss/typography@npm:^0.5.9":
   version: 0.5.9
   resolution: "@tailwindcss/typography@npm:0.5.9"
@@ -14184,6 +14203,24 @@ __metadata:
     minimalistic-assert: ^1.0.1
     minimalistic-crypto-utils: ^1.0.1
   checksum: d56d21fd04e97869f7ffcc92e18903b9f67f2d4637a23c860492fbbff5a3155fd9ca0184ce0c865dd6eb2487d234ce9551335c021c376cd2d3b7cb749c7d10f4
+  languageName: node
+  linkType: hard
+
+"embla-carousel-react@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "embla-carousel-react@npm:7.1.0"
+  dependencies:
+    embla-carousel: 7.1.0
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.1 || ^18.0.0
+  checksum: e5c914874e2acb4db26f7f4da9e7658522e0714fed8b72b3e99984a2e48ff1a3f618ae74855baea5da42d9dd65f4706d7bfe6384ff9f8b542060a0e17ca63264
+  languageName: node
+  linkType: hard
+
+"embla-carousel@npm:7.1.0":
+  version: 7.1.0
+  resolution: "embla-carousel@npm:7.1.0"
+  checksum: fffb3d77cbd0866d4fcfa0247ead60297f57d62ee3dcf737a4f5708c0e6034ba308716d6a8a567ead55520c117de61b382fd040e4aec3daaee55bb5ba11fee7f
   languageName: node
   linkType: hard
 
@@ -27398,6 +27435,7 @@ __metadata:
     "@swc/core": ^1.2.173
     "@swc/helpers": ~0.4.11
     "@swc/jest": 0.2.20
+    "@tabler/icons-react": ^2.11.0
     "@tailwindcss/typography": ^0.5.9
     "@tanstack/react-query": ^4.28.0
     "@tanstack/react-query-devtools": ^4.28.0
@@ -27428,6 +27466,7 @@ __metadata:
     cypress: ^12.2.0
     cz-git: ^1.4.1
     dotenv: ^16.0.3
+    embla-carousel-react: ^7.1.0
     esbuild: 0.17.5
     eslint: ~8.15.0
     eslint-config-next: 13.1.1

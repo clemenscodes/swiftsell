@@ -1,3 +1,7 @@
+export * from './lib/next-button/next-button';
+export * from './lib/previous-button/previous-button';
+export * from './lib/dot-button/dot-button';
+export * from './lib/carousel/carousel';
 export * from './lib/cart-button/cart-button';
 export * from './lib/profile-button/profile-button';
 export * from './lib/search/search';
