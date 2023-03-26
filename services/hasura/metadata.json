@@ -7,6 +7,33 @@
       "tables": [
         {
           "table": {
+            "name": "Image",
+            "schema": "public"
+          },
+          "object_relationships": [
+            {
+              "name": "Product",
+              "using": {
+                "foreign_key_constraint_on": "productId"
+              }
+            }
+          ],
+          "select_permissions": [
+            {
+              "role": "anonymous",
+              "permission": {
+                "columns": [
+                  "id",
+                  "productId",
+                  "url"
+                ],
+                "filter": {}
+              }
+            }
+          ]
+        },
+        {
+          "table": {
             "name": "Product",
             "schema": "public"
           },
@@ -19,6 +46,18 @@
             }
           ],
           "array_relationships": [
+            {
+              "name": "Images",
+              "using": {
+                "foreign_key_constraint_on": {
+                  "column": "productId",
+                  "table": {
+                    "name": "Image",
+                    "schema": "public"
+                  }
+                }
+              }
+            },
             {
               "name": "Products",
               "using": {
@@ -40,7 +79,6 @@
                   "color",
                   "description",
                   "id",
-                  "image",
                   "name",
                   "parentId",
                   "price",

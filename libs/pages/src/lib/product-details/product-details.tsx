@@ -16,7 +16,7 @@ export const ProductDetails: NextPage<ProductDetailsProps> = ({ product, ...prop
             <P>{product.description}</P>
             <Lead>Price: {product.price}€</Lead>
             <Image
-                src={product.image as string}
+                src={product.Images[0].url as string}
                 alt={product.name}
                 width={200}
                 height={200}

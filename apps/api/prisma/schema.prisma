@@ -51,7 +51,7 @@ model Product {
     price       Float
     color       Color?
     size        Size?
-    image       String?
+    images      Image[]
     createdAt   DateTime  @default(now())
     updatedAt   DateTime  @updatedAt
     parent      Product?  @relation("VariantParent", fields: [parentId], references: [id])
@@ -64,6 +64,14 @@ model Product {
     // orderId     Int?
     // cart        Cart?       @relation(fields: [cartId], references: [id])
     // cartId      Int?
+}
+
+// Define the Image table for storing image data.
+model Image {
+    id        Int     @id @default(autoincrement())
+    url       String
+    product   Product @relation(fields: [productId], references: [id])
+    productId Int
 }
 
 // // Define the Order table for storing order data.

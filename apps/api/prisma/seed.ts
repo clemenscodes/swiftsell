@@ -36,14 +36,23 @@ async function main() {
     //         address: '456 Elm St',
     //     },
     // });
-
+    // Seed some products.
     const productWithVariants = {
         name: 'Product with variants',
         description: 'This is a product with two variants',
         price: 10.0,
         color: Color.Black,
         size: Size.M,
-        image: 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=100',
+        images: {
+            create: [
+                {
+                    url: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1099&q=100',
+                },
+                {
+                    url: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1099&q=100',
+                },
+            ],
+        },
         variants: {
             create: [
                 {
@@ -52,7 +61,16 @@ async function main() {
                     price: 12.0,
                     color: Color.Blue,
                     size: Size.L,
-                    image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1099&q=100',
+                    images: {
+                        create: [
+                            {
+                                url: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1099&q=100',
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1099&q=100',
+                            },
+                        ],
+                    },
                 },
                 {
                     name: 'Variant 2',
@@ -60,18 +78,26 @@ async function main() {
                     price: 15.0,
                     color: Color.Green,
                     size: Size.L,
-                    image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=100',
+                    images: {
+                        create: [
+                            {
+                                url: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=100',
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=100',
+                            },
+                        ],
+                    },
                 },
             ],
         },
     };
+
     for (let i = 0; i < 100; i++) {
         await prisma.product.create({
             data: productWithVariants,
         });
     }
-
-    // Seed some products.
     // const product1 = await prisma.product.create({
     //     data: {
     //         name: 'Product 1',

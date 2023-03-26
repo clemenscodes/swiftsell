@@ -6,6 +6,13 @@ object_relationships:
     using:
       foreign_key_constraint_on: parentId
 array_relationships:
+  - name: Images
+    using:
+      foreign_key_constraint_on:
+        column: productId
+        table:
+          name: Image
+          schema: public
   - name: Products
     using:
       foreign_key_constraint_on:
@@ -20,7 +27,6 @@ select_permissions:
         - color
         - description
         - id
-        - image
         - name
         - parentId
         - price

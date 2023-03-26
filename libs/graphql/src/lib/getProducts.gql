@@ -4,6 +4,9 @@ query getProducts($offset: Int!, $limit: Int!) {
         name
         description
         price
-        image
+        Images {
+            id
+            url
+        }
     }
 }
