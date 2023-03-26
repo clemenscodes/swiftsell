@@ -26,30 +26,30 @@ export interface ProductProps {
     product: Product;
 }
 
-export const Product: React.FC<ProductProps> = ({ product, ...props }) => {
+export const ProductListItem: React.FC<ProductProps> = ({ product, ...props }) => {
     return (
-        <Link href={`/product/${product.id}`}>
-            <li
-                className={cn(
-                    'dark:border-dimmed-700 dark:hover:bg-dimmed-800 border-dimmed-100 overflow-hidden rounded-lg border text-center shadow-xl hover:cursor-pointer hover:bg-slate-100'
-                )}
-            >
+        <li
+            className={cn(
+                'dark:border-dimmed-700 dark:hover:bg-dimmed-800 border-dimmed-100 overflow-hidden rounded-lg border text-center shadow-xl hover:cursor-pointer hover:bg-slate-100'
+            )}
+        >
+            <Link href={`/product/${product.id}`}>
                 <H2>{product.name}</H2>
                 <P>{product.description}</P>
                 <Lead>Price: {product.price}€</Lead>
                 <Image
-                    className={cn('h-64 w-full object-cover')}
+                    className={cn('h-[24rem] w-full object-cover')}
                     loader={imageLoader}
                     src={product.Images[0].url as string}
                     alt={product.name}
-                    width={200}
-                    height={200}
+                    width={400}
+                    height={400}
                     quality={100}
                     priority={true}
                 />
-            </li>
-        </Link>
+            </Link>
+        </li>
     );
 };
 
-export default Product;
+export default ProductListItem;

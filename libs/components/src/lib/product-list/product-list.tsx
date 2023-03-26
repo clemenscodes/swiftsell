@@ -1,6 +1,5 @@
 import { Button } from '../button/button';
-import Product from '../product/product';
-import { ProductProps } from '../product/product';
+import ProductListItem, { ProductProps } from '../product/product';
 import { useToast } from '../toaster/useToaster';
 import P from '../typography/p/p';
 import { useGetProductsQuery } from '@graphql';
@@ -112,7 +111,7 @@ export const ProductList: React.FC<ProductListProps> = ({ ...props }) => {
     return (
         <div className='flex flex-col'>
             <ul className={cn('m-6 grid grid-cols-1 items-center gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4')}>
-                {products && products.map((product) => <Product product={product} key={product.id} />)}
+                {products && products.map((product) => <ProductListItem product={product} key={product.id} />)}
             </ul>
             <div className='flex flex-col items-center'>
                 {products && lastProducts.length < limit ? (

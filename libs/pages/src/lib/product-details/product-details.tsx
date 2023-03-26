@@ -1,6 +1,5 @@
-import { Carousel } from '@components';
+import { Carousel, ProductProps } from '@components';
 import { H1, Lead, P } from '@components';
-import { IProduct } from '@graphql';
 import { cn } from '@styles';
 import { imageLoader } from '@utils';
 import { EmblaOptionsType } from 'embla-carousel-react';
@@ -9,27 +8,31 @@ import Image from 'next/image';
 
 /* eslint-disable-next-line */
 export interface ProductDetailsProps {
-    product: IProduct;
+    product: ProductProps['product'];
 }
 
 export const ProductDetails: NextPage<ProductDetailsProps> = ({ product, ...props }) => {
-    const carouselOptions: EmblaOptionsType = {};
+    const carouselOptions: EmblaOptionsType = {
+        dragFree: true,
+        align: 'center',
+        inViewThreshold: 0,
+    };
     return (
-        <div className='flex flex-col items-center'>
-            <div className={cn(['m-6 flex flex-col justify-evenly md:flex-row'])}>
+        <div className='relative w-full md:mx-auto'>
+            <div className={cn(['m-6 flex flex-col justify-center md:flex-row'])}>
                 <Carousel
                     options={carouselOptions}
                     slides={Array.from({ length: product.Images.length }, (_, index) => index)}
                 >
                     {product.Images.map((image) => (
                         <Image
-                            className='relative block w-auto px-2'
+                            className='block w-screen object-cover px-2 lg:h-[40rem] lg:w-[40rem]'
                             loader={imageLoader}
                             key={image.id}
                             src={image.url as string}
                             alt={product.name}
-                            height={400}
-                            width={400}
+                            height={1000}
+                            width={1000}
                             quality={100}
                             priority={true}
                         />
@@ -39,6 +42,8 @@ export const ProductDetails: NextPage<ProductDetailsProps> = ({ product, ...prop
                     <H1>{product.name}</H1>
                     <P>Product ID: {product.id}</P>
                     <P>{product.description}</P>
+                    <P>Color: {product.color}</P>
+                    <P>Size: {product.size}</P>
                     <Lead>Price: {product.price}€</Lead>
                 </div>
             </div>

@@ -3,6 +3,8 @@ query getProduct($id: Int!) {
         id
         name
         description
+        color
+        size
         price
         Images {
             id

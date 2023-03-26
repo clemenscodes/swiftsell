@@ -44,12 +44,12 @@ export const Carousel: React.FC<CarouselProps> = ({ options, slides, children, .
     }, [setScrollSnaps, onSelect, embla]);
 
     return (
-        <div className='relative w-full flex-row md:w-4/5 md:flex-row md:p-6 xl:w-3/5'>
+        <div className='relative w-full flex-row md:w-4/5 md:flex-row lg:w-3/5'>
             <div className={cn(['overflow-hidden'])} ref={emblaRef}>
-                <div className='ml-2 flex h-auto'>{children}</div>
+                <div className='relative flex w-full min-w-0'>{children}</div>
                 <PreviousButton onClick={scrollPrev} enabled={prevBtnEnabled} />
                 <NextButton onClick={scrollNext} enabled={nextBtnEnabled} />
-                <div className='absolute bottom-2 left-0 right-0 z-10 flex items-center justify-center sm:bottom-4 md:bottom-6'>
+                <div className='absolute left-0 right-0 bottom-2 z-10 flex items-center justify-center'>
                     {scrollSnaps.map((_, index) => (
                         <DotButton key={index} selected={index === selectedIndex} onClick={() => scrollTo(index)} />
                     ))}

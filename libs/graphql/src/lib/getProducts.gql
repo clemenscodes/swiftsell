@@ -4,6 +4,8 @@ query getProducts($offset: Int!, $limit: Int!) {
         name
         description
         price
+        color
+        size
         Images {
             id
             url

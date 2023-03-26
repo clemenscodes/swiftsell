@@ -38,53 +38,99 @@ async function main() {
     // });
     // Seed some products.
     const productWithVariants = {
-        name: 'Product with variants',
-        description: 'This is a product with two variants',
+        name: 'Applewatch',
+        description: 'Very fit in black',
         price: 10.0,
         color: Color.Black,
         size: Size.M,
         images: {
             create: [
                 {
-                    url: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1099&q=100',
+                    url: '/img/products/applewatch/black/cover.jpeg',
                 },
                 {
-                    url: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1099&q=100',
+                    url: '/img/products/applewatch/black/dual.jpeg',
                 },
             ],
         },
         variants: {
             create: [
                 {
-                    name: 'Variant 1',
-                    description: 'This is variant 1 of the product',
+                    name: 'Applewatch',
+                    description: 'Very fit in blue',
                     price: 12.0,
                     color: Color.Blue,
                     size: Size.L,
                     images: {
                         create: [
                             {
-                                url: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1099&q=100',
+                                url: '/img/products/applewatch/blue/cover.jpeg',
                             },
                             {
-                                url: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1099&q=100',
+                                url: '/img/products/applewatch/blue/sport.jpg',
+                            },
+                            {
+                                url: '/img/products/applewatch/blue/darkblue.png',
+                            },
+                            {
+                                url: '/img/products/applewatch/blue/watchless.jpg',
+                            },
+                            {
+                                url: '/img/products/applewatch/blue/wrist.jpg',
                             },
                         ],
                     },
                 },
                 {
-                    name: 'Variant 2',
-                    description: 'This is variant 2 of the product',
-                    price: 15.0,
+                    name: 'Applewatch',
+                    description: 'Very fit in green',
+                    price: 12.0,
                     color: Color.Green,
                     size: Size.L,
                     images: {
                         create: [
                             {
-                                url: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=100',
+                                url: '/img/products/applewatch/green/cover.jpeg',
                             },
                             {
-                                url: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=100',
+                                url: '/img/products/applewatch/green/green.png',
+                            },
+                            {
+                                url: '/img/products/applewatch/green/wrist.jpg',
+                            },
+                        ],
+                    },
+                },
+                {
+                    name: 'Applewatch',
+                    description: 'Very fit in light blue',
+                    price: 12.0,
+                    color: Color.Lightblue,
+                    size: Size.L,
+                    images: {
+                        create: [
+                            {
+                                url: '/img/products/applewatch/lightblue/cover.jpeg',
+                            },
+                        ],
+                    },
+                },
+                {
+                    name: 'Applewatch',
+                    description: 'Very fit in white',
+                    price: 12.0,
+                    color: Color.White,
+                    size: Size.L,
+                    images: {
+                        create: [
+                            {
+                                url: '/img/products/applewatch/white/cover.jpeg',
+                            },
+                            {
+                                url: '/img/products/applewatch/white/front.jpg',
+                            },
+                            {
+                                url: '/img/products/applewatch/white/wrist.jpg',
                             },
                         ],
                     },
@@ -93,11 +139,9 @@ async function main() {
         },
     };
 
-    for (let i = 0; i < 100; i++) {
-        await prisma.product.create({
-            data: productWithVariants,
-        });
-    }
+    await prisma.product.create({
+        data: productWithVariants,
+    });
     // const product1 = await prisma.product.create({
     //     data: {
     //         name: 'Product 1',
