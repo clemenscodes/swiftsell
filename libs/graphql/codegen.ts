@@ -34,7 +34,8 @@ const config: CodegenConfig = {
             plugins: ['typescript', 'typescript-operations', 'typescript-react-query'],
             config: {
                 fetcher: {
-                    endpoint: 'process.env.NEXT_PUBLIC_HASURA_GRAPHQL_ENDPOINT_URL',
+                    endpoint:
+                        '(process.env.NEXT_PUBLIC_HASURA_GRAPHQL_ENDPOINT_URL ?? "http://localhost:9090/v1/graphql")',
                 },
                 exposeDocument: true,
                 exposeQueryKeys: true,

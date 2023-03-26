@@ -3,6 +3,7 @@ import Lead from '../typography/lead/lead';
 import P from '../typography/p/p';
 import { type IProduct } from '@graphql';
 import { cn } from '@styles';
+import { imageLoader } from '@utils';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -25,6 +26,7 @@ export const Product: React.FC<ProductProps> = ({ product, ...props }) => {
                 <Lead>Price: {product.price}€</Lead>
                 <Image
                     className={cn('h-64 w-full object-cover')}
+                    loader={imageLoader}
                     src={product.image as string}
                     alt={product.name}
                     width={200}
