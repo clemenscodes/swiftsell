@@ -15,7 +15,7 @@ export const PreviousButton: React.FC<PreviousButtonProps> = ({ enabled, onClick
             onClick={onClick}
             disabled={!enabled}
         >
-            <IconChevronLeft/>
+            <IconChevronLeft />
         </button>
     );
 };

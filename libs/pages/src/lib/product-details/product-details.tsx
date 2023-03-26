@@ -15,7 +15,7 @@ export interface ProductDetailsProps {
 export const ProductDetails: NextPage<ProductDetailsProps> = ({ product, ...props }) => {
     const carouselOptions: EmblaOptionsType = {};
     return (
-        <div className='flex flex-col items-center '>
+        <div className='flex flex-col items-center'>
             <div className={cn(['m-6 flex flex-col justify-evenly md:flex-row'])}>
                 <Carousel
                     options={carouselOptions}
@@ -23,13 +23,13 @@ export const ProductDetails: NextPage<ProductDetailsProps> = ({ product, ...prop
                 >
                     {product.Images.map((image) => (
                         <Image
-                            className='relative block px-2'
+                            className='relative block w-auto px-2'
                             loader={imageLoader}
                             key={image.id}
                             src={image.url as string}
                             alt={product.name}
-                            width={1200}
-                            height={1200}
+                            height={400}
+                            width={400}
                             quality={100}
                             priority={true}
                         />
