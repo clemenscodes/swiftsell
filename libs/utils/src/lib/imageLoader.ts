@@ -12,7 +12,7 @@ export const imageLoader: ImageLoader = ({ src, width, quality }) => {
     }
     const paramsString = params.join(',');
     const urlEndpoint = normalizeTrailing(
-        (process.env.NEXT_PUBLIC_IMAGE_KIT_URL_ENDPOINT as string) ?? 'http://localhost:3000'
+        (process.env.NEXT_PUBLIC_IMAGE_KIT_ENDPOINT_URL as string) ?? 'http://localhost:3000'
     );
     if (!urlEndpoint.includes('https://ik.imagekit.io')) {
         return `${src}/?tr=${paramsString}`;

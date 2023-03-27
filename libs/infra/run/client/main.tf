@@ -11,6 +11,14 @@ module "hasura_endpoint" {
   secret_data     = var.hasura_endpoint
 }
 
+module "image_endpoint" {
+  source          = "../../secret"
+  project_id      = var.project_id
+  service_account = local.sa
+  secret_id       = "NEXT_PUBLIC_IMAGE_KIT_ENDPOINT_URL"
+  secret_data     = var.image_endpoint
+}
+
 module "next_auth_url" {
   source          = "../../secret"
   project_id      = var.project_id
@@ -92,6 +100,15 @@ resource "google_cloud_run_v2_service" "default" {
         }
       }
       env {
+        name = module.image_endpoint.secret_id
+        value_source {
+          secret_key_ref {
+            secret  = module.image_endpoint.secret_id
+            version = "latest"
+          }
+        }
+      }
+      env {
         name = module.next_auth_url.secret_id
         value_source {
           secret_key_ref {
@@ -121,6 +138,7 @@ resource "google_cloud_run_v2_service" "default" {
   depends_on = [
     google_project_service.run,
     module.hasura_endpoint,
+    module.image_endpoint,
     module.next_auth_url,
     module.next_auth_secret,
   ]

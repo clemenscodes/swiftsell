@@ -393,6 +393,7 @@ jobs:
                   HASURA_GRAPHQL_ENDPOINT: ${{ secrets.DEV_HASURA_GRAPHQL_ENDPOINT }}
                   HASURA_GRAPHQL_ENDPOINT_URL: ${{ secrets.DEV_HASURA_GRAPHQL_ENDPOINT_URL }}
                   HASURA_GRAPHQL_ADMIN_SECRET: ${{ secrets.DEV_HASURA_GRAPHQL_ADMIN_SECRET }}
+                  IMAGE_KIT_ENDPOINT_URL: ${{ secrets.DEV_IMAGE_KIT_ENDPOINT_URL }}
 
             - name: Run Agents (production)
               if: needs.deploy-agents.result != 'failure' &&
@@ -409,6 +410,7 @@ jobs:
                   HASURA_GRAPHQL_ENDPOINT: ${{ secrets.HASURA_GRAPHQL_ENDPOINT }}
                   HASURA_GRAPHQL_ENDPOINT_URL: ${{ secrets.HASURA_GRAPHQL_ENDPOINT_URL }}
                   HASURA_GRAPHQL_ADMIN_SECRET: ${{ secrets.HASURA_GRAPHQL_ADMIN_SECRET }}
+                  IMAGE_KIT_ENDPOINT_URL: ${{ secrets.IMAGE_KIT_ENDPOINT_URL }}
 
             - name: Stop Agents
               if: always()
@@ -510,6 +512,7 @@ jobs:
                   HASURA_GRAPHQL_ENDPOINT: ${{ secrets.DEV_HASURA_GRAPHQL_ENDPOINT }}
                   HASURA_GRAPHQL_ENDPOINT_URL: ${{ secrets.DEV_HASURA_GRAPHQL_ENDPOINT_URL }}
                   HASURA_GRAPHQL_ADMIN_SECRET: ${{ secrets.DEV_HASURA_GRAPHQL_ADMIN_SECRET }}
+                  IMAGE_KIT_ENDPOINT_URL: ${{ secrets.DEV_IMAGE_KIT_ENDPOINT_URL }}
 
             - name: Run Agent (production)
               run: npx nx-cloud start-agent
@@ -521,6 +524,7 @@ jobs:
                   HASURA_GRAPHQL_ENDPOINT: ${{ secrets.HASURA_GRAPHQL_ENDPOINT }}
                   HASURA_GRAPHQL_ENDPOINT_URL: ${{ secrets.HASURA_GRAPHQL_ENDPOINT_URL }}
                   HASURA_GRAPHQL_ADMIN_SECRET: ${{ secrets.HASURA_GRAPHQL_ADMIN_SECRET }}
+                  IMAGE_KIT_ENDPOINT_URL: ${{ secrets.IMAGE_KIT_ENDPOINT_URL }}
 
             - name: Abort Workflow
               if: failure()

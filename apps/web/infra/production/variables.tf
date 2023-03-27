@@ -56,6 +56,11 @@ variable "hasura_endpoint" {
   type        = string
 }
 
+variable "image_endpoint" {
+  description = "The endpoint for images"
+  type        = string
+}
+
 # variable "cdn_bucket" {
 #   description = "The name of the CDN bucket that will be created"
 #   type        = string

@@ -39,5 +39,6 @@ module "run" {
   project_id             = module.app.project_id
   next_auth_secret       = module.app.next_auth_secret
   hasura_endpoint        = var.hasura_endpoint
+  image_endpoint         = var.image_endpoint
   #   subnet_cidr_range      = var.subnet_cidr_range
 }

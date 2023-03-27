@@ -26,6 +26,10 @@ if [ -z "$HASURA_GRAPHQL_ENDPOINT_URL" ]; then
     echo "HASURA_GRAPHQL_ENDPOINT_URL is not defined" && exit 1
 fi
 
+if [ -z "$IMAGE_KIT_ENDPOINT_URL" ]; then
+    echo "IMAGE_KIT_ENDPOINT_URL is not defined" && exit 1
+fi
+
 deploy() {
     CONFIG="$1"
 
@@ -38,7 +42,7 @@ deploy() {
     INPUT_ARG="-input=false"
     LOCK_ARG="-lock=false"
     LOCK_TIMEOUT_ARG="-lock-timeout=60s"
-    VAR_ARG="-var=git_commit_sha=$SHA -var=hasura_endpoint=$HASURA_GRAPHQL_ENDPOINT"
+    VAR_ARG="-var=git_commit_sha=$SHA -var=hasura_endpoint=$HASURA_GRAPHQL_ENDPOINT -var=image_endpoint=$IMAGE_KIT_ENDPOINT_URL"
     TARGET_ARG="-target=module.app"
     APPROVE_ARG="-auto-approve"
 
@@ -106,6 +110,7 @@ populate_env_configs() {
     {
         echo "NEXT_PUBLIC_HASURA_GRAPHQL_ENDPOINT=\"$HASURA_GRAPHQL_ENDPOINT\""
         echo "NEXT_PUBLIC_HASURA_GRAPHQL_ENDPOINT_URL=\"$HASURA_GRAPHQL_ENDPOINT_URL\""
+        echo "NEXT_PUBLIC_IMAGE_KIT_ENDPOINT_URL=\"$IMAGE_KIT_ENDPOINT_URL\""
         echo "HASURA_GRAPHQL_ENDPOINT=\"$HASURA_GRAPHQL_ENDPOINT\""
         echo "NEXT_PUBLIC_PROJECT_TYPE=\"$CONFIG\""
     } >>"$ENV_CONFIG_FILE"
