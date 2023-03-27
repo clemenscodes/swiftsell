@@ -13,6 +13,7 @@ type OmittedProductFields =
     | 'Products'
     | 'Product'
     | 'parentId'
+    | 'size'
     | 'Products_aggregate'
     | 'ProductSizes'
     | 'ProductSizes_aggregate'
