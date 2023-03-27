@@ -12,6 +12,30 @@ datasource db {
     shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
+enum Role {
+    Anonymous
+    User
+    Admin
+    Superadmin
+}
+
+enum Size {
+    XS
+    S
+    M
+    L
+    XL
+    XXL
+}
+
+enum Color {
+    Black
+    Blue
+    Green
+    Lightblue
+    White
+}
+
 model User {
     id           Int      @id @default(autoincrement())
     createdAt    DateTime @default(now())
@@ -21,20 +45,25 @@ model User {
     passwordHash String
     name         String?
     surname      String?
-    role         Role     @default(USER)
+    role         Role     @default(User)
     // order     order[]
     // cart      cart[]
 }
 
 // Define the Product table for storing product data.
 model Product {
-    id          Int      @id @default(autoincrement())
+    id          Int           @id @default(autoincrement())
     name        String
     description String?
     price       Float
-    image       String?
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
+    color       Color
+    sizes       ProductSize[]
+    images      Image[]
+    createdAt   DateTime      @default(now())
+    updatedAt   DateTime      @updatedAt
+    parent      Product?      @relation("VariantParent", fields: [parentId], references: [id])
+    parentId    Int?
+    variants    Product[]     @relation("VariantParent")
     // store       Store       @relation(fields: [storeId], references: [id])
     // storeId     Int
     // inventory   Inventory[]
@@ -42,6 +71,21 @@ model Product {
     // orderId     Int?
     // cart        Cart?       @relation(fields: [cartId], references: [id])
     // cartId      Int?
+}
+
+model ProductSize {
+    id        Int     @id @default(autoincrement())
+    size      Size
+    product   Product @relation(fields: [productId], references: [id])
+    productId Int
+}
+
+// Define the Image table for storing image data.
+model Image {
+    id        Int     @id @default(autoincrement())
+    url       String
+    product   Product @relation(fields: [productId], references: [id])
+    productId Int
 }
 
 // // Define the Order table for storing order data.
@@ -85,10 +129,3 @@ model Product {
 //     store     Store   @relation(fields: [storeId], references: [id])
 //     storeId   Int
 // }
-
-enum Role {
-    ANONYMOUS
-    USER
-    ADMIN
-    SUPERADMIN
-}

@@ -1,12 +1,12 @@
 import Products from './products';
-import { mockGraphQLClient } from '@test/lib/mockGraphQLClient';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render } from '@testing-library/react';
-import { Provider } from 'urql';
 
 describe('Products', () => {
     it('should render successfully', () => {
+        const queryClient = new QueryClient();
         const wrapper = ({ children }: React.PropsWithChildren) => (
-            <Provider value={mockGraphQLClient}>{children}</Provider>
+            <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
         );
         const { baseElement } = render(<Products />, { wrapper });
         expect(baseElement).toBeTruthy();

@@ -1,13 +1,40 @@
 table:
   name: Product
   schema: public
+object_relationships:
+  - name: Product
+    using:
+      foreign_key_constraint_on: parentId
+array_relationships:
+  - name: Images
+    using:
+      foreign_key_constraint_on:
+        column: productId
+        table:
+          name: Image
+          schema: public
+  - name: ProductSizes
+    using:
+      foreign_key_constraint_on:
+        column: productId
+        table:
+          name: ProductSize
+          schema: public
+  - name: Products
+    using:
+      foreign_key_constraint_on:
+        column: parentId
+        table:
+          name: Product
+          schema: public
 select_permissions:
   - role: anonymous
     permission:
       columns:
+        - color
         - description
         - id
-        - image
         - name
+        - parentId
         - price
       filter: {}

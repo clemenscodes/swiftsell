@@ -2,7 +2,7 @@ version: '3.9'
 name: swiftsell
 services:
     web:
-        env_file: '../.env.local'
+        env_file: '../config/.env.local'
         depends_on: ['api']
         container_name: web
         build:

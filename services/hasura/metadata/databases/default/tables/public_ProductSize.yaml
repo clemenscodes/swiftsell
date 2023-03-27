@@ -1,0 +1,15 @@
+table:
+  name: ProductSize
+  schema: public
+object_relationships:
+  - name: Product
+    using:
+      foreign_key_constraint_on: productId
+select_permissions:
+  - role: anonymous
+    permission:
+      columns:
+        - id
+        - productId
+        - size
+      filter: {}

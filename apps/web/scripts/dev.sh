@@ -11,7 +11,7 @@ NEXT_PORT=3000
 NEST_PORT=5000
 HASURA_PORT=9090
 
-nx run-many --target=env --all --output-style=stream --skip-nx-cache
+nx run-many --target=env --all --output-style=stream --skip-nx-cache --configuration=local
 
 [ -f "$WEB_ENV" ] || { echo "$WEB_ENV does not exist" && exit 1; }
 [ -f "$API_ENV" ] || { echo "$API_ENV does not exist" && exit 1; }
@@ -27,7 +27,6 @@ env_instruction() {
     exit 1
 }
 
-
 docker compose -f apps/web/docker/docker-compose.yml up -d --remove-orphans &&
     nx seed api --skip-nx-cache --output-style=stream &&
     echo "Next.js app running on $HOST:$NEXT_PORT" &&
@@ -37,3 +36,4 @@ docker compose -f apps/web/docker/docker-compose.yml up -d --remove-orphans &&
 echo "Opening hasura console"
 nx console hasura --skip-nx-cache --output-style=stream
 nx export hasura --skip-nx-cache --output-style=stream
+yarn kill

@@ -20,6 +20,7 @@ env() {
 }
 
 case "$1" in
+local) env "$1" ;;
 development) env "$1" ;;
 production) env "$1" ;;
 *) echo "Invalid configuration: $1" && exit 1 ;;

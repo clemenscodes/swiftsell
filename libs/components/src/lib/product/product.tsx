@@ -1,32 +1,63 @@
 import H2 from '../typography/h2/h2';
 import Lead from '../typography/lead/lead';
 import P from '../typography/p/p';
-import { type Product as TProduct } from '@graphql';
+import { IImage, IProduct, IProductSize } from '@graphql';
 import { cn } from '@styles';
+import { imageLoader } from '@utils';
 import Image from 'next/image';
+import Link from 'next/link';
 
-/* eslint-disable-next-line */
+type OmittedProductFields =
+    | 'updatedAt'
+    | 'createdAt'
+    | 'Products'
+    | 'Product'
+    | 'parentId'
+    | 'Products_aggregate'
+    | 'ProductSizes'
+    | 'ProductSizes_aggregate'
+    | 'Images_aggregate'
+    | 'Images';
+type OmittedImageFields = 'Product' | 'productId';
+type OmittedProductSizesFields = 'Product' | 'productId';
+type ProductWithoutImages = Pick<IProduct, Exclude<keyof IProduct, OmittedProductFields>>;
+type Images = Pick<IImage, Exclude<keyof IImage, OmittedImageFields>>;
+type ProductSizes = Pick<IProductSize, Exclude<keyof IProductSize, OmittedProductSizesFields>>;
+
+type Product = ProductWithoutImages & {
+    Images: Images[];
+    ProductSizes: ProductSizes[];
+};
+
 export interface ProductProps {
-    product: Omit<Omit<TProduct, 'updatedAt'>, 'createdAt'>;
+    product: Product;
 }
 
-export const Product: React.FC<ProductProps> = ({ product, ...props }) => {
+export const ProductListItem: React.FC<ProductProps> = ({ product }) => {
+    const productCoverImage = product.Images.filter((image) => image.url.includes('cover'))[0].url;
     return (
-        <li className={cn('dark:border-dimmed-700 my-2 overflow-hidden rounded-lg border text-center')}>
-            <H2>{product.name}</H2>
-            <P>{product.description}</P>
-            <Lead>Price: {product.price}€</Lead>
-            <Image
-                className={cn('h-48 w-full object-cover')}
-                src={product.image as string}
-                alt={product.name}
-                width={200}
-                height={200}
-                quality={100}
-                priority={true}
-            />
+        <li
+            className={cn(
+                'dark:border-dimmed-700 dark:hover:bg-dimmed-800 border-dimmed-100 overflow-hidden rounded-lg border text-center shadow-xl hover:cursor-pointer hover:bg-slate-100'
+            )}
+        >
+            <Link href={`/product/${product.id}`}>
+                <H2>{product.name}</H2>
+                <P>{product.description}</P>
+                <Lead>Price: {product.price}€</Lead>
+                <Image
+                    className={cn('h-[24rem] w-full object-cover')}
+                    loader={imageLoader}
+                    src={productCoverImage}
+                    alt={product.name}
+                    width={400}
+                    height={400}
+                    quality={100}
+                    priority={true}
+                />
+            </Link>
         </li>
     );
 };
 
-export default Product;
+export default ProductListItem;

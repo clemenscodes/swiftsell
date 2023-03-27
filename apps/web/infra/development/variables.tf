@@ -51,6 +51,16 @@ variable "git_commit_sha" {
   type        = string
 }
 
+variable "hasura_endpoint" {
+  description = "The hasura endpoint"
+  type        = string
+}
+
+variable "image_endpoint" {
+  description = "The endpoint for images"
+  type        = string
+}
+
 # variable "subnet_cidr_range" {
 #     default = "10.132.0.0/28"
 # }

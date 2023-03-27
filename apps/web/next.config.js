@@ -62,6 +62,12 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol,
+                hostname: `ik.imagekit.io`,
+                port: '443',
+                pathname: '/109mxmig4/**',
+            },
+            {
+                protocol,
                 hostname: `**.${apexDomain}`,
                 port: '443',
                 pathname: '**',
@@ -73,7 +79,7 @@ const nextConfig = {
                 pathname: '**',
             },
         ],
-        domains: ['images.unsplash.com'],
+        domains: ['images.unsplash.com', 'swiftsell.sirv.com', 'ik.imagekit.io', 'statically.io'],
         unoptimized: false,
     },
     reactStrictMode: true,

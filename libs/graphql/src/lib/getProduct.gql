@@ -1,0 +1,17 @@
+query getProduct($id: Int!) {
+    Product(where: { id: { _eq: $id } }) {
+        id
+        name
+        description
+        price
+        color
+        ProductSizes {
+            id
+            size
+        }
+        Images {
+            id
+            url
+        }
+    }
+}
