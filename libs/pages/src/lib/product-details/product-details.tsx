@@ -12,6 +12,19 @@ export interface ProductDetailsProps {
 }
 
 export const ProductDetails: NextPage<ProductDetailsProps> = ({ product, ...props }) => {
+    product.Images.sort((a, b) => {
+        if (a.url.includes('cover') && !b.url.includes('cover')) {
+            return -1;
+        } else if (!a.url.includes('cover') && b.url.includes('cover')) {
+            return 1;
+        } else if (a.url.includes('.png') && !b.url.includes('.png')) {
+            return 1;
+        } else if (!a.url.includes('.png') && b.url.includes('.png')) {
+            return -1;
+        } else {
+            return 0;
+        }
+    });
     const carouselOptions: EmblaOptionsType = {
         dragFree: true,
         align: 'center',

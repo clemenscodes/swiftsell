@@ -3,7 +3,7 @@ import { IImage, type IProduct } from '@graphql';
 const images: IImage = {
     id: 0,
     productId: 0,
-    url: '/mockProduct',
+    url: '/cover',
     Product: {
         Images: [],
         Images_aggregate: {

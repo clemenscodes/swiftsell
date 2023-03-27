@@ -13,7 +13,6 @@ type OmittedProductFields =
     | 'Products'
     | 'Product'
     | 'parentId'
-    | 'size'
     | 'Products_aggregate'
     | 'ProductSizes'
     | 'ProductSizes_aggregate'
@@ -34,7 +33,8 @@ export interface ProductProps {
     product: Product;
 }
 
-export const ProductListItem: React.FC<ProductProps> = ({ product, ...props }) => {
+export const ProductListItem: React.FC<ProductProps> = ({ product }) => {
+    const productCoverImage = product.Images.filter((image) => image.url.includes('cover'))[0].url;
     return (
         <li
             className={cn(
@@ -48,7 +48,7 @@ export const ProductListItem: React.FC<ProductProps> = ({ product, ...props }) =
                 <Image
                     className={cn('h-[24rem] w-full object-cover')}
                     loader={imageLoader}
-                    src={product.Images[0].url as string}
+                    src={productCoverImage}
                     alt={product.name}
                     width={400}
                     height={400}
