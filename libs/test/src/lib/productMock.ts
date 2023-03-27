@@ -1,31 +1,35 @@
 import { IImage, type IProduct } from '@graphql';
 
 const images: IImage = {
-    Product: {
-        Images: [],
-        Images_aggregate: {
-            aggregate: undefined,
-            nodes: [],
-        },
-        Product: undefined,
-        Products: [],
-        Products_aggregate: {
-            aggregate: undefined,
-            nodes: [],
-        },
-        color: undefined,
-        createdAt: undefined,
-        description: undefined,
-        id: 0,
-        name: '',
-        parentId: undefined,
-        price: undefined,
-        size: undefined,
-        updatedAt: undefined,
-    },
     id: 0,
     productId: 0,
     url: '/mockProduct',
+    Product: {
+        Images: [],
+        Images_aggregate: {
+            aggregate: null,
+            nodes: [],
+        },
+        Product: null,
+        ProductSizes: [],
+        ProductSizes_aggregate: {
+            aggregate: null,
+            nodes: [],
+        },
+        Products: [],
+        Products_aggregate: {
+            aggregate: null,
+            nodes: [],
+        },
+        color: 'Black',
+        createdAt: '',
+        description: null,
+        id: 0,
+        name: '',
+        parentId: null,
+        price: 0,
+        updatedAt: '',
+    },
 };
 
 export const mockProduct: IProduct = {
@@ -34,15 +38,23 @@ export const mockProduct: IProduct = {
     price: 20,
     description: 'Mock description',
     Images: [images],
-    createdAt: undefined,
-    updatedAt: undefined,
     Products: [],
-    Products_aggregate: {
-        aggregate: undefined,
-        nodes: [],
-    },
     Images_aggregate: {
-        aggregate: undefined,
+        aggregate: null,
         nodes: [],
     },
+    Product: null,
+    ProductSizes: [],
+    ProductSizes_aggregate: {
+        aggregate: null,
+        nodes: [],
+    },
+    Products_aggregate: {
+        aggregate: null,
+        nodes: [],
+    },
+    color: 'Black',
+    createdAt: '',
+    parentId: null,
+    updatedAt: '',
 };

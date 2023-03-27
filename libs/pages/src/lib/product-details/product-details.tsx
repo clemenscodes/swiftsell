@@ -43,7 +43,10 @@ export const ProductDetails: NextPage<ProductDetailsProps> = ({ product, ...prop
                     <P>Product ID: {product.id}</P>
                     <P>{product.description}</P>
                     <P>Color: {product.color}</P>
-                    <P>Size: {product.size}</P>
+                    {product.ProductSizes.map((productSize) => (
+                        <P key={productSize.id}>Size: {productSize.size}</P>
+                    ))}
+
                     <Lead>Price: {product.price}€</Lead>
                 </div>
             </div>

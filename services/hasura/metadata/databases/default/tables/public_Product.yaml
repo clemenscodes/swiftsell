@@ -13,6 +13,13 @@ array_relationships:
         table:
           name: Image
           schema: public
+  - name: ProductSizes
+    using:
+      foreign_key_constraint_on:
+        column: productId
+        table:
+          name: ProductSize
+          schema: public
   - name: Products
     using:
       foreign_key_constraint_on:
@@ -30,5 +37,4 @@ select_permissions:
         - name
         - parentId
         - price
-        - size
       filter: {}

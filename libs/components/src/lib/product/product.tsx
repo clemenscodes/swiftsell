@@ -1,7 +1,7 @@
 import H2 from '../typography/h2/h2';
 import Lead from '../typography/lead/lead';
 import P from '../typography/p/p';
-import { IImage, type IProduct } from '@graphql';
+import { Image as IImage, type Product as IProduct, ProductSize } from '@prisma/api';
 import { cn } from '@styles';
 import { imageLoader } from '@utils';
 import Image from 'next/image';
@@ -11,15 +11,22 @@ type OmittedProductFields =
     | 'updatedAt'
     | 'createdAt'
     | 'Products'
+    | 'Product'
+    | 'parentId'
     | 'Products_aggregate'
+    | 'ProductSizes'
+    | 'ProductSizes_aggregate'
     | 'Images_aggregate'
     | 'Images';
-type ProductWithoutImages = Pick<IProduct, Exclude<keyof IProduct, OmittedProductFields>>;
 type OmittedImageFields = 'Product' | 'productId';
+type OmittedProductSizesFields = 'Product' | 'productId';
+type ProductWithoutImages = Pick<IProduct, Exclude<keyof IProduct, OmittedProductFields>>;
 type Images = Pick<IImage, Exclude<keyof IImage, OmittedImageFields>>;
+type ProductSizes = Pick<ProductSize, Exclude<keyof ProductSize, OmittedProductSizesFields>>;
 
 type Product = ProductWithoutImages & {
     Images: Images[];
+    ProductSizes: ProductSizes[];
 };
 
 export interface ProductProps {

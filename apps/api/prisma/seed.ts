@@ -22,27 +22,21 @@ async function main() {
         },
     });
 
-    // // Seed some stores.
-    // const store1 = await prisma.store.create({
-    //     data: {
-    //         name: 'Store 1',
-    //         address: '123 Main St',
-    //     },
-    // });
-
-    // const store2 = await prisma.store.create({
-    //     data: {
-    //         name: 'Store 2',
-    //         address: '456 Elm St',
-    //     },
-    // });
-    // Seed some products.
     const productWithVariants = {
         name: 'Applewatch',
         description: 'Very fit in black',
         price: 10.0,
         color: Color.Black,
-        size: Size.M,
+        sizes: {
+            create: [
+                { size: Size.XS },
+                { size: Size.S },
+                { size: Size.M },
+                { size: Size.L },
+                { size: Size.XL },
+                { size: Size.XXL },
+            ],
+        },
         images: {
             create: [
                 {
@@ -60,7 +54,16 @@ async function main() {
                     description: 'Very fit in blue',
                     price: 12.0,
                     color: Color.Blue,
-                    size: Size.L,
+                    sizes: {
+                        create: [
+                            { size: Size.XS },
+                            { size: Size.S },
+                            { size: Size.M },
+                            { size: Size.L },
+                            { size: Size.XL },
+                            { size: Size.XXL },
+                        ],
+                    },
                     images: {
                         create: [
                             {
@@ -86,7 +89,17 @@ async function main() {
                     description: 'Very fit in green',
                     price: 12.0,
                     color: Color.Green,
-                    size: Size.L,
+                    sizes: {
+                        create: [
+                            { size: Size.XS },
+                            { size: Size.S },
+                            { size: Size.M },
+                            { size: Size.L },
+                            { size: Size.XL },
+                            { size: Size.XXL },
+                        ],
+                    },
+
                     images: {
                         create: [
                             {
@@ -106,7 +119,17 @@ async function main() {
                     description: 'Very fit in light blue',
                     price: 12.0,
                     color: Color.Lightblue,
-                    size: Size.L,
+                    sizes: {
+                        create: [
+                            { size: Size.XS },
+                            { size: Size.S },
+                            { size: Size.M },
+                            { size: Size.L },
+                            { size: Size.XL },
+                            { size: Size.XXL },
+                        ],
+                    },
+
                     images: {
                         create: [
                             {
@@ -120,7 +143,16 @@ async function main() {
                     description: 'Very fit in white',
                     price: 12.0,
                     color: Color.White,
-                    size: Size.L,
+                    sizes: {
+                        create: [
+                            { size: Size.XS },
+                            { size: Size.S },
+                            { size: Size.M },
+                            { size: Size.L },
+                            { size: Size.XL },
+                            { size: Size.XXL },
+                        ],
+                    },
                     images: {
                         create: [
                             {
@@ -142,31 +174,22 @@ async function main() {
     await prisma.product.create({
         data: productWithVariants,
     });
-    // const product1 = await prisma.product.create({
+
+    // Seed some stores.
+    // const store1 = await prisma.store.create({
     //     data: {
-    //         name: 'Product 1',
-    //         description: 'This is product 1',
-    //         price: 10.0,
-    //         image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1099&q=80',
-    //         // storeId: store1.id,
-    //         // inventory: {
-    //         //     create: { quantity: 10, storeId: store1.id },
-    //         // },
+    //         name: 'Store 1',
+    //         address: '123 Main St',
     //     },
     // });
 
-    // const product2 = await prisma.product.create({
+    // const store2 = await prisma.store.create({
     //     data: {
-    //         name: 'Product 2',
-    //         description: 'This is product 2',
-    //         price: 20.0,
-    //         image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80',
-    //         // storeId: store2.id,
-    //         // inventory: {
-    //         //     create: { quantity: 5, storeId: store2.id },
-    //         // },
+    //         name: 'Store 2',
+    //         address: '456 Elm St',
     //     },
     // });
+    // Seed some products.
 
     // // Seed some carts.
     // const cart1 = await prisma.cart.create({

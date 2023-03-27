@@ -12,18 +12,11 @@ datasource db {
     shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-model User {
-    id           Int      @id @default(autoincrement())
-    createdAt    DateTime @default(now())
-    lastSeen     DateTime @default(now())
-    updatedAt    DateTime @updatedAt
-    email        String   @unique
-    passwordHash String
-    name         String?
-    surname      String?
-    role         Role     @default(USER)
-    // order     order[]
-    // cart      cart[]
+enum Role {
+    Anonymous
+    User
+    Admin
+    Superadmin
 }
 
 enum Size {
@@ -43,20 +36,34 @@ enum Color {
     White
 }
 
+model User {
+    id           Int      @id @default(autoincrement())
+    createdAt    DateTime @default(now())
+    lastSeen     DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+    email        String   @unique
+    passwordHash String
+    name         String?
+    surname      String?
+    role         Role     @default(User)
+    // order     order[]
+    // cart      cart[]
+}
+
 // Define the Product table for storing product data.
 model Product {
-    id          Int       @id @default(autoincrement())
+    id          Int           @id @default(autoincrement())
     name        String
     description String?
     price       Float
-    color       Color?
-    size        Size?
+    color       Color
+    sizes       ProductSize[]
     images      Image[]
-    createdAt   DateTime  @default(now())
-    updatedAt   DateTime  @updatedAt
-    parent      Product?  @relation("VariantParent", fields: [parentId], references: [id])
+    createdAt   DateTime      @default(now())
+    updatedAt   DateTime      @updatedAt
+    parent      Product?      @relation("VariantParent", fields: [parentId], references: [id])
     parentId    Int?
-    variants    Product[] @relation("VariantParent")
+    variants    Product[]     @relation("VariantParent")
     // store       Store       @relation(fields: [storeId], references: [id])
     // storeId     Int
     // inventory   Inventory[]
@@ -64,6 +71,13 @@ model Product {
     // orderId     Int?
     // cart        Cart?       @relation(fields: [cartId], references: [id])
     // cartId      Int?
+}
+
+model ProductSize {
+    id        Int     @id @default(autoincrement())
+    size      Size
+    product   Product @relation(fields: [productId], references: [id])
+    productId Int
 }
 
 // Define the Image table for storing image data.
@@ -115,10 +129,3 @@ model Image {
 //     store     Store   @relation(fields: [storeId], references: [id])
 //     storeId   Int
 // }
-
-enum Role {
-    ANONYMOUS
-    USER
-    ADMIN
-    SUPERADMIN
-}
